@@ -28,13 +28,13 @@ import type { Variants } from "framer-motion";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Praga com os Pais — 4 dias de hora dourada" },
+      { title: "Praga — 4 dias de hora dourada" },
       {
         name: "description",
         content:
-          "Roteiro editorial de 4 dias em Praga com pais: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes e concertos.",
+          "Roteiro editorial de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes e concertos.",
       },
-      { property: "og:title", content: "Praga com os Pais — 4 dias de hora dourada" },
+      { property: "og:title", content: "Praga — 4 dias de hora dourada" },
       { property: "og:description", content: "Roteiro editorial de 4 dias em Praga." },
       {
         property: "og:image",
@@ -195,7 +195,7 @@ const days: Day[] = [
         title: "Castelo de Praga — S. Vito & Beco de Ouro",
         desc: "Catedral primeiro (filas), depois Antigo Palácio Real e a ruela colorida do Beco de Ouro.",
         link: "https://pt.wikipedia.org/wiki/Castelo_de_Praga",
-        img: "https://images.unsplash.com/photo-1567696911980-2eed69a46042?auto=format&fit=crop&w=1200&q=80",
+        img: "https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1200&q=80",
         imgAlt: "Vitrais interiores da Catedral de São Vito",
         icon: Castle,
       },
@@ -341,8 +341,8 @@ function Hero() {
             24 — 27 · Praga
             <span className="h-px w-8 bg-gold/70" />
           </div>
-          <h1 className="font-serif text-5xl leading-[1.05] md:text-7xl">
-            <span className="text-gradient-gold">Praga com os Pais</span>
+          <h1 className="font-serif text-6xl leading-[1.05] md:text-8xl">
+            <span className="text-gradient-gold">Praga</span>
           </h1>
           <p className="mt-6 font-serif text-xl italic text-cream/85 md:text-2xl">
             4 dias de hora dourada
