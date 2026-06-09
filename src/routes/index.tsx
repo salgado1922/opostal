@@ -22,6 +22,8 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+import type { Variants } from "framer-motion";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
