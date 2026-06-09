@@ -21,6 +21,11 @@ import {
   Lightbulb,
   Sun,
   Moon,
+  Coins,
+  Plug,
+  Phone,
+  HandCoins,
+  Languages,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
 
@@ -28,13 +33,13 @@ import type { Variants } from "framer-motion";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Praga com os Pais — 4 dias de hora dourada" },
+      { title: "Praga — 4 dias de hora dourada" },
       {
         name: "description",
         content:
-          "Roteiro editorial de 4 dias em Praga com pais: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes e concertos.",
+          "Roteiro editorial de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes e concertos.",
       },
-      { property: "og:title", content: "Praga com os Pais — 4 dias de hora dourada" },
+      { property: "og:title", content: "Praga — 4 dias de hora dourada" },
       { property: "og:description", content: "Roteiro editorial de 4 dias em Praga." },
       {
         property: "og:image",
@@ -195,7 +200,7 @@ const days: Day[] = [
         title: "Castelo de Praga — S. Vito & Beco de Ouro",
         desc: "Catedral primeiro (filas), depois Antigo Palácio Real e a ruela colorida do Beco de Ouro.",
         link: "https://pt.wikipedia.org/wiki/Castelo_de_Praga",
-        img: "https://images.unsplash.com/photo-1567696911980-2eed69a46042?auto=format&fit=crop&w=1200&q=80",
+        img: "https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1200&q=80",
         imgAlt: "Vitrais interiores da Catedral de São Vito",
         icon: Castle,
       },
@@ -341,8 +346,8 @@ function Hero() {
             24 — 27 · Praga
             <span className="h-px w-8 bg-gold/70" />
           </div>
-          <h1 className="font-serif text-5xl leading-[1.05] md:text-7xl">
-            <span className="text-gradient-gold">Praga com os Pais</span>
+          <h1 className="font-serif text-6xl leading-[1.05] md:text-8xl">
+            <span className="text-gradient-gold">Praga</span>
           </h1>
           <p className="mt-6 font-serif text-xl italic text-cream/85 md:text-2xl">
             4 dias de hora dourada
@@ -951,6 +956,7 @@ function Index() {
   return (
     <main className="bg-twilight-radial min-h-screen overflow-x-hidden">
       <Hero />
+      <EssentialInfo />
       <Overview />
       <Itineraries />
       <Concerts />
@@ -961,3 +967,103 @@ function Index() {
     </main>
   );
 }
+
+// ----------------------- ESSENTIAL INFO -----------------------
+
+const essentials = [
+  {
+    icon: Clock,
+    title: "Fuso horário",
+    body: "CET (UTC+1). Praga está 1 hora à frente de Lisboa.",
+  },
+  {
+    icon: Coins,
+    title: "Moeda",
+    body: "Coroa checa (CZK). ~25 CZK ≈ 1 €. Cartão aceite quase em todo o lado — para levantar, preferir ATMs de banco (evitar Euronet).",
+  },
+  {
+    icon: Plug,
+    title: "Tomadas",
+    body: "Tipo E, 230 V / 50 Hz. As fichas portuguesas encaixam sem adaptador.",
+  },
+  {
+    icon: Phone,
+    title: "Emergência",
+    body: "112 (geral europeu). Levar Cartão Europeu de Seguro de Doença.",
+  },
+  {
+    icon: Train,
+    title: "Transportes",
+    body: "Bilhete 24 h ~120 CZK cobre metro, eléctrico e autocarro. Do aeroporto: bus 119 + metro A (verde).",
+  },
+  {
+    icon: HandCoins,
+    title: "Gorjetas",
+    body: "10 % em restaurantes se o serviço não estiver incluído. Arredondar em táxis e cafés.",
+  },
+];
+
+const phrases = [
+  ["Olá", "Dobrý den"],
+  ["Obrigado", "Děkuji"],
+  ["Por favor", "Prosím"],
+  ["Sim / Não", "Ano / Ne"],
+  ["Saúde (brinde)", "Na zdraví"],
+  ["Quanto custa?", "Kolik to stojí?"],
+];
+
+function EssentialInfo() {
+  return (
+    <Section
+      id="essencial"
+      eyebrow="Antes de partir"
+      title="Essencial para a viagem"
+      intro="O básico para chegar leve: fuso, dinheiro, transporte e um punhado de palavras checas para abrir portas (e sorrisos)."
+    >
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {essentials.map((e, i) => {
+          const Icon = e.icon;
+          return (
+            <motion.div
+              key={e.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.55, delay: i * 0.06 }}
+              whileHover={{ y: -4 }}
+              className="glass rounded-2xl border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)]"
+            >
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30">
+                <Icon className="h-5 w-5 text-gold" />
+              </div>
+              <h3 className="font-serif text-xl text-cream">{e.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+      >
+        <div className="mb-5 flex items-center gap-3">
+          <Languages className="h-5 w-5 text-gold" />
+          <h3 className="font-serif text-2xl text-cream">Palavras úteis</h3>
+        </div>
+        <ul className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+          {phrases.map(([pt, cz]) => (
+            <li key={pt} className="flex items-baseline justify-between gap-3 border-b border-gold/10 pb-2">
+              <span className="text-sm text-muted-foreground">{pt}</span>
+              <span className="font-serif text-lg italic text-gold">{cz}</span>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
+    </Section>
+  );
+}
+
