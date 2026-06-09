@@ -236,7 +236,7 @@ const days: Day[] = [
     accent: "from-rose-500/20 to-amber-400/10",
     icon: Train,
     cover:
-      "https://images.unsplash.com/photo-1568797629192-789acf8e4df3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1724426560921-c364a86aa0e9?auto=format&fit=crop&w=1200&q=80",
     stops: [
       {
         time: "08:40",
@@ -257,7 +257,7 @@ const days: Day[] = [
         desc: "Capela revestida com ossos de 40 mil pessoas. Único, sombrio, inesquecível.",
         link: "https://pt.wikipedia.org/wiki/Oss%C3%A1rio_de_Sedlec",
         tip: "Entrada por horários — comprar online com antecedência para evitar fila e ficar sem vaga.",
-        img: "https://images.unsplash.com/photo-1601999624908-a08fdfa3e1b9?auto=format&fit=crop&w=1200&q=80",
+        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Ossuary_in_Sedlec.JPG?width=1200",
         imgAlt: "Lustre feito de ossos humanos no Ossário de Sedlec",
         icon: AlertTriangle,
       },
@@ -278,15 +278,15 @@ const days: Day[] = [
     accent: "from-emerald-400/20 to-amber-400/10",
     icon: Moon,
     cover:
-      "https://images.unsplash.com/photo-1607435097405-db48f377bff6?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1779213206645-e06f91667848?auto=format&fit=crop&w=1200&q=80",
     stops: [
       {
         time: "09:30",
         title: "Vyšehrad — vistas panorâmicas, sem multidões",
         desc: "Fortaleza, basílica e cemitério dos artistas. Vista do Vltava como num quadro romântico.",
         link: "https://pt.wikipedia.org/wiki/Vy%C5%A1ehrad",
-        img: "https://images.unsplash.com/photo-1591375275624-c2dafd71a4d2?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Interior da Basílica de Vyšehrad",
+        img: "https://images.unsplash.com/photo-1587539308989-afe8119c4e46?auto=format&fit=crop&w=1200&q=80",
+        imgAlt: "Vista panorâmica de Vyšehrad sobre o rio Vltava",
         icon: Crown,
       },
       {
@@ -691,7 +691,7 @@ function Food() {
     {
       name: "Svíčková",
       desc: "Vitela em molho de raízes, natas e arando. O abraço da cozinha checa.",
-      img: "https://images.unsplash.com/photo-1597610690571-50f4c0ddec57?auto=format&fit=crop&w=1200&q=80",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Sv%C3%AD%C4%8Dkov%C3%A1%20na%20smetan%C4%9B.JPG?width=1200",
       imgAlt: "Svíčková — prato tradicional checo",
     },
     {
