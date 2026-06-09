@@ -1,27 +1,34 @@
-## Alterações ao roteiro de Praga
+Substituir 5 imagens com problemas no roteiro de Praga por URLs verificadas e mais adequadas.
 
-### 1. Renomear "Praga com os Pais" → "Praga"
-- `src/routes/index.tsx` (hero `text-gradient-gold`, título da página, og:title, twitter title)
-- `src/routes/__root.tsx` (title, og:title)
+## Imagens a substituir
 
-### 2. Corrigir foto do Castelo de Praga
-A imagem atual (`photo-1567696911980-2eed69a46042`) está a devolver uma foto de cerveja. Substituir por uma imagem fiável da Catedral de São Vito / Castelo de Praga e adicionar `onError` fallback para qualquer `<img>` do roteiro, mostrando um placeholder dourado discreto se a imagem falhar.
+1. **Dia 3 — Cover Kutná Hora** (não carregou)
+   - Atual: `photo-1568797629192-789acf8e4df3`
+   - Nova: `photo-1724426560921-c364a86aa0e9` (castelo com torre sobre colina — resultado de pesquisa Kutná Hora)
 
-### 3. Nova secção "Essencial para a viagem"
-Inserida logo a seguir ao Hero, antes da timeline. Cartão em vidro (glass) com grelha responsiva de 4 blocos + faixa de frases úteis:
+2. **Dia 4 — Cover Vyšehrad** (utilizador não gosta da foto)
+   - Atual: `photo-1607435097405-db48f377bff6`
+   - Nova: `photo-1779213206645-e06f91667848` (edifício branco com telhado vermelho sobre rio e cidade — vista panorâmica calma)
 
-- **Fuso horário** — CET (UTC+1), mesma hora que Lisboa +1h
-- **Moeda** — Coroa Checa (CZK). ~25 CZK ≈ 1 €. Pagamentos com cartão aceites em quase todo o lado; levantar em ATMs de banco (evitar Euronet)
-- **Tomadas & Voltagem** — Tipo E, 230V (ficha portuguesa encaixa)
-- **Emergência & Saúde** — 112 (geral), Cartão Europeu de Saúde válido
-- **Transporte** — Bilhete 24h ~120 CZK, metro+tram+autocarro; do aeroporto: autocarro 119 + metro A
-- **Gorjetas** — 10% em restaurantes se serviço não incluído
-- **Frases úteis** — Olá: *Dobrý den* · Obrigado: *Děkuji* · Por favor: *Prosím* · Sim/Não: *Ano / Ne* · Saúde (brinde): *Na zdraví* · Quanto custa?: *Kolik to stojí?*
+3. **Detalhes — Ossário de Sedlec** (não carregou)
+   - Atual: `photo-1601999624908-a08fdfa3e1b9`
+   - Nova: Wikimedia Commons — imagem verificada do interior do ossário com lustre de ossos (`File:Sedlec_Ossuary_chandelier.jpg`)
 
-Cada bloco com ícone Lucide (Clock, Coins, Plug, Phone, Train, HandCoins, Languages), animação de entrada `whileInView` consistente com o resto da página, e tipografia em harmonia com o design system (serif para títulos, dourado para destaques).
+4. **Dia 4 — Stop Vyšehrad** (utilizador quer "vistas panorâmicas, sem multidões")
+   - Atual: `photo-1591375275624-c2dafd71a4d2`
+   - Nova: `photo-1587539308989-afe8119c4e46` (vista aérea calma de edifícios junto ao rio)
 
-### Ficheiros tocados
-- `src/routes/index.tsx` — título, nova secção `<EssentialInfo />`, URL da foto do Castelo, helper `onImgError`
-- `src/routes/__root.tsx` — metadados
+5. **Svíčková** (não carregou)
+   - Atual: `photo-1597610690571-50f4c0ddec57`
+   - Nova: Wikimedia Commons — imagem verificada de Svíčková na smetaně (`File:Svíčková_na_smetaně.JPG`)
 
-Sem alterações de backend nem de dependências.
+## Ficheiro a editar
+- `src/routes/index.tsx` — atualizar as 5 strings `img:`/`cover:` no array `days` e na secção `Food`.
+
+## Nota técnica
+- As imagens Wikimedia Commons são gratuitas e estáveis (não expiram como algumas do Unsplash).
+- Será adicionado `onError` handler genérico a todas as `<img>` do itinerário para evitar broken images no futuro.
+
+## O que não muda
+- Sem alterações de layout, componentes, dependências ou lógica.
+- Apenas troca de URLs de imagem.
