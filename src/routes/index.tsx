@@ -286,10 +286,16 @@ const days: Day[] = [
     cover:
       "https://images.unsplash.com/photo-1724426560921-c364a86aa0e9?auto=format&fit=crop&w=1200&q=80",
     howToGet: "Como chegar: comboio de Praha hl.n. (~55 min)",
-    mapEmbedUrl:
-      "https://www.google.com/maps?output=embed&saddr=St.+Barbara+Cathedral+Kutna+Hora&daddr=Sedlec+Ossuary&dirflg=w",
-    mapLinkUrl:
-      "https://www.google.com/maps/dir/St.+Barbara+Cathedral+Kutna+Hora/Sedlec+Ossuary/data=!4m2!4m1!3e2",
+    transport: {
+      title: "Como chegar a Kutná Hora",
+      text: "Comboio de Praha hl.n. → Kutná Hora (~55 min)",
+      primaryLabel: "Ver horários (ČD)",
+      primaryUrl: "https://www.cd.cz/en/",
+      note: "Dentro de Kutná Hora, do Ossário de Sedlec ao centro são ~2,5 km — usar autocarro/táxi local.",
+      secondaryLabel: "Abrir Sedlec → centro no Google Maps",
+      secondaryUrl:
+        "https://www.google.com/maps/dir/Sedlec+Ossuary/Kutn%C3%A1+Hora+city+centre/data=!4m2!4m1!3e0",
+    },
     stops: [
       {
         time: "08:40",
