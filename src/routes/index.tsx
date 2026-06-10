@@ -26,6 +26,9 @@ import {
   Phone,
   HandCoins,
   Languages,
+  Ticket,
+  ExternalLink,
+  Footprints,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
 
