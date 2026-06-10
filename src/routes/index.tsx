@@ -149,6 +149,15 @@ type Day = {
   howToGet?: string;
   mapEmbedUrl?: string;
   mapLinkUrl?: string;
+  transport?: {
+    title: string;
+    text: string;
+    primaryLabel: string;
+    primaryUrl: string;
+    note?: string;
+    secondaryLabel?: string;
+    secondaryUrl?: string;
+  };
   dayNote?: { tone: "amber"; text: string };
 };
 
