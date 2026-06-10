@@ -162,12 +162,22 @@ const days: Day[] = [
     icon: Sun,
     cover:
       "https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=1200&q=80",
+    walkTotal: "A pé hoje: ~25 min",
+    dayNote: {
+      tone: "amber",
+      text: "Vê hoje (quarta): o bairro judeu fecha ao sábado.",
+    },
+    mapEmbedUrl:
+      "https://www.google.com/maps?output=embed&saddr=Hotel+Garden+Court+Prague&daddr=Josefov+Prague+to:Old+Town+Square+Prague+to:Charles+Bridge+Prague&dirflg=w",
+    mapLinkUrl:
+      "https://www.google.com/maps/dir/Hotel+Garden+Court+Prague/Josefov+Prague/Old+Town+Square+Prague/Charles+Bridge+Prague/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "13:00",
         title: "Check-in no Hotel Garden Court",
         desc: "Aterrar, deixar as malas e respirar. Café rápido no lobby antes de sair.",
         icon: MapPin,
+        walkTo: "~12 min",
       },
       {
         time: "14:00",
@@ -176,6 +186,10 @@ const days: Day[] = [
         link: "https://pt.wikipedia.org/wiki/Josefov",
         tip: "Bilhete combinado para várias sinagogas — vale a pena se as pernas aguentarem.",
         icon: Church,
+        bookingUrl: "https://www.jewishmuseum.cz/en/",
+        hours: "Dom–Sex ~9:00–18:00",
+        hoursNote: "FECHA AOS SÁBADOS",
+        walkTo: "~4 min",
       },
       {
         time: "16:45",
@@ -183,6 +197,7 @@ const days: Day[] = [
         desc: "Chegar antes da hora certa para ver o desfile dos apóstolos no Orloj. Café na praça depois.",
         link: "https://pt.wikipedia.org/wiki/Rel%C3%B3gio_Astron%C3%B3mico_de_Praga",
         icon: Clock,
+        walkTo: "~6 min",
       },
       {
         time: "18:30",
@@ -206,6 +221,11 @@ const days: Day[] = [
     cover:
       "https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1200&q=80",
     highlightTip: "Dica: Apanhar o elétrico 22 até ao castelo para poupar a subida!",
+    howToGet: "Como chegar: elétrico 22 até Pražský hrad (~20 min)",
+    mapEmbedUrl:
+      "https://www.google.com/maps?output=embed&saddr=Prague+Castle&daddr=St.+Nicholas+Church+Mala+Strana+to:Lennon+Wall+Prague+to:Petrin+Tower&dirflg=w",
+    mapLinkUrl:
+      "https://www.google.com/maps/dir/Prague+Castle/St.+Nicholas+Church+Mala+Strana/Lennon+Wall+Prague/Petrin+Tower/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "09:00",
@@ -215,6 +235,9 @@ const days: Day[] = [
         img: "https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1200&q=80",
         imgAlt: "Vitrais interiores da Catedral de São Vito",
         icon: Castle,
+        bookingUrl: "https://www.hrad.cz/en",
+        hours: "~9:00–17:00",
+        walkTo: "~12 min",
       },
       {
         time: "13:00",
@@ -222,6 +245,7 @@ const days: Day[] = [
         desc: "Obra-prima barroca. Almoço leve por perto, sem pressas.",
         link: "https://pt.wikipedia.org/wiki/Igreja_de_S%C3%A3o_Nicolau_(Mal%C3%A1_Strana)",
         icon: Church,
+        walkTo: "~5 min",
       },
       {
         time: "14:30",
@@ -229,13 +253,15 @@ const days: Day[] = [
         desc: "Parede de mensagens, cores e memória da liberdade. Boa fotografia com os pais.",
         link: "https://pt.wikipedia.org/wiki/Muro_de_Lennon",
         icon: Sparkles,
+        walkTo: "~10 min (+ subida ~25–30 min)",
       },
       {
         time: "16:00",
         title: "Torre de Petřín",
-        desc: "Funicular até ao topo da colina. Mini-Eiffel com vista 360º sobre Praga.",
+        desc: "Subir de elétrico 22 até Pohořelec + caminhada suave pelo parque, ou pelo elevador dentro da torre. (Funicular fechado para obras até ao fim do verão de 2026.)",
         link: "https://pt.wikipedia.org/wiki/Torre_de_Petr%C5%99%C3%ADn",
         icon: Crown,
+        hours: "~10:00–22:00",
       },
     ],
   },
@@ -249,12 +275,18 @@ const days: Day[] = [
     icon: Train,
     cover:
       "https://images.unsplash.com/photo-1724426560921-c364a86aa0e9?auto=format&fit=crop&w=1200&q=80",
+    howToGet: "Como chegar: comboio de Praha hl.n. (~55 min)",
+    mapEmbedUrl:
+      "https://www.google.com/maps?output=embed&saddr=St.+Barbara+Cathedral+Kutna+Hora&daddr=Sedlec+Ossuary&dirflg=w",
+    mapLinkUrl:
+      "https://www.google.com/maps/dir/St.+Barbara+Cathedral+Kutna+Hora/Sedlec+Ossuary/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "08:40",
         title: "Comboio para Kutná Hora",
         desc: "Saída da Hlavní Nádraží. ~1h de viagem confortável, lugares marcados.",
         icon: Train,
+        bookingUrl: "https://www.cd.cz/en/",
       },
       {
         time: "10:00",
@@ -262,6 +294,9 @@ const days: Day[] = [
         desc: "Joia gótica patrocinada pelos mineiros de prata. Tetos abobadados de cortar a respiração.",
         link: "https://pt.wikipedia.org/wiki/Catedral_de_Santa_B%C3%A1rbara",
         icon: Church,
+        bookingUrl: "https://khfarnost.cz/en/",
+        hours: "~9:00–18:00",
+        walkTo: "Sedlec ↔ centro ~2,5 km — usar autocarro/táxi local",
       },
       {
         time: "12:30",
@@ -272,6 +307,9 @@ const days: Day[] = [
         img: "https://commons.wikimedia.org/wiki/Special:FilePath/Ossuary_in_Sedlec.JPG?width=1200",
         imgAlt: "Lustre feito de ossos humanos no Ossário de Sedlec",
         icon: AlertTriangle,
+        bookingUrl: "https://www.sedlec.info/en/",
+        hours: "~9:00–18:00",
+        hoursNote: "ENTRADA POR HORÁRIO MARCADO",
       },
       {
         time: "20:00",
@@ -291,6 +329,11 @@ const days: Day[] = [
     icon: Moon,
     cover:
       "https://images.unsplash.com/photo-1779213206645-e06f91667848?auto=format&fit=crop&w=1200&q=80",
+    howToGet: "Como chegar: metro C até Vyšehrad. Vyšehrad plano; regresso de Bolt/Uber.",
+    mapEmbedUrl:
+      "https://www.google.com/maps?output=embed&saddr=Vysehrad+Prague&daddr=Hotel+Garden+Court+Prague&dirflg=w",
+    mapLinkUrl:
+      "https://www.google.com/maps/dir/Vysehrad+Prague/Hotel+Garden+Court+Prague/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "09:30",
@@ -300,6 +343,7 @@ const days: Day[] = [
         img: "https://images.unsplash.com/photo-1587539308989-afe8119c4e46?auto=format&fit=crop&w=1200&q=80",
         imgAlt: "Vista panorâmica de Vyšehrad sobre o rio Vltava",
         icon: Crown,
+        hours: "Recinto grátis, sempre aberto",
       },
       {
         time: "12:00",
