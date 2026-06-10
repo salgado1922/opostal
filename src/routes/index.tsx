@@ -127,6 +127,10 @@ type Stop = {
   img?: string;
   imgAlt?: string;
   icon: React.ComponentType<{ className?: string }>;
+  bookingUrl?: string;
+  hours?: string;
+  hoursNote?: string;
+  walkTo?: string;
 };
 
 type Day = {
@@ -140,6 +144,11 @@ type Day = {
   cover: string;
   stops: Stop[];
   highlightTip?: string;
+  walkTotal?: string;
+  howToGet?: string;
+  mapEmbedUrl?: string;
+  mapLinkUrl?: string;
+  dayNote?: { tone: "amber"; text: string };
 };
 
 const days: Day[] = [
