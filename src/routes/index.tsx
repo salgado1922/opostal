@@ -618,6 +618,36 @@ function DayBlock({ day }: { day: Day }) {
         </p>
       </motion.div>
 
+      {(day.walkTotal || day.howToGet) && (
+        <div className="mb-6 flex flex-wrap gap-3">
+          {day.walkTotal && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/25 bg-twilight/60 px-4 py-1.5 text-xs text-cream/90">
+              <Footprints className="h-3.5 w-3.5 text-gold" />
+              {day.walkTotal}
+            </span>
+          )}
+          {day.howToGet && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/25 bg-twilight/60 px-4 py-1.5 text-xs text-cream/90">
+              <MapPin className="h-3.5 w-3.5 text-gold" />
+              {day.howToGet}
+            </span>
+          )}
+        </div>
+      )}
+
+      {day.dayNote && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-400/40 bg-amber-400/10 p-4"
+        >
+          <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-300" />
+          <p className="text-sm leading-relaxed text-cream/90">{day.dayNote.text}</p>
+        </motion.div>
+      )}
+
       {day.highlightTip && (
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
@@ -636,12 +666,60 @@ function DayBlock({ day }: { day: Day }) {
       <div className="relative space-y-6">
         <div className="pointer-events-none absolute bottom-4 left-7 top-4 w-px bg-gradient-to-b from-gold/60 via-gold/20 to-transparent md:left-9" />
         {day.stops.map((s, i) => (
-          <StopItem key={i} stop={s} idx={i} />
+          <div key={i}>
+            <StopItem stop={s} idx={i} />
+            {s.walkTo && i < day.stops.length - 1 && (
+              <div className="relative mt-4 pl-16 md:pl-20">
+                <span className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-twilight/70 px-3 py-1 text-[11px] text-gold/85">
+                  <Footprints className="h-3.5 w-3.5" />
+                  {s.walkTo}
+                </span>
+              </div>
+            )}
+          </div>
         ))}
       </div>
+
+      {day.mapEmbedUrl && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="mt-10"
+        >
+          <div className="overflow-hidden rounded-2xl border border-gold/20 shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)]">
+            <iframe
+              src={day.mapEmbedUrl}
+              title={`Percurso a pé do ${day.label}`}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-72 w-full border-0 md:h-96"
+            />
+          </div>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+            <p className="font-serif text-sm italic text-gold/80">
+              Percurso a pé do {day.label}
+            </p>
+            {day.mapLinkUrl && (
+              <a
+                href={day.mapLinkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-gold/30 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-gold hover:bg-gold/10"
+              >
+                <MapPin className="h-3.5 w-3.5" />
+                Abrir percurso no mapa
+                <ExternalLink className="h-3 w-3 opacity-70" />
+              </a>
+            )}
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 }
+
 
 function Itineraries() {
   return (
