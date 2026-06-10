@@ -1,104 +1,37 @@
-All edits live in `src/routes/index.tsx`. Theme, fonts and accordion behavior stay untouched. All text in pt-PT. No prices invented.
+## Plano
 
-## 1. Extend the `Stop` / `Day` types
+### 1) MapCard consistente (Dias 1, 2, 4)
 
-Add optional fields to drive the new UI without breaking existing stops:
+No `DayBlock` (src/routes/index.tsx, ~ linhas 683–718), reescrever o bloco do mapa como um componente `MapCard` reutilizável com tratamento uniforme:
 
-```ts
-type Stop = {
-  // …existing
-  bookingUrl?: string;     // shows gold "Reservar" button
-  hours?: string;          // shows "Horário (confirmar)" line with Clock
-  hoursNote?: string;      // extra red/amber emphasis line (e.g. "FECHA AOS SÁBADOS")
-  walkTo?: string;         // walking chip shown BETWEEN this stop and the next ("~12 min")
-};
+- Wrapper: `rounded-2xl border border-gold/30 bg-twilight/60 shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.45)]`
+- Altura fixa **h-64** (igual em todos os dias — remover o `md:h-96` atual)
+- `<iframe>` recebe `style={{ filter: "invert(0.92) hue-rotate(180deg) saturate(.75) contrast(.95)" }}` para se integrar no tema dark/golden
+- Overlay inferior: `<div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-twilight via-twilight/70 to-transparent" />` dentro do wrapper (que passa a `relative`)
+- Legenda dourada em itálico por baixo: *"Percurso a pé do Dia X"* + botão ghost "Abrir percurso no mapa" (mantido)
 
-type Day = {
-  // …existing
-  walkTotal?: string;       // "A pé hoje: ~25 min"
-  howToGet?: string;        // "Como chegar: elétrico 22 até Pražský hrad (~20 min)"
-  mapEmbedUrl?: string;     // Google Maps `?output=embed` iframe src
-  mapLinkUrl?: string;      // fallback "Abrir percurso no mapa"
-  dayNote?: { tone: "amber"; text: string }; // Day 1 Josefov warning
-};
-```
+Aplicar a Dia 1, Dia 2 e Dia 4 (que mantêm `mapEmbedUrl`).
 
-Also import new icons: `Ticket`, `ExternalLink`, `Footprints` from `lucide-react`.
+### 2) Dia 3 — sem mapa de caminhada
 
-## 2. Day 2 — Petřín wording
+Em `days[2]` (Kutná Hora):
 
-Replace the description of the "Torre de Petřín" stop (line 224):
+- **Remover** `mapEmbedUrl` e `mapLinkUrl` (linhas 279–282) — Kutná Hora fica a ~80 km, mapa a pé não faz sentido.
+- No `DayBlock`, quando `mapEmbedUrl` não existir mas `day.id === "d3"` (ou via nova flag `transportCard`), renderizar um **"Como chegar" card** em vez do MapCard:
 
-> Subir de elétrico 22 até Pohořelec + caminhada suave pelo parque, ou pelo elevador dentro da torre. (Funicular fechado para obras até ao fim do verão de 2026.)
+  - Mesmo enclosure visual (rounded-2xl, border gold/30, bg twilight, shadow) — coerente com os MapCards mas **sem iframe**.
+  - Ícone `TrainFront` (lucide) + título "Como chegar a Kutná Hora".
+  - Texto: "Comboio de Praha hl.n. → Kutná Hora (~55 min)".
+  - Botão dourado primário "Ver horários (ČD)" → `https://www.cd.cz/en/` (Ticket + ExternalLink icons).
+  - Nota secundária em itálico/serif: "Dentro de Kutná Hora, do Ossário de Sedlec ao centro são ~2,5 km — usar autocarro/táxi local."
+  - Botão ghost dourado "Abrir Sedlec → centro no Google Maps" → `https://www.google.com/maps/dir/Sedlec+Ossuary/Kutn%C3%A1+Hora+city+centre/data=!4m2!4m1!3e0`
 
-Also add `hours: "~10:00–22:00"`.
+### 3) Detalhes técnicos
 
-## 3. Booking buttons + hours per stop
+- Extrair `MapCard({ embedUrl, linkUrl, caption })` e `TransportCard({...})` como pequenos componentes locais no mesmo ficheiro, acima de `DayBlock`.
+- Importar `TrainFront` de `lucide-react` (já usamos `Ticket`, `ExternalLink`, `Footprints`, `MapPin`).
+- Sem mudanças noutras secções, sem alterações de cópia fora do que está acima, sem novos preços.
 
-Populate the new fields on the existing stops (and add an explicit Josefov hours block):
+### Ficheiros tocados
 
-| Day | Stop | bookingUrl | hours | hoursNote |
-|---|---|---|---|---|
-| d1 | Josefov | https://www.jewishmuseum.cz/en/ | Dom–Sex ~9:00–18:00 | FECHA AOS SÁBADOS |
-| d2 | Castelo | https://www.hrad.cz/en | ~9:00–17:00 | — |
-| d2 | Petřín | — | ~10:00–22:00 | — |
-| d3 | Comboio | https://www.cd.cz/en/ | — | — |
-| d3 | Sta Bárbara | https://khfarnost.cz/en/ | ~9:00–18:00 | — |
-| d3 | Ossário | https://www.sedlec.info/en/ | ~9:00–18:00 | ENTRADA POR HORÁRIO MARCADO |
-| d4 | Vyšehrad | — | Recinto grátis, sempre aberto | — |
-
-Render inside `StopItem` header area:
-- Gold "Reservar" pill: `border-gold/40 bg-gold/15 text-gold hover:bg-gold/25` with `<Ticket>` + `<ExternalLink>` icons, `target="_blank" rel="noopener noreferrer"`.
-- "Horário (confirmar)" line: `<Clock>` icon + small text; when `hoursNote` set, second line in amber/terracotta (`text-terracotta`).
-
-Buttons go in their own flex row under the title to avoid breaking the existing accordion toggle area.
-
-## 4. Day 1 amber note (Josefov on Saturday)
-
-Add to Day 1 `dayNote: { tone: "amber", text: "Vê hoje (quarta): o bairro judeu fecha ao sábado." }`. Render above the timeline as a small amber card (reuses the `highlightTip` styling but with the `dayNote.text`). Day 1 already has no `highlightTip`, so no conflict.
-
-## 5. Walking chips + "A pé hoje" header
-
-Per-day values:
-
-- d1: stops walkTo → Hotel→Josefov `~12 min`, Josefov→Praça `~4 min`, Praça→Ponte Carlos `~6 min`. `walkTotal: "A pé hoje: ~25 min"`. No `howToGet`.
-- d2: `howToGet: "Como chegar: elétrico 22 até Pražský hrad (~20 min)"`. Stops walkTo → Castelo→S. Nicolau `~12 min`, S. Nicolau→Muro do Lennon `~5 min`, Muro→Petřín `~10 min` + subida `~25–30 min`.
-- d3: `howToGet: "Como chegar: comboio de Praha hl.n. (~55 min)"`. Walking chip between Sta Bárbara and Ossário is the special line: "Sedlec ↔ centro ~2,5 km — usar autocarro/táxi local."
-- d4: `howToGet: "Como chegar: metro C até Vyšehrad"`. Vyšehrad plano. Final stop note: "regresso de Bolt/Uber" (already covered by existing 16:00 stop, just keep).
-
-Render:
-- Below the day header, a small horizontal flex row with two pills: `walkTotal` (Footprints icon) and `howToGet` (MapPin icon).
-- Inside `day.stops.map`, after each stop with `walkTo`, render a centered chip `<Footprints>` + text between cards (small rounded-full border-gold/20 bg-twilight pill, `text-xs text-gold/80`).
-
-## 6. Google Maps embeds per day
-
-Add `mapEmbedUrl` to each Day using `google.com/maps?output=embed&q=...` directions URLs (no API key required). Examples:
-
-- d1: `https://www.google.com/maps?output=embed&saddr=Hotel+Garden+Court+Prague&daddr=Josefov+Prague+to:Old+Town+Square+Prague+to:Charles+Bridge+Prague&dirflg=w`
-- d2: `…&saddr=Prague+Castle&daddr=St.+Nicholas+Church+Mala+Strana+to:Lennon+Wall+Prague+to:Petrin+Tower&dirflg=w`
-- d3: `…&saddr=St.+Barbara+Cathedral+Kutna+Hora&daddr=Sedlec+Ossuary&dirflg=w`
-- d4: `…&saddr=Vysehrad+Prague&daddr=Hotel+Garden+Court+Prague&dirflg=w`
-
-Render at the bottom of each `DayBlock`:
-
-```tsx
-<div className="mt-10 overflow-hidden rounded-2xl border border-gold/20 shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.4)]">
-  <iframe src={day.mapEmbedUrl} loading="lazy" className="h-72 w-full" />
-</div>
-<p className="mt-3 text-center font-serif text-sm italic text-gold/80">
-  Percurso a pé do {day.label}
-</p>
-```
-
-Also include a gold ghost button "Abrir percurso no mapa" linking to the same URL without `&output=embed` (new tab).
-
-## 7. Concertos — booking buttons side by side
-
-In the "A Coisa a Sério" tier (`t.highlight === true`), add a flex row above the CTA with two gold "Reservar" buttons side by side: Rudolfinum (`https://www.rudolfinum.cz/en/`) and Casa Municipal (`https://www.obecnidum.cz/en/`). Same `Ticket + ExternalLink` styling.
-
-## Out of scope
-
-- No price changes anywhere.
-- No image swaps.
-- No layout/theme/font changes.
-- Existing accordion behavior on `StopItem` is preserved — new booking/hours UI is rendered inside the card but outside the toggle button so it doesn't trigger open/close.
+- `src/routes/index.tsx` (único).

@@ -29,6 +29,7 @@ import {
   Ticket,
   ExternalLink,
   Footprints,
+  TrainFront,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
 
@@ -148,6 +149,15 @@ type Day = {
   howToGet?: string;
   mapEmbedUrl?: string;
   mapLinkUrl?: string;
+  transport?: {
+    title: string;
+    text: string;
+    primaryLabel: string;
+    primaryUrl: string;
+    note?: string;
+    secondaryLabel?: string;
+    secondaryUrl?: string;
+  };
   dayNote?: { tone: "amber"; text: string };
 };
 
@@ -276,10 +286,16 @@ const days: Day[] = [
     cover:
       "https://images.unsplash.com/photo-1724426560921-c364a86aa0e9?auto=format&fit=crop&w=1200&q=80",
     howToGet: "Como chegar: comboio de Praha hl.n. (~55 min)",
-    mapEmbedUrl:
-      "https://www.google.com/maps?output=embed&saddr=St.+Barbara+Cathedral+Kutna+Hora&daddr=Sedlec+Ossuary&dirflg=w",
-    mapLinkUrl:
-      "https://www.google.com/maps/dir/St.+Barbara+Cathedral+Kutna+Hora/Sedlec+Ossuary/data=!4m2!4m1!3e2",
+    transport: {
+      title: "Como chegar a Kutná Hora",
+      text: "Comboio de Praha hl.n. → Kutná Hora (~55 min)",
+      primaryLabel: "Ver horários (ČD)",
+      primaryUrl: "https://www.cd.cz/en/",
+      note: "Dentro de Kutná Hora, do Ossário de Sedlec ao centro são ~2,5 km — usar autocarro/táxi local.",
+      secondaryLabel: "Abrir Sedlec → centro no Google Maps",
+      secondaryUrl:
+        "https://www.google.com/maps/dir/Sedlec+Ossuary/Kutn%C3%A1+Hora+city+centre/data=!4m2!4m1!3e0",
+    },
     stops: [
       {
         time: "08:40",
@@ -688,14 +704,16 @@ function DayBlock({ day }: { day: Day }) {
           transition={{ duration: 0.6 }}
           className="mt-10"
         >
-          <div className="overflow-hidden rounded-2xl border border-gold/20 shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)]">
+          <div className="relative overflow-hidden rounded-2xl border border-gold/30 bg-twilight/60 shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.45)]">
             <iframe
               src={day.mapEmbedUrl}
               title={`Percurso a pé do ${day.label}`}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="h-72 w-full border-0 md:h-96"
+              className="h-64 w-full border-0"
+              style={{ filter: "invert(0.92) hue-rotate(180deg) saturate(.75) contrast(.95)" }}
             />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-twilight via-twilight/70 to-transparent" />
           </div>
           <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
             <p className="font-serif text-sm italic text-gold/80">
@@ -712,6 +730,57 @@ function DayBlock({ day }: { day: Day }) {
                 Abrir percurso no mapa
                 <ExternalLink className="h-3 w-3 opacity-70" />
               </a>
+            )}
+          </div>
+        </motion.div>
+      )}
+
+      {day.transport && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="mt-10"
+        >
+          <div className="rounded-2xl border border-gold/30 bg-twilight/60 p-6 shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.45)]">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
+                <TrainFront className="h-5 w-5" />
+              </span>
+              <h4 className="font-serif text-xl text-cream">{day.transport.title}</h4>
+            </div>
+            <p className="mt-3 text-sm text-cream/85">{day.transport.text}</p>
+            <div className="mt-4">
+              <a
+                href={day.transport.primaryUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2 text-xs font-medium uppercase tracking-[0.2em] text-twilight hover:bg-gold/90"
+              >
+                <Ticket className="h-3.5 w-3.5" />
+                {day.transport.primaryLabel}
+                <ExternalLink className="h-3 w-3 opacity-70" />
+              </a>
+            </div>
+            {day.transport.note && (
+              <p className="mt-5 border-t border-gold/15 pt-4 font-serif text-sm italic text-cream/75">
+                {day.transport.note}
+              </p>
+            )}
+            {day.transport.secondaryUrl && day.transport.secondaryLabel && (
+              <div className="mt-3">
+                <a
+                  href={day.transport.secondaryUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-gold/30 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-gold hover:bg-gold/10"
+                >
+                  <MapPin className="h-3.5 w-3.5" />
+                  {day.transport.secondaryLabel}
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              </div>
             )}
           </div>
         </motion.div>
