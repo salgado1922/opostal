@@ -26,6 +26,9 @@ import {
   Phone,
   HandCoins,
   Languages,
+  Ticket,
+  ExternalLink,
+  Footprints,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
 
@@ -124,6 +127,10 @@ type Stop = {
   img?: string;
   imgAlt?: string;
   icon: React.ComponentType<{ className?: string }>;
+  bookingUrl?: string;
+  hours?: string;
+  hoursNote?: string;
+  walkTo?: string;
 };
 
 type Day = {
@@ -137,6 +144,11 @@ type Day = {
   cover: string;
   stops: Stop[];
   highlightTip?: string;
+  walkTotal?: string;
+  howToGet?: string;
+  mapEmbedUrl?: string;
+  mapLinkUrl?: string;
+  dayNote?: { tone: "amber"; text: string };
 };
 
 const days: Day[] = [
@@ -150,12 +162,22 @@ const days: Day[] = [
     icon: Sun,
     cover:
       "https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=1200&q=80",
+    walkTotal: "A pé hoje: ~25 min",
+    dayNote: {
+      tone: "amber",
+      text: "Vê hoje (quarta): o bairro judeu fecha ao sábado.",
+    },
+    mapEmbedUrl:
+      "https://www.google.com/maps?output=embed&saddr=Hotel+Garden+Court+Prague&daddr=Josefov+Prague+to:Old+Town+Square+Prague+to:Charles+Bridge+Prague&dirflg=w",
+    mapLinkUrl:
+      "https://www.google.com/maps/dir/Hotel+Garden+Court+Prague/Josefov+Prague/Old+Town+Square+Prague/Charles+Bridge+Prague/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "13:00",
         title: "Check-in no Hotel Garden Court",
         desc: "Aterrar, deixar as malas e respirar. Café rápido no lobby antes de sair.",
         icon: MapPin,
+        walkTo: "~12 min",
       },
       {
         time: "14:00",
@@ -164,6 +186,10 @@ const days: Day[] = [
         link: "https://pt.wikipedia.org/wiki/Josefov",
         tip: "Bilhete combinado para várias sinagogas — vale a pena se as pernas aguentarem.",
         icon: Church,
+        bookingUrl: "https://www.jewishmuseum.cz/en/",
+        hours: "Dom–Sex ~9:00–18:00",
+        hoursNote: "FECHA AOS SÁBADOS",
+        walkTo: "~4 min",
       },
       {
         time: "16:45",
@@ -171,6 +197,7 @@ const days: Day[] = [
         desc: "Chegar antes da hora certa para ver o desfile dos apóstolos no Orloj. Café na praça depois.",
         link: "https://pt.wikipedia.org/wiki/Rel%C3%B3gio_Astron%C3%B3mico_de_Praga",
         icon: Clock,
+        walkTo: "~6 min",
       },
       {
         time: "18:30",
@@ -194,6 +221,11 @@ const days: Day[] = [
     cover:
       "https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1200&q=80",
     highlightTip: "Dica: Apanhar o elétrico 22 até ao castelo para poupar a subida!",
+    howToGet: "Como chegar: elétrico 22 até Pražský hrad (~20 min)",
+    mapEmbedUrl:
+      "https://www.google.com/maps?output=embed&saddr=Prague+Castle&daddr=St.+Nicholas+Church+Mala+Strana+to:Lennon+Wall+Prague+to:Petrin+Tower&dirflg=w",
+    mapLinkUrl:
+      "https://www.google.com/maps/dir/Prague+Castle/St.+Nicholas+Church+Mala+Strana/Lennon+Wall+Prague/Petrin+Tower/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "09:00",
@@ -203,6 +235,9 @@ const days: Day[] = [
         img: "https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1200&q=80",
         imgAlt: "Vitrais interiores da Catedral de São Vito",
         icon: Castle,
+        bookingUrl: "https://www.hrad.cz/en",
+        hours: "~9:00–17:00",
+        walkTo: "~12 min",
       },
       {
         time: "13:00",
@@ -210,6 +245,7 @@ const days: Day[] = [
         desc: "Obra-prima barroca. Almoço leve por perto, sem pressas.",
         link: "https://pt.wikipedia.org/wiki/Igreja_de_S%C3%A3o_Nicolau_(Mal%C3%A1_Strana)",
         icon: Church,
+        walkTo: "~5 min",
       },
       {
         time: "14:30",
@@ -217,13 +253,15 @@ const days: Day[] = [
         desc: "Parede de mensagens, cores e memória da liberdade. Boa fotografia com os pais.",
         link: "https://pt.wikipedia.org/wiki/Muro_de_Lennon",
         icon: Sparkles,
+        walkTo: "~10 min (+ subida ~25–30 min)",
       },
       {
         time: "16:00",
         title: "Torre de Petřín",
-        desc: "Funicular até ao topo da colina. Mini-Eiffel com vista 360º sobre Praga.",
+        desc: "Subir de elétrico 22 até Pohořelec + caminhada suave pelo parque, ou pelo elevador dentro da torre. (Funicular fechado para obras até ao fim do verão de 2026.)",
         link: "https://pt.wikipedia.org/wiki/Torre_de_Petr%C5%99%C3%ADn",
         icon: Crown,
+        hours: "~10:00–22:00",
       },
     ],
   },
@@ -237,12 +275,18 @@ const days: Day[] = [
     icon: Train,
     cover:
       "https://images.unsplash.com/photo-1724426560921-c364a86aa0e9?auto=format&fit=crop&w=1200&q=80",
+    howToGet: "Como chegar: comboio de Praha hl.n. (~55 min)",
+    mapEmbedUrl:
+      "https://www.google.com/maps?output=embed&saddr=St.+Barbara+Cathedral+Kutna+Hora&daddr=Sedlec+Ossuary&dirflg=w",
+    mapLinkUrl:
+      "https://www.google.com/maps/dir/St.+Barbara+Cathedral+Kutna+Hora/Sedlec+Ossuary/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "08:40",
         title: "Comboio para Kutná Hora",
         desc: "Saída da Hlavní Nádraží. ~1h de viagem confortável, lugares marcados.",
         icon: Train,
+        bookingUrl: "https://www.cd.cz/en/",
       },
       {
         time: "10:00",
@@ -250,6 +294,9 @@ const days: Day[] = [
         desc: "Joia gótica patrocinada pelos mineiros de prata. Tetos abobadados de cortar a respiração.",
         link: "https://pt.wikipedia.org/wiki/Catedral_de_Santa_B%C3%A1rbara",
         icon: Church,
+        bookingUrl: "https://khfarnost.cz/en/",
+        hours: "~9:00–18:00",
+        walkTo: "Sedlec ↔ centro ~2,5 km — usar autocarro/táxi local",
       },
       {
         time: "12:30",
@@ -260,6 +307,9 @@ const days: Day[] = [
         img: "https://commons.wikimedia.org/wiki/Special:FilePath/Ossuary_in_Sedlec.JPG?width=1200",
         imgAlt: "Lustre feito de ossos humanos no Ossário de Sedlec",
         icon: AlertTriangle,
+        bookingUrl: "https://www.sedlec.info/en/",
+        hours: "~9:00–18:00",
+        hoursNote: "ENTRADA POR HORÁRIO MARCADO",
       },
       {
         time: "20:00",
@@ -279,6 +329,11 @@ const days: Day[] = [
     icon: Moon,
     cover:
       "https://images.unsplash.com/photo-1779213206645-e06f91667848?auto=format&fit=crop&w=1200&q=80",
+    howToGet: "Como chegar: metro C até Vyšehrad. Vyšehrad plano; regresso de Bolt/Uber.",
+    mapEmbedUrl:
+      "https://www.google.com/maps?output=embed&saddr=Vysehrad+Prague&daddr=Hotel+Garden+Court+Prague&dirflg=w",
+    mapLinkUrl:
+      "https://www.google.com/maps/dir/Vysehrad+Prague/Hotel+Garden+Court+Prague/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "09:30",
@@ -288,6 +343,7 @@ const days: Day[] = [
         img: "https://images.unsplash.com/photo-1587539308989-afe8119c4e46?auto=format&fit=crop&w=1200&q=80",
         imgAlt: "Vista panorâmica de Vyšehrad sobre o rio Vltava",
         icon: Crown,
+        hours: "Recinto grátis, sempre aberto",
       },
       {
         time: "12:00",
@@ -445,31 +501,70 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
         <Icon className="h-4 w-4 text-gold" />
       </div>
 
-      <button
-        onClick={() => hasExtra && setOpen((o) => !o)}
-        className={`w-full rounded-2xl border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80 ${
-          hasExtra ? "cursor-pointer" : "cursor-default"
-        }`}
+      <div
+        className={`w-full rounded-2xl border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80`}
       >
-        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-          <span className="font-serif text-xl text-gold">{stop.time}</span>
-          <h4 className="font-serif text-xl text-cream md:text-2xl">
-            {stop.link ? <GoldLink href={stop.link}>{stop.title}</GoldLink> : stop.title}
-          </h4>
-        </div>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
-          {stop.desc}
-        </p>
+        <button
+          type="button"
+          onClick={() => hasExtra && setOpen((o) => !o)}
+          className={`w-full text-left ${hasExtra ? "cursor-pointer" : "cursor-default"}`}
+        >
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <span className="font-serif text-xl text-gold">{stop.time}</span>
+            <h4 className="font-serif text-xl text-cream md:text-2xl">
+              {stop.link ? <GoldLink href={stop.link}>{stop.title}</GoldLink> : stop.title}
+            </h4>
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+            {stop.desc}
+          </p>
+        </button>
+
+        {(stop.hours || stop.bookingUrl) && (
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            {stop.bookingUrl && (
+              <a
+                href={stop.bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
+              >
+                <Ticket className="h-3.5 w-3.5" />
+                Reservar
+                <ExternalLink className="h-3 w-3 opacity-70" />
+              </a>
+            )}
+            {stop.hours && (
+              <div className="flex flex-col gap-0.5">
+                <div className="flex items-center gap-2 text-xs text-cream/80">
+                  <Clock className="h-3.5 w-3.5 text-gold" />
+                  <span className="uppercase tracking-[0.18em] text-gold/80">Horário (confirmar):</span>
+                  <span>{stop.hours}</span>
+                </div>
+                {stop.hoursNote && (
+                  <div className="ml-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-terracotta">
+                    {stop.hoursNote}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         {hasExtra && (
-          <div className="mt-3 flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-gold/70">
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            className="mt-3 flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-gold/70 hover:text-gold"
+          >
             <span>{open ? "Fechar" : "Mais detalhes"}</span>
             <ChevronDown
               className={`h-3.5 w-3.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
             />
-          </div>
+          </button>
         )}
-      </button>
+      </div>
+
 
       <motion.div
         initial={false}
@@ -523,6 +618,36 @@ function DayBlock({ day }: { day: Day }) {
         </p>
       </motion.div>
 
+      {(day.walkTotal || day.howToGet) && (
+        <div className="mb-6 flex flex-wrap gap-3">
+          {day.walkTotal && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/25 bg-twilight/60 px-4 py-1.5 text-xs text-cream/90">
+              <Footprints className="h-3.5 w-3.5 text-gold" />
+              {day.walkTotal}
+            </span>
+          )}
+          {day.howToGet && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/25 bg-twilight/60 px-4 py-1.5 text-xs text-cream/90">
+              <MapPin className="h-3.5 w-3.5 text-gold" />
+              {day.howToGet}
+            </span>
+          )}
+        </div>
+      )}
+
+      {day.dayNote && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-400/40 bg-amber-400/10 p-4"
+        >
+          <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-300" />
+          <p className="text-sm leading-relaxed text-cream/90">{day.dayNote.text}</p>
+        </motion.div>
+      )}
+
       {day.highlightTip && (
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
@@ -541,12 +666,60 @@ function DayBlock({ day }: { day: Day }) {
       <div className="relative space-y-6">
         <div className="pointer-events-none absolute bottom-4 left-7 top-4 w-px bg-gradient-to-b from-gold/60 via-gold/20 to-transparent md:left-9" />
         {day.stops.map((s, i) => (
-          <StopItem key={i} stop={s} idx={i} />
+          <div key={i}>
+            <StopItem stop={s} idx={i} />
+            {s.walkTo && i < day.stops.length - 1 && (
+              <div className="relative mt-4 pl-16 md:pl-20">
+                <span className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-twilight/70 px-3 py-1 text-[11px] text-gold/85">
+                  <Footprints className="h-3.5 w-3.5" />
+                  {s.walkTo}
+                </span>
+              </div>
+            )}
+          </div>
         ))}
       </div>
+
+      {day.mapEmbedUrl && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="mt-10"
+        >
+          <div className="overflow-hidden rounded-2xl border border-gold/20 shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)]">
+            <iframe
+              src={day.mapEmbedUrl}
+              title={`Percurso a pé do ${day.label}`}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-72 w-full border-0 md:h-96"
+            />
+          </div>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+            <p className="font-serif text-sm italic text-gold/80">
+              Percurso a pé do {day.label}
+            </p>
+            {day.mapLinkUrl && (
+              <a
+                href={day.mapLinkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-gold/30 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-gold hover:bg-gold/10"
+              >
+                <MapPin className="h-3.5 w-3.5" />
+                Abrir percurso no mapa
+                <ExternalLink className="h-3 w-3 opacity-70" />
+              </a>
+            )}
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 }
+
 
 function Itineraries() {
   return (
@@ -649,9 +822,35 @@ function Concerts() {
               ))}
             </ul>
 
+            {t.highlight && (
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="https://www.rudolfinum.cz/en/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
+                >
+                  <Ticket className="h-3.5 w-3.5" />
+                  Reservar Rudolfinum
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+                <a
+                  href="https://www.obecnidum.cz/en/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
+                >
+                  <Ticket className="h-3.5 w-3.5" />
+                  Reservar Casa Municipal
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              </div>
+            )}
+
             <p className="mt-6 border-t border-gold/15 pt-5 text-sm italic text-cream/80">
               {t.cta}
             </p>
+
           </motion.div>
         ))}
       </div>
