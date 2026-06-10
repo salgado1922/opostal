@@ -501,31 +501,70 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
         <Icon className="h-4 w-4 text-gold" />
       </div>
 
-      <button
-        onClick={() => hasExtra && setOpen((o) => !o)}
-        className={`w-full rounded-2xl border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80 ${
-          hasExtra ? "cursor-pointer" : "cursor-default"
-        }`}
+      <div
+        className={`w-full rounded-2xl border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80`}
       >
-        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-          <span className="font-serif text-xl text-gold">{stop.time}</span>
-          <h4 className="font-serif text-xl text-cream md:text-2xl">
-            {stop.link ? <GoldLink href={stop.link}>{stop.title}</GoldLink> : stop.title}
-          </h4>
-        </div>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
-          {stop.desc}
-        </p>
+        <button
+          type="button"
+          onClick={() => hasExtra && setOpen((o) => !o)}
+          className={`w-full text-left ${hasExtra ? "cursor-pointer" : "cursor-default"}`}
+        >
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <span className="font-serif text-xl text-gold">{stop.time}</span>
+            <h4 className="font-serif text-xl text-cream md:text-2xl">
+              {stop.link ? <GoldLink href={stop.link}>{stop.title}</GoldLink> : stop.title}
+            </h4>
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+            {stop.desc}
+          </p>
+        </button>
+
+        {(stop.hours || stop.bookingUrl) && (
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            {stop.bookingUrl && (
+              <a
+                href={stop.bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
+              >
+                <Ticket className="h-3.5 w-3.5" />
+                Reservar
+                <ExternalLink className="h-3 w-3 opacity-70" />
+              </a>
+            )}
+            {stop.hours && (
+              <div className="flex flex-col gap-0.5">
+                <div className="flex items-center gap-2 text-xs text-cream/80">
+                  <Clock className="h-3.5 w-3.5 text-gold" />
+                  <span className="uppercase tracking-[0.18em] text-gold/80">Horário (confirmar):</span>
+                  <span>{stop.hours}</span>
+                </div>
+                {stop.hoursNote && (
+                  <div className="ml-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-terracotta">
+                    {stop.hoursNote}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         {hasExtra && (
-          <div className="mt-3 flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-gold/70">
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            className="mt-3 flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-gold/70 hover:text-gold"
+          >
             <span>{open ? "Fechar" : "Mais detalhes"}</span>
             <ChevronDown
               className={`h-3.5 w-3.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
             />
-          </div>
+          </button>
         )}
-      </button>
+      </div>
+
 
       <motion.div
         initial={false}
