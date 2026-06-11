@@ -1272,17 +1272,33 @@ function useActiveSection(ids: string[]) {
 
 function StickyNav() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const active = useActiveSection(navLinks.map((l) => l.id));
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > window.innerHeight * 0.6);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const shadow = !scrolled ? "[text-shadow:0_1px_8px_rgba(0,0,0,0.65)]" : "";
 
   return (
     <nav
       aria-label="Secções da página"
-      className="sticky top-0 z-50 border-b border-gold/15 bg-background/70 backdrop-blur-xl"
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500 ease-out ${
+        scrolled
+          ? "border-b border-gold/15 bg-background/70 backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent"
+      }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
         <a
           href="#top"
-          className="font-serif text-sm tracking-wide text-gold md:text-base"
+          className={`font-serif text-sm tracking-wide text-gold md:text-base ${shadow}`}
         >
           Praga · Jun 2026
         </a>
@@ -1295,8 +1311,12 @@ function StickyNav() {
               <li key={l.id}>
                 <a
                   href={`#${l.id}`}
-                  className={`relative inline-block px-3 py-1.5 text-xs uppercase tracking-[0.2em] transition-colors ${
-                    isActive ? "text-gold" : "text-cream/70 hover:text-cream"
+                  className={`relative inline-block px-3 py-1.5 text-xs uppercase tracking-[0.2em] transition-colors ${shadow} ${
+                    isActive
+                      ? "text-gold"
+                      : scrolled
+                        ? "text-cream/70 hover:text-cream"
+                        : "text-cream/90 hover:text-cream"
                   }`}
                 >
                   {l.label}
@@ -1318,7 +1338,9 @@ function StickyNav() {
           aria-expanded={open}
           aria-controls="mobile-nav-panel"
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 text-gold"
+          className={`md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full text-gold transition-colors ${
+            scrolled ? "border border-gold/30" : "border border-gold/40 bg-black/20 backdrop-blur-sm"
+          }`}
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
