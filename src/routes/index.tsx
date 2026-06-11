@@ -1150,7 +1150,7 @@ function Tips() {
 // ----------------------- CHECKLIST -----------------------
 
 function Checklist() {
-  const booked = ["Voos (ida e volta)", "Hotel Garden Court — 4 noites", "Castelo de Praga", "Bairro Judeu (Josefov)"];
+  const booked = ["Voos (ida e volta)", "Hotel Garden Court — 3 noites", "Castelo de Praga", "Bairro Judeu (Josefov)"];
   const todo = ["Ossário de Sedlec — slot horário", "Concerto no Rudolfinum / Casa Municipal", "Comboio Praga ↔ Kutná Hora", "Mesa em U Modré Kachničky"];
 
   return (
