@@ -1,41 +1,38 @@
 ## Goal
-Add an offline currency converter inside the existing **"Moeda"** card in the "Essencial para a viagem" section. Match the golden-hour theme (dark glass, gold accents, serif heading, rounded corners), pt-PT copy, fully responsive.
+Reverter o conversor de moeda do cartão "Moeda" e colocá-lo como um **bloco autónomo, elegante e centrado**, com mais respiração visual e que se integre melhor no tema golden-hour.
 
-## Where
-`src/routes/index.tsx` — the `essentials` array currently feeds simple `{ icon, title, body }` cards rendered by `EssentialInfo`. The "Moeda" entry will be upgraded to render a richer body that includes the converter, while the other 5 cards stay unchanged.
+## Onde colocar
+Dentro da secção "Essencial para a viagem", **a seguir à grelha dos 6 cartões** e **antes do bloco "Palavras úteis"**. Esse intervalo já tem ritmo editorial natural (cartões → bloco destacado → bloco destacado), então o conversor encaixa como um segundo cartão de destaque, simétrico ao de "Palavras úteis".
 
-## Approach
-1. Add `ArrowLeftRight` to the existing `lucide-react` import block.
-2. Add a constant at the top of the file (right after imports, before `fadeUp`):
-   ```ts
-   const RATE_CZK_PER_EUR = 25; // 1 € = 25 CZK
-   ```
-3. Create a new `CurrencyConverter` component (defined near `EssentialInfo`):
-   - Local state `eur` and `czk` as strings (so the user can clear inputs / type freely).
-   - Two `<input type="number">` fields, labelled "€ (Euro)" and "CZK (Coroa checa)".
-   - `onChange` on each updates the other live: typing € → `czk = round(eur * RATE)`; typing CZK → `eur = (czk / RATE).toFixed(2)`. Empty input clears the other side.
-   - "Inverter" button with `ArrowLeftRight` icon — swaps the two values and moves focus to the other input.
-   - Quick-reference chips below: `100`, `500`, `1000 CZK` → "X CZK ≈ Y €" (computed from the same constant). Clicking a chip prefills the inputs.
-   - Gold italic caption: *"Taxa aproximada (1 € ≈ 25 CZK) — confirmar no dia."*
-   - Styling: inputs use `bg-background/40 border-gold/20 rounded-xl`, focus ring `ring-gold/40`; chips are pill-shaped `border-gold/20 text-gold/90 hover:bg-gold/10`.
-4. Modify `EssentialInfo` rendering to special-case the "Moeda" entry:
-   - Same outer glass card / icon / title as the other essentials.
-   - Body keeps the current short note ("Cartão aceite…/ATMs de banco — evitar Euronet"), then renders `<CurrencyConverter />` underneath.
-   - Card spans the full row on desktop (`sm:col-span-2 lg:col-span-2`) so the inputs and chips have breathing room without breaking the existing 3-col grid for the others.
-5. No network calls, no new dependencies.
+## Mudanças em `src/routes/index.tsx`
 
-## Visual details
-- Inputs: serif numbers on the right (`text-right font-serif`), small uppercase label above each.
-- Inverter button: ghost-style, `border-gold/30 text-gold hover:bg-gold/10`, icon-only on mobile, "Inverter" text on `sm:` and up.
-- Chips: horizontal flex-wrap, `gap-2`, small font, rounded-full.
-- Caption: `text-xs italic text-gold/80 mt-3`.
+1. **Reverter o cartão "Moeda"** ao estado original:
+   - Remover o `isMoeda` special-case dentro do `map`.
+   - Remover o `sm:col-span-2 lg:col-span-2` e o `<CurrencyConverter />` inline.
+   - O cartão "Moeda" volta a ser igual aos outros 5.
 
-## Out of scope
-- No live FX API, no rate persistence, no analytics. Single constant for the rate.
+2. **Reestilizar o `CurrencyConverter`** para funcionar como bloco destacado (não como conteúdo dentro de um cartão):
+   - Wrapper igual ao de "Palavras úteis": `rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7`.
+   - Cabeçalho com ícone `Coins` + título serif "Conversor rápido" (espelha o padrão `Languages` + "Palavras úteis").
+   - Layout interno em 2 colunas no desktop: à esquerda os inputs empilhados verticalmente com o botão "Inverter" entre eles (em vez de horizontal apertado); à direita uma coluna com as chips e a legenda.
+   - No mobile: tudo empilhado (inputs → inverter → chips → legenda).
+   - Inputs maiores (`text-2xl font-serif`), com o símbolo (€ / Kč) à esquerda dentro do campo e o valor alinhado à direita.
+   - Botão "Inverter" centrado entre os dois inputs, circular (`h-10 w-10 rounded-full border border-gold/30`), com `ArrowLeftRight` rodado 90° (vertical) no desktop e horizontal no mobile via `sm:rotate-90` — opcional, mas dá clareza ao layout vertical.
+   - Chips mantêm-se como estão, mas com `text-sm` e mais respiração.
+   - Legenda gold itálico inalterada.
 
-## Acceptance
-- Typing in either field updates the other instantly with correct rounding (CZK whole numbers, € 2 decimals).
-- Inverter swaps the values.
-- Chips display correct € equivalents derived from `RATE_CZK_PER_EUR`.
-- Editing the constant at the top changes every computed value on the page.
-- Card visually matches the rest of the section on mobile and desktop.
+3. **Renderizar o `<CurrencyConverter />` no `EssentialInfo`** entre a grelha e o `motion.div` de "Palavras úteis", envolto na mesma animação `motion.div` `fadeUp` para coerência.
+
+## Detalhes visuais
+- Mesmo `glass`/`gradient` que "Palavras úteis", para o utilizador ler os dois blocos como um par.
+- Largura total da `max-w-6xl` da secção; sem `col-span` (não vive dentro da grelha).
+- Espaçamento `mt-8` da grelha e `mb-8` antes de "Palavras úteis".
+
+## Fora de scope
+- Não mexer na taxa, na lógica de conversão, nas chips, nem na constante `RATE_CZK_PER_EUR`.
+- Não tocar noutras secções.
+
+## Aceitação
+- O cartão "Moeda" volta a ser visualmente idêntico aos restantes 5 cartões.
+- O conversor aparece como um bloco destacado e equilibrado, a par de "Palavras úteis".
+- Funciona em mobile (390px) e desktop sem quebrar.
