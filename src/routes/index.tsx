@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useId } from "react";
+import { useRef, useState, useId, useEffect } from "react";
 import {
   ChevronDown,
   MapPin,
@@ -31,6 +31,8 @@ import {
   Footprints,
   TrainFront,
   ArrowLeftRight,
+  Menu,
+  Play,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
 
