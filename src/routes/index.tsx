@@ -1384,75 +1384,104 @@ function CurrencyConverter() {
     }
   };
 
-  const chips = [100, 500, 1000];
+  const chipPreset = (czkVal: number) => {
+    const eurValue = (czkVal / RATE_CZK_PER_EUR).toFixed(2);
+    setCzk(String(czkVal));
+    setEur(eurValue);
+    setLastEdited("czk");
+  };
 
   return (
-    <div className="mt-5 rounded-xl border border-gold/20 bg-background/30 p-4">
-      <div className="flex items-end gap-3">
-        <div className="flex-1">
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, delay: 0.1 }}
+      className="mt-8 overflow-hidden rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+    >
+      <div className="mb-6 flex items-center gap-3">
+        <Coins className="h-5 w-5 text-gold" />
+        <h3 className="font-serif text-2xl text-cream">Conversor rápido</h3>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_auto_1.1fr] lg:items-center">
+        {/* EUR */}
+        <div>
           <label
             htmlFor={eurId}
-            className="mb-1 block text-[10px] uppercase tracking-[0.18em] text-muted-foreground"
+            className="mb-2 block text-[10px] uppercase tracking-[0.22em] text-muted-foreground"
           >
-            € (Euro)
+            Euro
           </label>
-          <input
-            id={eurId}
-            ref={eurRef}
-            type="number"
-            inputMode="decimal"
-            min="0"
-            step="0.01"
-            value={eur}
-            onChange={(e) => onEurChange(e.target.value)}
-            className="w-full rounded-lg border border-gold/20 bg-background/40 px-3 py-2 text-right font-serif text-lg text-cream outline-none focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
-          />
+          <div className="group relative">
+            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 font-serif text-2xl text-gold/70">
+              €
+            </span>
+            <input
+              id={eurId}
+              ref={eurRef}
+              type="number"
+              inputMode="decimal"
+              min="0"
+              step="0.01"
+              value={eur}
+              onChange={(e) => onEurChange(e.target.value)}
+              className="w-full rounded-xl border border-gold/20 bg-background/40 py-4 pl-10 pr-4 text-right font-serif text-3xl text-cream outline-none transition-colors focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
+            />
+          </div>
         </div>
 
-        <button
-          type="button"
-          onClick={invert}
-          aria-label="Inverter"
-          className="mb-[2px] inline-flex items-center gap-1.5 rounded-lg border border-gold/30 px-2.5 py-2 text-xs font-medium text-gold transition-colors hover:bg-gold/10"
-        >
-          <ArrowLeftRight className="h-4 w-4" />
-          <span className="hidden sm:inline">Inverter</span>
-        </button>
+        {/* Inverter */}
+        <div className="flex justify-center lg:px-2">
+          <button
+            type="button"
+            onClick={invert}
+            aria-label="Inverter"
+            className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/30 bg-background/40 text-gold shadow-[0_10px_30px_-15px_oklch(0.82_0.14_78/0.6)] transition-all hover:bg-gold/10 hover:rotate-180"
+          >
+            <ArrowLeftRight className="h-5 w-5" />
+          </button>
+        </div>
 
-        <div className="flex-1">
+        {/* CZK */}
+        <div>
           <label
             htmlFor={czkId}
-            className="mb-1 block text-[10px] uppercase tracking-[0.18em] text-muted-foreground"
+            className="mb-2 block text-[10px] uppercase tracking-[0.22em] text-muted-foreground"
           >
-            CZK (Coroa checa)
+            Coroa checa
           </label>
-          <input
-            id={czkId}
-            ref={czkRef}
-            type="number"
-            inputMode="numeric"
-            min="0"
-            step="1"
-            value={czk}
-            onChange={(e) => onCzkChange(e.target.value)}
-            className="w-full rounded-lg border border-gold/20 bg-background/40 px-3 py-2 text-right font-serif text-lg text-cream outline-none focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
-          />
+          <div className="relative">
+            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 font-serif text-xl text-gold/70">
+              Kč
+            </span>
+            <input
+              id={czkId}
+              ref={czkRef}
+              type="number"
+              inputMode="numeric"
+              min="0"
+              step="1"
+              value={czk}
+              onChange={(e) => onCzkChange(e.target.value)}
+              className="w-full rounded-xl border border-gold/20 bg-background/40 py-4 pl-12 pr-4 text-right font-serif text-3xl text-cream outline-none transition-colors focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2">
-        {chips.map((c) => {
+      <div className="mt-6 flex flex-wrap items-center gap-2">
+        <span className="mr-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+          Atalhos
+        </span>
+        {[100, 500, 1000].map((c) => {
           const eurValue = (c / RATE_CZK_PER_EUR).toFixed(2);
           return (
             <button
               key={c}
               type="button"
-              onClick={() => {
-                setCzk(String(c));
-                setEur(eurValue);
-                setLastEdited("czk");
-              }}
-              className="rounded-full border border-gold/20 px-3 py-1 text-xs text-gold/90 transition-colors hover:bg-gold/10"
+              onClick={() => chipPreset(c)}
+              className="rounded-full border border-gold/20 bg-background/30 px-3.5 py-1.5 text-xs text-gold/90 transition-colors hover:border-gold/50 hover:bg-gold/10"
             >
               {c} CZK ≈ {eurValue} €
             </button>
@@ -1460,11 +1489,12 @@ function CurrencyConverter() {
         })}
       </div>
 
-      <p className="mt-3 text-xs italic text-gold/80">
+      <p className="mt-5 text-xs italic text-gold/80">
         Taxa aproximada (1 € ≈ {RATE_CZK_PER_EUR} CZK) — confirmar no dia.
       </p>
-    </div>
+    </motion.div>
   );
 }
+
 
 
