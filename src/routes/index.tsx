@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useId } from "react";
 import {
   ChevronDown,
   MapPin,
@@ -30,6 +30,7 @@ import {
   ExternalLink,
   Footprints,
   TrainFront,
+  ArrowLeftRight,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
 
@@ -54,6 +55,10 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
+
+// ----------------------- constants -----------------------
+
+const RATE_CZK_PER_EUR = 25; // 1 € = 25 CZK
 
 // ----------------------- helpers -----------------------
 
