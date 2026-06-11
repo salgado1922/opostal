@@ -438,17 +438,6 @@ function Hero() {
         </motion.div>
       </motion.div>
 
-      <motion.a
-        href="#overview"
-        style={{ opacity }}
-        className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 text-gold"
-        aria-label="Descer"
-      >
-        <div className="flex flex-col items-center gap-2 animate-bounce-soft">
-          <span className="text-[10px] uppercase tracking-[0.4em] text-gold/80">scroll</span>
-          <ChevronDown className="h-6 w-6" />
-        </div>
-      </motion.a>
     </section>
   );
 }
