@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useId } from "react";
+import { useRef, useState, useId, useEffect } from "react";
 import {
   ChevronDown,
   MapPin,
@@ -31,6 +31,8 @@ import {
   Footprints,
   TrainFront,
   ArrowLeftRight,
+  Menu,
+  Play,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
 
@@ -81,7 +83,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="relative px-6 py-24 md:px-12 md:py-32">
+    <section id={id} className="relative scroll-mt-24 px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
@@ -1228,7 +1230,9 @@ function Footer() {
 function Index() {
   return (
     <main className="bg-twilight-radial min-h-screen overflow-x-hidden">
+      <StickyNav />
       <Hero />
+      <VePrimeiro />
       <EssentialInfo />
       <Overview />
       <Itineraries />
@@ -1240,6 +1244,166 @@ function Index() {
     </main>
   );
 }
+
+// ----------------------- STICKY NAV -----------------------
+
+const navLinks = [
+  { id: "ve-primeiro", label: "Vê primeiro" },
+  { id: "d1", label: "Dia 1" },
+  { id: "d2", label: "Dia 2" },
+  { id: "d3", label: "Dia 3" },
+  { id: "d4", label: "Dia 4" },
+  { id: "concertos", label: "Concertos" },
+  { id: "comer", label: "Comer" },
+  { id: "dicas", label: "Dicas" },
+  { id: "checklist", label: "Reservas" },
+];
+
+function useActiveSection(ids: string[]) {
+  const [active, setActive] = useState<string>(ids[0]);
+  useEffect(() => {
+    const elements = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+    if (!elements.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] },
+    );
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [ids]);
+  return active;
+}
+
+function StickyNav() {
+  const [open, setOpen] = useState(false);
+  const active = useActiveSection(navLinks.map((l) => l.id));
+
+  return (
+    <nav
+      aria-label="Secções da página"
+      className="sticky top-0 z-50 border-b border-gold/15 bg-background/70 backdrop-blur-xl"
+    >
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
+        <a
+          href="#top"
+          className="font-serif text-sm tracking-wide text-gold md:text-base"
+        >
+          Praga · Jun 2026
+        </a>
+
+        {/* Desktop */}
+        <ul className="hidden md:flex items-center gap-1 overflow-x-auto">
+          {navLinks.map((l) => {
+            const isActive = active === l.id;
+            return (
+              <li key={l.id}>
+                <a
+                  href={`#${l.id}`}
+                  className={`relative inline-block px-3 py-1.5 text-xs uppercase tracking-[0.2em] transition-colors ${
+                    isActive ? "text-gold" : "text-cream/70 hover:text-cream"
+                  }`}
+                >
+                  {l.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute inset-x-3 -bottom-0.5 h-px bg-gold"
+                    />
+                  )}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Mobile button */}
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls="mobile-nav-panel"
+          onClick={() => setOpen((v) => !v)}
+          className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 text-gold"
+        >
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+
+      {/* Mobile panel */}
+      {open && (
+        <div
+          id="mobile-nav-panel"
+          className="md:hidden border-t border-gold/15 bg-background/95 backdrop-blur-xl"
+        >
+          <ul className="mx-auto flex max-w-6xl flex-col px-4 py-2">
+            {navLinks.map((l) => {
+              const isActive = active === l.id;
+              return (
+                <li key={l.id}>
+                  <a
+                    href={`#${l.id}`}
+                    onClick={() => setOpen(false)}
+                    className={`block py-3 text-sm uppercase tracking-[0.2em] ${
+                      isActive ? "text-gold" : "text-cream/80"
+                    }`}
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+    </nav>
+  );
+}
+
+// ----------------------- VÊ PRIMEIRO (vídeo) -----------------------
+
+function VePrimeiro() {
+  return (
+    <Section
+      id="ve-primeiro"
+      eyebrow="Antes de partir"
+      title="Vê primeiro"
+      intro="Uns minutos de Praga em movimento para entrar no espírito da viagem."
+    >
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={fadeUp}
+        className="mx-auto max-w-4xl"
+      >
+        <div className="relative rounded-3xl bg-gradient-to-br from-gold/20 via-terracotta/10 to-transparent p-[1px] shadow-2xl shadow-black/50">
+          <div className="relative aspect-video overflow-hidden rounded-3xl border border-gold/20 bg-black">
+            <iframe
+              src="https://www.youtube.com/embed/n_R22ZbTJhg"
+              title="Vê primeiro — Praga"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+            />
+          </div>
+        </div>
+        <p className="mt-5 text-center font-serif italic text-gold/90 flex items-center justify-center gap-2">
+          <Play className="h-4 w-4" aria-hidden />
+          Uma vista de olhos por Praga antes de partir.
+        </p>
+      </motion.div>
+    </Section>
+  );
+}
+
 
 // ----------------------- ESSENTIAL INFO -----------------------
 

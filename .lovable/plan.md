@@ -1,38 +1,49 @@
-## Goal
-Reverter o conversor de moeda do cartão "Moeda" e colocá-lo como um **bloco autónomo, elegante e centrado**, com mais respiração visual e que se integre melhor no tema golden-hour.
+## 1. Secção de vídeo "Vê primeiro"
 
-## Onde colocar
-Dentro da secção "Essencial para a viagem", **a seguir à grelha dos 6 cartões** e **antes do bloco "Palavras úteis"**. Esse intervalo já tem ritmo editorial natural (cartões → bloco destacado → bloco destacado), então o conversor encaixa como um segundo cartão de destaque, simétrico ao de "Palavras úteis".
+Adicionar nova secção logo a seguir ao `<Hero />` (antes de `<EssentialInfo />`) em `src/routes/index.tsx`.
 
-## Mudanças em `src/routes/index.tsx`
+- `id="ve-primeiro"`, usando o wrapper `<Section>` já existente (mesmo padding/tema).
+- Título serif "Vê primeiro" com o mesmo `SectionHeading` dos restantes blocos.
+- Wrapper responsivo 16:9 com `aspect-video`, `rounded-2xl`, `overflow-hidden`, `border border-gold/20`, `shadow-2xl shadow-black/40` e um leve gradiente dourado em volta para combinar com a hora dourada.
+- `<iframe>` do YouTube (`https://www.youtube.com/embed/n_R22ZbTJhg`) com `title="Vê primeiro — Praga"`, `loading="lazy"`, `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"`, `allowFullScreen`, `referrerPolicy="strict-origin-when-cross-origin"`.
+- Legenda por baixo em itálico dourado: *"Uma vista de olhos por Praga antes de partir."*
 
-1. **Reverter o cartão "Moeda"** ao estado original:
-   - Remover o `isMoeda` special-case dentro do `map`.
-   - Remover o `sm:col-span-2 lg:col-span-2` e o `<CurrencyConverter />` inline.
-   - O cartão "Moeda" volta a ser igual aos outros 5.
+## 2. Navegação fixa com scroll suave
 
-2. **Reestilizar o `CurrencyConverter`** para funcionar como bloco destacado (não como conteúdo dentro de um cartão):
-   - Wrapper igual ao de "Palavras úteis": `rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7`.
-   - Cabeçalho com ícone `Coins` + título serif "Conversor rápido" (espelha o padrão `Languages` + "Palavras úteis").
-   - Layout interno em 2 colunas no desktop: à esquerda os inputs empilhados verticalmente com o botão "Inverter" entre eles (em vez de horizontal apertado); à direita uma coluna com as chips e a legenda.
-   - No mobile: tudo empilhado (inputs → inverter → chips → legenda).
-   - Inputs maiores (`text-2xl font-serif`), com o símbolo (€ / Kč) à esquerda dentro do campo e o valor alinhado à direita.
-   - Botão "Inverter" centrado entre os dois inputs, circular (`h-10 w-10 rounded-full border border-gold/30`), com `ArrowLeftRight` rodado 90° (vertical) no desktop e horizontal no mobile via `sm:rotate-90` — opcional, mas dá clareza ao layout vertical.
-   - Chips mantêm-se como estão, mas com `text-sm` e mais respiração.
-   - Legenda gold itálico inalterada.
+Manter a página como scroll contínuo único. Adicionar um componente `<StickyNav />` renderizado no topo do `<main>` (antes do `<Hero />`, com `position: sticky; top: 0; z-50`) com fundo glass dourado (`bg-background/70 backdrop-blur-xl border-b border-gold/15`).
 
-3. **Renderizar o `<CurrencyConverter />` no `EssentialInfo`** entre a grelha e o `motion.div` de "Palavras úteis", envolto na mesma animação `motion.div` `fadeUp` para coerência.
+Itens da nav (âncoras + IDs alvo):
 
-## Detalhes visuais
-- Mesmo `glass`/`gradient` que "Palavras úteis", para o utilizador ler os dois blocos como um par.
-- Largura total da `max-w-6xl` da secção; sem `col-span` (não vive dentro da grelha).
-- Espaçamento `mt-8` da grelha e `mb-8` antes de "Palavras úteis".
+| Label | Âncora |
+|---|---|
+| Vê primeiro | `#ve-primeiro` |
+| Dia 1 | `#dia-1` |
+| Dia 2 | `#dia-2` |
+| Dia 3 | `#dia-3` |
+| Dia 4 | `#dia-4` |
+| Concertos | `#concertos` |
+| Comer | `#comer` |
+| Dicas | `#dicas` |
+| Reservas | `#checklist` |
 
-## Fora de scope
-- Não mexer na taxa, na lógica de conversão, nas chips, nem na constante `RATE_CZK_PER_EUR`.
-- Não tocar noutras secções.
+Para suportar Dia 1–4 individualmente, adicionar `id="dia-1"`…`id="dia-4"` aos cartões/blocos de cada dia dentro de `Itineraries` (secção `#dias` mantém-se como container).
 
-## Aceitação
-- O cartão "Moeda" volta a ser visualmente idêntico aos restantes 5 cartões.
-- O conversor aparece como um bloco destacado e equilibrado, a par de "Palavras úteis".
-- Funciona em mobile (390px) e desktop sem quebrar.
+### Comportamento
+
+- Scroll suave nativo: adicionar `scroll-behavior: smooth` ao `html` (via `src/styles.css`) e `scroll-margin-top: 80px` às secções alvo para compensar a barra fixa.
+- Realce da secção activa via `IntersectionObserver` num hook local (`useActiveSection(ids)`), aplicando classe `text-gold` + underline dourado animado no item activo; restantes em `text-cream/70`.
+- Mobile (`< md`): botão hambúrguer (`Menu` / `X` da lucide) que abre um painel deslizante full-width por baixo da barra, com os mesmos links empilhados; fecha ao clicar num link.
+- Desktop (`md+`): links inline horizontais com espaçamento generoso, scroll horizontal se necessário (`overflow-x-auto` + `scrollbar-none`).
+- Logo/título curto à esquerda ("Praga · Jun 2026" ou similar, reutilizando o que já existe no Hero) — opcional, apenas se couber.
+
+### Acessibilidade
+
+- `<nav aria-label="Secções da página">`, links `<a href="#...">` (funcionam sem JS).
+- Botão mobile com `aria-expanded` / `aria-controls`.
+
+## 3. Ficheiros tocados
+
+- `src/routes/index.tsx` — novo componente `StickyNav`, novo componente `VePrimeiro` (secção vídeo), IDs `dia-1..4` no `Itineraries`, montagem no `Index`.
+- `src/styles.css` — `html { scroll-behavior: smooth }` e utilitário `.scroll-anchor { scroll-margin-top: 5rem }` (ou aplicar via Tailwind `scroll-mt-20` directamente nas secções).
+
+Sem chamadas de rede, sem novas dependências (YouTube via iframe nativo, ícones já disponíveis em lucide-react).
