@@ -1304,7 +1304,7 @@ function StickyNav() {
         </a>
 
         {/* Desktop */}
-        <ul className="hidden md:flex items-center gap-1 overflow-x-auto">
+        <ul className="hidden md:flex items-center gap-1">
           {navLinks.map((l) => {
             const isActive = active === l.id;
             return (
