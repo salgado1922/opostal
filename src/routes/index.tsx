@@ -83,7 +83,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="relative px-6 py-24 md:px-12 md:py-32">
+    <section id={id} className="relative scroll-mt-24 px-6 py-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
