@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useId } from "react";
 import {
   ChevronDown,
   MapPin,
@@ -30,6 +30,7 @@ import {
   ExternalLink,
   Footprints,
   TrainFront,
+  ArrowLeftRight,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
 
@@ -54,6 +55,10 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
+
+// ----------------------- constants -----------------------
+
+const RATE_CZK_PER_EUR = 25; // 1 € = 25 CZK
 
 // ----------------------- helpers -----------------------
 
@@ -1291,6 +1296,7 @@ function EssentialInfo() {
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {essentials.map((e, i) => {
           const Icon = e.icon;
+          const isMoeda = e.title === "Moeda";
           return (
             <motion.div
               key={e.title}
@@ -1299,17 +1305,21 @@ function EssentialInfo() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.55, delay: i * 0.06 }}
               whileHover={{ y: -4 }}
-              className="glass rounded-2xl border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)]"
+              className={`glass rounded-2xl border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)] ${
+                isMoeda ? "sm:col-span-2 lg:col-span-2" : ""
+              }`}
             >
               <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30">
                 <Icon className="h-5 w-5 text-gold" />
               </div>
               <h3 className="font-serif text-xl text-cream">{e.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
+              {isMoeda && <CurrencyConverter />}
             </motion.div>
           );
         })}
       </div>
+
 
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -1334,4 +1344,129 @@ function EssentialInfo() {
     </Section>
   );
 }
+
+// ----------------------- CURRENCY CONVERTER -----------------------
+
+function CurrencyConverter() {
+  const [eur, setEur] = useState<string>("10");
+  const [czk, setCzk] = useState<string>(String(10 * RATE_CZK_PER_EUR));
+  const eurId = useId();
+  const czkId = useId();
+  const eurRef = useRef<HTMLInputElement>(null);
+  const czkRef = useRef<HTMLInputElement>(null);
+  const [lastEdited, setLastEdited] = useState<"eur" | "czk">("eur");
+
+  const onEurChange = (v: string) => {
+    setEur(v);
+    setLastEdited("eur");
+    if (v === "" || isNaN(Number(v))) {
+      setCzk("");
+      return;
+    }
+    setCzk(String(Math.round(Number(v) * RATE_CZK_PER_EUR)));
+  };
+
+  const onCzkChange = (v: string) => {
+    setCzk(v);
+    setLastEdited("czk");
+    if (v === "" || isNaN(Number(v))) {
+      setEur("");
+      return;
+    }
+    setEur((Number(v) / RATE_CZK_PER_EUR).toFixed(2));
+  };
+
+  const invert = () => {
+    if (lastEdited === "eur") {
+      czkRef.current?.focus();
+      setLastEdited("czk");
+    } else {
+      eurRef.current?.focus();
+      setLastEdited("eur");
+    }
+  };
+
+  const chips = [100, 500, 1000];
+
+  return (
+    <div className="mt-5 rounded-xl border border-gold/20 bg-background/30 p-4">
+      <div className="flex items-end gap-3">
+        <div className="flex-1">
+          <label
+            htmlFor={eurId}
+            className="mb-1 block text-[10px] uppercase tracking-[0.18em] text-muted-foreground"
+          >
+            € (Euro)
+          </label>
+          <input
+            id={eurId}
+            ref={eurRef}
+            type="number"
+            inputMode="decimal"
+            min="0"
+            step="0.01"
+            value={eur}
+            onChange={(e) => onEurChange(e.target.value)}
+            className="w-full rounded-lg border border-gold/20 bg-background/40 px-3 py-2 text-right font-serif text-lg text-cream outline-none focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
+          />
+        </div>
+
+        <button
+          type="button"
+          onClick={invert}
+          aria-label="Inverter"
+          className="mb-[2px] inline-flex items-center gap-1.5 rounded-lg border border-gold/30 px-2.5 py-2 text-xs font-medium text-gold transition-colors hover:bg-gold/10"
+        >
+          <ArrowLeftRight className="h-4 w-4" />
+          <span className="hidden sm:inline">Inverter</span>
+        </button>
+
+        <div className="flex-1">
+          <label
+            htmlFor={czkId}
+            className="mb-1 block text-[10px] uppercase tracking-[0.18em] text-muted-foreground"
+          >
+            CZK (Coroa checa)
+          </label>
+          <input
+            id={czkId}
+            ref={czkRef}
+            type="number"
+            inputMode="numeric"
+            min="0"
+            step="1"
+            value={czk}
+            onChange={(e) => onCzkChange(e.target.value)}
+            className="w-full rounded-lg border border-gold/20 bg-background/40 px-3 py-2 text-right font-serif text-lg text-cream outline-none focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
+          />
+        </div>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {chips.map((c) => {
+          const eurValue = (c / RATE_CZK_PER_EUR).toFixed(2);
+          return (
+            <button
+              key={c}
+              type="button"
+              onClick={() => {
+                setCzk(String(c));
+                setEur(eurValue);
+                setLastEdited("czk");
+              }}
+              className="rounded-full border border-gold/20 px-3 py-1 text-xs text-gold/90 transition-colors hover:bg-gold/10"
+            >
+              {c} CZK ≈ {eurValue} €
+            </button>
+          );
+        })}
+      </div>
+
+      <p className="mt-3 text-xs italic text-gold/80">
+        Taxa aproximada (1 € ≈ {RATE_CZK_PER_EUR} CZK) — confirmar no dia.
+      </p>
+    </div>
+  );
+}
+
 
