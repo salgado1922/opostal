@@ -1296,6 +1296,7 @@ function EssentialInfo() {
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {essentials.map((e, i) => {
           const Icon = e.icon;
+          const isMoeda = e.title === "Moeda";
           return (
             <motion.div
               key={e.title}
@@ -1304,17 +1305,21 @@ function EssentialInfo() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.55, delay: i * 0.06 }}
               whileHover={{ y: -4 }}
-              className="glass rounded-2xl border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)]"
+              className={`glass rounded-2xl border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)] ${
+                isMoeda ? "sm:col-span-2 lg:col-span-2" : ""
+              }`}
             >
               <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30">
                 <Icon className="h-5 w-5 text-gold" />
               </div>
               <h3 className="font-serif text-xl text-cream">{e.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
+              {isMoeda && <CurrencyConverter />}
             </motion.div>
           );
         })}
       </div>
+
 
       <motion.div
         initial={{ opacity: 0, y: 24 }}
