@@ -1,49 +1,36 @@
-## 1. Secção de vídeo "Vê primeiro"
+## Alterações ao `src/routes/index.tsx`
 
-Adicionar nova secção logo a seguir ao `<Hero />` (antes de `<EssentialInfo />`) em `src/routes/index.tsx`.
+### 1) Remover o indicador "scroll" do Hero
+Eliminar o bloco `<motion.a href="#overview">…ChevronDown…</motion.a>` (linhas ~441-451) e remover o import `ChevronDown` se deixar de ser usado. Também remover `opacity`/`scrollYProgress` se ficarem órfãos.
 
-- `id="ve-primeiro"`, usando o wrapper `<Section>` já existente (mesmo padding/tema).
-- Título serif "Vê primeiro" com o mesmo `SectionHeading` dos restantes blocos.
-- Wrapper responsivo 16:9 com `aspect-video`, `rounded-2xl`, `overflow-hidden`, `border border-gold/20`, `shadow-2xl shadow-black/40` e um leve gradiente dourado em volta para combinar com a hora dourada.
-- `<iframe>` do YouTube (`https://www.youtube.com/embed/n_R22ZbTJhg`) com `title="Vê primeiro — Praga"`, `loading="lazy"`, `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"`, `allowFullScreen`, `referrerPolicy="strict-origin-when-cross-origin"`.
-- Legenda por baixo em itálico dourado: *"Uma vista de olhos por Praga antes de partir."*
+### 2) Nav transparente sobre o Hero, com fundo ao fazer scroll
 
-## 2. Navegação fixa com scroll suave
+**Posicionamento**: mudar `<StickyNav />` para ficar sobreposto ao Hero. Envolver `Hero` + nav numa `div className="relative"`, com a nav em `fixed top-0 inset-x-0 z-50` (mantém-se "sticky-like" em todo o scroll). Adicionar `id="top"` ao topo da página.
 
-Manter a página como scroll contínuo único. Adicionar um componente `<StickyNav />` renderizado no topo do `<main>` (antes do `<Hero />`, com `position: sticky; top: 0; z-50`) com fundo glass dourado (`bg-background/70 backdrop-blur-xl border-b border-gold/15`).
+**Estado de scroll**: novo hook dentro de `StickyNav`:
+```ts
+const [scrolled, setScrolled] = useState(false);
+useEffect(() => {
+  const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.6);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  return () => window.removeEventListener("scroll", onScroll);
+}, []);
+```
 
-Itens da nav (âncoras + IDs alvo):
+**Classes condicionais na `<nav>`**:
+- Topo (sobre hero): `bg-transparent border-transparent`
+- Após scroll: `bg-background/70 backdrop-blur-xl border-b border-gold/15`
+- Transição: `transition-[background-color,backdrop-filter,border-color] duration-500 ease-out`
 
-| Label | Âncora |
-|---|---|
-| Vê primeiro | `#ve-primeiro` |
-| Dia 1 | `#dia-1` |
-| Dia 2 | `#dia-2` |
-| Dia 3 | `#dia-3` |
-| Dia 4 | `#dia-4` |
-| Concertos | `#concertos` |
-| Comer | `#comer` |
-| Dicas | `#dicas` |
-| Reservas | `#checklist` |
+**Legibilidade sobre a foto**: aplicar `[text-shadow:0_1px_8px_rgba(0,0,0,0.55)]` aos links/brand enquanto `!scrolled`; remover quando `scrolled`.
 
-Para suportar Dia 1–4 individualmente, adicionar `id="dia-1"`…`id="dia-4"` aos cartões/blocos de cada dia dentro de `Itineraries` (secção `#dias` mantém-se como container).
+**Mobile**: o botão hamburger ganha `border-gold/40` + mesmo text-shadow no estado transparente; o painel mobile aberto mantém sempre `bg-background/95 backdrop-blur-xl` (independente de `scrolled`) para os links serem legíveis.
 
-### Comportamento
+**Hero**: adicionar `pt-20` (ou `pt-24`) ao conteúdo do Hero caso fique tapado pela nav fixa — verificar visualmente; provavelmente desnecessário porque o título já está centrado verticalmente.
 
-- Scroll suave nativo: adicionar `scroll-behavior: smooth` ao `html` (via `src/styles.css`) e `scroll-margin-top: 80px` às secções alvo para compensar a barra fixa.
-- Realce da secção activa via `IntersectionObserver` num hook local (`useActiveSection(ids)`), aplicando classe `text-gold` + underline dourado animado no item activo; restantes em `text-cream/70`.
-- Mobile (`< md`): botão hambúrguer (`Menu` / `X` da lucide) que abre um painel deslizante full-width por baixo da barra, com os mesmos links empilhados; fecha ao clicar num link.
-- Desktop (`md+`): links inline horizontais com espaçamento generoso, scroll horizontal se necessário (`overflow-x-auto` + `scrollbar-none`).
-- Logo/título curto à esquerda ("Praga · Jun 2026" ou similar, reutilizando o que já existe no Hero) — opcional, apenas se couber.
-
-### Acessibilidade
-
-- `<nav aria-label="Secções da página">`, links `<a href="#...">` (funcionam sem JS).
-- Botão mobile com `aria-expanded` / `aria-controls`.
-
-## 3. Ficheiros tocados
-
-- `src/routes/index.tsx` — novo componente `StickyNav`, novo componente `VePrimeiro` (secção vídeo), IDs `dia-1..4` no `Itineraries`, montagem no `Index`.
-- `src/styles.css` — `html { scroll-behavior: smooth }` e utilitário `.scroll-anchor { scroll-margin-top: 5rem }` (ou aplicar via Tailwind `scroll-mt-20` directamente nas secções).
-
-Sem chamadas de rede, sem novas dependências (YouTube via iframe nativo, ícones já disponíveis em lucide-react).
+### Detalhes técnicos
+- Threshold de 60% da viewport garante que o fade-in acontece já fora do hero.
+- `passive: true` no listener para performance.
+- Tema dourado preservado: cor do texto activo mantém-se `text-gold`; inactivos passam de `text-cream/90` (sobre foto) para `text-cream/70` (sobre fundo escuro).
+- pt-PT em todo o texto visível (sem alterações de copy).
