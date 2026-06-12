@@ -6,3 +6,4 @@
 
 - [Início](/): Apresentação do projeto e cidades disponíveis.
 - [Praga](/praga): Guia público de 4 dias em Praga — itinerário, dicas, restaurantes e conversor de moeda.
+- [Istambul](/istambul): Guia público de 5 dias em Istambul — Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.
