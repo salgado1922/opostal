@@ -15,7 +15,6 @@ import {
   Check,
   X,
   CheckCircle2,
-  Circle,
   Music,
   Crown,
   Lightbulb,
