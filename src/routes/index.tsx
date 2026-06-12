@@ -115,6 +115,10 @@ function Hero() {
         src={hubHero}
         alt=""
         aria-hidden
+        width={1920}
+        height={1080}
+        fetchPriority="high"
+        decoding="async"
         className="absolute inset-0 -z-10 h-full w-full object-cover opacity-40"
       />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/60 via-background/40 to-background" />
