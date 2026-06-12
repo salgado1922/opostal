@@ -814,7 +814,7 @@ function Concerts() {
       price: "€ 25 – 35",
       pros: [
         "Edifícios lindíssimos, atmosfera íntima",
-        "Programas curtos (~1h), perfeitos para os pais",
+        "Programas curtos (~1h), ideais para um ritmo tranquilo",
         "Bilhetes à porta, sem stress",
       ],
       cons: ["Quartetos pequenos, repertório repetido", "Acústica básica, instrumentos comuns"],
@@ -939,7 +939,7 @@ function Food() {
     },
     {
       name: "U Modré Kachničky",
-      desc: "Caça e clássicos checos num ambiente decadente-chique. Perfeito para os pais.",
+      desc: "Caça e clássicos checos num ambiente decadente-chique. Ideal para um jantar sem pressa.",
       link: "https://www.umodrekachnicky.cz/en/",
     },
     {
