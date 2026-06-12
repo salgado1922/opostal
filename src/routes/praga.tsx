@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useId, useEffect } from "react";
 import {
@@ -1291,12 +1291,12 @@ function StickyNav() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
-        <a
-          href="#top"
-          className={`font-serif text-sm tracking-wide text-gold md:text-base ${shadow}`}
+        <Link
+          to="/"
+          className={`font-serif text-sm tracking-wide text-gold md:text-base hover:text-cream transition-colors ${shadow}`}
         >
-          Praga · Guia
-        </a>
+          ‹ Viagens do Carlos
+        </Link>
 
         {/* Desktop */}
         <ul className="hidden md:flex items-center gap-1">
