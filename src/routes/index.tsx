@@ -578,7 +578,7 @@ function SiteFooter() {
     <footer className="border-t border-gold/10 px-6 py-12">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
         <div className="space-y-1.5">
-          <p className="font-serif text-base text-cream/85">Viagens do Carlos</p>
+          <p className="font-serif text-base text-cream/85">Compasso Routes</p>
           <p className="text-xs text-cream/55">
             Guias editoriais de cidades europeias — feitos com calma, partilhados com gosto.
           </p>

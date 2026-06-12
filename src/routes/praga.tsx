@@ -75,7 +75,7 @@ export const Route = createFileRoute("/praga")({
           headline: "Praga — Guia de 4 dias ao teu ritmo",
           description:
             "Guia público de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes, concertos e conversor de moeda.",
-          author: { "@type": "Person", name: "Carlos" },
+          author: { "@type": "Person", name: "Compasso Routes" },
         }),
       },
     ],
