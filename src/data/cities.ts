@@ -1,7 +1,7 @@
 import pragaImg from "@/assets/city-praga.jpg";
-import romaImg from "@/assets/city-roma.jpg";
-import lisboaImg from "@/assets/city-lisboa.jpg";
-import vienaImg from "@/assets/city-viena.jpg";
+import florencaImg from "@/assets/city-florenca.jpg";
+import barcelonaImg from "@/assets/city-barcelona.jpg";
+import londresImg from "@/assets/city-londres.jpg";
 
 export type CityStatus = "ready" | "coming-soon";
 
@@ -14,6 +14,11 @@ export type CityMeta = {
   status: CityStatus;
   cover: string;
   to?: string;
+  bestSeason: string;
+  price: "€" | "€€" | "€€€";
+  idealFor: string;
+  /** Approximate lng/lat for the Europe map pins */
+  coords: { lng: number; lat: number };
 };
 
 export const CITIES: CityMeta[] = [
@@ -26,32 +31,48 @@ export const CITIES: CityMeta[] = [
     status: "ready",
     cover: pragaImg,
     to: "/praga",
+    bestSeason: "Mai–Set",
+    price: "€€",
+    idealFor: "Ritmo tranquilo",
+    coords: { lng: 14.42, lat: 50.08 },
   },
   {
-    slug: "roma",
-    name: "Roma",
+    slug: "florenca",
+    name: "Florença",
     country: "Itália",
-    vibe: "Pedras antigas e jantares longos.",
+    vibe: "Renascimento a cada esquina, luz toscana.",
     duration: "Em breve",
     status: "coming-soon",
-    cover: romaImg,
+    cover: florencaImg,
+    bestSeason: "Abr–Jun / Set",
+    price: "€€€",
+    idealFor: "Arte e calma",
+    coords: { lng: 11.26, lat: 43.77 },
   },
   {
-    slug: "lisboa",
-    name: "Lisboa",
-    country: "Portugal",
-    vibe: "Casa, contada como se fosse a primeira vez.",
+    slug: "barcelona",
+    name: "Barcelona",
+    country: "Espanha",
+    vibe: "Gaudí, mar e tapas até tarde.",
     duration: "Em breve",
     status: "coming-soon",
-    cover: lisboaImg,
+    cover: barcelonaImg,
+    bestSeason: "Mai–Jun / Set",
+    price: "€€",
+    idealFor: "Cidade e praia",
+    coords: { lng: 2.17, lat: 41.39 },
   },
   {
-    slug: "viena",
-    name: "Viena",
-    country: "Áustria",
-    vibe: "Cafés imperiais e música a sério.",
+    slug: "londres",
+    name: "Londres",
+    country: "Reino Unido",
+    vibe: "Museus, parques e mil bairros.",
     duration: "Em breve",
     status: "coming-soon",
-    cover: vienaImg,
+    cover: londresImg,
+    bestSeason: "Mai–Set",
+    price: "€€€",
+    idealFor: "Primeira vez",
+    coords: { lng: -0.13, lat: 51.51 },
   },
 ];
