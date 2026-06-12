@@ -1311,7 +1311,7 @@ function StickyNav() {
           to="/"
           className={`font-serif text-sm tracking-wide text-gold md:text-base hover:text-cream transition-colors ${shadow}`}
         >
-          ‹ Viagens do Carlos
+          ‹ Compasso Routes
         </Link>
 
         {/* Desktop */}
