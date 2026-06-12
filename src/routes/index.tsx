@@ -15,7 +15,6 @@ import {
   Check,
   X,
   CheckCircle2,
-  Circle,
   Music,
   Crown,
   Lightbulb,
@@ -40,14 +39,14 @@ import type { Variants } from "framer-motion";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Praga — 4 dias de hora dourada" },
+      { title: "Praga — Guia de 4 dias ao teu ritmo" },
       {
         name: "description",
         content:
-          "Roteiro editorial de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes e concertos.",
+          "Guia público de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes, concertos e conversor de moeda.",
       },
-      { property: "og:title", content: "Praga — 4 dias de hora dourada" },
-      { property: "og:description", content: "Roteiro editorial de 4 dias em Praga." },
+      { property: "og:title", content: "Praga — Guia de 4 dias ao teu ritmo" },
+      { property: "og:description", content: "Guia público de 4 dias para descobrir Praga sem pressa." },
       {
         property: "og:image",
         content:
@@ -172,7 +171,7 @@ const days: Day[] = [
   {
     key: "d1",
     label: "Dia 1",
-    date: "Quarta, 24",
+    date: "Cidade Velha",
     title: "Chegada & Cidade Velha",
     vibe: "Aterrar com calma, encantar com pedras antigas e luz de fim de tarde na Ponte Carlos.",
     accent: "from-amber-400/30 to-rose-400/10",
@@ -182,17 +181,17 @@ const days: Day[] = [
     walkTotal: "A pé hoje: ~25 min",
     dayNote: {
       tone: "amber",
-      text: "Vê hoje (quarta): o bairro judeu fecha ao sábado.",
+      text: "Atenção: o bairro judeu (Josefov) fecha aos sábados — planeia esta paragem noutro dia da semana.",
     },
     mapEmbedUrl:
-      "https://www.google.com/maps?output=embed&saddr=Hotel+Garden+Court+Prague&daddr=Josefov+Prague+to:Old+Town+Square+Prague+to:Charles+Bridge+Prague&dirflg=w",
+      "https://www.google.com/maps?output=embed&saddr=Josefov+Prague&daddr=Old+Town+Square+Prague+to:Charles+Bridge+Prague&dirflg=w",
     mapLinkUrl:
-      "https://www.google.com/maps/dir/Hotel+Garden+Court+Prague/Josefov+Prague/Old+Town+Square+Prague/Charles+Bridge+Prague/data=!4m2!4m1!3e2",
+      "https://www.google.com/maps/dir/Josefov+Prague/Old+Town+Square+Prague/Charles+Bridge+Prague/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "13:00",
-        title: "Check-in no Hotel Garden Court",
-        desc: "Aterrar, deixar as malas e respirar. Café rápido no lobby antes de sair.",
+        title: "Check-in no hotel",
+        desc: "Chegar, deixar as malas e respirar. Um café rápido antes de sair a explorar.",
         icon: MapPin,
         walkTo: "~12 min",
       },
@@ -230,7 +229,7 @@ const days: Day[] = [
   {
     key: "d2",
     label: "Dia 2",
-    date: "Quinta, 25",
+    date: "Castelo & Malá Strana",
     title: "Castelo & Malá Strana",
     vibe: "Manhã imperial no Castelo, tarde boémia em Malá Strana com vistas a perder de vista.",
     accent: "from-amber-300/30 to-violet-500/10",
@@ -267,7 +266,7 @@ const days: Day[] = [
       {
         time: "14:30",
         title: "Muro do Lennon",
-        desc: "Parede de mensagens, cores e memória da liberdade. Boa fotografia com os pais.",
+        desc: "Parede de mensagens, cores e memória da liberdade. Boa paragem para uma fotografia tranquila.",
         link: "https://pt.wikipedia.org/wiki/Muro_de_Lennon",
         icon: Sparkles,
         walkTo: "~10 min (+ subida ~25–30 min)",
@@ -285,7 +284,7 @@ const days: Day[] = [
   {
     key: "d3",
     label: "Dia 3",
-    date: "Sexta, 26",
+    date: "Kutná Hora & Noite",
     title: "Kutná Hora & Noite",
     vibe: "Fuga de comboio à cidade da prata e ossário. À noite, música clássica num verdadeiro templo.",
     accent: "from-rose-500/20 to-amber-400/10",
@@ -345,18 +344,18 @@ const days: Day[] = [
   {
     key: "d4",
     label: "Dia 4",
-    date: "Sábado, 27",
+    date: "Vyšehrad & Partida",
     title: "Vyšehrad & Partida",
-    vibe: "Manhã calma no berço da cidade, almoço sem relógio e saída suave para o aeroporto.",
+    vibe: "Manhã calma no berço da cidade, almoço sem relógio e saída suave rumo à partida.",
     accent: "from-emerald-400/20 to-amber-400/10",
     icon: Moon,
     cover:
       "https://images.unsplash.com/photo-1779213206645-e06f91667848?auto=format&fit=crop&w=1200&q=80",
-    howToGet: "Como chegar: metro C até Vyšehrad. Vyšehrad plano; regresso de Bolt/Uber.",
+    howToGet: "Como chegar: metro C até Vyšehrad. Recinto plano; regresso fácil de Bolt/Uber ou metro.",
     mapEmbedUrl:
-      "https://www.google.com/maps?output=embed&saddr=Vysehrad+Prague&daddr=Hotel+Garden+Court+Prague&dirflg=w",
+      "https://www.google.com/maps?output=embed&saddr=Vysehrad+Prague&daddr=Old+Town+Square+Prague&dirflg=w",
     mapLinkUrl:
-      "https://www.google.com/maps/dir/Vysehrad+Prague/Hotel+Garden+Court+Prague/data=!4m2!4m1!3e2",
+      "https://www.google.com/maps/dir/Vysehrad+Prague/Old+Town+Square+Prague/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "09:30",
@@ -371,7 +370,7 @@ const days: Day[] = [
       {
         time: "12:00",
         title: "Almoço com calma",
-        desc: "Reservar perto do hotel. Pratos clássicos checos, sem stress de horário.",
+        desc: "Reservar perto do alojamento. Pratos clássicos checos, sem stress de horário.",
         icon: Utensils,
       },
       {
@@ -382,8 +381,8 @@ const days: Day[] = [
       },
       {
         time: "16:00",
-        title: "Recolher malas e partir para o aeroporto",
-        desc: "Bolt/Uber até ao Václav Havel. Sair a tempo, sem corridas.",
+        title: "Regresso ao hotel / aeroporto",
+        desc: "Recolher as malas e Bolt/Uber até ao aeroporto Václav Havel. Sair a tempo, sem corridas.",
         icon: MapPin,
       },
     ],
@@ -422,18 +421,18 @@ function Hero() {
         >
           <div className="mb-5 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.4em] text-gold">
             <span className="h-px w-8 bg-gold/70" />
-            24 — 27 · Praga
+            Guia · 4 dias
             <span className="h-px w-8 bg-gold/70" />
           </div>
           <h1 className="font-serif text-6xl leading-[1.05] md:text-8xl">
             <span className="text-gradient-gold">Praga</span>
           </h1>
           <p className="mt-6 font-serif text-xl italic text-cream/85 md:text-2xl">
-            4 dias de hora dourada
+            Um guia de 4 dias ao teu ritmo
           </p>
           <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
-            Um roteiro pensado em ritmo de conversa: cafés sem pressa, caminhos curtos,
-            vistas longas — e o melhor da Boémia.
+            Um guia público para descobrir Praga sem pressa: cafés calmos, caminhos curtos,
+            vistas longas — e o melhor da Boémia, para qualquer viajante.
           </p>
         </motion.div>
       </motion.div>
@@ -792,7 +791,7 @@ function Itineraries() {
       id="dias"
       eyebrow="Itinerário detalhado"
       title="Dia a dia, paragem a paragem"
-      intro="Toca para abrir cada paragem — dicas, mini-histórias e imagens à medida."
+      intro="Toca para abrir cada paragem — dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
         {days.map((d) => (
@@ -814,7 +813,7 @@ function Concerts() {
       price: "€ 25 – 35",
       pros: [
         "Edifícios lindíssimos, atmosfera íntima",
-        "Programas curtos (~1h), perfeitos para os pais",
+        "Programas curtos (~1h), ideais para um ritmo tranquilo",
         "Bilhetes à porta, sem stress",
       ],
       cons: ["Quartetos pequenos, repertório repetido", "Acústica básica, instrumentos comuns"],
@@ -939,7 +938,7 @@ function Food() {
     },
     {
       name: "U Modré Kachničky",
-      desc: "Caça e clássicos checos num ambiente decadente-chique. Perfeito para os pais.",
+      desc: "Caça e clássicos checos num ambiente decadente-chique. Ideal para um jantar sem pressa.",
       link: "https://www.umodrekachnicky.cz/en/",
     },
     {
@@ -1146,52 +1145,37 @@ function Tips() {
 // ----------------------- CHECKLIST -----------------------
 
 function Checklist() {
-  const booked = ["Voos (ida e volta)", "Hotel Garden Court — 3 noites", "Castelo de Praga", "Bairro Judeu (Josefov)"];
-  const todo = ["Ossário de Sedlec — slot horário", "Concerto no Rudolfinum / Casa Municipal", "Comboio Praga ↔ Kutná Hora", "Mesa em U Modré Kachničky"];
+  const items = [
+    "Castelo de Praga (bilhete de entrada)",
+    "Museu Judaico — Josefov (bilhete combinado)",
+    "Ossário de Sedlec — slot horário",
+    "Concerto no Rudolfinum / Casa Municipal",
+    "Comboio Praga ↔ Kutná Hora",
+    "Mesa em restaurante popular (ex.: U Modré Kachničky)",
+  ];
 
   return (
     <Section
       id="checklist"
       eyebrow="Antes de partir"
-      title="Checklist prático"
-      intro="O que já está tratado — e o que ainda pede atenção."
+      title="O que reservar com antecedência"
+      intro="Para evitar filas e ficar sem vaga, garante estes bilhetes e mesas antes de chegares."
     >
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-2xl border border-gold/20 bg-card p-7">
-          <h3 className="mb-5 font-serif text-2xl text-cream">Já reservado</h3>
-          <ul className="space-y-3">
-            {booked.map((b) => (
-              <motion.li
-                key={b}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="flex items-center gap-3 text-cream/90"
-              >
-                <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-gold" />
-                <span className="text-sm md:text-base">{b}</span>
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="rounded-2xl border border-terracotta/40 bg-gradient-to-br from-terracotta/10 to-transparent p-7">
-          <h3 className="mb-5 font-serif text-2xl text-cream">Por reservar</h3>
-          <ul className="space-y-3">
-            {todo.map((b) => (
-              <motion.li
-                key={b}
-                initial={{ opacity: 0, x: 10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="flex items-center gap-3 text-cream/90"
-              >
-                <Circle className="h-5 w-5 flex-shrink-0 text-terracotta" />
-                <span className="text-sm md:text-base">{b}</span>
-              </motion.li>
-            ))}
-          </ul>
-        </div>
+      <div className="rounded-2xl border border-gold/20 bg-card p-7">
+        <ul className="grid gap-3 md:grid-cols-2">
+          {items.map((b) => (
+            <motion.li
+              key={b}
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-3 text-cream/90"
+            >
+              <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-gold" />
+              <span className="text-sm md:text-base">{b}</span>
+            </motion.li>
+          ))}
+        </ul>
       </div>
     </Section>
   );
@@ -1207,7 +1191,7 @@ function Footer() {
           Na zdraví — à vossa.
         </p>
         <p className="mt-4 text-sm text-muted-foreground">
-          Praga, 24–27. Roteiro com pais, à medida da hora dourada.
+          Praga · Guia de 4 dias, à medida da hora dourada.
         </p>
       </div>
     </footer>
@@ -1300,7 +1284,7 @@ function StickyNav() {
           href="#top"
           className={`font-serif text-sm tracking-wide text-gold md:text-base ${shadow}`}
         >
-          Praga · Jun 2026
+          Praga · Guia
         </a>
 
         {/* Desktop */}
@@ -1501,6 +1485,42 @@ function EssentialInfo() {
         className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
       >
         <div className="mb-5 flex items-center gap-3">
+          <MapPin className="h-5 w-5 text-gold" />
+          <h3 className="font-serif text-2xl text-cream">Onde ficar</h3>
+        </div>
+        <p className="mb-5 text-sm text-muted-foreground">
+          Três bairros a considerar — qualquer um deles funciona muito bem para um guia de 4 dias.
+        </p>
+        <ul className="grid gap-4 md:grid-cols-3">
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Cidade Velha (Staré Město)</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Central, a pé de tudo. Ideal para quem quer sair do hotel e estar logo no meio da ação.
+            </p>
+          </li>
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Malá Strana</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Charmosa, junto ao castelo. Ruas tranquilas à noite e vistas postal-perfeitas.
+            </p>
+          </li>
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Nové Město</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Mais barato e bem servido de metro. Boa relação qualidade-preço sem perder ligação ao centro.
+            </p>
+          </li>
+        </ul>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+      >
+        <div className="mb-5 flex items-center gap-3">
           <Languages className="h-5 w-5 text-gold" />
           <h3 className="font-serif text-2xl text-cream">Palavras úteis</h3>
         </div>
@@ -1665,7 +1685,7 @@ function CurrencyConverter() {
       </div>
 
       <p className="mt-5 text-xs italic text-gold/80">
-        Taxa aproximada (1 € ≈ {RATE_CZK_PER_EUR} CZK) — confirmar no dia.
+        Taxa fixa aproximada (1 € ≈ {RATE_CZK_PER_EUR} CZK) — pode estar desatualizada. Confirmar a taxa de câmbio do dia antes de pagar.
       </p>
     </motion.div>
   );
