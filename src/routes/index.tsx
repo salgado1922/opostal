@@ -1685,7 +1685,7 @@ function CurrencyConverter() {
       </div>
 
       <p className="mt-5 text-xs italic text-gold/80">
-        Taxa aproximada (1 € ≈ {RATE_CZK_PER_EUR} CZK) — confirmar no dia.
+        Taxa fixa aproximada (1 € ≈ {RATE_CZK_PER_EUR} CZK) — pode estar desatualizada. Confirmar a taxa de câmbio do dia antes de pagar.
       </p>
     </motion.div>
   );
