@@ -1,4 +1,5 @@
 import pragaImg from "@/assets/city-praga.jpg";
+import istambulImg from "@/assets/istambul/home-card.jpg";
 import florencaImg from "@/assets/city-florenca.jpg";
 import barcelonaImg from "@/assets/city-barcelona.jpg";
 import londresImg from "@/assets/city-londres.jpg";
@@ -35,6 +36,20 @@ export const CITIES: CityMeta[] = [
     price: "€€",
     idealFor: "Ritmo tranquilo",
     coords: { lng: 14.42, lat: 50.08 },
+  },
+  {
+    slug: "istambul",
+    name: "Istambul",
+    country: "Turquia",
+    vibe: "Entre dois continentes, do azul do Bósforo ao azulejo de İznik.",
+    duration: "5 dias",
+    status: "ready",
+    cover: istambulImg,
+    to: "/istambul",
+    bestSeason: "Abr–Jun / Set",
+    price: "€€",
+    idealFor: "Ritmo tranquilo",
+    coords: { lng: 28.98, lat: 41.01 },
   },
   {
     slug: "florenca",
