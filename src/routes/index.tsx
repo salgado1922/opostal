@@ -32,8 +32,18 @@ import {
   ArrowLeftRight,
   Menu,
   Play,
+  Info,
+  Calendar,
+  CloudSun,
+  PartyPopper,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 
 
 export const Route = createFileRoute("/")({
@@ -1206,6 +1216,7 @@ function Index() {
       <StickyNav />
       <Hero />
       <VePrimeiro />
+      <ConhecerPraga />
       <EssentialInfo />
       <Overview />
       <Itineraries />
