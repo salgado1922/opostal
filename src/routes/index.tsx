@@ -1422,7 +1422,7 @@ const essentials = [
   {
     icon: Coins,
     title: "Moeda",
-    body: "Coroa checa (CZK). ~25 CZK ≈ 1 €. Cartão aceite quase em todo o lado — para levantar, preferir ATMs de banco (evitar Euronet).",
+    body: "Coroa checa (CZK). ~25 CZK ≈ 1 €. Cartão aceite quase em todo o lado.",
   },
   {
     icon: Plug,
