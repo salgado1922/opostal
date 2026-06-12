@@ -1,8 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { ArrowRight, Lock } from "lucide-react";
-import { CITIES } from "@/data/cities";
+import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  ArrowRight,
+  Clock,
+  Coffee,
+  Compass,
+  Footprints,
+  Link2,
+  Lock,
+} from "lucide-react";
+import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
 
 export const Route = createFileRoute("/")({
@@ -30,6 +38,8 @@ function Home() {
       <SiteNav />
       <Hero />
       <CityGrid />
+      <MethodStrip />
+      <EuropeMap />
       <About />
       <SiteFooter />
     </main>
