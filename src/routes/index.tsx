@@ -30,10 +30,25 @@ export const Route = createFileRoute("/")({
         content:
           "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga já está disponível; Roma, Lisboa e Viena em breve.",
       },
-      { property: "og:title", content: "Viagens do Carlos" },
+      { property: "og:title", content: "Viagens do Carlos — Guias de viagem ao meu ritmo" },
       {
         property: "og:description",
         content: "Guias de viagem ao meu ritmo — testados por mim, cidade a cidade.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "Organization", name: "Viagens do Carlos", url: "/" },
+            { "@type": "WebSite", name: "Viagens do Carlos", url: "/" },
+          ],
+        }),
       },
     ],
   }),
@@ -113,7 +128,7 @@ function Hero() {
           Diários de viagem · Europa
         </p>
         <h1 className="text-gradient-gold font-serif text-5xl leading-[1.05] md:text-7xl">
-          Viagens do Carlos
+          Viagens do Carlos — Guias de viagem ao meu ritmo
         </h1>
         <div className="mx-auto my-6 h-px w-24 bg-gold/60" />
         <p className="mx-auto max-w-xl text-base text-cream/85 md:text-lg">

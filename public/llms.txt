@@ -1,0 +1,8 @@
+# Viagens do Carlos
+
+> Guias de viagem editoriais em português europeu, testados pelo autor, cidade a cidade.
+
+## Pages
+
+- [Início](/): Apresentação do projeto e cidades disponíveis.
+- [Praga](/praga): Guia público de 4 dias em Praga — itinerário, dicas, restaurantes e conversor de moeda.

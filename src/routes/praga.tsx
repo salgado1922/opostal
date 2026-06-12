@@ -57,10 +57,26 @@ export const Route = createFileRoute("/praga")({
       },
       { property: "og:title", content: "Praga — Guia de 4 dias ao teu ritmo" },
       { property: "og:description", content: "Guia público de 4 dias para descobrir Praga sem pressa." },
+      { property: "og:type", content: "article" },
+      { property: "og:url", content: "/praga" },
       {
         property: "og:image",
         content:
           "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1600&q=80",
+      },
+    ],
+    links: [{ rel: "canonical", href: "/praga" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: "Praga — Guia de 4 dias ao teu ritmo",
+          description:
+            "Guia público de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes, concertos e conversor de moeda.",
+          author: { "@type": "Person", name: "Carlos" },
+        }),
       },
     ],
   }),
@@ -434,12 +450,12 @@ function Hero() {
             Guia · 4 dias
             <span className="h-px w-8 bg-gold/70" />
           </div>
-          <h1 className="font-serif text-6xl leading-[1.05] md:text-8xl">
-            <span className="text-gradient-gold">Praga</span>
+          <h1 className="font-serif leading-[1.05]">
+            <span className="block text-gradient-gold text-6xl md:text-8xl">Praga</span>
+            <span className="mt-6 block font-serif text-xl italic text-cream/85 md:text-2xl">
+              Guia de 4 dias ao teu ritmo
+            </span>
           </h1>
-          <p className="mt-6 font-serif text-xl italic text-cream/85 md:text-2xl">
-            Um guia de 4 dias ao teu ritmo
-          </p>
           <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
             Um guia público para descobrir Praga sem pressa: cafés calmos, caminhos curtos,
             vistas longas — e o melhor da Boémia, para qualquer viajante.
@@ -1330,6 +1346,7 @@ function StickyNav() {
         {/* Mobile button */}
         <button
           type="button"
+          aria-label="Alternar menu"
           aria-expanded={open}
           aria-controls="mobile-nav-panel"
           onClick={() => setOpen((v) => !v)}
