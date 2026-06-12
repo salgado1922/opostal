@@ -40,14 +40,14 @@ import type { Variants } from "framer-motion";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Praga — 4 dias de hora dourada" },
+      { title: "Praga — Guia de 4 dias ao teu ritmo" },
       {
         name: "description",
         content:
-          "Roteiro editorial de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes e concertos.",
+          "Guia público de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes, concertos e conversor de moeda.",
       },
-      { property: "og:title", content: "Praga — 4 dias de hora dourada" },
-      { property: "og:description", content: "Roteiro editorial de 4 dias em Praga." },
+      { property: "og:title", content: "Praga — Guia de 4 dias ao teu ritmo" },
+      { property: "og:description", content: "Guia público de 4 dias para descobrir Praga sem pressa." },
       {
         property: "og:image",
         content:
