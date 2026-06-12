@@ -134,3 +134,61 @@ html { scroll-behavior: smooth; }
   50% { transform: translateY(10px); opacity: 1; }
 }
 @utility animate-bounce-soft { animation: bounce-soft 1.8s ease-in-out infinite; }
+
+/* ------------------------------------------------------------------ */
+/* İznik & Bósforo theme — scoped overrides for the /istambul page    */
+/* Re-maps the existing palette tokens so utilities like text-gold,   */
+/* gold-link, text-gradient-gold and bg-twilight-radial automatically */
+/* take the Istanbul colours without touching shared components.      */
+/* ------------------------------------------------------------------ */
+.theme-iznik {
+  /* New İznik palette */
+  --bosphorus: oklch(0.17 0.06 265);        /* deep Bosphorus indigo */
+  --iznik-turquoise: oklch(0.78 0.14 200);  /* primary turquoise */
+  --cobalt: oklch(0.55 0.18 255);           /* cobalt blue */
+  --tomato-red: oklch(0.62 0.19 25);        /* İznik coral-red */
+  --brass: oklch(0.74 0.10 75);             /* warm brass */
+  --ivory: oklch(0.96 0.015 85);            /* soft ivory */
+
+  /* Re-route the existing semantic tokens to the new palette so every
+     gold/twilight/terracotta/cream class on the page picks up the
+     Istanbul colours automatically. */
+  --twilight: oklch(0.14 0.05 265);
+  --plum: oklch(0.20 0.07 260);
+  --gold: var(--iznik-turquoise);
+  --gold-soft: oklch(0.85 0.10 200);
+  --terracotta: var(--tomato-red);
+  --cream: var(--ivory);
+
+  --background: oklch(0.13 0.05 265);
+  --foreground: var(--ivory);
+
+  --card: oklch(0.20 0.06 262 / 70%);
+  --card-foreground: var(--ivory);
+  --popover: oklch(0.20 0.06 262);
+  --popover-foreground: var(--ivory);
+
+  --primary: var(--iznik-turquoise);
+  --primary-foreground: oklch(0.14 0.05 265);
+  --secondary: var(--tomato-red);
+  --secondary-foreground: var(--ivory);
+
+  --muted: oklch(0.24 0.05 262);
+  --muted-foreground: oklch(0.78 0.03 220);
+  --accent: var(--cobalt);
+  --accent-foreground: var(--ivory);
+
+  --border: oklch(0.78 0.14 200 / 18%);
+  --input: oklch(0.78 0.14 200 / 25%);
+  --ring: var(--iznik-turquoise);
+}
+
+/* Bosphorus radial background override for the theme wrapper */
+.theme-iznik.bg-twilight-radial,
+.theme-iznik .bg-twilight-radial {
+  background:
+    radial-gradient(ellipse at 20% 0%, oklch(0.55 0.18 255 / 18%), transparent 55%),
+    radial-gradient(ellipse at 90% 30%, oklch(0.78 0.14 200 / 14%), transparent 50%),
+    radial-gradient(ellipse at 50% 100%, oklch(0.62 0.19 25 / 12%), transparent 60%),
+    var(--background);
+}

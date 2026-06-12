@@ -1,59 +1,103 @@
-## Goal
-Replace the hand-drawn `EuropeMap` SVG in `src/routes/index.tsx` with a real geographic map of Europe using `react-simple-maps`, styled to the golden-hour theme, with pins placed by real lat/lon.
+# Plan: New `/istambul` page — "İznik & Bósforo" theme
 
-## Dependencies
-- Add `react-simple-maps` and `d3-geo` (peer for projection helpers if needed).
-- Add a TopoJSON source for countries. Use `world-atlas` package (`bun add world-atlas`) and import `world-atlas/countries-110m.json` locally so the map works offline / has no runtime CDN dependency.
-- Types: `bun add -d @types/react-simple-maps`.
+Build a new route that mirrors `/praga` 1:1 in structure, components and interactions, but with a distinct Istanbul-inspired visual theme and the full pt-PT copy provided. No changes to `/praga` or the homepage.
 
-## Implementation (only `src/routes/index.tsx`)
+## 1. Theme tokens (scoped, not global)
 
-Replace the existing `EuropeMap`, `MapPin`, `EUROPE_PATH`, `UK_PATH`, `IRELAND_PATH`, `ITALY_PATH`, `MAP_VIEW`, `MAP_BOUNDS`, and `projectCoord` block with a new `EuropeMap` built on `react-simple-maps`.
+To avoid disturbing the homepage/Praga "Golden Hour" palette, the Istanbul theme will be applied via a scoped wrapper class `theme-iznik` on the page root, with CSS variable overrides defined in `src/styles.css`:
 
-Structure:
+- `--bosphorus`: deep midnight indigo (background base)
+- `--iznik-turquoise`: primary accent (links, italic captions, dividers)
+- `--cobalt`: secondary primary
+- `--tomato-red`: İznik coral-red (tags, badges, highlights — used sparingly)
+- `--brass`: warm copper for fine lines/icon strokes
+- `--ivory`: cream body text
+- Override `--background`, `--foreground`, `--primary`, `--accent`, `--ring`, `--border`, gradients, and add new utilities `gold-link` equivalent → `iznik-link`, `text-gradient-iznik`, `bg-bosphorus-radial`.
 
-```tsx
-import { ComposableMap, Geographies, Geography, Marker, Line } from "react-simple-maps";
-import { geoMercator } from "d3-geo";
-import worldGeo from "world-atlas/countries-110m.json";
-```
+Page wrapped in `<div className="theme-iznik">…</div>` so tokens only apply here.
 
-Key choices:
-- `<ComposableMap projection="geoMercator" projectionConfig={{ center: [10, 52], scale: 700 }} width={1000} height={720}>` — centred on Europe, scale tuned so the frame is filled (Praga, Londres, Barcelona, Florença all comfortably inside with margin).
-- `<Geographies geography={worldGeo}>` renders country borders. Each `<Geography>` styled:
-  - `fill: "oklch(0.28 0.055 310)"` (plum/indigo land)
-  - `stroke: "oklch(0.82 0.14 78 / 0.18)"` (faint gold borders)
-  - `strokeWidth: 0.4`
-  - default/hover/pressed identical (non-interactive feel)
-  - `style={{ outline: "none" }}`
-- Sea: `<rect>` background `oklch(0.16 0.035 290)` inside the map container, plus the existing radial golden glow div behind.
-- No country labels (don't render any `<text>` for geographies).
+## 2. Typography
 
-City data — keep using existing `CITIES` entries which already include `coords: { lat, lng }`. Pins via `<Marker coordinates={[lng, lat]}>`:
-- Active (Praga): outer soft glow circle (r=18, gold, opacity .25, blur filter), animated pulsing ring (`<animate>` r 8→22, opacity .7→0, 2.4s) gated by `useReducedMotion`, inner gold dot r=5 with cream center r=2, label to the right.
-- Dimmed: small muted dot r=3.5, muted label.
-- Wrap active marker in `<Link to="/praga">`; dimmed in a plain `<g aria-label="… — em breve">`.
-- Labels use serif font, gold (active) / muted cream (dimmed). Slight x offset.
+- Headings: Cormorant Garamond (already loaded) — calm Ottoman serif feel; keep current sans for body.
+- Italic accent lines use `font-serif italic text-[var(--iznik-turquoise)]` (mirrors gold italic in Praga).
 
-Connector lines: render `<Line from={[lng1,lat1]} to={[lng2,lat2]} stroke="oklch(0.82 0.14 78 / 0.3)" strokeWidth={0.8} strokeDasharray="2 5" />` between every pair of cities. `react-simple-maps` `<Line>` follows great-circle, which gives a natural subtle curve on Mercator at this scale.
+## 3. Decorative motifs
 
-Scroll reveal:
-- Keep the existing `IntersectionObserver` pattern to flip a `visible` state at threshold 0.25.
-- Wrap pins in `motion.g` with `initial={{ opacity:0, scale:0.4 }}`, `animate={visible ? {opacity:1, scale:1} : ...}`, staggered `delay` per index, `useReducedMotion` short-circuits to no animation.
-- Connector `<Line>` elements wrapped likewise: fade opacity 0→1 once visible (no `pathLength` since `<Line>` from `react-simple-maps` renders a `<path>` we don't directly control; fade is sufficient and on-theme).
+Lightweight inline SVG components in `src/components/iznik/`:
+- `ArabesqueDivider` — thin brass arabesque line between sections
+- `EightPointStar` — small ornament used in section title eyebrows
+- `TulipMark` — accent on hero & footer
+- `DomeSilhouette` — subtle footer skyline
 
-Responsiveness:
-- `<ComposableMap>` gets `style={{ width: "100%", height: "auto" }}`, viewBox preserved via its internal SVG. Pins use geographic coordinates so they reposition correctly at every size — no manual projection math needed.
+Used sparingly; never busy.
 
-Keep unchanged:
-- Section wrapper, title `O mapa das viagens`, eyebrow `Constelação`, container styling, gold glow overlay, and the gold italic caption `Uma cidade percorrida — e o mapa só vai crescer.`
+## 4. Route file
 
-## Out of scope
-- No changes to `CITIES`, other sections, theme tokens, or `/praga`.
-- No removal of `framer-motion` (still used for reveal).
+Create `src/routes/istambul.tsx` modelled on `src/routes/praga.tsx`. Same:
 
-## Verification
-- Visual check at desktop + mobile widths via preview.
-- Confirm Praga pin sits over Czechia, Londres over UK, Barcelona over NE Spain, Florença over central Italy.
-- Confirm pulsing ring stops when `prefers-reduced-motion: reduce` is set.
-- Build passes (TS + Vite).
+- `head()` with title, description, canonical, og tags (`og:type=article`, `og:url=https://compassoroutes.lovable.app/istambul`, og:image = Istanbul hero), JSON-LD `Article`.
+- Top nav: back link "‹ Viagens do Carlos" → `/`, anchored section menu with labels: Vê primeiro · Dia 1 · Dia 2 · Dia 3 · Dia 4 · Dia 5 · Bósforo · Comer · Dicas · Reservas.
+- Hero with same overlay treatment (gradient pulled toward indigo/petrol-blue instead of amber), tag chip, big serif title, subtitle.
+- All sections in the order specified.
+
+## 5. Sections (1:1 with Praga components)
+
+1. Hero
+2. **Vê primeiro** — YouTube embed slot (placeholder iframe), caption
+3. **Conhecer Istambul** — 4 accordions (Info / Calendar / CloudSun / PartyPopper icons), including the 12-row climate table
+4. **Essencial para a viagem** — small cards grid (fuso, moeda, tomadas, emergência, transportes, gorjetas)
+5. **Conversor EUR ↔ TRY** — same component as Praga's converter, BUT:
+   - On mount, `fetch("https://open.er-api.com/v6/latest/EUR")`, read `rates.TRY`.
+   - Fallback to `53.5` on error, show "Taxa indisponível de momento — a usar valor aproximado."
+   - Shortcuts: 100/500/1000 TRY → EUR.
+6. **Onde ficar** — 3 neighbourhood cards
+7. **Palavras úteis** — chip list
+8. **Cinco dias, cinco humores** — 5 day cards (was 4 in Praga; reuse same card component, grid wraps)
+9. **Dia a dia, paragem a paragem** — 5 day accordion blocks with stops, "A pé hoje" header note, per-day Google Maps embed iframe + "Abrir percurso no mapa" link. Day 4 uses a Büyükada map + "Abrir ilha no mapa" link instead of a walking route.
+10. **Bósforo: de dia ou à noite?** — two-card comparison (same layout as Praga's "Concertos" section), with "Recomendado" badge on card 2
+11. **Comer e beber em Istambul** — areas/tips row + dish cards grid + warning callout
+12. **Dicas & armadilhas** — Fazer / Evitar two-column lists
+13. **O que reservar com antecedência** — checklist
+14. Footer — serif closing line in turquoise/coral + tagline
+
+All copy lifted verbatim from the brief (pt-PT).
+
+## 6. Images
+
+Add Unsplash Istanbul photos (blue-hour skyline hero, Bosphorus ferries, Galata, İznik-tiled interior, Princes' Islands, Grand Bazaar). Saved to `src/assets/` and imported. Apply the same dark→transparent overlay used on Praga's hero but with indigo/petrol tint.
+
+If image generation is needed because suitable Unsplash matches aren't pre-available locally, we'll generate hero + supporting photos via the image tool with realistic photography prompts.
+
+## 7. Routing & SEO
+
+- TanStack Router auto-picks up `src/routes/istambul.tsx` (no manual edits to `routeTree.gen.ts`).
+- Update `src/routes/sitemap[.]xml.ts` to add `/istambul` (monthly, priority 0.9).
+- Update `public/llms.txt` to list `/istambul`.
+- No changes to homepage nav (user didn't ask) — leave navigation as-is.
+
+## 8. Animations & a11y
+
+- Same Framer Motion fade/scale-on-scroll patterns as Praga. Respect `prefers-reduced-motion`.
+- Mobile-first; same anchored menu collapses on small screens with `aria-label="Alternar menu"`.
+- Alt text on every image; sufficient contrast on indigo background with ivory text.
+
+## Technical notes
+
+- Live FX fetch runs client-side in a `useEffect` inside the converter component to avoid SSR network calls and keep the page prerenderable.
+- Theme tokens added to `src/styles.css` under a `.theme-iznik` selector that re-declares the relevant `--background`, `--foreground`, `--primary`, `--accent`, `--ring`, `--border`, plus new İznik vars. Utilities (`iznik-link`, `text-gradient-iznik`, `bg-bosphorus-radial`) follow the same `@utility` pattern already used for gold equivalents.
+- No changes to `/praga`, `/`, or shared components — Istanbul-specific decorative SVGs live in their own folder.
+
+## Files to create / edit
+
+Create:
+- `src/routes/istambul.tsx`
+- `src/components/iznik/ArabesqueDivider.tsx`
+- `src/components/iznik/EightPointStar.tsx`
+- `src/components/iznik/TulipMark.tsx`
+- `src/components/iznik/DomeSilhouette.tsx`
+- `src/assets/istambul-hero.jpg` (+ a few supporting images)
+
+Edit:
+- `src/styles.css` (add `.theme-iznik` token overrides + İznik utilities)
+- `src/routes/sitemap[.]xml.ts` (add /istambul entry)
+- `public/llms.txt` (add /istambul line)

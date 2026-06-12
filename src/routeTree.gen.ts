@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PragaRouteImport } from './routes/praga'
+import { Route as IstambulRouteImport } from './routes/istambul'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -23,6 +24,11 @@ const PragaRoute = PragaRouteImport.update({
   path: '/praga',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IstambulRoute = IstambulRouteImport.update({
+  id: '/istambul',
+  path: '/istambul',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/praga' | '/sitemap.xml'
+  fullPaths: '/' | '/istambul' | '/praga' | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/praga' | '/sitemap.xml'
-  id: '__root__' | '/' | '/praga' | '/sitemap.xml'
+  to: '/' | '/istambul' | '/praga' | '/sitemap.xml'
+  id: '__root__' | '/' | '/istambul' | '/praga' | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  IstambulRoute: typeof IstambulRoute
   PragaRoute: typeof PragaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PragaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/istambul': {
+      id: '/istambul'
+      path: '/istambul'
+      fullPath: '/istambul'
+      preLoaderRoute: typeof IstambulRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,19 +104,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  IstambulRoute: IstambulRoute,
   PragaRoute: PragaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
