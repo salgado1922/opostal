@@ -46,7 +46,7 @@ import {
 } from "@/components/ui/accordion";
 
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/praga")({
   head: () => ({
     meta: [
       { title: "Praga — Guia de 4 dias ao teu ritmo" },
