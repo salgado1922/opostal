@@ -1146,52 +1146,37 @@ function Tips() {
 // ----------------------- CHECKLIST -----------------------
 
 function Checklist() {
-  const booked = ["Voos (ida e volta)", "Hotel Garden Court — 3 noites", "Castelo de Praga", "Bairro Judeu (Josefov)"];
-  const todo = ["Ossário de Sedlec — slot horário", "Concerto no Rudolfinum / Casa Municipal", "Comboio Praga ↔ Kutná Hora", "Mesa em U Modré Kachničky"];
+  const items = [
+    "Castelo de Praga (bilhete de entrada)",
+    "Museu Judaico — Josefov (bilhete combinado)",
+    "Ossário de Sedlec — slot horário",
+    "Concerto no Rudolfinum / Casa Municipal",
+    "Comboio Praga ↔ Kutná Hora",
+    "Mesa em restaurante popular (ex.: U Modré Kachničky)",
+  ];
 
   return (
     <Section
       id="checklist"
       eyebrow="Antes de partir"
-      title="Checklist prático"
-      intro="O que já está tratado — e o que ainda pede atenção."
+      title="O que reservar com antecedência"
+      intro="Para evitar filas e ficar sem vaga, garante estes bilhetes e mesas antes de chegares."
     >
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-2xl border border-gold/20 bg-card p-7">
-          <h3 className="mb-5 font-serif text-2xl text-cream">Já reservado</h3>
-          <ul className="space-y-3">
-            {booked.map((b) => (
-              <motion.li
-                key={b}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="flex items-center gap-3 text-cream/90"
-              >
-                <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-gold" />
-                <span className="text-sm md:text-base">{b}</span>
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="rounded-2xl border border-terracotta/40 bg-gradient-to-br from-terracotta/10 to-transparent p-7">
-          <h3 className="mb-5 font-serif text-2xl text-cream">Por reservar</h3>
-          <ul className="space-y-3">
-            {todo.map((b) => (
-              <motion.li
-                key={b}
-                initial={{ opacity: 0, x: 10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="flex items-center gap-3 text-cream/90"
-              >
-                <Circle className="h-5 w-5 flex-shrink-0 text-terracotta" />
-                <span className="text-sm md:text-base">{b}</span>
-              </motion.li>
-            ))}
-          </ul>
-        </div>
+      <div className="rounded-2xl border border-gold/20 bg-card p-7">
+        <ul className="grid gap-3 md:grid-cols-2">
+          {items.map((b) => (
+            <motion.li
+              key={b}
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-3 text-cream/90"
+            >
+              <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-gold" />
+              <span className="text-sm md:text-base">{b}</span>
+            </motion.li>
+          ))}
+        </ul>
       </div>
     </Section>
   );
@@ -1207,7 +1192,7 @@ function Footer() {
           Na zdraví — à vossa.
         </p>
         <p className="mt-4 text-sm text-muted-foreground">
-          Praga, 24–27. Roteiro com pais, à medida da hora dourada.
+          Praga · Guia de 4 dias, à medida da hora dourada.
         </p>
       </div>
     </footer>
@@ -1300,7 +1285,7 @@ function StickyNav() {
           href="#top"
           className={`font-serif text-sm tracking-wide text-gold md:text-base ${shadow}`}
         >
-          Praga · Jun 2026
+          Praga · Guia
         </a>
 
         {/* Desktop */}
