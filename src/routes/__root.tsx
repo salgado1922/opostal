@@ -77,14 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Viagens do Carlos — Guias de viagem ao meu ritmo" },
+      { title: "Compasso Routes — Guias de viagem ao meu ritmo" },
       { name: "description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Viagens do Carlos" },
+      { property: "og:title", content: "Compasso Routes" },
       { property: "og:description", content: "Guias de viagem ao meu ritmo — testados por mim, cidade a cidade." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Viagens do Carlos" },
+      { name: "twitter:title", content: "Compasso Routes" },
       { name: "twitter:description", content: "Guias de viagem ao meu ritmo — testados por mim, cidade a cidade." },
     ],
     links: [

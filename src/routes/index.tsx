@@ -24,13 +24,13 @@ import worldGeo from "world-atlas/countries-110m.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Viagens do Carlos — Guias de viagem ao meu ritmo" },
+      { title: "Compasso Routes — Guias de viagem ao meu ritmo" },
       {
         name: "description",
         content:
           "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga já está disponível; Roma, Lisboa e Viena em breve.",
       },
-      { property: "og:title", content: "Viagens do Carlos — Guias de viagem ao meu ritmo" },
+      { property: "og:title", content: "Compasso Routes — Guias de viagem ao meu ritmo" },
       {
         property: "og:description",
         content: "Guias de viagem ao meu ritmo — testados por mim, cidade a cidade.",
@@ -48,8 +48,8 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
-            { "@type": "Organization", name: "Viagens do Carlos", url: "/" },
-            { "@type": "WebSite", name: "Viagens do Carlos", url: "/" },
+            { "@type": "Organization", name: "Compasso Routes", url: "/" },
+            { "@type": "WebSite", name: "Compasso Routes", url: "/" },
           ],
         }),
       },
@@ -96,7 +96,7 @@ function SiteNav() {
             scrolled ? "" : "[text-shadow:0_1px_8px_rgba(0,0,0,0.65)]"
           }`}
         >
-          Viagens do Carlos
+          Compasso Routes
         </Link>
         <a
           href="#cidades"
@@ -135,7 +135,7 @@ function Hero() {
           Diários de viagem · Europa
         </p>
         <h1 className="text-gradient-gold font-serif text-5xl leading-[1.05] md:text-7xl">
-          Viagens do Carlos — Guias de viagem ao meu ritmo
+          Compasso Routes{"\u00a0"}<br />{"\u00a0"}Guias de viagem ao meu ritmo
         </h1>
         <div className="mx-auto my-6 h-px w-24 bg-gold/60" />
         <p className="mx-auto max-w-xl text-base text-cream/85 md:text-lg">
