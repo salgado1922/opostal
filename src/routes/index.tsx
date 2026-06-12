@@ -1485,6 +1485,42 @@ function EssentialInfo() {
         className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
       >
         <div className="mb-5 flex items-center gap-3">
+          <MapPin className="h-5 w-5 text-gold" />
+          <h3 className="font-serif text-2xl text-cream">Onde ficar</h3>
+        </div>
+        <p className="mb-5 text-sm text-muted-foreground">
+          Três bairros a considerar — qualquer um deles funciona muito bem para um guia de 4 dias.
+        </p>
+        <ul className="grid gap-4 md:grid-cols-3">
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Cidade Velha (Staré Město)</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Central, a pé de tudo. Ideal para quem quer sair do hotel e estar logo no meio da ação.
+            </p>
+          </li>
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Malá Strana</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Charmosa, junto ao castelo. Ruas tranquilas à noite e vistas postal-perfeitas.
+            </p>
+          </li>
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Nové Město</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Mais barato e bem servido de metro. Boa relação qualidade-preço sem perder ligação ao centro.
+            </p>
+          </li>
+        </ul>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+      >
+        <div className="mb-5 flex items-center gap-3">
           <Languages className="h-5 w-5 text-gold" />
           <h3 className="font-serif text-2xl text-cream">Palavras úteis</h3>
         </div>
