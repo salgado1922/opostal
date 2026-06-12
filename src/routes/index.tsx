@@ -422,18 +422,18 @@ function Hero() {
         >
           <div className="mb-5 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.4em] text-gold">
             <span className="h-px w-8 bg-gold/70" />
-            24 — 27 · Praga
+            Guia · 4 dias
             <span className="h-px w-8 bg-gold/70" />
           </div>
           <h1 className="font-serif text-6xl leading-[1.05] md:text-8xl">
             <span className="text-gradient-gold">Praga</span>
           </h1>
           <p className="mt-6 font-serif text-xl italic text-cream/85 md:text-2xl">
-            4 dias de hora dourada
+            Um guia de 4 dias ao teu ritmo
           </p>
           <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
-            Um roteiro pensado em ritmo de conversa: cafés sem pressa, caminhos curtos,
-            vistas longas — e o melhor da Boémia.
+            Um guia público para descobrir Praga sem pressa: cafés calmos, caminhos curtos,
+            vistas longas — e o melhor da Boémia, para qualquer viajante.
           </p>
         </motion.div>
       </motion.div>
