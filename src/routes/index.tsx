@@ -172,7 +172,7 @@ const days: Day[] = [
   {
     key: "d1",
     label: "Dia 1",
-    date: "Quarta, 24",
+    date: "Cidade Velha",
     title: "Chegada & Cidade Velha",
     vibe: "Aterrar com calma, encantar com pedras antigas e luz de fim de tarde na Ponte Carlos.",
     accent: "from-amber-400/30 to-rose-400/10",
@@ -182,17 +182,17 @@ const days: Day[] = [
     walkTotal: "A pé hoje: ~25 min",
     dayNote: {
       tone: "amber",
-      text: "Vê hoje (quarta): o bairro judeu fecha ao sábado.",
+      text: "Atenção: o bairro judeu (Josefov) fecha aos sábados — planeia esta paragem noutro dia da semana.",
     },
     mapEmbedUrl:
-      "https://www.google.com/maps?output=embed&saddr=Hotel+Garden+Court+Prague&daddr=Josefov+Prague+to:Old+Town+Square+Prague+to:Charles+Bridge+Prague&dirflg=w",
+      "https://www.google.com/maps?output=embed&saddr=Josefov+Prague&daddr=Old+Town+Square+Prague+to:Charles+Bridge+Prague&dirflg=w",
     mapLinkUrl:
-      "https://www.google.com/maps/dir/Hotel+Garden+Court+Prague/Josefov+Prague/Old+Town+Square+Prague/Charles+Bridge+Prague/data=!4m2!4m1!3e2",
+      "https://www.google.com/maps/dir/Josefov+Prague/Old+Town+Square+Prague/Charles+Bridge+Prague/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "13:00",
-        title: "Check-in no Hotel Garden Court",
-        desc: "Aterrar, deixar as malas e respirar. Café rápido no lobby antes de sair.",
+        title: "Check-in no hotel",
+        desc: "Chegar, deixar as malas e respirar. Um café rápido antes de sair a explorar.",
         icon: MapPin,
         walkTo: "~12 min",
       },
@@ -230,7 +230,7 @@ const days: Day[] = [
   {
     key: "d2",
     label: "Dia 2",
-    date: "Quinta, 25",
+    date: "Castelo & Malá Strana",
     title: "Castelo & Malá Strana",
     vibe: "Manhã imperial no Castelo, tarde boémia em Malá Strana com vistas a perder de vista.",
     accent: "from-amber-300/30 to-violet-500/10",
@@ -267,7 +267,7 @@ const days: Day[] = [
       {
         time: "14:30",
         title: "Muro do Lennon",
-        desc: "Parede de mensagens, cores e memória da liberdade. Boa fotografia com os pais.",
+        desc: "Parede de mensagens, cores e memória da liberdade. Boa paragem para uma fotografia tranquila.",
         link: "https://pt.wikipedia.org/wiki/Muro_de_Lennon",
         icon: Sparkles,
         walkTo: "~10 min (+ subida ~25–30 min)",
@@ -285,7 +285,7 @@ const days: Day[] = [
   {
     key: "d3",
     label: "Dia 3",
-    date: "Sexta, 26",
+    date: "Kutná Hora & Noite",
     title: "Kutná Hora & Noite",
     vibe: "Fuga de comboio à cidade da prata e ossário. À noite, música clássica num verdadeiro templo.",
     accent: "from-rose-500/20 to-amber-400/10",
@@ -345,18 +345,18 @@ const days: Day[] = [
   {
     key: "d4",
     label: "Dia 4",
-    date: "Sábado, 27",
+    date: "Vyšehrad & Partida",
     title: "Vyšehrad & Partida",
-    vibe: "Manhã calma no berço da cidade, almoço sem relógio e saída suave para o aeroporto.",
+    vibe: "Manhã calma no berço da cidade, almoço sem relógio e saída suave rumo à partida.",
     accent: "from-emerald-400/20 to-amber-400/10",
     icon: Moon,
     cover:
       "https://images.unsplash.com/photo-1779213206645-e06f91667848?auto=format&fit=crop&w=1200&q=80",
-    howToGet: "Como chegar: metro C até Vyšehrad. Vyšehrad plano; regresso de Bolt/Uber.",
+    howToGet: "Como chegar: metro C até Vyšehrad. Recinto plano; regresso fácil de Bolt/Uber ou metro.",
     mapEmbedUrl:
-      "https://www.google.com/maps?output=embed&saddr=Vysehrad+Prague&daddr=Hotel+Garden+Court+Prague&dirflg=w",
+      "https://www.google.com/maps?output=embed&saddr=Vysehrad+Prague&daddr=Old+Town+Square+Prague&dirflg=w",
     mapLinkUrl:
-      "https://www.google.com/maps/dir/Vysehrad+Prague/Hotel+Garden+Court+Prague/data=!4m2!4m1!3e2",
+      "https://www.google.com/maps/dir/Vysehrad+Prague/Old+Town+Square+Prague/data=!4m2!4m1!3e2",
     stops: [
       {
         time: "09:30",
@@ -371,7 +371,7 @@ const days: Day[] = [
       {
         time: "12:00",
         title: "Almoço com calma",
-        desc: "Reservar perto do hotel. Pratos clássicos checos, sem stress de horário.",
+        desc: "Reservar perto do alojamento. Pratos clássicos checos, sem stress de horário.",
         icon: Utensils,
       },
       {
@@ -382,8 +382,8 @@ const days: Day[] = [
       },
       {
         time: "16:00",
-        title: "Recolher malas e partir para o aeroporto",
-        desc: "Bolt/Uber até ao Václav Havel. Sair a tempo, sem corridas.",
+        title: "Regresso ao hotel / aeroporto",
+        desc: "Recolher as malas e Bolt/Uber até ao aeroporto Václav Havel. Sair a tempo, sem corridas.",
         icon: MapPin,
       },
     ],
