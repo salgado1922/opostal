@@ -46,6 +46,33 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import d1Cover from "@/assets/istambul/d1-cover.jpg";
+import d1S1 from "@/assets/istambul/d1-s1.jpg";
+import d1S2 from "@/assets/istambul/d1-s2.jpg";
+import d1S3 from "@/assets/istambul/d1-s3.jpg";
+import d1S4 from "@/assets/istambul/d1-s4.jpg";
+import d1S5 from "@/assets/istambul/d1-s5.jpg";
+import d2Cover from "@/assets/istambul/d2-cover.jpg";
+import d2S1 from "@/assets/istambul/d2-s1.jpg";
+import d2S2 from "@/assets/istambul/d2-s2.jpg";
+import d2S3 from "@/assets/istambul/d2-s3.jpg";
+import d2S4 from "@/assets/istambul/d2-s4.jpg";
+import d3Cover from "@/assets/istambul/d3-cover.jpg";
+import d3S1 from "@/assets/istambul/d3-s1.jpg";
+import d3S2 from "@/assets/istambul/d3-s2.jpg";
+import d3S3 from "@/assets/istambul/d3-s3.jpg";
+import d3S4 from "@/assets/istambul/d3-s4.jpg";
+import d4Cover from "@/assets/istambul/d4-cover.jpg";
+import d4S1 from "@/assets/istambul/d4-s1.jpg";
+import d4S2 from "@/assets/istambul/d4-s2.jpg";
+import d4S3 from "@/assets/istambul/d4-s3.jpg";
+import d4S4 from "@/assets/istambul/d4-s4.jpg";
+import d5Cover from "@/assets/istambul/d5-cover.jpg";
+import d5S1 from "@/assets/istambul/d5-s1.jpg";
+import d5S2 from "@/assets/istambul/d5-s2.jpg";
+import d5S3 from "@/assets/istambul/d5-s3.jpg";
+import d5S4 from "@/assets/istambul/d5-s4.jpg";
+import d5S5 from "@/assets/istambul/d5-s5.jpg";
 
 export const Route = createFileRoute("/istambul")({
   head: () => ({
@@ -271,8 +298,7 @@ const days: Day[] = [
       "Aterrar com calma entre Bizâncio e o Império Otomano: Hagia Sophia, Mesquita Azul e a cisterna subterrânea.",
     accent: "from-cyan-400/30 to-indigo-500/10",
     icon: Sun,
-    cover:
-      "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&w=1200&q=80",
+    cover: d1Cover,
     walkTotal: "A pé hoje: ~20 min",
     dayNote: {
       tone: "amber",
@@ -288,6 +314,8 @@ const days: Day[] = [
         title: "Check-in & primeiro chá",
         desc: "Deixar malas, um çay (chá turco) e respirar.",
         icon: MapPin,
+        img: d1S1,
+        imgAlt: "Chá turco em copo tulipa",
         walkTo: "~10 min",
       },
       {
@@ -296,8 +324,8 @@ const days: Day[] = [
         desc: "Logo à abertura (~9h) para evitar 1–2 h de fila. É mesquita: ombros e pernas cobertos, lenço na cabeça para mulheres. A galeria superior tem bilhete à parte.",
         tip: "Reservar acesso prioritário online — poupa horas em fila e garante a galeria superior.",
         link: "https://pt.wikipedia.org/wiki/Hagia_Sophia",
-        img: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Hagia Sophia em Istambul ao amanhecer",
+        img: d1S2,
+        imgAlt: "Interior da Hagia Sophia",
         icon: Church,
         bookingUrl: "https://muze.gen.tr/muze-detay/ayasofya",
         hours: "~9:00 — fechada nas horas de oração",
@@ -309,6 +337,8 @@ const days: Day[] = [
         desc: "Mesmo em frente. Entrada gratuita; fecha aos visitantes nas 5 horas de oração — entra entre orações.",
         link: "https://pt.wikipedia.org/wiki/Mesquita_Azul",
         icon: Church,
+        img: d1S3,
+        imgAlt: "Azulejos azuis da Mesquita Azul",
         walkTo: "~2 min",
       },
       {
@@ -317,6 +347,8 @@ const days: Day[] = [
         desc: "Antigo hipódromo bizantino a céu aberto: Obelisco de Teodósio e Coluna Serpentina. Passagem rápida.",
         link: "https://pt.wikipedia.org/wiki/Hipódromo_de_Constantinopla",
         icon: Sparkles,
+        img: d1S4,
+        imgAlt: "Obelisco no Hipódromo de Constantinopla",
         walkTo: "~5 min",
       },
       {
@@ -327,6 +359,8 @@ const days: Day[] = [
         icon: Castle,
         bookingUrl: "https://yerebatan.com/en/",
         hours: "~9:00–22:00",
+        img: d1S5,
+        imgAlt: "Colunas da Cisterna da Basílica",
       },
     ],
   },
@@ -339,8 +373,7 @@ const days: Day[] = [
       "Manhã de palácio otomano, tarde de mesquita imperial e do maior bazar coberto do mundo.",
     accent: "from-teal-400/30 to-rose-500/10",
     icon: Crown,
-    cover:
-      "https://images.unsplash.com/photo-1527838832700-5059252407fa?auto=format&fit=crop&w=1200&q=80",
+    cover: d2Cover,
     highlightTip:
       "Topkapi e Grande Bazar fecham em dias diferentes — Topkapi às terças, Grande Bazar aos domingos.",
     howToGet: "Como andar: a pé + elétrico T1.",
@@ -358,6 +391,8 @@ const days: Day[] = [
         bookingUrl: "https://muze.gen.tr/muze-detay/topkapi",
         hours: "~9:00–18:00",
         hoursNote: "FECHADO ÀS TERÇAS",
+        img: d2S1,
+        imgAlt: "Pátio do Palácio Topkapi",
         walkTo: "~5 min",
       },
       {
@@ -365,6 +400,8 @@ const days: Day[] = [
         title: "Parque Gülhane",
         desc: "Antigo jardim imperial à saída do palácio: sombra, gatos e vistas do Corno de Ouro. Bom para almoço/pausa. (Opcional ao lado: Museus Arqueológicos de Istambul.)",
         icon: TreePine,
+        img: d2S2,
+        imgAlt: "Parque Gülhane",
         walkTo: "~15 min",
       },
       {
@@ -373,6 +410,8 @@ const days: Day[] = [
         desc: "Obra-prima de Sinan no topo da colina; menos turística que a Azul, entrada gratuita e das melhores vistas da cidade.",
         link: "https://pt.wikipedia.org/wiki/Mesquita_de_Solim%C3%A3o",
         icon: Church,
+        img: d2S3,
+        imgAlt: "Mesquita Süleymaniye",
         walkTo: "~10 min",
       },
       {
@@ -380,8 +419,8 @@ const days: Day[] = [
         title: "Grande Bazar",
         desc: "Milhares de lojas. Regateia sempre e nunca aceites a 1.ª oferta. Fechado aos domingos. Cuidado com a carteira.",
         link: "https://pt.wikipedia.org/wiki/Grande_Bazar_de_Istambul",
-        img: "https://images.unsplash.com/photo-1527838832700-5059252407fa?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Interior do Grande Bazar de Istambul",
+        img: d2S4,
+        imgAlt: "Candeeiros no Grande Bazar",
         icon: ShoppingBag,
         hoursNote: "FECHADO AOS DOMINGOS",
       },
@@ -396,8 +435,7 @@ const days: Day[] = [
       "Palácio à beira-rio, mesquita fotogénica e travessia de ferry para o lado asiático. À noite, cruzeiro no Bósforo.",
     accent: "from-sky-400/30 to-violet-500/10",
     icon: Ship,
-    cover:
-      "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80",
+    cover: d3Cover,
     howToGet: "Como andar: elétrico/autocarro + ferry.",
     highlightTip:
       "Reserva o cruzeiro noturno do Bósforo para o fim do dia — esgota com antecedência.",
@@ -415,6 +453,8 @@ const days: Day[] = [
         bookingUrl: "https://www.millisaraylar.gov.tr/saraylar/dolmabahce-sarayi",
         hours: "~9:00–16:00",
         hoursNote: "FECHADO ÀS SEGUNDAS",
+        img: d3S1,
+        imgAlt: "Palácio Dolmabahçe",
         walkTo: "curto trajeto",
       },
       {
@@ -423,6 +463,8 @@ const days: Day[] = [
         desc: "Mesquita cor-de-rosa com a ponte do Bósforo atrás. Prova um kumpir (batata recheada) e um waffle na praça.",
         link: "https://pt.wikipedia.org/wiki/Mesquita_de_Ortak%C3%B6y",
         icon: Church,
+        img: d3S2,
+        imgAlt: "Mesquita de Ortaköy e a ponte do Bósforo",
         walkTo: "ferry (~20 min)",
       },
       {
@@ -430,14 +472,16 @@ const days: Day[] = [
         title: "Kadıköy & Moda (lado asiático)",
         desc: "A travessia mais bonita e barata da cidade. Bairro jovem, mercado de comida, esplanadas à beira-mar e pôr do sol sobre a silhueta da cidade velha.",
         icon: Coffee,
-        img: "https://images.unsplash.com/photo-1604941237794-29afbdac3df5?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Ferry no Bósforo com a silhueta de Istambul ao fundo",
+        img: d3S3,
+        imgAlt: "Kadıköy, lado asiático",
       },
       {
         time: "20:00",
         title: "Cruzeiro noturno no Bósforo",
         desc: "Ver Istambul iluminada a partir da água é mágico (ver secção «Bósforo» abaixo). Foge dos cruzeiros de menos de 2 h.",
         icon: Ship,
+        img: d3S4,
+        imgAlt: "Bósforo iluminado à noite",
       },
     ],
   },
@@ -450,8 +494,7 @@ const days: Day[] = [
       "Fuga de ferry a Büyükada: bicicleta, pinhais, mansões de madeira e peixe à beira-mar.",
     accent: "from-emerald-400/30 to-cyan-400/10",
     icon: Anchor,
-    cover:
-      "https://images.unsplash.com/photo-1591801074660-15b75d2b1f64?auto=format&fit=crop&w=1200&q=80",
+    cover: d4Cover,
     howToGet: "Como chegar: ferry público de Eminönü/Kabataş (~1h–1h30).",
     dayTag: "Dia lento, longe do trânsito.",
     dayNote: {
@@ -467,6 +510,8 @@ const days: Day[] = [
         title: "Embarque dos ferries (Eminönü/Kabataş)",
         desc: "Vai cedo para apanhar barco com folga.",
         icon: Ship,
+        img: d4S1,
+        imgAlt: "Ferry no Bósforo",
       },
       {
         time: "11:00",
@@ -474,20 +519,24 @@ const days: Day[] = [
         desc: "A maior ilha, sem carros. Aluga bicicleta ou e-bike, passeia entre as mansões vitorianas de madeira e os pinhais, e almoça peixe à beira-mar.",
         link: "https://pt.wikipedia.org/wiki/B%C3%BCy%C3%BCkada",
         icon: TreePine,
-        img: "https://images.unsplash.com/photo-1591801074660-15b75d2b1f64?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Mansão de madeira na Ilha dos Príncipes",
+        img: d4S2,
+        imgAlt: "Mansão de madeira em Büyükada",
       },
       {
         time: "Tarde",
         title: "Banho, miradouro & café",
         desc: "Tempo tranquilo antes do regresso. (Alternativa mais calma: Heybeliada, com menos gente.)",
         icon: Coffee,
+        img: d4S3,
+        imgAlt: "Costa da Ilha dos Príncipes",
       },
       {
         time: "Fim de tarde",
         title: "Ferry de regresso",
         desc: "Confirma o horário com antecedência.",
         icon: Ship,
+        img: d4S4,
+        imgAlt: "Regresso de ferry ao pôr do sol",
       },
     ],
   },
@@ -500,8 +549,7 @@ const days: Day[] = [
       "Bazar das especiarias, Ponte Gálata, Torre de Gálata e İstiklal antes de partir.",
     accent: "from-amber-400/20 to-cyan-500/10",
     icon: Moon,
-    cover:
-      "https://images.unsplash.com/photo-1545158539-78d24f8efea3?auto=format&fit=crop&w=1200&q=80",
+    cover: d5Cover,
     walkTotal: "A pé hoje: ~30 min, do bazar à Torre de Gálata.",
     howToGet: "Adapta consoante a hora do voo.",
     mapEmbedUrl:
@@ -515,6 +563,8 @@ const days: Day[] = [
         desc: "Especiarias, chás, doçaria e lokum. Espreita a Mesquita Rüstem Paşa ali ao lado (azulejos iznik, ignorada por quase todos).",
         link: "https://pt.wikipedia.org/wiki/Bazar_Eg%C3%ADpcio",
         icon: ShoppingBag,
+        img: d5S1,
+        imgAlt: "Especiarias no Bazar Egípcio",
         walkTo: "~5 min",
       },
       {
@@ -523,6 +573,8 @@ const days: Day[] = [
         desc: "Pescadores em cima, restaurantes de peixe por baixo. Prova um balık ekmek (sande de peixe) em Eminönü.",
         link: "https://pt.wikipedia.org/wiki/Ponte_de_G%C3%A1lata",
         icon: Utensils,
+        img: d5S2,
+        imgAlt: "Pescadores na Ponte Gálata",
         walkTo: "~10 min",
       },
       {
@@ -530,6 +582,8 @@ const days: Day[] = [
         title: "Karaköy",
         desc: "Bairro de cafés e galerias; café turco e baklava antes da subida.",
         icon: Coffee,
+        img: d5S3,
+        imgAlt: "Ruas de Karaköy",
         walkTo: "~10 min (subida íngreme)",
       },
       {
@@ -537,8 +591,8 @@ const days: Day[] = [
         title: "Torre de Gálata",
         desc: "Vista 360º sobre a cidade antiga. Bilhete online; linda ao fim da tarde.",
         link: "https://pt.wikipedia.org/wiki/Torre_de_G%C3%A1lata",
-        img: "https://images.unsplash.com/photo-1545158539-78d24f8efea3?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Torre de Gálata em Istambul",
+        img: d5S4,
+        imgAlt: "Torre de Gálata",
         icon: Castle,
         bookingUrl: "https://galatakulesi.gov.tr/",
         hours: "~8:30–23:00",
@@ -550,6 +604,8 @@ const days: Day[] = [
         desc: "Artéria pedonal com o elétrico vermelho, vibrante até tarde. Última volta, compras e jantar com pôr do sol sobre os minaretes.",
         link: "https://pt.wikipedia.org/wiki/Avenida_%C4%B0stiklal",
         icon: Sparkles,
+        img: d5S5,
+        imgAlt: "Elétrico na Avenida İstiklal",
       },
       {
         time: "Depois",
@@ -1353,7 +1409,7 @@ function StickyNav() {
           to="/"
           className={`font-serif text-sm tracking-wide text-gold md:text-base hover:text-cream transition-colors ${shadow}`}
         >
-          ‹ Viagens do Carlos
+          ‹ Compasso Routes
         </Link>
 
         <ul className="hidden md:flex items-center gap-1">

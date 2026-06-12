@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga já está disponível; Roma, Lisboa e Viena em breve.",
+          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga e Istambul já disponíveis; Florença, Barcelona e Londres em breve.",
       },
       { property: "og:title", content: "Compasso Routes — Guias de viagem ao meu ritmo" },
       {
