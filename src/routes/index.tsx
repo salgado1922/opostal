@@ -1411,8 +1411,6 @@ function VePrimeiro() {
 }
 
 
-// ----------------------- ESSENTIAL INFO -----------------------
-
 // ----------------------- CONHECER PRAGA -----------------------
 
 const climaMeses: Array<[string, number, number, string]> = [
