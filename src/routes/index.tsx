@@ -12,6 +12,14 @@ import {
 } from "lucide-react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  Marker,
+  Line,
+} from "react-simple-maps";
+import worldGeo from "world-atlas/countries-110m.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -288,22 +296,8 @@ function MethodStrip() {
 
 /* ----------------------- EUROPE MAP ----------------------- */
 
-const MAP_VIEW = { w: 1000, h: 720 };
-// Equirectangular projection bounds tuned to centre the visible cities.
-const MAP_BOUNDS = { lngMin: -12, lngMax: 40, latMin: 34, latMax: 70 };
-
-function projectCoord(lng: number, lat: number) {
-  const x = ((lng - MAP_BOUNDS.lngMin) / (MAP_BOUNDS.lngMax - MAP_BOUNDS.lngMin)) * MAP_VIEW.w;
-  const y = ((MAP_BOUNDS.latMax - lat) / (MAP_BOUNDS.latMax - MAP_BOUNDS.latMin)) * MAP_VIEW.h;
-  return { x, y };
-}
-
-// Stylised, hand-traced Europe silhouette. Decorative — not geographically exact.
-const EUROPE_PATH =
-  "M 470 80 C 520 60, 590 70, 600 130 C 615 175, 595 215, 560 245 L 600 270 L 575 305 L 615 335 L 660 360 L 705 405 L 720 455 L 675 478 L 630 488 L 605 520 L 555 545 L 515 570 L 480 585 L 455 555 L 460 510 L 440 540 L 455 580 L 480 615 L 460 640 L 435 615 L 415 575 L 395 540 L 370 545 L 325 555 L 285 580 L 240 600 L 200 605 L 165 590 L 135 555 L 145 510 L 195 495 L 220 470 L 195 445 L 220 420 L 260 408 L 295 395 L 320 370 L 305 345 L 335 320 L 370 305 L 405 295 L 425 270 L 445 235 L 425 195 L 455 155 Z";
-const UK_PATH = "M 235 305 C 215 285, 225 255, 250 255 C 275 260, 285 285, 280 320 C 275 360, 250 380, 235 365 C 220 350, 220 325, 235 305 Z";
-const IRELAND_PATH = "M 190 320 C 175 315, 170 340, 180 360 C 195 375, 210 365, 210 345 C 210 325, 200 322, 190 320 Z";
-const ITALY_PATH = "M 470 510 C 478 525, 482 555, 470 595 C 462 620, 450 625, 445 605 C 440 580, 450 540, 455 520 Z";
+const MAP_W = 1000;
+const MAP_H = 720;
 
 function EuropeMap() {
   const reduce = useReducedMotion();
@@ -320,8 +314,13 @@ function EuropeMap() {
     return () => io.disconnect();
   }, []);
 
-  const pins = CITIES.map((c) => ({ city: c, ...projectCoord(c.coords.lng, c.coords.lat) }));
-  const activeIdx = pins.findIndex((p) => p.city.status === "ready");
+  // Pairs of cities for constellation connectors
+  const pairs: Array<[CityMeta, CityMeta]> = [];
+  for (let i = 0; i < CITIES.length; i++) {
+    for (let j = i + 1; j < CITIES.length; j++) {
+      pairs.push([CITIES[i], CITIES[j]]);
+    }
+  }
 
   return (
     <section className="relative px-6 py-24 md:py-32">
@@ -338,6 +337,12 @@ function EuropeMap() {
         </motion.div>
 
         <div className="relative overflow-hidden rounded-3xl border border-gold/15 bg-plum/25 p-3 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] sm:p-6">
+          {/* sea background */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{ background: "oklch(0.16 0.035 290)" }}
+          />
           {/* radial golden glow behind the map */}
           <div
             aria-hidden
@@ -347,103 +352,86 @@ function EuropeMap() {
                 "radial-gradient(ellipse at 45% 55%, oklch(0.82 0.14 78 / 14%), transparent 55%), radial-gradient(ellipse at 80% 20%, oklch(0.62 0.14 38 / 10%), transparent 50%)",
             }}
           />
-          <svg
-            viewBox={`0 0 ${MAP_VIEW.w} ${MAP_VIEW.h}`}
-            className="relative block h-auto w-full"
+          <div
             role="img"
-            aria-label="Mapa estilizado da Europa com as cidades visitadas"
+            aria-label="Mapa da Europa com as cidades visitadas"
+            className="relative"
           >
-            <defs>
-              <pattern id="grain" width="3" height="3" patternUnits="userSpaceOnUse">
-                <circle cx="1" cy="1" r="0.3" fill="oklch(0.96 0.02 75 / 0.05)" />
-              </pattern>
-              <radialGradient id="landFill" cx="50%" cy="55%" r="65%">
-                <stop offset="0%" stopColor="oklch(0.32 0.06 300 / 0.95)" />
-                <stop offset="100%" stopColor="oklch(0.22 0.055 320 / 0.95)" />
-              </radialGradient>
-              <filter id="pinGlow" x="-100%" y="-100%" width="300%" height="300%">
-                <feGaussianBlur stdDeviation="6" />
-              </filter>
-            </defs>
-
-            {/* sea */}
-            <rect width={MAP_VIEW.w} height={MAP_VIEW.h} fill="oklch(0.16 0.035 290)" />
-            <rect width={MAP_VIEW.w} height={MAP_VIEW.h} fill="url(#grain)" />
-
-            {/* faint graticule */}
-            <g stroke="oklch(0.82 0.14 78 / 0.06)" strokeWidth="0.6">
-              {Array.from({ length: 9 }).map((_, i) => (
-                <line key={`v${i}`} x1={(i + 1) * 100} y1="0" x2={(i + 1) * 100} y2={MAP_VIEW.h} />
-              ))}
-              {Array.from({ length: 6 }).map((_, i) => (
-                <line key={`h${i}`} x1="0" y1={(i + 1) * 100} x2={MAP_VIEW.w} y2={(i + 1) * 100} />
-              ))}
-            </g>
-
-            {/* land */}
-            <g
-              fill="url(#landFill)"
-              stroke="oklch(0.82 0.14 78 / 0.35)"
-              strokeWidth="1"
-              strokeLinejoin="round"
+            <ComposableMap
+              projection="geoMercator"
+              projectionConfig={{ center: [10, 52], scale: 700 }}
+              width={MAP_W}
+              height={MAP_H}
+              style={{ width: "100%", height: "auto", display: "block" }}
             >
-              <path d={EUROPE_PATH} />
-              <path d={UK_PATH} />
-              <path d={IRELAND_PATH} />
-              <path d={ITALY_PATH} />
-            </g>
+              <defs>
+                <filter id="pinGlow" x="-100%" y="-100%" width="300%" height="300%">
+                  <feGaussianBlur stdDeviation="6" />
+                </filter>
+              </defs>
 
-            {/* connector constellation lines (curved, dotted) */}
-            <g
-              stroke="oklch(0.82 0.14 78 / 0.35)"
-              strokeWidth="1"
-              strokeDasharray="2 5"
-              fill="none"
-            >
-              {pins.map((from, i) =>
-                pins.slice(i + 1).map((to) => {
-                  const mx = (from.x + to.x) / 2;
-                  const my = (from.y + to.y) / 2 - 30;
-                  return (
-                    <motion.path
-                      key={`${from.city.slug}-${to.city.slug}`}
-                      d={`M ${from.x} ${from.y} Q ${mx} ${my} ${to.x} ${to.y}`}
-                      initial={reduce ? false : { pathLength: 0, opacity: 0 }}
-                      animate={
-                        reduce
-                          ? undefined
-                          : visible
-                            ? { pathLength: 1, opacity: 1 }
-                            : { pathLength: 0, opacity: 0 }
-                      }
-                      transition={{ duration: 1.6, delay: 0.4, ease: "easeInOut" }}
+              <Geographies geography={worldGeo as unknown as object}>
+                {({ geographies }) =>
+                  geographies.map((geo) => (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      style={{
+                        default: {
+                          fill: "oklch(0.28 0.055 310)",
+                          stroke: "oklch(0.82 0.14 78 / 0.18)",
+                          strokeWidth: 0.4,
+                          outline: "none",
+                        },
+                        hover: {
+                          fill: "oklch(0.28 0.055 310)",
+                          stroke: "oklch(0.82 0.14 78 / 0.18)",
+                          strokeWidth: 0.4,
+                          outline: "none",
+                        },
+                        pressed: {
+                          fill: "oklch(0.28 0.055 310)",
+                          stroke: "oklch(0.82 0.14 78 / 0.18)",
+                          strokeWidth: 0.4,
+                          outline: "none",
+                        },
+                      }}
                     />
-                  );
-                }),
-              )}
-            </g>
+                  ))
+                }
+              </Geographies>
 
-            {/* pins */}
-            <g>
-              {pins.map((p, i) => {
-                const active = p.city.status === "ready";
-                return (
-                  <MapPin
-                    key={p.city.slug}
-                    x={p.x}
-                    y={p.y}
-                    label={p.city.name}
-                    to={p.city.to}
-                    active={active}
-                    visible={visible}
-                    reduce={!!reduce}
-                    delay={0.2 + i * 0.15}
-                    isLastActive={i === activeIdx}
+              {/* connector constellation lines */}
+              {pairs.map(([a, b]) => (
+                <motion.g
+                  key={`${a.slug}-${b.slug}`}
+                  initial={reduce ? false : { opacity: 0 }}
+                  animate={reduce ? undefined : { opacity: visible ? 1 : 0 }}
+                  transition={{ duration: 1.2, delay: 0.4, ease: "easeInOut" }}
+                >
+                  <Line
+                    from={[a.coords.lng, a.coords.lat]}
+                    to={[b.coords.lng, b.coords.lat]}
+                    stroke="oklch(0.82 0.14 78 / 0.32)"
+                    strokeWidth={0.8}
+                    strokeDasharray="2 5"
+                    strokeLinecap="round"
                   />
-                );
-              })}
-            </g>
-          </svg>
+                </motion.g>
+              ))}
+
+              {/* pins */}
+              {CITIES.map((city, i) => (
+                <CityMarker
+                  key={city.slug}
+                  city={city}
+                  visible={visible}
+                  reduce={!!reduce}
+                  delay={0.2 + i * 0.15}
+                />
+              ))}
+            </ComposableMap>
+          </div>
 
           <p className="mt-6 text-center font-serif text-sm italic text-gold/85 md:text-base">
             Uma cidade percorrida — e o mapa só vai crescer.
@@ -454,44 +442,37 @@ function EuropeMap() {
   );
 }
 
-function MapPin({
-  x,
-  y,
-  label,
-  to,
-  active,
+function CityMarker({
+  city,
   visible,
   reduce,
   delay,
 }: {
-  x: number;
-  y: number;
-  label: string;
-  to?: string;
-  active: boolean;
+  city: CityMeta;
   visible: boolean;
   reduce: boolean;
   delay: number;
-  isLastActive?: boolean;
 }) {
+  const active = city.status === "ready";
   const dotColor = active ? "oklch(0.82 0.14 78)" : "oklch(0.75 0.03 75 / 0.55)";
   const labelClass = active
     ? "fill-[oklch(0.96_0.02_75)] font-medium"
     : "fill-[oklch(0.75_0.03_75/0.6)]";
 
-  const content = (
+  const inner = (
     <motion.g
       initial={reduce ? false : { opacity: 0, scale: 0.4 }}
-      animate={reduce ? undefined : visible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.4 }}
+      animate={
+        reduce ? undefined : visible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.4 }
+      }
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
-      style={{ transformOrigin: `${x}px ${y}px` }}
       className={active ? "cursor-pointer" : ""}
     >
       {active && (
         <>
-          <circle cx={x} cy={y} r={18} fill={dotColor} opacity={0.25} filter="url(#pinGlow)" />
+          <circle r={18} fill={dotColor} opacity={0.25} filter="url(#pinGlow)" />
           {!reduce && (
-            <circle cx={x} cy={y} r={8} fill="none" stroke={dotColor} strokeWidth="1.2">
+            <circle r={8} fill="none" stroke={dotColor} strokeWidth={1.2}>
               <animate attributeName="r" from="8" to="22" dur="2.4s" repeatCount="indefinite" />
               <animate
                 attributeName="opacity"
@@ -504,30 +485,34 @@ function MapPin({
           )}
         </>
       )}
-      <circle cx={x} cy={y} r={active ? 5 : 3.5} fill={dotColor} />
-      {active && <circle cx={x} cy={y} r={2} fill="oklch(0.96 0.02 75)" />}
+      <circle r={active ? 5 : 3.5} fill={dotColor} />
+      {active && <circle r={2} fill="oklch(0.96 0.02 75)" />}
       <text
-        x={x + (active ? 12 : 9)}
-        y={y + 4}
+        x={active ? 12 : 9}
+        y={4}
         fontSize={active ? 16 : 13}
         className={labelClass}
         style={{ fontFamily: "var(--font-serif)", letterSpacing: "0.02em" }}
       >
-        {label}
+        {city.name}
       </text>
     </motion.g>
   );
 
-  if (active && to) {
+  const marker = (
+    <Marker coordinates={[city.coords.lng, city.coords.lat]}>{inner}</Marker>
+  );
+
+  if (active && city.to) {
     return (
-      <Link to={to} aria-label={`Abrir guia de ${label}`}>
-        {content}
+      <Link to={city.to} aria-label={`Abrir guia de ${city.name}`}>
+        {marker}
       </Link>
     );
   }
   return (
-    <g aria-label={`${label} — em breve`} opacity={0.8}>
-      {content}
+    <g aria-label={`${city.name} — em breve`} opacity={0.85}>
+      {marker}
     </g>
   );
 }
