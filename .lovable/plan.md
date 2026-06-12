@@ -1,74 +1,59 @@
-# Viagens do Carlos — hub multi-cidade
+## Goal
+Replace the hand-drawn `EuropeMap` SVG in `src/routes/index.tsx` with a real geographic map of Europe using `react-simple-maps`, styled to the golden-hour theme, with pins placed by real lat/lon.
 
-Transformar o site num hub editorial com rotas separadas, mantendo o guia de Praga 100% intacto. Stack já existente: **TanStack Router file-based** (não React Router DOM — uso o equivalente nativo do projeto, com `<Link to="/praga">` e URLs reais, back-button e deep-link a funcionar exatamente como pedido).
+## Dependencies
+- Add `react-simple-maps` and `d3-geo` (peer for projection helpers if needed).
+- Add a TopoJSON source for countries. Use `world-atlas` package (`bun add world-atlas`) and import `world-atlas/countries-110m.json` locally so the map works offline / has no runtime CDN dependency.
+- Types: `bun add -d @types/react-simple-maps`.
 
-## Arquitetura de rotas
+## Implementation (only `src/routes/index.tsx`)
 
-```text
-src/routes/
-  __root.tsx           já existe — atualizar <title>/meta para "Viagens do Carlos"
-  index.tsx            NOVO homepage (hero + grelha de cidades + Sobre)
-  praga.tsx            NOVO rota /praga (renderiza o guia atual, sem alterações de conteúdo)
+Replace the existing `EuropeMap`, `MapPin`, `EUROPE_PATH`, `UK_PATH`, `IRELAND_PATH`, `ITALY_PATH`, `MAP_VIEW`, `MAP_BOUNDS`, and `projectCoord` block with a new `EuropeMap` built on `react-simple-maps`.
+
+Structure:
+
+```tsx
+import { ComposableMap, Geographies, Geography, Marker, Line } from "react-simple-maps";
+import { geoMercator } from "d3-geo";
+import worldGeo from "world-atlas/countries-110m.json";
 ```
 
-Passos:
-1. Renomear o `src/routes/index.tsx` atual para `src/routes/praga.tsx` e trocar `createFileRoute("/")` → `createFileRoute("/praga")`. Conteúdo, secções, dias, concertos, comida, dicas, checklist, conversor, mapas, vídeo — tudo igual.
-2. Criar novo `src/routes/index.tsx` minimalista (homepage do hub).
-3. Atualizar metadados no `__root.tsx` (título/descrição/OG genéricos do hub) — cada rota volta a sobrepor com `head()` próprio.
+Key choices:
+- `<ComposableMap projection="geoMercator" projectionConfig={{ center: [10, 52], scale: 700 }} width={1000} height={720}>` — centred on Europe, scale tuned so the frame is filled (Praga, Londres, Barcelona, Florença all comfortably inside with margin).
+- `<Geographies geography={worldGeo}>` renders country borders. Each `<Geography>` styled:
+  - `fill: "oklch(0.28 0.055 310)"` (plum/indigo land)
+  - `stroke: "oklch(0.82 0.14 78 / 0.18)"` (faint gold borders)
+  - `strokeWidth: 0.4`
+  - default/hover/pressed identical (non-interactive feel)
+  - `style={{ outline: "none" }}`
+- Sea: `<rect>` background `oklch(0.16 0.035 290)` inside the map container, plus the existing radial golden glow div behind.
+- No country labels (don't render any `<text>` for geographies).
 
-## CityGuide reutilizável
+City data — keep using existing `CITIES` entries which already include `coords: { lat, lng }`. Pins via `<Marker coordinates={[lng, lat]}>`:
+- Active (Praga): outer soft glow circle (r=18, gold, opacity .25, blur filter), animated pulsing ring (`<animate>` r 8→22, opacity .7→0, 2.4s) gated by `useReducedMotion`, inner gold dot r=5 with cream center r=2, label to the right.
+- Dimmed: small muted dot r=3.5, muted label.
+- Wrap active marker in `<Link to="/praga">`; dimmed in a plain `<g aria-label="… — em breve">`.
+- Labels use serif font, gold (active) / muted cream (dimmed). Slight x offset.
 
-Extrair a casca partilhada para `src/components/city-guide/`:
+Connector lines: render `<Line from={[lng1,lat1]} to={[lng2,lat2]} stroke="oklch(0.82 0.14 78 / 0.3)" strokeWidth={0.8} strokeDasharray="2 5" />` between every pair of cities. `react-simple-maps` `<Line>` follows great-circle, which gives a natural subtle curve on Mercator at this scale.
 
-```text
-src/components/city-guide/
-  CityGuideLayout.tsx   wrapper: SiteNav + <main>{children}</main> + back-link "‹ Viagens do Carlos"
-  CityThemeProvider.tsx aplica tokens de acento por cidade via CSS vars inline
-  types.ts              type CityMeta { slug, name, country, vibe, duration, status, accent, cover }
-src/data/cities.ts      array CITIES — fonte única para homepage + futuros guias
-```
+Scroll reveal:
+- Keep the existing `IntersectionObserver` pattern to flip a `visible` state at threshold 0.25.
+- Wrap pins in `motion.g` with `initial={{ opacity:0, scale:0.4 }}`, `animate={visible ? {opacity:1, scale:1} : ...}`, staggered `delay` per index, `useReducedMotion` short-circuits to no animation.
+- Connector `<Line>` elements wrapped likewise: fade opacity 0→1 once visible (no `pathLength` since `<Line>` from `react-simple-maps` renders a `<path>` we don't directly control; fade is sufficient and on-theme).
 
-`praga.tsx` passa a ser: `<CityGuideLayout city={cities.praga}> …conteúdo Praga existente… </CityGuideLayout>`. Adicionar nova cidade no futuro = novo objeto em `cities.ts` + novo `src/routes/<slug>.tsx` que reutiliza o mesmo layout. Sem reescrever sections.
+Responsiveness:
+- `<ComposableMap>` gets `style={{ width: "100%", height: "auto" }}`, viewBox preserved via its internal SVG. Pins use geographic coordinates so they reposition correctly at every size — no manual projection math needed.
 
-## Tema por cidade (accent token)
+Keep unchanged:
+- Section wrapper, title `O mapa das viagens`, eyebrow `Constelação`, container styling, gold glow overlay, and the gold italic caption `Uma cidade percorrida — e o mapa só vai crescer.`
 
-No `src/styles.css` os tokens `--gold`, `--gold-soft`, `--terracotta` mantêm-se como **master theme** (homepage). `CityThemeProvider` aceita um objeto `accent` por cidade e injeta `style={{ ['--gold']: ..., ['--gold-soft']: ..., ['--terracotta']: ... }}` no wrapper — assim toda a tipografia, glass, links gold e botões existentes herdam automaticamente o acento de cada cidade. Praga mantém os valores atuais (zero diff visual).
+## Out of scope
+- No changes to `CITIES`, other sections, theme tokens, or `/praga`.
+- No removal of `framer-motion` (still used for reveal).
 
-## Homepage `/`
-
-Secções, na ordem:
-
-1. **SiteNav sticky** (componente partilhado) — "Viagens do Carlos" à esquerda como `<Link to="/">`, transparente sobre o hero, ganha glass ao fazer scroll. Mesma DNA do `StickyNav` atual.
-2. **Hero** — fundo escuro com bg-twilight-radial + foto suave em overlay, título serif grande "Viagens do Carlos", tagline "Guias de viagem ao meu ritmo — testados por mim, cidade a cidade.", divisor gold fino.
-3. **Grelha de cidades** — `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6`, cada card:
-   - foto full-bleed (aspect 4/5), `loading="lazy"`, zoom no hover (`group-hover:scale-[1.04]` 700ms ease)
-   - overlay gradiente bottom + bloco glass com nome serif, país, vibe, meta ("4 dias")
-   - hover: soft lift (`-translate-y-1`), borda gold a aparecer, gold-link no nome
-   - **Praga** → `<Link to="/praga">` ativo
-   - **Roma / Lisboa / Viena** → `<div>` não-clicável, dessaturado (`grayscale opacity-60`), badge "Em breve" gold-soft no topo direito, `aria-disabled`
-   - cards têm `focus-visible` ring gold para acessibilidade de teclado
-4. **Sobre** — bloco glass curto, 2–3 linhas pt-PT: viajar devagar, sem turistadas, cada guia testado pessoalmente.
-5. **Footer** simples — "Viagens do Carlos · feito com calma".
-
-Imagens dos placeholders "Em breve": usar Unsplash source URLs editoriais (Roma/Lisboa/Viena ao entardecer) — leves, sem build extra.
-
-## Página `/praga`
-
-- Envolvida em `<CityGuideLayout city={cities.praga}>`.
-- Pequeno back-link "‹ Viagens do Carlos" no topo (acima do hero atual), discreto, gold-link.
-- O `StickyNav` interno do guia (índice de secções de Praga) mantém-se intacto por baixo do `SiteNav`.
-- Atualizar `og:title`/`og:description` da rota para mencionar o hub.
-
-## Qualidade
-
-- Mobile-first; grelha colapsa para 1 coluna < sm.
-- Contraste AA sobre cream/gold já validado pelo tema atual.
-- `<Link>` em todo o lado (nada de `<a href>` interno) → preload + back-button nativos.
-- `loading="lazy"` + `decoding="async"` em todas as fotos da grelha.
-- `scroll-restoration` já está ligado no router; navegar para `/praga` começa no topo.
-
-## Fora de scope (explícito)
-
-- Conteúdo de Praga não muda nem uma palavra.
-- Sem backend / sem CMS — `cities.ts` é estático.
-- Não toco em `vite.config.ts`, fontes, paleta master, mapas, vídeo ou conversor.
+## Verification
+- Visual check at desktop + mobile widths via preview.
+- Confirm Praga pin sits over Czechia, Londres over UK, Barcelona over NE Spain, Florença over central Italy.
+- Confirm pulsing ring stops when `prefers-reduced-motion: reduce` is set.
+- Build passes (TS + Vite).
