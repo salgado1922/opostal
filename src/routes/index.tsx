@@ -792,7 +792,7 @@ function Itineraries() {
       id="dias"
       eyebrow="Itinerário detalhado"
       title="Dia a dia, paragem a paragem"
-      intro="Toca para abrir cada paragem — dicas, mini-histórias e imagens à medida."
+      intro="Toca para abrir cada paragem — dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
         {days.map((d) => (
