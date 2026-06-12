@@ -32,8 +32,18 @@ import {
   ArrowLeftRight,
   Menu,
   Play,
+  Info,
+  Calendar,
+  CloudSun,
+  PartyPopper,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 
 
 export const Route = createFileRoute("/")({
@@ -1206,6 +1216,7 @@ function Index() {
       <StickyNav />
       <Hero />
       <VePrimeiro />
+      <ConhecerPraga />
       <EssentialInfo />
       <Overview />
       <Itineraries />
@@ -1400,6 +1411,218 @@ function VePrimeiro() {
 }
 
 
+// ----------------------- CONHECER PRAGA -----------------------
+
+const climaMeses: Array<[string, number, number, string]> = [
+  ["Jan", 2, -2, "baixa"],
+  ["Fev", 4, -2, "baixa"],
+  ["Mar", 9, 1, "baixa"],
+  ["Abr", 15, 4, "média"],
+  ["Mai", 19, 9, "alta"],
+  ["Jun", 22, 12, "alta (mês mais chuvoso)"],
+  ["Jul", 24, 14, "alta"],
+  ["Ago", 24, 13, "média"],
+  ["Set", 19, 10, "média"],
+  ["Out", 13, 6, "média"],
+  ["Nov", 6, 2, "média"],
+  ["Dez", 3, -1, "baixa"],
+];
+
+const eventos: Array<{ nome: string; quando: string; desc: string }> = [
+  {
+    nome: "Mercados de Páscoa",
+    quando: "fim de março a meados de abril",
+    desc: "Bancas na Praça da Cidade Velha e Wenceslas.",
+  },
+  {
+    nome: "Primavera de Praga",
+    quando: "12 maio – 4 junho",
+    desc: "O maior festival de música clássica do país.",
+  },
+  {
+    nome: "Prague Fringe",
+    quando: "final de maio",
+    desc: "Teatro e artes performativas em inglês.",
+  },
+  {
+    nome: "Verão de festivais ao ar livre",
+    quando: "jun–ago",
+    desc: "Concertos, cinema ao ar livre, esplanadas.",
+  },
+  {
+    nome: "Signal Festival",
+    quando: "outubro",
+    desc: "Festival de luz e arte digital pela cidade.",
+  },
+  {
+    nome: "Mercados de Natal",
+    quando: "fim de novembro a início de janeiro",
+    desc: "Dos melhores da Europa; St. Mikuláš a 5 dez; fogo de artifício no Ano Novo.",
+  },
+];
+
+function ConhecerPraga() {
+  const itemCls =
+    "glass rounded-2xl border border-gold/15 px-5 sm:px-6 overflow-hidden";
+  const triggerCls =
+    "py-5 font-serif text-lg sm:text-xl text-cream hover:no-underline gap-3";
+  const iconCls =
+    "flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30 text-gold";
+
+  return (
+    <Section
+      id="conhecer"
+      eyebrow="Contexto"
+      title="Conhecer Praga"
+      intro="Contexto rápido antes de partir — abre só o que te interessar."
+    >
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={fadeUp}
+        className="mx-auto max-w-3xl"
+      >
+        <Accordion type="multiple" className="flex flex-col gap-4">
+          <AccordionItem value="overview" className={itemCls}>
+            <AccordionTrigger className={triggerCls}>
+              <span className="flex items-center gap-3">
+                <span className={iconCls}>
+                  <Info className="h-4 w-4" />
+                </span>
+                Praga em 2 minutos
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="pb-6 text-sm leading-relaxed text-cream/90 space-y-3">
+              <p>
+                Capital da Chéquia, com cerca de 1,3 milhões de habitantes,
+                atravessada pelo rio Vltava.
+              </p>
+              <p>
+                Conhecida como <em>"a cidade das cem torres"</em> e{" "}
+                <em>"a cidade dourada"</em>.
+              </p>
+              <p>
+                Tem mais de mil anos de história — foi capital do Sacro Império
+                e centro da Boémia.
+              </p>
+              <p>
+                Saiu quase intacta da II Guerra Mundial, por isso o centro
+                medieval, gótico, barroco e Art Nouveau está tão bem preservado
+                (Património Mundial da UNESCO).
+              </p>
+              <p>
+                Hoje, é uma das cidades mais bonitas e visitadas da Europa,
+                compacta e fácil de andar a pé.
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="quando" className={itemCls}>
+            <AccordionTrigger className={triggerCls}>
+              <span className="flex items-center gap-3">
+                <span className={iconCls}>
+                  <Calendar className="h-4 w-4" />
+                </span>
+                Quando ir
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="pb-6 text-sm leading-relaxed text-cream/90 space-y-3">
+              <p>
+                <span className="text-gold">Primavera (abr–mai) e início de outono (set):</span>{" "}
+                a melhor altura — clima ameno, menos calor, menos multidões.
+              </p>
+              <p>
+                <span className="text-gold">Verão (jun–ago):</span> dias longos
+                e quentes (sol até ~21h), mas é a época mais cheia e mais cara;
+                trovoadas ao fim da tarde.
+              </p>
+              <p>
+                <span className="text-gold">Inverno (dez–fev):</span> frio
+                (perto de 0 °C), dias curtos, mas mágico com os mercados de
+                Natal.
+              </p>
+              <p className="font-serif italic text-gold/90 pt-2">
+                Equilíbrio ideal: maio/junho ou setembro.
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="clima" className={itemCls}>
+            <AccordionTrigger className={triggerCls}>
+              <span className="flex items-center gap-3">
+                <span className={iconCls}>
+                  <CloudSun className="h-4 w-4" />
+                </span>
+                Clima mês a mês
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="pb-6">
+              <div className="overflow-x-auto rounded-xl border border-gold/15">
+                <table className="w-full text-sm">
+                  <thead className="bg-gold/10 text-gold">
+                    <tr>
+                      <th className="px-3 py-2 text-left font-medium">Mês</th>
+                      <th className="px-3 py-2 text-right font-medium">Máx (°C)</th>
+                      <th className="px-3 py-2 text-right font-medium">Mín (°C)</th>
+                      <th className="px-3 py-2 text-left font-medium">Chuva</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {climaMeses.map(([mes, max, min, chuva]) => (
+                      <tr
+                        key={mes}
+                        className="border-t border-gold/10 text-cream/90"
+                      >
+                        <td className="px-3 py-2 font-serif">{mes}</td>
+                        <td className="px-3 py-2 text-right tabular-nums">{max}</td>
+                        <td className="px-3 py-2 text-right tabular-nums">{min}</td>
+                        <td className="px-3 py-2 text-muted-foreground">{chuva}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-3 font-serif italic text-gold/90 text-sm">
+                Médias aproximadas — o tempo varia de ano para ano.
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="eventos" className={itemCls}>
+            <AccordionTrigger className={triggerCls}>
+              <span className="flex items-center gap-3">
+                <span className={iconCls}>
+                  <PartyPopper className="h-4 w-4" />
+                </span>
+                Festas & eventos
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="pb-6">
+              <ul className="space-y-4">
+                {eventos.map((e) => (
+                  <li key={e.nome} className="text-sm leading-relaxed">
+                    <div className="flex flex-wrap items-baseline gap-x-2">
+                      <span className="font-serif text-base text-cream">
+                        {e.nome}
+                      </span>
+                      <span className="text-xs text-gold/90">({e.quando})</span>
+                    </div>
+                    <p className="text-cream/80">{e.desc}</p>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-5 font-serif italic text-gold/90 text-sm">
+                Confirma as datas exatas de cada edição no site oficial.
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </motion.div>
+    </Section>
+  );
+}
+
 // ----------------------- ESSENTIAL INFO -----------------------
 
 const essentials = [
@@ -1411,7 +1634,7 @@ const essentials = [
   {
     icon: Coins,
     title: "Moeda",
-    body: "Coroa checa (CZK). ~25 CZK ≈ 1 €. Cartão aceite quase em todo o lado — para levantar, preferir ATMs de banco (evitar Euronet).",
+    body: "Coroa checa (CZK). ~25 CZK ≈ 1 €. Cartão aceite quase em todo o lado.",
   },
   {
     icon: Plug,
