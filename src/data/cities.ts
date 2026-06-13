@@ -126,7 +126,7 @@ export const CITIES: CityMeta[] = [
     duration: "Em breve",
     status: "coming-soon",
     cover:
-      "https://images.unsplash.com/photo-1555881400-74d7acaacd81?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1588535537385-2c089e89c1bc?auto=format&fit=crop&w=1400&q=80",
     bestSeason: "Mar–Jun / Set–Out",
     price: "€€",
     idealFor: "Cidade e mar",
@@ -140,24 +140,10 @@ export const CITIES: CityMeta[] = [
     duration: "Em breve",
     status: "coming-soon",
     cover:
-      "https://images.unsplash.com/photo-1489924679458-f2cf780fc4b4?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1565008576549-57569a49371d?auto=format&fit=crop&w=1400&q=80",
     bestSeason: "Abr–Jun / Set",
     price: "€€",
     idealFor: "Banhos e boémia",
     coords: { lng: 19.04, lat: 47.50 },
-  },
-  {
-    slug: "madrid",
-    name: "Madrid",
-    country: "Espanha",
-    vibe: "Arte, tapas e noites longas.",
-    duration: "Em breve",
-    status: "coming-soon",
-    cover:
-      "https://images.unsplash.com/photo-1539037116277-4db20866f1d9?auto=format&fit=crop&w=1400&q=80",
-    bestSeason: "Abr–Jun / Set–Out",
-    price: "€€",
-    idealFor: "Cidade vibrante",
-    coords: { lng: -3.70, lat: 40.42 },
   },
 ];
