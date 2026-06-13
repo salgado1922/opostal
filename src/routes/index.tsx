@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
+import opostalHorizontalDark from "@/assets/brand/opostal-horizontal-dark.png.asset.json";
+import opostalVerticalDark from "@/assets/brand/opostal-vertical-dark.png.asset.json";
 import {
   ComposableMap,
   Geographies,
@@ -25,15 +27,16 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Compasso Routes — Guias de viagem ao meu ritmo" },
+      { title: "O Postal — Guias de viagem" },
       {
         name: "description",
         content:
           "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga e Istambul já disponíveis; Paris, Viena, Lisboa, Budapeste, Florença, Barcelona e Londres em breve.",
       },
-      { property: "og:title", content: "Compasso Routes — Guias de viagem ao meu ritmo" },
+      { property: "og:title", content: "O Postal — Guias de viagem" },
       {
         property: "og:description",
-        content: "Guias de viagem ao meu ritmo — testados por mim, cidade a cidade.",
+        content: "Guias de viagem editoriais, testados por mim, cidade a cidade.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
@@ -49,7 +52,8 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@graph": [
             { "@type": "Organization", name: "Compasso Routes", url: "/" },
-            { "@type": "WebSite", name: "Compasso Routes", url: "/" },
+            { "@type": "Organization", name: "O Postal", url: "/" },
+            { "@type": "WebSite", name: "O Postal", url: "/" },
           ],
         }),
       },
@@ -93,11 +97,12 @@ function SiteNav() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
         <Link
           to="/"
-          className={`font-serif text-base tracking-wide text-gold md:text-lg hover:text-cream transition-colors ${
-            scrolled ? "" : "[text-shadow:0_1px_8px_rgba(0,0,0,0.65)]"
+          aria-label="O Postal"
+          className={`ml-1 inline-flex items-center transition duration-300 hover:scale-[1.01] hover:opacity-85 ${
+            scrolled ? "" : "[filter:drop-shadow(0_1px_8px_rgba(0,0,0,0.65))]"
           }`}
         >
-          Compasso Routes
+          <img src={opostalHorizontalDark.url} alt="O Postal" className="h-8 w-auto object-contain md:h-10" />
         </Link>
         <a
           href="#cidades"
@@ -193,7 +198,7 @@ function Hero() {
             className="text-gradient-gold font-serif leading-[1.02] [text-shadow:0_2px_24px_rgba(0,0,0,0.45)]"
             style={{ fontSize: "clamp(3rem, 7.2vw, 6.5rem)" }}
           >
-            Compasso Routes
+            O Postal
           </h1>
           <div className="my-7 h-px w-28 bg-gold/70" />
           <p className="max-w-xl text-lg text-cream md:text-xl [text-shadow:0_1px_12px_rgba(0,0,0,0.55)]">
