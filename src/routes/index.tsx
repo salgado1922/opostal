@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga e Istambul já disponíveis; Paris, Viena, Lisboa, Budapeste, Madrid, Florença, Barcelona e Londres em breve.",
+          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga e Istambul já disponíveis; Paris, Viena, Lisboa, Budapeste, Florença, Barcelona e Londres em breve.",
       },
       { property: "og:title", content: "Compasso Routes — Guias de viagem ao meu ritmo" },
       {
@@ -547,12 +547,11 @@ function EuropeMap() {
     return () => io.disconnect();
   }, []);
 
-  // Pairs of cities for constellation connectors
+  // Connect only the active guides — a single calm line between them.
+  const activeCities = CITIES.filter((c) => c.status === "ready");
   const pairs: Array<[CityMeta, CityMeta]> = [];
-  for (let i = 0; i < CITIES.length; i++) {
-    for (let j = i + 1; j < CITIES.length; j++) {
-      pairs.push([CITIES[i], CITIES[j]]);
-    }
+  for (let i = 0; i < activeCities.length - 1; i++) {
+    pairs.push([activeCities[i], activeCities[i + 1]]);
   }
 
   return (
