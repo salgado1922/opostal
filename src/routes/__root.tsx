@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import opostalStampIcon from "@/assets/brand/opostal-stamp-icon.png.asset.json";
+import opostalVerticalDark from "@/assets/brand/opostal-vertical-dark.png.asset.json";
 
 function NotFoundComponent() {
   return (
@@ -85,9 +86,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "O Postal" },
       { property: "og:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: opostalVerticalDark.url },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "O Postal" },
       { name: "twitter:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
+      { name: "twitter:image", content: opostalVerticalDark.url },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
