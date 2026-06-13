@@ -44,25 +44,26 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import opostalStampIcon from "@/assets/brand/opostal-stamp-icon.png.asset.json";
+import opostalVerticalDark from "@/assets/brand/opostal-vertical-dark.png.asset.json";
 
 
 export const Route = createFileRoute("/praga")({
   head: () => ({
     meta: [
-      { title: "Praga — Guia de 4 dias ao teu ritmo" },
+      { title: "Praga — O Postal" },
       {
         name: "description",
         content:
           "Guia público de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes, concertos e conversor de moeda.",
       },
-      { property: "og:title", content: "Praga — Guia de 4 dias ao teu ritmo" },
+      { property: "og:title", content: "Praga — O Postal" },
       { property: "og:description", content: "Guia público de 4 dias para descobrir Praga sem pressa." },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/praga" },
       {
         property: "og:image",
-        content:
-          "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1600&q=80",
+        content: opostalVerticalDark.url,
       },
     ],
     links: [{ rel: "canonical", href: "/praga" }],
@@ -72,10 +73,10 @@ export const Route = createFileRoute("/praga")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          headline: "Praga — Guia de 4 dias ao teu ritmo",
+          headline: "Praga — O Postal",
           description:
             "Guia público de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes, concertos e conversor de moeda.",
-          author: { "@type": "Person", name: "Compasso Routes" },
+          author: { "@type": "Person", name: "O Postal" },
         }),
       },
     ],
@@ -1213,12 +1214,14 @@ function Footer() {
   return (
     <footer className="border-t border-gold/15 px-6 py-16 text-center">
       <div className="mx-auto max-w-3xl">
+        <img src={opostalVerticalDark.url} alt="O Postal" className="mx-auto mb-8 h-24 w-auto object-contain md:h-28" />
         <p className="font-serif text-3xl text-gradient-gold md:text-4xl">
           Na zdraví — à vossa.
         </p>
         <p className="mt-4 text-sm text-muted-foreground">
-          Praga · Guia de 4 dias, à medida da hora dourada.
+          O Postal — Guias editoriais de cidades europeias — feitos com calma, partilhados com gosto.
         </p>
+        <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground/60">Fotos: Unsplash · Wikimedia Commons</p>
       </div>
     </footer>
   );
@@ -1309,9 +1312,12 @@ function StickyNav() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
         <Link
           to="/"
-          className={`font-serif text-sm tracking-wide text-gold md:text-base hover:text-cream transition-colors ${shadow}`}
+          aria-label="O Postal"
+          className={`inline-flex items-center gap-2 text-sm tracking-wide text-gold md:text-base hover:text-cream transition-colors ${shadow}`}
         >
-          ‹ Compasso Routes
+          <span aria-hidden>‹</span>
+          <img src={opostalStampIcon.url} alt="O Postal" className="h-7 w-auto object-contain" />
+          <span className="font-serif">O Postal</span>
         </Link>
 
         {/* Desktop */}

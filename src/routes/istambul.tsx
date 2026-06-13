@@ -73,17 +73,19 @@ import d5S2 from "@/assets/istambul/d5-s2.jpg";
 import d5S3 from "@/assets/istambul/d5-s3.jpg";
 import d5S4 from "@/assets/istambul/d5-s4.jpg";
 import d5S5 from "@/assets/istambul/d5-s5.jpg";
+import opostalStampIcon from "@/assets/brand/opostal-stamp-icon.png.asset.json";
+import opostalVerticalDark from "@/assets/brand/opostal-vertical-dark.png.asset.json";
 
 export const Route = createFileRoute("/istambul")({
   head: () => ({
     meta: [
-      { title: "Istambul — Guia de 5 dias ao teu ritmo" },
+      { title: "Istambul — O Postal" },
       {
         name: "description",
         content:
           "Guia público de 5 dias em Istambul: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu. Dicas, comida, cruzeiro no Bósforo e conversor de moeda.",
       },
-      { property: "og:title", content: "Istambul — Guia de 5 dias ao teu ritmo" },
+      { property: "og:title", content: "Istambul — O Postal" },
       {
         property: "og:description",
         content:
@@ -93,8 +95,7 @@ export const Route = createFileRoute("/istambul")({
       { property: "og:url", content: "https://compassoroutes.lovable.app/istambul" },
       {
         property: "og:image",
-        content:
-          "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1600&q=80",
+        content: opostalVerticalDark.url,
       },
     ],
     links: [{ rel: "canonical", href: "https://compassoroutes.lovable.app/istambul" }],
@@ -104,10 +105,10 @@ export const Route = createFileRoute("/istambul")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          headline: "Istambul — Guia de 5 dias ao teu ritmo",
+          headline: "Istambul — O Postal",
           description:
             "Guia público de 5 dias em Istambul: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
-          author: { "@type": "Person", name: "Compasso Routes" },
+          author: { "@type": "Person", name: "O Postal" },
         }),
       },
     ],
@@ -1307,11 +1308,13 @@ function Footer() {
   return (
     <footer className="border-t border-gold/15 px-6 py-16 text-center">
       <div className="mx-auto max-w-3xl">
+        <img src={opostalVerticalDark.url} alt="O Postal" className="mx-auto mb-8 h-24 w-auto object-contain md:h-28" />
         <ArabesqueDivider className="mb-8" />
         <p className="font-serif text-3xl text-gradient-gold md:text-4xl">Şerefe — à vossa.</p>
         <p className="mt-4 text-sm text-muted-foreground">
-          Istambul · Guia de 5 dias, entre o azul do Bósforo e o azulejo de İznik.
+          O Postal — Guias editoriais de cidades europeias — feitos com calma, partilhados com gosto.
         </p>
+        <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground/60">Fotos: Unsplash · Wikimedia Commons</p>
         <DomeSilhouette className="mx-auto mt-10 h-10 w-72 text-gold/40 md:w-96" />
       </div>
     </footer>
@@ -1407,9 +1410,12 @@ function StickyNav() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
         <Link
           to="/"
-          className={`font-serif text-sm tracking-wide text-gold md:text-base hover:text-cream transition-colors ${shadow}`}
+          aria-label="O Postal"
+          className={`inline-flex items-center gap-2 text-sm tracking-wide text-gold md:text-base hover:text-cream transition-colors ${shadow}`}
         >
-          ‹ Compasso Routes
+          <span aria-hidden>‹</span>
+          <img src={opostalStampIcon.url} alt="O Postal" className="h-7 w-auto object-contain" />
+          <span className="font-serif">O Postal</span>
         </Link>
 
         <ul className="hidden md:flex items-center gap-1">

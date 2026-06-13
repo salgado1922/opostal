@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import opostalStampIcon from "@/assets/brand/opostal-stamp-icon.png.asset.json";
+import opostalVerticalDark from "@/assets/brand/opostal-vertical-dark.png.asset.json";
 
 function NotFoundComponent() {
   return (
@@ -77,18 +79,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Compasso Routes — Guias de viagem ao meu ritmo" },
+      { title: "O Postal — Guias de viagem" },
       { name: "description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Compasso Routes" },
-      { property: "og:description", content: "Guias de viagem ao meu ritmo — testados por mim, cidade a cidade." },
+      { property: "og:title", content: "O Postal" },
+      { property: "og:site_name", content: "O Postal" },
+      { property: "og:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: opostalVerticalDark.url },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Compasso Routes" },
-      { name: "twitter:description", content: "Guias de viagem ao meu ritmo — testados por mim, cidade a cidade." },
+      { name: "twitter:title", content: "O Postal" },
+      { name: "twitter:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
+      { name: "twitter:image", content: opostalVerticalDark.url },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: opostalStampIcon.url },
+      { rel: "apple-touch-icon", href: opostalStampIcon.url },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
