@@ -12,8 +12,7 @@ import {
 } from "lucide-react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
-import opostalHorizontalDark from "@/assets/brand/opostal-horizontal-dark.png.asset.json";
-import opostalVerticalDark from "@/assets/brand/opostal-vertical-dark.png.asset.json";
+import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import {
   ComposableMap,
   Geographies,
@@ -100,7 +99,7 @@ function SiteNav() {
             scrolled ? "" : "[filter:drop-shadow(0_1px_8px_rgba(0,0,0,0.65))]"
           }`}
         >
-          <img src={opostalHorizontalDark.url} alt="O Postal" className="h-8 w-auto object-contain md:h-10" />
+          <img src={opostalHorizontalTransparent.url} alt="O Postal" className="h-8 w-auto object-contain md:h-10" />
         </Link>
         <a
           href="#cidades"
@@ -791,7 +790,6 @@ function SiteFooter() {
     <footer className="border-t border-gold/10 px-6 py-12">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
         <div className="space-y-1.5">
-          <img src={opostalVerticalDark.url} alt="O Postal" className="mx-auto mb-6 h-24 w-auto object-contain sm:mx-0 md:h-28" />
           <p className="text-xs text-cream/55">
             O Postal — Guias editoriais de cidades europeias — feitos com calma, partilhados com gosto.
           </p>
