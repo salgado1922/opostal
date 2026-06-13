@@ -63,8 +63,7 @@ export const Route = createFileRoute("/praga")({
       { property: "og:url", content: "/praga" },
       {
         property: "og:image",
-        content:
-          "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1600&q=80",
+        content: opostalVerticalDark.url,
       },
     ],
     links: [{ rel: "canonical", href: "/praga" }],
