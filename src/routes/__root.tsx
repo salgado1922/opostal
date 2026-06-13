@@ -92,7 +92,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
       { name: "twitter:image", content: opostalVerticalDark.url },
       { name: "google-site-verification", content: "dQAQGexXakufEptudUA9z8UOAL_5de0_ProAfWpwTzw" },
-      { name: "google-site-verification", content: "dQsKxOSAyBGQand_pvIK4GZaqCMW9yvmQbtIYtZfsro" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
