@@ -65,6 +65,7 @@ function Home() {
     <main id="top" className="bg-twilight-radial min-h-screen overflow-x-hidden">
       <SiteNav />
       <Hero />
+      <FeaturedBand />
       <CityGrid />
       <MethodStrip />
       <EuropeMap />
