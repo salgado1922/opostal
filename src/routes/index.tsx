@@ -26,7 +26,6 @@ import worldGeo from "world-atlas/countries-110m.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Compasso Routes — Guias de viagem ao meu ritmo" },
       { title: "O Postal — Guias de viagem" },
       {
         name: "description",
@@ -51,7 +50,6 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
-            { "@type": "Organization", name: "Compasso Routes", url: "/" },
             { "@type": "Organization", name: "O Postal", url: "/" },
             { "@type": "WebSite", name: "O Postal", url: "/" },
           ],
@@ -793,9 +791,9 @@ function SiteFooter() {
     <footer className="border-t border-gold/10 px-6 py-12">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
         <div className="space-y-1.5">
-          <p className="font-serif text-base text-cream/85">Compasso Routes</p>
+          <img src={opostalVerticalDark.url} alt="O Postal" className="mx-auto mb-6 h-24 w-auto object-contain sm:mx-0 md:h-28" />
           <p className="text-xs text-cream/55">
-            Guias editoriais de cidades europeias — feitos com calma, partilhados com gosto.
+            O Postal — Guias editoriais de cidades europeias — feitos com calma, partilhados com gosto.
           </p>
           <p className="text-[11px] uppercase tracking-[0.2em] text-cream/35">
             Fotos: Unsplash · Wikimedia Commons
