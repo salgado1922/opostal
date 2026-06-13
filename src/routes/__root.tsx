@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "O Postal — Guias de viagem" },
       { name: "description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
-      { name: "author", content: "Lovable" },
+      { name: "author", content: "O Postal" },
       { property: "og:title", content: "O Postal" },
       { property: "og:site_name", content: "O Postal" },
       { property: "og:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
