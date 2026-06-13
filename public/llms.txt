@@ -1,4 +1,4 @@
-# Compasso Routes
+# O Postal
 
 > Guias de viagem editoriais em português europeu, testados pelo autor, cidade a cidade.
 
