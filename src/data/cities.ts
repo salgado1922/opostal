@@ -126,7 +126,7 @@ export const CITIES: CityMeta[] = [
     duration: "Em breve",
     status: "coming-soon",
     cover:
-      "https://images.unsplash.com/photo-1588535537385-2c089e89c1bc?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=1400&q=80",
     bestSeason: "Mar–Jun / Set–Out",
     price: "€€",
     idealFor: "Cidade e mar",
