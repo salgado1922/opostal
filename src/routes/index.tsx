@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
@@ -12,8 +12,6 @@ import {
 } from "lucide-react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
-import pragaCover from "@/assets/city-praga.jpg";
-import istambulCover from "@/assets/istambul/home-card.jpg";
 import {
   ComposableMap,
   Geographies,
