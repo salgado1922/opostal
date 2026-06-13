@@ -126,7 +126,7 @@ export const CITIES: CityMeta[] = [
     duration: "Em breve",
     status: "coming-soon",
     cover:
-      "https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1589622192346-947fd6825486?auto=format&fit=crop&w=1400&q=80",
     bestSeason: "Mar–Jun / Set–Out",
     price: "€€",
     idealFor: "Cidade e mar",
@@ -140,7 +140,7 @@ export const CITIES: CityMeta[] = [
     duration: "Em breve",
     status: "coming-soon",
     cover:
-      "https://images.unsplash.com/photo-1565008576549-57569a49371d?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1761393882613-c09ad7ca9a87?auto=format&fit=crop&w=1400&q=80",
     bestSeason: "Abr–Jun / Set",
     price: "€€",
     idealFor: "Banhos e boémia",
