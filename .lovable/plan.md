@@ -1,103 +1,65 @@
-# Plan: New `/istambul` page — "İznik & Bósforo" theme
 
-Build a new route that mirrors `/praga` 1:1 in structure, components and interactions, but with a distinct Istanbul-inspired visual theme and the full pt-PT copy provided. No changes to `/praga` or the homepage.
+# Cinematic dark redesign — Home (/)
 
-## 1. Theme tokens (scoped, not global)
+Scope: only `src/routes/index.tsx` (with small additions to `src/styles.css` for grain/vignette tokens and brass accent tuning). City pages and data files are untouched.
 
-To avoid disturbing the homepage/Praga "Golden Hour" palette, the Istanbul theme will be applied via a scoped wrapper class `theme-iznik` on the page root, with CSS variable overrides defined in `src/styles.css`:
+## 1. Art direction (kept dark)
 
-- `--bosphorus`: deep midnight indigo (background base)
-- `--iznik-turquoise`: primary accent (links, italic captions, dividers)
-- `--cobalt`: secondary primary
-- `--tomato-red`: İznik coral-red (tags, badges, highlights — used sparingly)
-- `--brass`: warm copper for fine lines/icon strokes
-- `--ivory`: cream body text
-- Override `--background`, `--foreground`, `--primary`, `--accent`, `--ring`, `--border`, gradients, and add new utilities `gold-link` equivalent → `iznik-link`, `text-gradient-iznik`, `bg-bosphorus-radial`.
+- Keep current dark palette; enrich with a warm vignette + faint film-grain overlay (CSS, no asset).
+- Single warm accent: brass/amber (≈ `#C8772E` → `#D8A24A`) reused for logo mark, CTA, links, chips, hairlines. Map to existing `--gold` token range (slight warm-shift) so existing utilities (`text-gold`, `border-gold/…`) stay in sync.
+- Type: keep current serif for headings, sans for body, but bump hero scale (H1 ~`clamp(3.5rem, 7vw, 6.5rem)`), increase line-height and tracking on the eyebrow.
+- Motion: keep Framer Motion, slow easings (0.9–1.4s), `prefers-reduced-motion` respected.
 
-Page wrapped in `<div className="theme-iznik">…</div>` so tokens only apply here.
+## 2. New cinematic Hero (full-viewport)
 
-## 2. Typography
+Replaces current `<Hero />` in `src/routes/index.tsx`.
 
-- Headings: Cormorant Garamond (already loaded) — calm Ottoman serif feel; keep current sans for body.
-- Italic accent lines use `font-serif italic text-[var(--iznik-turquoise)]` (mirrors gold italic in Praga).
+- Full-bleed `min-h-screen` section.
+- Background: cross-fade slideshow of 2–3 photos (Praga golden hour, Istambul Bósforo blue hour, optional Sultanahmet skyline) — each image gets a slow Ken Burns scale (1.0 → 1.08 over ~14s). Implemented with stacked `<img>` layers + Framer Motion `animate` opacity loop, 6s per slide, 1.2s crossfade. Reduced motion → static first frame.
+- Sourcing: reuse already-imported `hubHero`, plus 2 NEW reliable Unsplash URLs (Praga + Istambul) referenced as remote URLs (no Wikimedia). Picked so they don't repeat any photo used in the featured band or grid below.
+- Overlay: bottom-up dark scrim `linear-gradient(180deg, transparent 35%, background/65% 75%, background 100%)` + soft radial vignette.
+- Content block, left-aligned, max-w-2xl, bottom-left padded:
+  - Eyebrow (brass, tracking-[0.35em]): `Diários de viagem · Europa`
+  - H1 serif: `Compasso Routes`
+  - Sub: `Guias de viagem ao meu ritmo — testados por mim, cidade a cidade.`
+  - Secondary line (cream/70): `Roteiros de ritmo tranquilo, sem turistadas — para quem quer ver bem, em vez de ver tudo.`
+  - Primary CTA: solid brass button `Ver cidades` → smooth-scrolls to `#destaque`.
+- Animated scroll cue at bottom-center: thin brass vertical line with a dot that loops downward.
+- Top nav stays minimal, sits over hero transparently, becomes glass on scroll (existing behavior preserved).
+- Hero → next section transition: trailing gradient fade from hero bottom into page background so there's no hard edge.
 
-## 3. Decorative motifs
+## 3. New "Em destaque" band (`#destaque`)
 
-Lightweight inline SVG components in `src/components/iznik/`:
-- `ArabesqueDivider` — thin brass arabesque line between sections
-- `EightPointStar` — small ornament used in section title eyebrows
-- `TulipMark` — accent on hero & footer
-- `DomeSilhouette` — subtle footer skyline
+Inserted between Hero and the existing `CityGrid`.
 
-Used sparingly; never busy.
+- Small section label `Em destaque` (brass eyebrow).
+- Two large image-led cards, side-by-side on `md:grid-cols-2`, stacked on mobile, `aspect-[4/3]` on desktop, generous gap.
+- ISTAMBUL card: full-bleed Istanbul photo (different from hero + grid), `Novo` brass pill badge, title `Istambul, Turquia`, tagline `Entre dois continentes, do azul do Bósforo ao azulejo de İznik.`, chip row `Abr–Jun / Set · €€ · Ritmo tranquilo · 5 dias`, brass button `Abrir guia` → `/istambul`.
+- PRAGA card: same shape, `Praga, Chéquia`, tagline `Hora dourada sobre o Vltava, sem turistadas.`, chips `Mai–Set · €€ · Ritmo tranquilo · 4 dias`, button → `/praga`.
+- Hover: image scale 1.04, card lift `-translate-y-1`, brass underline on title. Whole card is a `<Link>`; visible button is decorative.
+- Staggered fade-up on scroll.
 
-## 4. Route file
+## 4. Light polish on the rest (no structural change)
 
-Create `src/routes/istambul.tsx` modelled on `src/routes/praga.tsx`. Same:
+- `CityGrid`: keep markup; only tighten top spacing so it follows the featured band rhythm. Audit images — every image on the page (hero slides, featured band, grid) must be unique; swap any duplicate Unsplash URL.
+- `MethodStrip`: keep; ensure icon color uses brass token and chips share the same border style as featured chips.
+- `EuropeMap` constellation: unchanged; Praga + Istambul already active via `CITIES`.
+- `About` block + `SiteFooter`: copy unchanged.
 
-- `head()` with title, description, canonical, og tags (`og:type=article`, `og:url=https://compassoroutes.lovable.app/istambul`, og:image = Istanbul hero), JSON-LD `Article`.
-- Top nav: back link "‹ Viagens do Carlos" → `/`, anchored section menu with labels: Vê primeiro · Dia 1 · Dia 2 · Dia 3 · Dia 4 · Dia 5 · Bósforo · Comer · Dicas · Reservas.
-- Hero with same overlay treatment (gradient pulled toward indigo/petrol-blue instead of amber), tag chip, big serif title, subtitle.
-- All sections in the order specified.
+## 5. Meta + brand
 
-## 5. Sections (1:1 with Praga components)
+- Update meta description in route `head()` to: `Guias de viagem editoriais, testados por mim, cidade a cidade. Praga e Istambul já disponíveis; Florença, Barcelona e Londres em breve.`
+- Verify `Compasso Routes` everywhere; `Viagens do Carlos` already absent — no further action.
+- No light/dark toggle. No changes to `/praga` or `/istambul`.
 
-1. Hero
-2. **Vê primeiro** — YouTube embed slot (placeholder iframe), caption
-3. **Conhecer Istambul** — 4 accordions (Info / Calendar / CloudSun / PartyPopper icons), including the 12-row climate table
-4. **Essencial para a viagem** — small cards grid (fuso, moeda, tomadas, emergência, transportes, gorjetas)
-5. **Conversor EUR ↔ TRY** — same component as Praga's converter, BUT:
-   - On mount, `fetch("https://open.er-api.com/v6/latest/EUR")`, read `rates.TRY`.
-   - Fallback to `53.5` on error, show "Taxa indisponível de momento — a usar valor aproximado."
-   - Shortcuts: 100/500/1000 TRY → EUR.
-6. **Onde ficar** — 3 neighbourhood cards
-7. **Palavras úteis** — chip list
-8. **Cinco dias, cinco humores** — 5 day cards (was 4 in Praga; reuse same card component, grid wraps)
-9. **Dia a dia, paragem a paragem** — 5 day accordion blocks with stops, "A pé hoje" header note, per-day Google Maps embed iframe + "Abrir percurso no mapa" link. Day 4 uses a Büyükada map + "Abrir ilha no mapa" link instead of a walking route.
-10. **Bósforo: de dia ou à noite?** — two-card comparison (same layout as Praga's "Concertos" section), with "Recomendado" badge on card 2
-11. **Comer e beber em Istambul** — areas/tips row + dish cards grid + warning callout
-12. **Dicas & armadilhas** — Fazer / Evitar two-column lists
-13. **O que reservar com antecedência** — checklist
-14. Footer — serif closing line in turquoise/coral + tagline
+## Files touched
 
-All copy lifted verbatim from the brief (pt-PT).
-
-## 6. Images
-
-Add Unsplash Istanbul photos (blue-hour skyline hero, Bosphorus ferries, Galata, İznik-tiled interior, Princes' Islands, Grand Bazaar). Saved to `src/assets/` and imported. Apply the same dark→transparent overlay used on Praga's hero but with indigo/petrol tint.
-
-If image generation is needed because suitable Unsplash matches aren't pre-available locally, we'll generate hero + supporting photos via the image tool with realistic photography prompts.
-
-## 7. Routing & SEO
-
-- TanStack Router auto-picks up `src/routes/istambul.tsx` (no manual edits to `routeTree.gen.ts`).
-- Update `src/routes/sitemap[.]xml.ts` to add `/istambul` (monthly, priority 0.9).
-- Update `public/llms.txt` to list `/istambul`.
-- No changes to homepage nav (user didn't ask) — leave navigation as-is.
-
-## 8. Animations & a11y
-
-- Same Framer Motion fade/scale-on-scroll patterns as Praga. Respect `prefers-reduced-motion`.
-- Mobile-first; same anchored menu collapses on small screens with `aria-label="Alternar menu"`.
-- Alt text on every image; sufficient contrast on indigo background with ivory text.
+- `src/routes/index.tsx` — rewrite `Hero`, add `FeaturedBand`, insert in `Home`, update head meta, add scroll-cue + crossfade logic.
+- `src/styles.css` — add `.bg-grain` (SVG-noise data URI) and `.bg-vignette` utility classes via `@utility`; optional minor tuning of `--gold` ramp.
 
 ## Technical notes
 
-- Live FX fetch runs client-side in a `useEffect` inside the converter component to avoid SSR network calls and keep the page prerenderable.
-- Theme tokens added to `src/styles.css` under a `.theme-iznik` selector that re-declares the relevant `--background`, `--foreground`, `--primary`, `--accent`, `--ring`, `--border`, plus new İznik vars. Utilities (`iznik-link`, `text-gradient-iznik`, `bg-bosphorus-radial`) follow the same `@utility` pattern already used for gold equivalents.
-- No changes to `/praga`, `/`, or shared components — Istanbul-specific decorative SVGs live in their own folder.
-
-## Files to create / edit
-
-Create:
-- `src/routes/istambul.tsx`
-- `src/components/iznik/ArabesqueDivider.tsx`
-- `src/components/iznik/EightPointStar.tsx`
-- `src/components/iznik/TulipMark.tsx`
-- `src/components/iznik/DomeSilhouette.tsx`
-- `src/assets/istambul-hero.jpg` (+ a few supporting images)
-
-Edit:
-- `src/styles.css` (add `.theme-iznik` token overrides + İznik utilities)
-- `src/routes/sitemap[.]xml.ts` (add /istambul entry)
-- `public/llms.txt` (add /istambul line)
+- Crossfade: `useEffect` interval advancing index 0→N; each layer is an absolutely-positioned `<img>` with `motion.img` `animate={{ opacity: active ? 1 : 0, scale: active ? 1.08 : 1 }}` and long transition. Preload all hero images via `<link rel="preload" as="image">` in `head().links` (keep `fetchpriority="high"` on the first frame only for LCP).
+- Smooth scroll: CTA uses `onClick` with `document.getElementById('destaque')?.scrollIntoView({ behavior: 'smooth' })`.
+- Grain overlay: `::after` pseudo on hero section, `mix-blend-overlay`, `opacity: 0.06`, pointer-events none.
+- All new Unsplash URLs use `images.unsplash.com/photo-…?auto=format&fit=crop&w=2000&q=80`, chosen for reliability (no hotlink-restricted hosts).
