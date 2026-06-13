@@ -73,8 +73,7 @@ import d5S2 from "@/assets/istambul/d5-s2.jpg";
 import d5S3 from "@/assets/istambul/d5-s3.jpg";
 import d5S4 from "@/assets/istambul/d5-s4.jpg";
 import d5S5 from "@/assets/istambul/d5-s5.jpg";
-import opostalStampIcon from "@/assets/brand/opostal-stamp-icon.png.asset.json";
-import opostalVerticalDark from "@/assets/brand/opostal-vertical-dark.png.asset.json";
+import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 
 export const Route = createFileRoute("/istambul")({
   head: () => ({
@@ -95,7 +94,7 @@ export const Route = createFileRoute("/istambul")({
       { property: "og:url", content: "https://compassoroutes.lovable.app/istambul" },
       {
         property: "og:image",
-        content: opostalVerticalDark.url,
+        content: opostalHorizontalTransparent.url,
       },
     ],
     links: [{ rel: "canonical", href: "https://compassoroutes.lovable.app/istambul" }],
@@ -1308,7 +1307,6 @@ function Footer() {
   return (
     <footer className="border-t border-gold/15 px-6 py-16 text-center">
       <div className="mx-auto max-w-3xl">
-        <img src={opostalVerticalDark.url} alt="O Postal" className="mx-auto mb-8 h-24 w-auto object-contain md:h-28" />
         <ArabesqueDivider className="mb-8" />
         <p className="font-serif text-3xl text-gradient-gold md:text-4xl">Şerefe — à vossa.</p>
         <p className="mt-4 text-sm text-muted-foreground">
@@ -1414,8 +1412,7 @@ function StickyNav() {
           className={`inline-flex items-center gap-2 text-sm tracking-wide text-gold md:text-base hover:text-cream transition-colors ${shadow}`}
         >
           <span aria-hidden>‹</span>
-          <img src={opostalStampIcon.url} alt="O Postal" className="h-7 w-auto object-contain" />
-          <span className="font-serif">O Postal</span>
+          <img src={opostalHorizontalTransparent.url} alt="O Postal" className="h-7 w-auto object-contain md:h-9" />
         </Link>
 
         <ul className="hidden md:flex items-center gap-1">
