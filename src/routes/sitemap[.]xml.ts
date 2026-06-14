@@ -5,6 +5,7 @@ const BASE_URL = "https://opostal.pt";
 
 interface SitemapEntry {
   path: string;
+  lastmod?: string;
   changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   priority?: string;
 }
@@ -13,14 +14,15 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const lastmod = "2026-06-14";
         const entries: SitemapEntry[] = [
-          { path: "/", changefreq: "weekly", priority: "1.0" },
-          { path: "/praga", changefreq: "monthly", priority: "0.9" },
-          { path: "/istambul", changefreq: "monthly", priority: "0.9" },
+          { path: "/", lastmod, changefreq: "weekly", priority: "1.0" },
+          { path: "/praga", lastmod, changefreq: "monthly", priority: "0.9" },
+          { path: "/istambul", lastmod, changefreq: "monthly", priority: "0.9" },
         ];
         const urls = entries.map(
           (e) =>
-            `  <url>\n    <loc>${BASE_URL}${e.path}</loc>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`,
+            `  <url>\n    <loc>${BASE_URL}${e.path}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`,
         );
         const xml = [
           `<?xml version="1.0" encoding="UTF-8"?>`,
