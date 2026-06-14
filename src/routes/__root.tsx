@@ -11,7 +11,6 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import opostalStampIcon from "@/assets/brand/opostal-stamp-icon.png.asset.json";
 import opostalVerticalDark from "@/assets/brand/opostal-vertical-dark.png.asset.json";
 
 function NotFoundComponent() {
