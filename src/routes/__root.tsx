@@ -85,11 +85,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "O Postal" },
       { property: "og:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: opostalVerticalDark.url },
+      { property: "og:image", content: `https://opostal.pt${opostalVerticalDark.url}` },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "O Postal" },
       { name: "twitter:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
-      { name: "twitter:image", content: opostalVerticalDark.url },
+      { name: "twitter:image", content: `https://opostal.pt${opostalVerticalDark.url}` },
       { name: "google-site-verification", content: "dQAQGexXakufEptudUA9z8UOAL_5de0_ProAfWpwTzw" },
     ],
     links: [
