@@ -25,22 +25,28 @@ import worldGeo from "world-atlas/countries-110m.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "O Postal: guias de viagem" },
+      { title: "O Postal: guias de viagem pela Europa" },
       {
         name: "description",
         content:
-          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga e Istambul já disponíveis; Paris, Viena, Lisboa, Budapeste, Florença, Barcelona e Londres em breve.",
+          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga e Istambul já disponíveis. Paris, Viena, Lisboa, Budapeste, Florença, Barcelona e Londres a caminho.",
       },
-      { property: "og:title", content: "O Postal: guias de viagem" },
+      { property: "og:title", content: "O Postal: guias de viagem pela Europa" },
       {
         property: "og:description",
-        content: "Guias de viagem editoriais, testados por mim, cidade a cidade.",
+        content:
+          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga e Istambul já disponíveis. Paris, Viena, Lisboa, Budapeste, Florença, Barcelona e Londres a caminho.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://opostal.pt/" },
+      { property: "og:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "O Postal: guias de viagem pela Europa" },
+      { name: "twitter:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
+      { name: "twitter:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
     ],
     links: [
-      { rel: "canonical", href: "/" },
+      { rel: "canonical", href: "https://opostal.pt/" },
       { rel: "preload", as: "image", href: hubHero, fetchpriority: "high" },
     ],
     scripts: [
@@ -49,8 +55,8 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
-            { "@type": "Organization", name: "O Postal", url: "/" },
-            { "@type": "WebSite", name: "O Postal", url: "/" },
+            { "@type": "Organization", name: "O Postal", url: "https://opostal.pt/" },
+            { "@type": "WebSite", name: "O Postal", url: "https://opostal.pt/" },
           ],
         }),
       },
