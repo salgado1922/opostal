@@ -50,31 +50,46 @@ import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-tran
 export const Route = createFileRoute("/praga")({
   head: () => ({
     meta: [
-      { title: "Praga: O Postal" },
+      { title: "Praga em 4 dias: roteiro a pé, sem turistadas | O Postal" },
       {
         name: "description",
         content:
-          "Guia público de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes, concertos e conversor de moeda.",
+          "Guia de 4 dias em Praga ao teu ritmo: cidade velha, castelo, Kutná Hora e Vyšehrad. Dicas, comida e o que reservar.",
       },
-      { property: "og:title", content: "Praga: O Postal" },
-      { property: "og:description", content: "Guia público de 4 dias para descobrir Praga sem pressa." },
+      { property: "og:title", content: "Praga em 4 dias: roteiro a pé, sem turistadas | O Postal" },
+      {
+        property: "og:description",
+        content:
+          "Guia de 4 dias em Praga ao teu ritmo: cidade velha, castelo, Kutná Hora e Vyšehrad. Dicas, comida e o que reservar.",
+      },
       { property: "og:type", content: "article" },
-      { property: "og:url", content: "/praga" },
+      { property: "og:url", content: "https://opostal.pt/praga" },
       {
         property: "og:image",
-        content: opostalHorizontalTransparent.url,
+        content: `https://opostal.pt${opostalHorizontalTransparent.url}`,
       },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Praga em 4 dias: roteiro a pé, sem turistadas | O Postal" },
+      {
+        name: "twitter:description",
+        content:
+          "Guia de 4 dias em Praga ao teu ritmo: cidade velha, castelo, Kutná Hora e Vyšehrad.",
+      },
+      { name: "twitter:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
     ],
-    links: [{ rel: "canonical", href: "/praga" }],
+    links: [{ rel: "canonical", href: "https://opostal.pt/praga" }],
     scripts: [
       {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Article",
-          headline: "Praga: O Postal",
+          "@type": "TravelGuide",
+          headline: "Praga em 4 dias: roteiro a pé, sem turistadas",
+          name: "Praga em 4 dias: roteiro a pé, sem turistadas",
+          url: "https://opostal.pt/praga",
+          image: `https://opostal.pt${opostalHorizontalTransparent.url}`,
           description:
-            "Guia público de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes, concertos e conversor de moeda.",
+            "Guia de 4 dias em Praga ao teu ritmo: cidade velha, castelo, Kutná Hora e Vyšehrad. Dicas, comida e o que reservar.",
           author: { "@type": "Person", name: "O Postal" },
         }),
       },

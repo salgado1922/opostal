@@ -78,35 +78,46 @@ import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-tran
 export const Route = createFileRoute("/istambul")({
   head: () => ({
     meta: [
-      { title: "Istambul: O Postal" },
+      { title: "Istambul em 5 dias: Sultanahmet, Bósforo e ilhas | O Postal" },
       {
         name: "description",
         content:
-          "Guia público de 5 dias em Istambul: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu. Dicas, comida, cruzeiro no Bósforo e conversor de moeda.",
+          "Guia de 5 dias em Istambul ao teu ritmo: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu. Dicas, comida e cruzeiro no Bósforo.",
       },
-      { property: "og:title", content: "Istambul: O Postal" },
+      { property: "og:title", content: "Istambul em 5 dias: Sultanahmet, Bósforo e ilhas | O Postal" },
       {
         property: "og:description",
         content:
-          "Guia público de 5 dias para descobrir Istambul sem pressa: duas margens, dois continentes, mil minaretes.",
+          "Guia de 5 dias em Istambul ao teu ritmo: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu. Dicas, comida e cruzeiro no Bósforo.",
       },
       { property: "og:type", content: "article" },
-      { property: "og:url", content: "https://compassoroutes.lovable.app/istambul" },
+      { property: "og:url", content: "https://opostal.pt/istambul" },
       {
         property: "og:image",
-        content: opostalHorizontalTransparent.url,
+        content: `https://opostal.pt${opostalHorizontalTransparent.url}`,
       },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Istambul em 5 dias: Sultanahmet, Bósforo e ilhas | O Postal" },
+      {
+        name: "twitter:description",
+        content:
+          "Guia de 5 dias em Istambul ao teu ritmo: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
+      },
+      { name: "twitter:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
     ],
-    links: [{ rel: "canonical", href: "https://compassoroutes.lovable.app/istambul" }],
+    links: [{ rel: "canonical", href: "https://opostal.pt/istambul" }],
     scripts: [
       {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Article",
-          headline: "Istambul: O Postal",
+          "@type": "TravelGuide",
+          headline: "Istambul em 5 dias: Sultanahmet, Bósforo e ilhas",
+          name: "Istambul em 5 dias: Sultanahmet, Bósforo e ilhas",
+          url: "https://opostal.pt/istambul",
+          image: `https://opostal.pt${opostalHorizontalTransparent.url}`,
           description:
-            "Guia público de 5 dias em Istambul: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
+            "Guia de 5 dias em Istambul ao teu ritmo: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
           author: { "@type": "Person", name: "O Postal" },
         }),
       },
