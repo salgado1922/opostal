@@ -25,13 +25,13 @@ import worldGeo from "world-atlas/countries-110m.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "O Postal — Guias de viagem" },
+      { title: "O Postal: guias de viagem" },
       {
         name: "description",
         content:
           "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga e Istambul já disponíveis; Paris, Viena, Lisboa, Budapeste, Florença, Barcelona e Londres em breve.",
       },
-      { property: "og:title", content: "O Postal — Guias de viagem" },
+      { property: "og:title", content: "O Postal: guias de viagem" },
       {
         property: "og:description",
         content: "Guias de viagem editoriais, testados por mim, cidade a cidade.",
@@ -199,10 +199,10 @@ function Hero() {
           </h1>
           <div className="my-7 h-px w-28 bg-gold/70" />
           <p className="max-w-xl text-lg text-cream md:text-xl [text-shadow:0_1px_12px_rgba(0,0,0,0.55)]">
-            Guias de viagem ao meu ritmo — testados por mim, cidade a cidade.
+            Guias de viagem ao meu ritmo, testados por mim, cidade a cidade.
           </p>
           <p className="mt-4 max-w-xl text-sm text-cream/75 md:text-base [text-shadow:0_1px_10px_rgba(0,0,0,0.5)]">
-            Roteiros de ritmo tranquilo, sem turistadas — para quem quer ver bem, em vez de ver tudo.
+            Roteiros de ritmo tranquilo, sem turistadas, para quem quer ver bem em vez de ver tudo.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <button
@@ -492,7 +492,7 @@ function CityCard({ city }: { city: CityMeta }) {
     );
   }
   return (
-    <div aria-disabled="true" aria-label={`${city.name} — em breve`}>
+    <div aria-disabled="true" aria-label={`${city.name}: em breve`}>
       {inner}
     </div>
   );
@@ -668,7 +668,7 @@ function EuropeMap() {
           </div>
 
           <p className="mt-6 text-center font-serif text-sm italic text-gold/85 md:text-base">
-            Uma cidade percorrida — e o mapa só vai crescer.
+            Uma cidade percorrida, e o mapa só vai crescer.
           </p>
         </div>
       </div>
@@ -745,7 +745,7 @@ function CityMarker({
     );
   }
   return (
-    <g aria-label={`${city.name} — em breve`} opacity={0.85}>
+    <g aria-label={`${city.name}: em breve`} opacity={0.85}>
       {marker}
     </g>
   );
@@ -767,7 +767,7 @@ function About() {
         </h2>
         <p className="mt-4 text-cream/75 leading-relaxed">
           Estes guias são pessoais. Caminhei cada rua, comi em cada mesa, escutei cada concerto.
-          Aqui só fica o que valeu a pena — horários sugeridos, nunca obrigatórios. Adapta ao teu ritmo.
+          Aqui só fica o que valeu a pena: horários sugeridos, nunca obrigatórios. Adapta ao teu ritmo.
         </p>
       </motion.div>
     </section>
@@ -791,7 +791,7 @@ function SiteFooter() {
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
         <div className="space-y-1.5">
           <p className="text-xs text-cream/55">
-            O Postal — Guias editoriais de cidades europeias — feitos com calma, partilhados com gosto.
+            O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
           </p>
           <p className="text-[11px] uppercase tracking-[0.2em] text-cream/35">
             Fotos: Unsplash · Wikimedia Commons
