@@ -78,13 +78,13 @@ import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-tran
 export const Route = createFileRoute("/istambul")({
   head: () => ({
     meta: [
-      { title: "Istambul — O Postal" },
+      { title: "Istambul: O Postal" },
       {
         name: "description",
         content:
           "Guia público de 5 dias em Istambul: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu. Dicas, comida, cruzeiro no Bósforo e conversor de moeda.",
       },
-      { property: "og:title", content: "Istambul — O Postal" },
+      { property: "og:title", content: "Istambul: O Postal" },
       {
         property: "og:description",
         content:
@@ -104,7 +104,7 @@ export const Route = createFileRoute("/istambul")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          headline: "Istambul — O Postal",
+          headline: "Istambul: O Postal",
           description:
             "Guia público de 5 dias em Istambul: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
           author: { "@type": "Person", name: "O Postal" },
@@ -302,7 +302,7 @@ const days: Day[] = [
     walkTotal: "A pé hoje: ~20 min",
     dayNote: {
       tone: "amber",
-      text: "Vai cedo aos monumentos — às 10h chegam os autocarros de tour.",
+      text: "Vai cedo aos monumentos: às 10h chegam os autocarros de tour.",
     },
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Hagia+Sophia,+Istanbul&daddr=Blue+Mosque,+Istanbul+to:Hippodrome+of+Constantinople+to:Basilica+Cistern,+Istanbul&dirflg=w",
@@ -322,19 +322,19 @@ const days: Day[] = [
         time: "Início do dia",
         title: "Hagia Sophia",
         desc: "Logo à abertura (~9h) para evitar 1–2 h de fila. É mesquita: ombros e pernas cobertos, lenço na cabeça para mulheres. A galeria superior tem bilhete à parte.",
-        tip: "Reservar acesso prioritário online — poupa horas em fila e garante a galeria superior.",
+        tip: "Reservar acesso prioritário online; poupa horas em fila e garante a galeria superior.",
         link: "https://pt.wikipedia.org/wiki/Hagia_Sophia",
         img: d1S2,
         imgAlt: "Interior da Hagia Sophia",
         icon: Church,
         bookingUrl: "https://muze.gen.tr/muze-detay/ayasofya",
-        hours: "~9:00 — fechada nas horas de oração",
+        hours: "~9:00, fechada nas horas de oração",
         walkTo: "~3 min",
       },
       {
         time: "~3 min depois",
         title: "Mesquita Azul (Sultanahmet)",
-        desc: "Mesmo em frente. Entrada gratuita; fecha aos visitantes nas 5 horas de oração — entra entre orações.",
+        desc: "Mesmo em frente. Entrada gratuita; fecha aos visitantes nas 5 horas de oração, entra entre orações.",
         link: "https://pt.wikipedia.org/wiki/Mesquita_Azul",
         icon: Church,
         img: d1S3,
@@ -354,7 +354,7 @@ const days: Day[] = [
       {
         time: "Fim de tarde",
         title: "Cisterna da Basílica",
-        desc: "336 colunas e as cabeças de Medusa invertidas. Cara mas única — bilhete online para saltar a fila.",
+        desc: "336 colunas e as cabeças de Medusa invertidas. Cara mas única; bilhete online para saltar a fila.",
         link: "https://pt.wikipedia.org/wiki/Cisterna_da_Bas%C3%ADlica",
         icon: Castle,
         bookingUrl: "https://yerebatan.com/en/",
@@ -375,7 +375,7 @@ const days: Day[] = [
     icon: Crown,
     cover: d2Cover,
     highlightTip:
-      "Topkapi e Grande Bazar fecham em dias diferentes — Topkapi às terças, Grande Bazar aos domingos.",
+      "Topkapi e Grande Bazar fecham em dias diferentes: Topkapi às terças, Grande Bazar aos domingos.",
     howToGet: "Como andar: a pé + elétrico T1.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Topkapi+Palace,+Istanbul&daddr=Gulhane+Park,+Istanbul+to:Suleymaniye+Mosque,+Istanbul+to:Grand+Bazaar,+Istanbul&dirflg=w",
@@ -438,7 +438,7 @@ const days: Day[] = [
     cover: d3Cover,
     howToGet: "Como andar: elétrico/autocarro + ferry.",
     highlightTip:
-      "Reserva o cruzeiro noturno do Bósforo para o fim do dia — esgota com antecedência.",
+      "Reserva o cruzeiro noturno do Bósforo para o fim do dia, que esgota com antecedência.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Dolmabahce+Palace,+Istanbul&daddr=Ortakoy+Mosque,+Istanbul+to:Kadikoy,+Istanbul&dirflg=w",
     mapLinkUrl:
@@ -499,7 +499,7 @@ const days: Day[] = [
     dayTag: "Dia lento, longe do trânsito.",
     dayNote: {
       tone: "amber",
-      text: "CONFIRMA o horário do último ferry de regresso — são poucos!",
+      text: "CONFIRMA o horário do último ferry de regresso: são poucos!",
     },
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&q=B%C3%BCy%C3%BCkada,+Istanbul",
@@ -630,7 +630,7 @@ function Hero() {
       <motion.div style={{ y }} className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=2400&q=80"
-          alt="Istambul à hora azul — silhueta do Bósforo com mesquitas e ferries"
+          alt="Istambul à hora azul: silhueta do Bósforo com mesquitas e ferries"
           className="h-[120%] w-full object-cover"
         />
         {/* indigo/petrol-blue overlay (replaces amber on Praga hero) */}
@@ -661,7 +661,7 @@ function Hero() {
           </h1>
           <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
             Um guia público para descobrir Istambul sem pressa: duas margens, dois continentes,
-            mil minaretes — e o melhor entre a Europa e a Ásia, para qualquer viajante.
+            mil minaretes, e o melhor entre a Europa e a Ásia, para qualquer viajante.
           </p>
           <div className="mt-7 flex justify-center">
             <EightPointStar className="h-4 w-4 text-gold/80" />
@@ -942,7 +942,7 @@ function DayBlock({ day }: { day: Day }) {
           </div>
           <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
             <p className="font-serif text-sm italic text-gold/80">
-              {isIsland ? "Büyükada — Ilha dos Príncipes" : `Percurso a pé do ${day.label}`}
+              {isIsland ? "Büyükada: Ilha dos Príncipes" : `Percurso a pé do ${day.label}`}
             </p>
             {day.mapLinkUrl && (
               <a
@@ -969,7 +969,7 @@ function Itineraries() {
       id="dias"
       eyebrow="Itinerário detalhado"
       title="Dia a dia, paragem a paragem"
-      intro="Toca para abrir cada paragem — dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
+      intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
         {days.map((d) => (
@@ -991,7 +991,7 @@ function Bosforo() {
       price: "trocos – €€",
       pros: [
         "Vistas de palácios, fortalezas e das duas margens por muito pouco",
-        "Sem horários rígidos nem reserva — apanhas e segues",
+        "Sem horários rígidos nem reserva: apanhas e segues",
       ],
       cons: ["Sem jantar nem espetáculo"],
       cta: "A maneira mais barata e autêntica de cruzar continentes.",
@@ -1004,10 +1004,10 @@ function Bosforo() {
       where: "~3 h à noite, com jantar e espetáculo ao vivo",
       price: "€€€",
       pros: [
-        "Istambul iluminada a partir da água — minaretes e pontes a brilhar",
+        "Istambul iluminada a partir da água: minaretes e pontes a brilhar",
         "Reservar com antecedência",
       ],
-      cons: ["Evita os cruzeiros de menos de 2 h — mais baratos, mas desilusão"],
+      cons: ["Evita os cruzeiros de menos de 2 h, mais baratos mas uma desilusão"],
       cta: "A experiência que se conta no regresso.",
       highlight: true,
       link: "https://www.getyourguide.com/istanbul-l56/bosphorus-dinner-cruise-tc55/",
@@ -1019,7 +1019,7 @@ function Bosforo() {
       id="bosforo"
       eyebrow="No Bósforo"
       title="Bósforo: de dia ou à noite?"
-      intro="Istambul vê-se melhor a partir da água. Vale escolher bem — e, para o cruzeiro com jantar, reservar com tempo."
+      intro="Istambul vê-se melhor a partir da água. Vale escolher bem; e, para o cruzeiro com jantar, reservar com tempo."
     >
       <div className="grid gap-6 md:grid-cols-2">
         {tiers.map((t, i) => (
@@ -1074,18 +1074,18 @@ function Bosforo() {
 
 function Food() {
   const areas = [
-    "Kahvaltı (pequeno-almoço turco) numa kahvaltı salonu — mais experiência do que refeição.",
-    "Ocakbaşı (grelhador a carvão) para kebap e köfte — procura os cheios de locais.",
+    "Kahvaltı (pequeno-almoço turco) numa kahvaltı salonu, mais experiência do que refeição.",
+    "Ocakbaşı (grelhador a carvão) para kebap e köfte; procura os cheios de locais.",
     "Balık ekmek (sande de peixe) em Eminönü, junto à Ponte Gálata.",
     "Meyhane (taberna de meze) em Beyoğlu/Karaköy para uma noite à turca, com rakı.",
     "Kadıköy (lado asiático): a melhor zona de comida de rua e mercados.",
-    "(Confirma horários e reservas no local — Istambul muda depressa.)",
+    "(Confirma horários e reservas no local; Istambul muda depressa.)",
   ];
 
   const dishes = [
     {
       name: "Kahvaltı",
-      desc: "O lendário pequeno-almoço turco — queijos, azeitonas, ovos, mel, pão quente e chá sem fim.",
+      desc: "O lendário pequeno-almoço turco: queijos, azeitonas, ovos, mel, pão quente e chá sem fim.",
       img: "https://images.unsplash.com/photo-1517315003714-a071486bd9ea?auto=format&fit=crop&w=1200&q=80",
       imgAlt: "Pequeno-almoço turco tradicional",
     },
@@ -1172,7 +1172,7 @@ function Food() {
         <div>
           <div className="font-serif text-lg text-cream">Atenção: armadilhas à mesa</div>
           <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-            <li>• Evita os restaurantes da faixa turística de Sultanahmet (caros e fracos) — anda 5 min para fora.</li>
+            <li>• Evita os restaurantes da faixa turística de Sultanahmet (caros e fracos); anda 5 min para fora.</li>
             <li>• Confirma o preço por peso/por porção antes de pedir peixe ou meze (a conta pode disparar).</li>
             <li>• Desconfia de quem te puxa para dentro com «chá grátis» ou te leva a um bar «de um amigo».</li>
           </ul>
@@ -1188,15 +1188,15 @@ function Tips() {
   const doIt = [
     "Comprar o Istanbulkart logo no aeroporto e usá-lo em tudo (incl. ferries).",
     "Pagar sempre em liras e levantar em ATMs de bancos (não em casas de câmbio da rua).",
-    "Usar os ferries — a forma mais bonita e barata de andar.",
+    "Usar os ferries: a forma mais bonita e barata de andar.",
     "Regatear nos bazares; nunca aceitar a primeira oferta.",
-    "Vestir-se com respeito nas mesquitas (ombros/pernas cobertos; lenço para mulheres — costumam dar à porta).",
+    "Vestir-se com respeito nas mesquitas (ombros/pernas cobertos; lenço para mulheres, que costumam dar à porta).",
     "Ir cedo aos grandes monumentos (Topkapi, Hagia Sophia, Dolmabahçe).",
   ];
   const dont = [
     "Táxis em zonas turísticas (taxímetro «salta»). Usa BiTaksi ou Uber, ou o elétrico T1.",
     "O scam do engraxador que deixa cair a escova, e o do «amigo simpático» que te leva a um bar caro.",
-    "ATMs Euronet — câmbio péssimo.",
+    "ATMs Euronet: câmbio péssimo.",
     "Beber álcool na via pública em bairros conservadores (zona de Fatih/Sultanahmet).",
     "Comprar à primeira oferta no bazar.",
     "Confiar em «guias» não oficiais à porta dos monumentos.",
@@ -1264,12 +1264,12 @@ function Tips() {
 
 function Checklist() {
   const items = [
-    "Hagia Sophia — acesso prioritário (e galeria superior)",
-    "Cisterna da Basílica — bilhete sem fila",
-    "Palácio Topkapi + Harém — entrada sem fila",
-    "Palácio Dolmabahçe — entrada (fechado às segundas)",
+    "Hagia Sophia: acesso prioritário (e galeria superior)",
+    "Cisterna da Basílica: bilhete sem fila",
+    "Palácio Topkapi + Harém: entrada sem fila",
+    "Palácio Dolmabahçe: entrada (fechado às segundas)",
     "Cruzeiro noturno no Bósforo (com jantar)",
-    "Ferry para a Ilha dos Príncipes — confirmar horários e o ÚLTIMO ferry de regresso",
+    "Ferry para a Ilha dos Príncipes: confirmar horários e o ÚLTIMO ferry de regresso",
     "Hammam (banho turco), se quiseres a experiência",
     "Mesa em meyhane/restaurante popular para a noite de Beyoğlu",
   ];
@@ -1308,9 +1308,9 @@ function Footer() {
     <footer className="border-t border-gold/15 px-6 py-16 text-center">
       <div className="mx-auto max-w-3xl">
         <ArabesqueDivider className="mb-8" />
-        <p className="font-serif text-3xl text-gradient-gold md:text-4xl">Şerefe — à vossa.</p>
+        <p className="font-serif text-3xl text-gradient-gold md:text-4xl">Şerefe, à vossa.</p>
         <p className="mt-4 text-sm text-muted-foreground">
-          O Postal — Guias editoriais de cidades europeias — feitos com calma, partilhados com gosto.
+          O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
         </p>
         <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground/60">Fotos: Unsplash · Wikimedia Commons</p>
         <DomeSilhouette className="mx-auto mt-10 h-10 w-72 text-gold/40 md:w-96" />
@@ -1507,7 +1507,7 @@ function VePrimeiro() {
           <div className="relative aspect-video overflow-hidden rounded-3xl border border-gold/20 bg-black">
             <iframe
               src="https://www.youtube.com/embed/Tn1zT8RJ0kI"
-              title="Vê primeiro — Istambul"
+              title="Vê primeiro: Istambul"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
@@ -1576,7 +1576,7 @@ function ConhecerIstambul() {
       id="conhecer"
       eyebrow="Contexto"
       title="Conhecer Istambul"
-      intro="Contexto rápido antes de partir — abre só o que te interessar."
+      intro="Contexto rápido antes de partir; abre só o que te interessar."
     >
       <motion.div
         initial="hidden"
@@ -1604,14 +1604,14 @@ function ConhecerIstambul() {
                 Foi Bizâncio e depois Constantinopla; capital dos impérios romano, bizantino e otomano.
               </p>
               <p>
-                Ao contrário do que muitos pensam, <em>NÃO é a capital</em> da Turquia — essa é Ancara.
+                Ao contrário do que muitos pensam, <em>NÃO é a capital</em> da Turquia; essa é Ancara.
               </p>
               <p>
                 A "cidade das mil mesquitas", de cúpulas e minaretes, bazares milenares e ferries que
                 cruzam continentes por trocos.
               </p>
               <p>
-                Compacta no centro histórico e fácil a pé, mas enorme no todo — melhor combinar
+                Compacta no centro histórico e fácil a pé, mas enorme no todo, por isso melhor combinar
                 caminhadas com elétrico e barco.
               </p>
             </AccordionContent>
@@ -1629,7 +1629,7 @@ function ConhecerIstambul() {
             <AccordionContent className="pb-6 text-sm leading-relaxed text-cream/90 space-y-3">
               <p>
                 <span className="text-gold">Primavera (abr–mai) e início de outono (set):</span> a
-                melhor altura — clima ameno, menos calor, menos filas.
+                melhor altura: clima ameno, menos calor, menos filas.
               </p>
               <p>
                 <span className="text-gold">Verão (jun–ago):</span> a época mais cheia; quente e
@@ -1682,7 +1682,7 @@ function ConhecerIstambul() {
                 </table>
               </div>
               <p className="mt-3 font-serif italic text-gold/90 text-sm">
-                Médias aproximadas — o tempo varia de ano para ano.
+                Médias aproximadas; o tempo varia de ano para ano.
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -1730,7 +1730,7 @@ const essentials = [
   {
     icon: Coins,
     title: "Moeda",
-    body: "Lira turca (TRY). Muito volátil — confirma sempre a taxa do dia. Cartão aceite em quase todo o lado; leva dinheiro para bazares, ferries e gorjetas.",
+    body: "Lira turca (TRY). Muito volátil, por isso confirma sempre a taxa do dia. Cartão aceite em quase todo o lado; leva dinheiro para bazares, ferries e gorjetas.",
   },
   {
     icon: Plug,
@@ -1745,7 +1745,7 @@ const essentials = [
   {
     icon: Bus,
     title: "Transportes",
-    body: "Compra o Istanbulkart logo no aeroporto — serve para metro, elétrico (T1), autocarro, comboio (Marmaray) e ferry. Recarrega em quiosques e máquinas; pode ser partilhado.",
+    body: "Compra o Istanbulkart logo no aeroporto: serve para metro, elétrico (T1), autocarro, comboio (Marmaray) e ferry. Recarrega em quiosques e máquinas; pode ser partilhado.",
   },
   {
     icon: HandCoins,
@@ -2032,8 +2032,8 @@ function CurrencyConverter() {
 
       <p className="mt-5 font-serif text-xs italic text-gold/85">
         {isLive
-          ? "Taxa atualizada automaticamente — a lira é volátil, confirma sempre antes de pagar."
-          : "Taxa indisponível de momento — a usar valor aproximado."}
+          ? "Taxa atualizada automaticamente; a lira é volátil, confirma sempre antes de pagar."
+          : "Taxa indisponível de momento, a usar valor aproximado."}
       </p>
     </motion.div>
   );

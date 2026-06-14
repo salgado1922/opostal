@@ -50,13 +50,13 @@ import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-tran
 export const Route = createFileRoute("/praga")({
   head: () => ({
     meta: [
-      { title: "Praga — O Postal" },
+      { title: "Praga: O Postal" },
       {
         name: "description",
         content:
           "Guia público de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes, concertos e conversor de moeda.",
       },
-      { property: "og:title", content: "Praga — O Postal" },
+      { property: "og:title", content: "Praga: O Postal" },
       { property: "og:description", content: "Guia público de 4 dias para descobrir Praga sem pressa." },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/praga" },
@@ -72,7 +72,7 @@ export const Route = createFileRoute("/praga")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          headline: "Praga — O Postal",
+          headline: "Praga: O Postal",
           description:
             "Guia público de 4 dias em Praga: Cidade Velha, Castelo, Kutná Hora e Vyšehrad. Dicas, restaurantes, concertos e conversor de moeda.",
           author: { "@type": "Person", name: "O Postal" },
@@ -207,7 +207,7 @@ const days: Day[] = [
     walkTotal: "A pé hoje: ~25 min",
     dayNote: {
       tone: "amber",
-      text: "Atenção: o bairro judeu (Josefov) fecha aos sábados — planeia esta paragem noutro dia da semana.",
+      text: "Atenção: o bairro judeu (Josefov) fecha aos sábados; planeia esta paragem noutro dia da semana.",
     },
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Josefov+Prague&daddr=Old+Town+Square+Prague+to:Charles+Bridge+Prague&dirflg=w",
@@ -223,10 +223,10 @@ const days: Day[] = [
       },
       {
         time: "14:00",
-        title: "Josefov — Bairro Judeu",
+        title: "Josefov: Bairro Judeu",
         desc: "Passeio tranquilo pelas sinagogas e pelo Cemitério Judaico, um dos mais antigos da Europa.",
         link: "https://pt.wikipedia.org/wiki/Josefov",
-        tip: "Bilhete combinado para várias sinagogas — vale a pena se as pernas aguentarem.",
+        tip: "Bilhete combinado para várias sinagogas, vale a pena se as pernas aguentarem.",
         icon: Church,
         bookingUrl: "https://www.jewishmuseum.cz/en/",
         hours: "Dom–Sex ~9:00–18:00",
@@ -271,7 +271,7 @@ const days: Day[] = [
     stops: [
       {
         time: "09:00",
-        title: "Castelo de Praga — S. Vito & Beco de Ouro",
+        title: "Castelo de Praga: S. Vito & Beco de Ouro",
         desc: "Catedral primeiro (filas), depois Antigo Palácio Real e a ruela colorida do Beco de Ouro.",
         link: "https://pt.wikipedia.org/wiki/Castelo_de_Praga",
         img: "https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1200&q=80",
@@ -323,7 +323,7 @@ const days: Day[] = [
       text: "Comboio de Praha hl.n. → Kutná Hora (~55 min)",
       primaryLabel: "Ver horários (ČD)",
       primaryUrl: "https://www.cd.cz/en/",
-      note: "Dentro de Kutná Hora, do Ossário de Sedlec ao centro são ~2,5 km — usar autocarro/táxi local.",
+      note: "Dentro de Kutná Hora, do Ossário de Sedlec ao centro são ~2,5 km, usar autocarro/táxi local.",
       secondaryLabel: "Abrir Sedlec → centro no Google Maps",
       secondaryUrl:
         "https://www.google.com/maps/dir/Sedlec+Ossuary/Kutn%C3%A1+Hora+city+centre/data=!4m2!4m1!3e0",
@@ -344,14 +344,14 @@ const days: Day[] = [
         icon: Church,
         bookingUrl: "https://khfarnost.cz/en/",
         hours: "~9:00–18:00",
-        walkTo: "Sedlec ↔ centro ~2,5 km — usar autocarro/táxi local",
+        walkTo: "Sedlec ↔ centro ~2,5 km, usar autocarro/táxi local",
       },
       {
         time: "12:30",
-        title: "Ossário de Sedlec — reservar slot!",
+        title: "Ossário de Sedlec: reservar slot!",
         desc: "Capela revestida com ossos de 40 mil pessoas. Único, sombrio, inesquecível.",
         link: "https://pt.wikipedia.org/wiki/Oss%C3%A1rio_de_Sedlec",
-        tip: "Entrada por horários — comprar online com antecedência para evitar fila e ficar sem vaga.",
+        tip: "Entrada por horários: comprar online com antecedência para evitar fila e ficar sem vaga.",
         img: "https://commons.wikimedia.org/wiki/Special:FilePath/Ossuary_in_Sedlec.JPG?width=1200",
         imgAlt: "Lustre feito de ossos humanos no Ossário de Sedlec",
         icon: AlertTriangle,
@@ -362,7 +362,7 @@ const days: Day[] = [
       {
         time: "20:00",
         title: "Concerto & Jantar",
-        desc: "Voltar a Praga, jantar leve e concerto clássico — ver secção de concertos abaixo.",
+        desc: "Voltar a Praga, jantar leve e concerto clássico; ver secção de concertos abaixo.",
         icon: Music,
       },
     ],
@@ -385,7 +385,7 @@ const days: Day[] = [
     stops: [
       {
         time: "09:30",
-        title: "Vyšehrad — vistas panorâmicas, sem multidões",
+        title: "Vyšehrad: vistas panorâmicas, sem multidões",
         desc: "Fortaleza, basílica e cemitério dos artistas. Vista do Vltava como num quadro romântico.",
         link: "https://pt.wikipedia.org/wiki/Vy%C5%A1ehrad",
         img: "https://images.unsplash.com/photo-1587539308989-afe8119c4e46?auto=format&fit=crop&w=1200&q=80",
@@ -428,7 +428,7 @@ function Hero() {
       <motion.div style={{ y }} className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=2400&q=80"
-          alt="Vista de Praga ao pôr do sol — Ponte Carlos e Castelo"
+          alt="Vista de Praga ao pôr do sol: Ponte Carlos e Castelo"
           className="h-[120%] w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-twilight/40 via-twilight/60 to-background" />
@@ -458,7 +458,7 @@ function Hero() {
           </h1>
           <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
             Um guia público para descobrir Praga sem pressa: cafés calmos, caminhos curtos,
-            vistas longas — e o melhor da Boémia, para qualquer viajante.
+            vistas longas, e o melhor da Boémia, para qualquer viajante.
           </p>
         </motion.div>
       </motion.div>
@@ -817,7 +817,7 @@ function Itineraries() {
       id="dias"
       eyebrow="Itinerário detalhado"
       title="Dia a dia, paragem a paragem"
-      intro="Toca para abrir cada paragem — dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
+      intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
         {days.map((d) => (
@@ -855,7 +855,7 @@ function Concerts() {
       pros: [
         "Orquestras nacionais e maestros de topo",
         "Salas históricas com acústica de referência",
-        "Programas de Smetana, Dvořák — a alma checa",
+        "Programas de Smetana, Dvořák, a alma checa",
       ],
       cons: ["Reservar com semanas de antecedência", "Dress code mais cuidado"],
       cta: "A experiência que se conta no regresso",
@@ -869,7 +869,7 @@ function Concerts() {
       id="concertos"
       eyebrow="Música clássica"
       title="Concertos: básico ou de luxo?"
-      intro="Praga vive de música. Vale escolher bem — e reservar com tempo."
+      intro="Praga vive de música. Vale escolher bem, e reservar com tempo."
     >
       <div className="grid gap-6 md:grid-cols-2">
         {tiers.map((t, i) => (
@@ -981,7 +981,7 @@ function Food() {
       name: "Svíčková",
       desc: "Vitela em molho de raízes, natas e arando. O abraço da cozinha checa.",
       img: "https://commons.wikimedia.org/wiki/Special:FilePath/Sv%C3%AD%C4%8Dkov%C3%A1%20na%20smetan%C4%9B.JPG?width=1200",
-      imgAlt: "Svíčková — prato tradicional checo",
+      imgAlt: "Svíčková, prato tradicional checo",
     },
     {
       name: "Guláš + knedlíky",
@@ -1081,7 +1081,7 @@ function Food() {
             Atenção: o "Trdelník" não é checo
           </div>
           <p className="mt-1 text-sm text-muted-foreground">
-            O famoso bolo em forma de chaminé é uma invenção recente para turistas — bonito de
+            O famoso bolo em forma de chaminé é uma invenção recente para turistas; bonito de
             fotografar, mas nada tradicional. Se quiser doce, prefira{" "}
             <span className="text-cream">koláč</span> ou{" "}
             <span className="text-cream">medovník</span>.
@@ -1096,17 +1096,17 @@ function Food() {
 
 function Tips() {
   const doIt = [
-    "Pagar sempre em CZK (coroas) — recusar 'pagar em euros'.",
+    "Pagar sempre em CZK (coroas); recusar 'pagar em euros'.",
     "Levantar dinheiro em ATMs de bancos (ČSOB, KB, Air Bank).",
     "Validar bilhetes do elétrico/metro logo à entrada.",
     "Reservar Castelo, Ossário e concertos online.",
-    "Caminhar devagar — a calçada de Praga é traiçoeira.",
+    "Caminhar devagar: a calçada de Praga é traiçoeira.",
   ];
   const dont = [
-    "Evitar caixas multibanco Euronet — câmbio péssimo.",
+    "Evitar caixas multibanco Euronet: câmbio péssimo.",
     "Não comprar 'Old Prague Ham' ao peso (preço por 100g, choque na conta).",
     "Não trocar dinheiro na rua nem em casas com 'No Commission'.",
-    "Evitar restaurantes na Praça da Cidade Velha — turísticos e caros.",
+    "Evitar restaurantes na Praça da Cidade Velha: turísticos e caros.",
     "Não fotografar Trdelník como se fosse típico 😉",
   ];
 
@@ -1173,8 +1173,8 @@ function Tips() {
 function Checklist() {
   const items = [
     "Castelo de Praga (bilhete de entrada)",
-    "Museu Judaico — Josefov (bilhete combinado)",
-    "Ossário de Sedlec — slot horário",
+    "Museu Judaico: Josefov (bilhete combinado)",
+    "Ossário de Sedlec: slot horário",
     "Concerto no Rudolfinum / Casa Municipal",
     "Comboio Praga ↔ Kutná Hora",
     "Mesa em restaurante popular (ex.: U Modré Kachničky)",
@@ -1214,10 +1214,10 @@ function Footer() {
     <footer className="border-t border-gold/15 px-6 py-16 text-center">
       <div className="mx-auto max-w-3xl">
         <p className="font-serif text-3xl text-gradient-gold md:text-4xl">
-          Na zdraví — à vossa.
+          Na zdraví, à vossa.
         </p>
         <p className="mt-4 text-sm text-muted-foreground">
-          O Postal — Guias editoriais de cidades europeias — feitos com calma, partilhados com gosto.
+          O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
         </p>
         <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground/60">Fotos: Unsplash · Wikimedia Commons</p>
       </div>
@@ -1412,7 +1412,7 @@ function VePrimeiro() {
           <div className="relative aspect-video overflow-hidden rounded-3xl border border-gold/20 bg-black">
             <iframe
               src="https://www.youtube.com/embed/n_R22ZbTJhg"
-              title="Vê primeiro — Praga"
+              title="Vê primeiro: Praga"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
@@ -1494,7 +1494,7 @@ function ConhecerPraga() {
       id="conhecer"
       eyebrow="Contexto"
       title="Conhecer Praga"
-      intro="Contexto rápido antes de partir — abre só o que te interessar."
+      intro="Contexto rápido antes de partir; abre só o que te interessar."
     >
       <motion.div
         initial="hidden"
@@ -1523,7 +1523,7 @@ function ConhecerPraga() {
                 <em>"a cidade dourada"</em>.
               </p>
               <p>
-                Tem mais de mil anos de história — foi capital do Sacro Império
+                Tem mais de mil anos de história: foi capital do Sacro Império
                 e centro da Boémia.
               </p>
               <p>
@@ -1550,7 +1550,7 @@ function ConhecerPraga() {
             <AccordionContent className="pb-6 text-sm leading-relaxed text-cream/90 space-y-3">
               <p>
                 <span className="text-gold">Primavera (abr–mai) e início de outono (set):</span>{" "}
-                a melhor altura — clima ameno, menos calor, menos multidões.
+                a melhor altura: clima ameno, menos calor, menos multidões.
               </p>
               <p>
                 <span className="text-gold">Verão (jun–ago):</span> dias longos
@@ -1604,7 +1604,7 @@ function ConhecerPraga() {
                 </table>
               </div>
               <p className="mt-3 font-serif italic text-gold/90 text-sm">
-                Médias aproximadas — o tempo varia de ano para ano.
+                Médias aproximadas; o tempo varia de ano para ano.
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -1732,7 +1732,7 @@ function EssentialInfo() {
           <h3 className="font-serif text-2xl text-cream">Onde ficar</h3>
         </div>
         <p className="mb-5 text-sm text-muted-foreground">
-          Três bairros a considerar — qualquer um deles funciona muito bem para um guia de 4 dias.
+          Três bairros a considerar; qualquer um deles funciona muito bem para um guia de 4 dias.
         </p>
         <ul className="grid gap-4 md:grid-cols-3">
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
@@ -1928,7 +1928,7 @@ function CurrencyConverter() {
       </div>
 
       <p className="mt-5 text-xs italic text-gold/80">
-        Taxa fixa aproximada (1 € ≈ {RATE_CZK_PER_EUR} CZK) — pode estar desatualizada. Confirmar a taxa de câmbio do dia antes de pagar.
+        Taxa fixa aproximada (1 € ≈ {RATE_CZK_PER_EUR} CZK); pode estar desatualizada. Confirmar a taxa de câmbio do dia antes de pagar.
       </p>
     </motion.div>
   );

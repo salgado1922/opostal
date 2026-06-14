@@ -11,7 +11,6 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import opostalStampIcon from "@/assets/brand/opostal-stamp-icon.png.asset.json";
 import opostalVerticalDark from "@/assets/brand/opostal-vertical-dark.png.asset.json";
 
 function NotFoundComponent() {
@@ -79,7 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "O Postal — Guias de viagem" },
+      { title: "O Postal: guias de viagem" },
       { name: "description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
       { name: "author", content: "O Postal" },
       { property: "og:title", content: "O Postal" },
@@ -95,8 +94,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: opostalStampIcon.url },
-      { rel: "apple-touch-icon", href: opostalStampIcon.url },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16.png" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
