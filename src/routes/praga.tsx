@@ -45,7 +45,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
-
+import { AffiliateLink } from "@/components/AffiliateLink";
 
 export const Route = createFileRoute("/praga")({
   head: () => ({
@@ -176,6 +176,7 @@ type Stop = {
   imgAlt?: string;
   icon: React.ComponentType<{ className?: string }>;
   bookingUrl?: string;
+  affiliate?: boolean;
   hours?: string;
   hoursNote?: string;
   walkTo?: string;
@@ -292,7 +293,8 @@ const days: Day[] = [
         img: "https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1200&q=80",
         imgAlt: "Vitrais interiores da Catedral de São Vito",
         icon: Castle,
-        bookingUrl: "https://www.hrad.cz/en",
+        bookingUrl: "https://gyg.me/UcZAB6XK",
+        affiliate: true,
         hours: "~9:00–17:00",
         walkTo: "~12 min",
       },
@@ -574,13 +576,21 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
 
         {(stop.hours || stop.bookingUrl) && (
           <div className="mt-4 flex flex-wrap items-center gap-3">
-            {stop.bookingUrl && (
-              <a
-                href={stop.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
-              >
+            {stop.bookingUrl &&
+              (stop.affiliate ? (
+                <AffiliateLink href={stop.bookingUrl} />
+              ) : (
+                
+                  href={stop.bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
+                >
+                  <Ticket className="h-3.5 w-3.5" />
+                  Reservar
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              ))}
                 <Ticket className="h-3.5 w-3.5" />
                 Reservar
                 <ExternalLink className="h-3 w-3 opacity-70" />
@@ -951,7 +961,11 @@ function Concerts() {
                 </a>
               </div>
             )}
-
+              {!t.highlight && (
+              <div className="mt-6 flex flex-wrap gap-3">
+                <AffiliateLink href="https://gyg.me/CdaAOkPP" label="Reservar concerto" />
+              </div>
+            )}
             <p className="mt-6 border-t border-gold/15 pt-5 text-sm italic text-cream/80">
               {t.cta}
             </p>
