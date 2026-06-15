@@ -78,17 +78,17 @@ import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-tran
 export const Route = createFileRoute("/istambul")({
   head: () => ({
     meta: [
-      { title: "Istambul em 5 dias: Sultanahmet, Bósforo e ilhas | O Postal" },
+      { title: "O que visitar em Istambul: roteiro de 5 dias | O Postal" },
       {
         name: "description",
         content:
-          "Guia de 5 dias em Istambul ao teu ritmo: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu. Dicas, comida e cruzeiro no Bósforo.",
+          "O que visitar em Istambul em 5 dias, ao teu ritmo: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu. Dicas, comida e cruzeiro no Bósforo.",
       },
-      { property: "og:title", content: "Istambul em 5 dias: Sultanahmet, Bósforo e ilhas | O Postal" },
+      { property: "og:title", content: "O que visitar em Istambul: roteiro de 5 dias | O Postal" },
       {
         property: "og:description",
         content:
-          "Guia de 5 dias em Istambul ao teu ritmo: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu. Dicas, comida e cruzeiro no Bósforo.",
+          "O que visitar em Istambul em 5 dias, ao teu ritmo: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu. Dicas, comida e cruzeiro no Bósforo.",
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "https://opostal.pt/istambul" },
@@ -97,11 +97,11 @@ export const Route = createFileRoute("/istambul")({
         content: `https://opostal.pt${opostalHorizontalTransparent.url}`,
       },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Istambul em 5 dias: Sultanahmet, Bósforo e ilhas | O Postal" },
+      { name: "twitter:title", content: "O que visitar em Istambul: roteiro de 5 dias | O Postal" },
       {
         name: "twitter:description",
         content:
-          "Guia de 5 dias em Istambul ao teu ritmo: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
+          "O que visitar em Istambul em 5 dias: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
       },
       { name: "twitter:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
     ],
@@ -112,12 +112,12 @@ export const Route = createFileRoute("/istambul")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "TravelGuide",
-          headline: "Istambul em 5 dias: Sultanahmet, Bósforo e ilhas",
-          name: "Istambul em 5 dias: Sultanahmet, Bósforo e ilhas",
+          headline: "O que visitar em Istambul: roteiro de 5 dias",
+          name: "O que visitar em Istambul: roteiro de 5 dias",
           url: "https://opostal.pt/istambul",
           image: `https://opostal.pt${opostalHorizontalTransparent.url}`,
           description:
-            "Guia de 5 dias em Istambul ao teu ritmo: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
+            "O que visitar em Istambul em 5 dias: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
           author: { "@type": "Person", name: "O Postal" },
         }),
       },
@@ -690,7 +690,7 @@ function Overview() {
     <Section
       id="overview"
       eyebrow="O Roteiro"
-      title="Cinco dias, cinco humores"
+      title="O que visitar em Istambul: cinco dias, cinco humores"
       intro="Cada dia tem o seu cenário e a sua cadência. Devagar de manhã, à beira do Bósforo ao fim da tarde."
     >
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
