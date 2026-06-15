@@ -580,7 +580,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
               (stop.affiliate ? (
                 <AffiliateLink href={stop.bookingUrl} />
               ) : (
-                
+                <a
                   href={stop.bookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -591,11 +591,6 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
                   <ExternalLink className="h-3 w-3 opacity-70" />
                 </a>
               ))}
-                <Ticket className="h-3.5 w-3.5" />
-                Reservar
-                <ExternalLink className="h-3 w-3 opacity-70" />
-              </a>
-            )}
             {stop.hours && (
               <div className="flex flex-col gap-0.5">
                 <div className="flex items-center gap-2 text-xs text-cream/80">
