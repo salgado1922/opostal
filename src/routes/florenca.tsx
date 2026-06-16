@@ -157,8 +157,6 @@ type Stop = {
   desc: string;
   tip?: string;
   link?: string;
-  img?: string;
-  imgAlt?: string;
   icon: React.ComponentType<{ className?: string }>;
   bookingUrl?: string;
   hours?: string;
@@ -174,7 +172,6 @@ type Day = {
   vibe: string;
   accent: string;
   icon: React.ComponentType<{ className?: string }>;
-  cover: string;
   stops: Stop[];
   walkTotal?: string;
   howToGet?: string;
@@ -192,8 +189,6 @@ const days: Day[] = [
     vibe: "Chegar com calma, o Duomo por fora, o David na Accademia e o primeiro gelato à beira do Arno.",
     accent: "from-amber-400/30 to-rose-400/10",
     icon: Sun,
-    cover:
-      "https://images.unsplash.com/photo-1543429776-2782fc8e1acd?auto=format&fit=crop&w=1200&q=80",
     walkTotal: "A pé hoje: pouco, o centro é compacto.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Piazza+del+Duomo+Florence&daddr=Piazza+della+Repubblica+Florence+to:Mercato+Centrale+Florence+to:Galleria+dell%27Accademia+Florence+to:Ponte+Vecchio+Florence&dirflg=w",
