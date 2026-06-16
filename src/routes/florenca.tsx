@@ -861,7 +861,7 @@ function Duomo() {
 // ----------------------- FOOD -----------------------
 
 function Food() {
-  const restaurants = [
+  const restaurants: Array<{ name: string; desc: string; link: string; image?: string; imageAlt?: string }> = [
     {
       name: "Gustapanino (Piazza Santo Spirito)",
       desc: "Schiacciata recheada e ótima relação qualidade-preço, mesmo na praça. Ideal para o almoço do Dia 2.",
@@ -876,6 +876,9 @@ function Food() {
       name: "Mercato Centrale (San Lorenzo)",
       desc: "Food hall no 1.º piso, perfeito para um almoço variado e descontraído.",
       link: "https://www.mercatocentrale.com/florence/",
+      image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Mercato_Centrale_%28Florence%29-Interior-Second_floor.jpg?width=1600",
+      imageAlt: "Interior do food hall do Mercato Centrale em Florença",
     },
     {
       name: "La Carraia (Ponte alla Carraia)",
@@ -884,10 +887,13 @@ function Food() {
     },
   ];
 
-  const dishes = [
+  const dishes: Array<{ name: string; desc: string; icon?: React.ComponentType<{ className?: string }>; image?: string; imageAlt?: string }> = [
     {
       name: "Bistecca alla Fiorentina",
       desc: "O enorme bife de vaca grelhado, mal passado. Vendido ao peso; confirmar o preço antes de pedir.",
+      image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Bistecca_alla_Fiorentina.jpg?width=1600",
+      imageAlt: "Bistecca alla Fiorentina grelhada no ponto",
     },
     {
       name: "Lampredotto",
