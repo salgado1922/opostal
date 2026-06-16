@@ -826,12 +826,10 @@ function Food() {
       name: "Mercato Centrale (San Lorenzo)",
       desc: "Food hall no 1.º piso, perfeito para um almoço variado e descontraído.",
       link: "https://www.mercatocentrale.com/florence/",
-      img: "https://images.unsplash.com/photo-1505253758473-96b7015fcd40?auto=format&fit=crop&w=1200&q=80",
-      imgAlt: "Bancas de comida no Mercato Centrale de Florença",
     },
     {
       name: "La Carraia (Ponte alla Carraia)",
-      desc: "Gelataria de preço imbatível e dos melhores da cidade. Pistácio, chocolate branco com pistácio, bacio. Segunda casa junto a Santa Croce.",
+      desc: "Gelataria de preço imbatível e dos melhores da cidade. Pistácio, chocolate branco com pistácio, bacio. Segunda casa junto a Santa Croce. Outras gelatarias a provar: Vivoli, Perché No! e La Sorbettiera.",
       link: "https://www.lacarraiagroup.eu/",
     },
   ];
@@ -840,8 +838,6 @@ function Food() {
     {
       name: "Bistecca alla Fiorentina",
       desc: "O enorme bife de vaca grelhado, mal passado. Vendido ao peso; confirmar o preço antes de pedir.",
-      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Bistecca_alla_fiorentina.jpg?width=1200",
-      imgAlt: "Bistecca alla Fiorentina, bife toscano grelhado",
     },
     {
       name: "Lampredotto",
@@ -856,14 +852,6 @@ function Food() {
       desc: "Sopas toscanas rústicas, à base de pão.",
     },
     {
-      name: "Crostini di fegatini",
-      desc: "Tostas com paté de fígados de galinha, antipasto típico.",
-    },
-    {
-      name: "Pappardelle al cinghiale",
-      desc: "Massa larga com ragù de javali.",
-    },
-    {
       name: "Cantucci com Vin Santo",
       desc: "Biscoitos de amêndoa para molhar no vinho doce.",
     },
@@ -872,12 +860,6 @@ function Food() {
       desc: "O vinho tinto da região, companheiro natural da bistecca.",
       icon: Wine,
     },
-  ];
-
-  const gelatoMentions = [
-    "Vivoli (a mais antiga, junto a Santa Croce)",
-    "Perché No! (no centro)",
-    "La Sorbettiera (em Santo Spirito)",
   ];
 
   return (
