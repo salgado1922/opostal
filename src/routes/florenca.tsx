@@ -500,7 +500,7 @@ function Overview() {
 function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
   const [open, setOpen] = useState(false);
   const Icon = stop.icon;
-  const hasExtra = !!(stop.tip || stop.img);
+  const hasExtra = !!stop.tip;
 
   return (
     <motion.div
@@ -582,20 +582,12 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
         className="overflow-hidden"
       >
-        <div className="mt-3 grid gap-4 rounded-2xl border border-gold/15 bg-twilight/60 p-5 md:grid-cols-[1fr_auto]">
+        <div className="mt-3 rounded-2xl border border-gold/15 bg-twilight/60 p-5">
           {stop.tip && (
             <div className="flex gap-3">
               <Lightbulb className="mt-1 h-4 w-4 flex-shrink-0 text-gold" />
               <p className="text-sm italic text-cream/90">{stop.tip}</p>
             </div>
-          )}
-          {stop.img && (
-            <img
-              src={stop.img}
-              alt={stop.imgAlt ?? stop.title}
-              className="h-40 w-full rounded-xl object-cover shadow-lg md:w-64"
-              loading="lazy"
-            />
           )}
         </div>
       </motion.div>
