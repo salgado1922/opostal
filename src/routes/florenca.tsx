@@ -552,6 +552,16 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
       </div>
 
       <div className="w-full rounded-2xl border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80">
+        {stop.image && (
+          <div className="mb-4 -mx-6 -mt-5 overflow-hidden">
+            <img
+              src={stop.image}
+              alt={stop.imageAlt ?? stop.title}
+              loading="lazy"
+              className="h-56 w-full object-cover"
+            />
+          </div>
+        )}
         <button
           type="button"
           onClick={() => hasExtra && setOpen((o) => !o)}
