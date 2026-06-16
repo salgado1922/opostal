@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PragaRouteImport } from './routes/praga'
 import { Route as IstambulRouteImport } from './routes/istambul'
+import { Route as FlorencaRouteImport } from './routes/florenca'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -29,6 +30,11 @@ const IstambulRoute = IstambulRouteImport.update({
   path: '/istambul',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FlorencaRoute = FlorencaRouteImport.update({
+  id: '/florenca',
+  path: '/florenca',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/istambul' | '/praga' | '/sitemap.xml'
+  fullPaths: '/' | '/florenca' | '/istambul' | '/praga' | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/istambul' | '/praga' | '/sitemap.xml'
-  id: '__root__' | '/' | '/istambul' | '/praga' | '/sitemap.xml'
+  to: '/' | '/florenca' | '/istambul' | '/praga' | '/sitemap.xml'
+  id: '__root__' | '/' | '/florenca' | '/istambul' | '/praga' | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FlorencaRoute: typeof FlorencaRoute
   IstambulRoute: typeof IstambulRoute
   PragaRoute: typeof PragaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IstambulRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/florenca': {
+      id: '/florenca'
+      path: '/florenca'
+      fullPath: '/florenca'
+      preLoaderRoute: typeof FlorencaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FlorencaRoute: FlorencaRoute,
   IstambulRoute: IstambulRoute,
   PragaRoute: PragaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
