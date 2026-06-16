@@ -1082,7 +1082,7 @@ function Footer() {
 
 function Index() {
   return (
-    <main id="top" className="bg-twilight-radial min-h-screen overflow-x-hidden">
+    <main id="top" className="theme-firenze bg-twilight-radial min-h-screen overflow-x-hidden">
       <StickyNav />
       <Hero />
       <VePrimeiro />
