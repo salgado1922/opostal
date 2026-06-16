@@ -884,15 +884,6 @@ function Food() {
             whileHover={{ y: -4 }}
             className="group flex flex-col overflow-hidden rounded-2xl border border-gold/15 bg-card transition-all hover:border-gold/40 hover:shadow-[0_20px_50px_-20px_oklch(0.82_0.14_78/0.35)]"
           >
-            {r.img && (
-              <div className="relative h-40 overflow-hidden">
-                <img
-                  src={r.img}
-                  alt={r.imgAlt}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-              </div>
-            )}
             <div className="flex flex-1 flex-col p-5">
               <div className="flex items-center gap-2 text-gold">
                 <Utensils className="h-4 w-4" />
@@ -907,17 +898,6 @@ function Food() {
         ))}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mt-6 rounded-2xl border border-gold/20 bg-twilight/50 p-5 text-sm text-cream/85"
-      >
-        <span className="text-gold">Outras gelatarias a provar: </span>
-        {gelatoMentions.join(" · ")}.
-      </motion.div>
-
       <h3 className="mb-6 mt-16 font-serif text-2xl text-cream">Provar sem falta</h3>
       <div className="grid gap-5 md:grid-cols-3">
         {dishes.map((d, i) => {
@@ -931,9 +911,6 @@ function Food() {
               transition={{ duration: 0.5, delay: i * 0.06 }}
               className="overflow-hidden rounded-2xl border border-gold/15 bg-card"
             >
-              {d.img && (
-                <img src={d.img} alt={d.imgAlt} className="h-44 w-full object-cover" />
-              )}
               <div className="p-5">
                 <div className="flex items-center gap-2 text-gold">
                   <Icon className="h-4 w-4" />
