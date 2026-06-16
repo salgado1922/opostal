@@ -193,6 +193,9 @@ const days: Day[] = [
     vibe: "Chegar com calma, o Duomo por fora, o David na Accademia e o primeiro gelato à beira do Arno.",
     accent: "from-amber-400/30 to-rose-400/10",
     icon: Sun,
+    cover:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Il_Duomo_Florence_Italy.JPG?width=1600",
+    coverAlt: "Cúpula de Brunelleschi e fachada do Duomo de Florença",
     walkTotal: "A pé hoje: pouco, o centro é compacto.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Piazza+del+Duomo+Florence&daddr=Piazza+della+Repubblica+Florence+to:Mercato+Centrale+Florence+to:Galleria+dell%27Accademia+Florence+to:Ponte+Vecchio+Florence&dirflg=w",
@@ -250,6 +253,9 @@ const days: Day[] = [
         link: "https://pt.wikipedia.org/wiki/Ponte_Vecchio",
         icon: Camera,
         walkTo: "~5 min",
+        image:
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Ponte_Vecchio%2C_Florence%2C_Italy%2C_2023.jpg?width=1600",
+        imageAlt: "Ponte Vecchio sobre o rio Arno em Florença",
       },
       {
         time: "18:30",
@@ -268,6 +274,9 @@ const days: Day[] = [
     vibe: "Manhã de obras-primas nos Uffizi, tarde no Oltrarno e o pôr do sol dourado no Piazzale Michelangelo.",
     accent: "from-amber-300/30 to-violet-500/10",
     icon: Palette,
+    cover:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/The_Ponte_Vecchio_%22Old_Bridge%22_and_Arno_River%2C_Florence%2C_Italy.jpg?width=1600",
+    coverAlt: "Ponte Vecchio e rio Arno ao entardecer",
     howToGet: "Como andar: tudo a pé, atravessando o Arno.",
     highlightTip:
       "Dica: reservar os Uffizi com slot horário; é dos museus mais concorridos da Europa.",
@@ -330,6 +339,9 @@ const days: Day[] = [
         desc: "O miradouro mais famoso, com a cidade e a cúpula aos pés. Subir a pé (~20 min) ou de autocarro (12 ou 13). Pôr do sol lindíssimo.",
         link: "https://pt.wikipedia.org/wiki/Piazzale_Michelangelo",
         icon: Sun,
+        image:
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Florence_Duomo_from_Piazzale_Michelangelo_04_2024_6980.jpg?width=1600",
+        imageAlt: "Vista de Florença e do Duomo a partir do Piazzale Michelangelo",
       },
     ],
   },
@@ -341,6 +353,9 @@ const days: Day[] = [
     vibe: "Por dentro da catedral, subida ao Campanário com a cúpula em frente, e os túmulos de Santa Croce e a capela dos Medici.",
     accent: "from-rose-500/20 to-amber-400/10",
     icon: Church,
+    cover:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Basilica_di_Santa_Croce_%2812437%29.jpg?width=1600",
+    coverAlt: "Fachada da Basílica de Santa Croce em Florença",
     walkTotal: "A pé hoje: ~30 min no total.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Duomo+Florence&daddr=Campanile+di+Giotto+Florence+to:Battistero+di+San+Giovanni+Florence+to:Basilica+di+Santa+Croce+Florence+to:Cappelle+Medicee+Florence&dirflg=w",
@@ -385,6 +400,9 @@ const days: Day[] = [
         bookingUrl: "https://www.santacroceopera.it/en/",
         hours: "Seg–Sáb ~9:30–17:30",
         walkTo: "~15 min",
+        image:
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Firenze_-Basilica_di_Santa_Croce%2842013667144%29.jpg?width=1600",
+        imageAlt: "Interior e fachada de Santa Croce em Florença",
       },
       {
         time: "16:00",
