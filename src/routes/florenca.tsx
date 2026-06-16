@@ -940,6 +940,14 @@ function Food() {
             whileHover={{ y: -4 }}
             className="group flex flex-col overflow-hidden rounded-2xl border border-gold/15 bg-card transition-all hover:border-gold/40 hover:shadow-[0_20px_50px_-20px_oklch(0.82_0.14_78/0.35)]"
           >
+            {r.image && (
+              <img
+                src={r.image}
+                alt={r.imageAlt ?? r.name}
+                loading="lazy"
+                className="h-40 w-full object-cover"
+              />
+            )}
             <div className="flex flex-1 flex-col p-5">
               <div className="flex items-center gap-2 text-gold">
                 <Utensils className="h-4 w-4" />
@@ -967,6 +975,14 @@ function Food() {
               transition={{ duration: 0.5, delay: i * 0.06 }}
               className="overflow-hidden rounded-2xl border border-gold/15 bg-card"
             >
+              {d.image && (
+                <img
+                  src={d.image}
+                  alt={d.imageAlt ?? d.name}
+                  loading="lazy"
+                  className="h-40 w-full object-cover"
+                />
+              )}
               <div className="p-5">
                 <div className="flex items-center gap-2 text-gold">
                   <Icon className="h-4 w-4" />
