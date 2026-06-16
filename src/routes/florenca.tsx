@@ -429,7 +429,16 @@ function Hero() {
   return (
     <section ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0">
-        <div className="h-[120%] w-full bg-gradient-to-br from-terracotta/50 via-plum to-twilight" />
+        <div
+          className="h-[120%] w-full bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://commons.wikimedia.org/wiki/Special:FilePath/FlorenceFromPiazzaleMichelangeloTwilight.jpg?width=2400')",
+          }}
+          role="img"
+          aria-label="Florença ao crepúsculo vista do Piazzale Michelangelo"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-terracotta/40 via-plum/60 to-twilight/85" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,oklch(0.78_0.13_75/0.30),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_80%,oklch(0.58_0.15_40/0.25),transparent_55%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-twilight/40 to-background" />
