@@ -162,6 +162,8 @@ type Stop = {
   hours?: string;
   hoursNote?: string;
   walkTo?: string;
+  image?: string;
+  imageAlt?: string;
 };
 
 type Day = {
@@ -178,6 +180,8 @@ type Day = {
   mapEmbedUrl?: string;
   mapLinkUrl?: string;
   highlightTip?: string;
+  cover?: string;
+  coverAlt?: string;
 };
 
 const days: Day[] = [
