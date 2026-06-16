@@ -1070,9 +1070,6 @@ function Footer() {
         <p className="mt-4 text-sm text-muted-foreground">
           O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
         </p>
-        <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground/60">
-          Fotos: Unsplash · Wikimedia Commons
-        </p>
       </div>
     </footer>
   );
