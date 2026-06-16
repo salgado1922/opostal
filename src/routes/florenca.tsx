@@ -244,8 +244,6 @@ const days: Day[] = [
         title: "Ponte Vecchio",
         desc: "A ponte medieval das ourivesarias, linda ao fim da tarde sobre o Arno.",
         link: "https://pt.wikipedia.org/wiki/Ponte_Vecchio",
-        img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Ponte Vecchio sobre o Arno em Florença",
         icon: Camera,
         walkTo: "~5 min",
       },
@@ -266,8 +264,6 @@ const days: Day[] = [
     vibe: "Manhã de obras-primas nos Uffizi, tarde no Oltrarno e o pôr do sol dourado no Piazzale Michelangelo.",
     accent: "from-amber-300/30 to-violet-500/10",
     icon: Palette,
-    cover:
-      "https://images.unsplash.com/photo-1534445867742-43195f401b6c?auto=format&fit=crop&w=1200&q=80",
     howToGet: "Como andar: tudo a pé, atravessando o Arno.",
     highlightTip:
       "Dica: reservar os Uffizi com slot horário; é dos museus mais concorridos da Europa.",
@@ -329,8 +325,6 @@ const days: Day[] = [
         title: "Piazzale Michelangelo (pôr do sol)",
         desc: "O miradouro mais famoso, com a cidade e a cúpula aos pés. Subir a pé (~20 min) ou de autocarro (12 ou 13). Pôr do sol lindíssimo.",
         link: "https://pt.wikipedia.org/wiki/Piazzale_Michelangelo",
-        img: "https://images.unsplash.com/photo-1543429776-2782fc8e1acd?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Vista de Florença do Piazzale Michelangelo ao pôr do sol",
         icon: Sun,
       },
     ],
@@ -343,8 +337,6 @@ const days: Day[] = [
     vibe: "Por dentro da catedral, subida ao Campanário com a cúpula em frente, e os túmulos de Santa Croce e a capela dos Medici.",
     accent: "from-rose-500/20 to-amber-400/10",
     icon: Church,
-    cover:
-      "https://images.unsplash.com/photo-1499678329028-101435549a4e?auto=format&fit=crop&w=1200&q=80",
     walkTotal: "A pé hoje: ~30 min no total.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Duomo+Florence&daddr=Campanile+di+Giotto+Florence+to:Battistero+di+San+Giovanni+Florence+to:Basilica+di+Santa+Croce+Florence+to:Cappelle+Medicee+Florence&dirflg=w",
@@ -385,8 +377,6 @@ const days: Day[] = [
         title: "Basílica de Santa Croce",
         desc: "A igreja dos túmulos, com Michelangelo, Galileu e Maquiavel, e capelas com frescos de Giotto.",
         link: "https://pt.wikipedia.org/wiki/Bas%C3%ADlica_de_Santa_Cruz_(Floren%C3%A7a)",
-        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Florence_-_Santa_Croce.jpg?width=1200",
-        imgAlt: "Fachada da Basílica de Santa Croce em Florença",
         icon: Church,
         bookingUrl: "https://www.santacroceopera.it/en/",
         hours: "Seg–Sáb ~9:30–17:30",
