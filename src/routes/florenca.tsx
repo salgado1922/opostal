@@ -407,13 +407,10 @@ function Hero() {
   return (
     <section ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1543429776-2782fc8e1acd?auto=format&fit=crop&w=2400&q=80"
-          alt="Vista de Florença ao pôr do sol: Duomo e telhados de terracota a partir do Piazzale Michelangelo"
-          className="h-[120%] w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-twilight/40 via-twilight/60 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,oklch(0.16_0.035_290/0.7)_100%)]" />
+        <div className="h-[120%] w-full bg-gradient-to-br from-terracotta/50 via-plum to-twilight" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,oklch(0.78_0.13_75/0.30),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_80%,oklch(0.58_0.15_40/0.25),transparent_55%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-twilight/40 to-background" />
       </motion.div>
 
       <motion.div
