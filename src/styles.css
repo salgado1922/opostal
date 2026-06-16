@@ -234,39 +234,39 @@ html { scroll-behavior: smooth; }
 /* verde di Prato) on a warm Tuscan-night background.                 */
 /* ------------------------------------------------------------------ */
 .theme-firenze {
-  --terracotta-tile: oklch(0.58 0.15 40);   /* Duomo rooftops, burnt sienna */
-  --ochre: oklch(0.78 0.13 75);             /* Florentine gold / ochre */
-  --verde-prato: oklch(0.55 0.08 150);      /* deep green of the Duomo marble */
-  --travertine: oklch(0.95 0.02 80);        /* soft travertine cream */
+  --terracotta-tile: oklch(0.62 0.17 38);   /* Duomo rooftops, burnt sienna */
+  --ochre: oklch(0.83 0.16 78);             /* luminous Florentine gold */
+  --verde-prato: oklch(0.58 0.10 150);      /* verde di Prato, Duomo marble */
+  --travertine: oklch(0.96 0.02 85);        /* soft travertine cream */
 
   /* Warm Tuscan-night background (deep charcoal with brown undertones) */
-  --twilight: oklch(0.15 0.025 50);
-  --plum: oklch(0.20 0.035 45);
+  --twilight: oklch(0.13 0.022 45);
+  --plum: oklch(0.18 0.032 42);
   --gold: var(--ochre);
-  --gold-soft: oklch(0.85 0.10 78);
+  --gold-soft: oklch(0.89 0.12 82);
   --terracotta: var(--terracotta-tile);
   --cream: var(--travertine);
 
-  --background: oklch(0.14 0.025 50);
+  --background: oklch(0.12 0.022 45);
   --foreground: var(--travertine);
 
-  --card: oklch(0.21 0.03 48 / 70%);
+  --card: oklch(0.20 0.03 45 / 72%);
   --card-foreground: var(--travertine);
-  --popover: oklch(0.21 0.03 48);
+  --popover: oklch(0.20 0.03 45);
   --popover-foreground: var(--travertine);
 
   --primary: var(--terracotta-tile);
-  --primary-foreground: oklch(0.14 0.025 50);
+  --primary-foreground: oklch(0.12 0.022 45);
   --secondary: var(--ochre);
-  --secondary-foreground: oklch(0.14 0.025 50);
+  --secondary-foreground: oklch(0.12 0.022 45);
 
-  --muted: oklch(0.24 0.03 48);
-  --muted-foreground: oklch(0.78 0.02 70);
+  --muted: oklch(0.23 0.03 45);
+  --muted-foreground: oklch(0.86 0.025 78);
   --accent: var(--verde-prato);
   --accent-foreground: var(--travertine);
 
-  --border: oklch(0.78 0.13 75 / 20%);
-  --input: oklch(0.78 0.13 75 / 25%);
+  --border: oklch(0.83 0.16 78 / 24%);
+  --input: oklch(0.83 0.16 78 / 28%);
   --ring: var(--ochre);
 }
 
@@ -274,8 +274,8 @@ html { scroll-behavior: smooth; }
 .theme-firenze.bg-twilight-radial,
 .theme-firenze .bg-twilight-radial {
   background:
-    radial-gradient(ellipse at 20% 0%, oklch(0.58 0.15 40 / 18%), transparent 55%),
-    radial-gradient(ellipse at 90% 30%, oklch(0.78 0.13 75 / 14%), transparent 50%),
-    radial-gradient(ellipse at 50% 100%, oklch(0.20 0.035 45 / 60%), transparent 60%),
+    radial-gradient(ellipse at 20% 0%, oklch(0.62 0.17 38 / 24%), transparent 55%),
+    radial-gradient(ellipse at 85% 25%, oklch(0.83 0.16 78 / 20%), transparent 50%),
+    radial-gradient(ellipse at 50% 100%, oklch(0.18 0.032 42 / 70%), transparent 60%),
     var(--background);
 }

@@ -162,6 +162,8 @@ type Stop = {
   hours?: string;
   hoursNote?: string;
   walkTo?: string;
+  image?: string;
+  imageAlt?: string;
 };
 
 type Day = {
@@ -178,6 +180,8 @@ type Day = {
   mapEmbedUrl?: string;
   mapLinkUrl?: string;
   highlightTip?: string;
+  cover?: string;
+  coverAlt?: string;
 };
 
 const days: Day[] = [
@@ -189,6 +193,9 @@ const days: Day[] = [
     vibe: "Chegar com calma, o Duomo por fora, o David na Accademia e o primeiro gelato à beira do Arno.",
     accent: "from-amber-400/30 to-rose-400/10",
     icon: Sun,
+    cover:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Il_Duomo_Florence_Italy.JPG?width=1600",
+    coverAlt: "Cúpula de Brunelleschi e fachada do Duomo de Florença",
     walkTotal: "A pé hoje: pouco, o centro é compacto.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Piazza+del+Duomo+Florence&daddr=Piazza+della+Repubblica+Florence+to:Mercato+Centrale+Florence+to:Galleria+dell%27Accademia+Florence+to:Ponte+Vecchio+Florence&dirflg=w",
@@ -246,6 +253,9 @@ const days: Day[] = [
         link: "https://pt.wikipedia.org/wiki/Ponte_Vecchio",
         icon: Camera,
         walkTo: "~5 min",
+        image:
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Ponte_Vecchio%2C_Florence%2C_Italy%2C_2023.jpg?width=1600",
+        imageAlt: "Ponte Vecchio sobre o rio Arno em Florença",
       },
       {
         time: "18:30",
@@ -264,6 +274,9 @@ const days: Day[] = [
     vibe: "Manhã de obras-primas nos Uffizi, tarde no Oltrarno e o pôr do sol dourado no Piazzale Michelangelo.",
     accent: "from-amber-300/30 to-violet-500/10",
     icon: Palette,
+    cover:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/The_Ponte_Vecchio_%22Old_Bridge%22_and_Arno_River%2C_Florence%2C_Italy.jpg?width=1600",
+    coverAlt: "Ponte Vecchio e rio Arno ao entardecer",
     howToGet: "Como andar: tudo a pé, atravessando o Arno.",
     highlightTip:
       "Dica: reservar os Uffizi com slot horário; é dos museus mais concorridos da Europa.",
@@ -326,6 +339,9 @@ const days: Day[] = [
         desc: "O miradouro mais famoso, com a cidade e a cúpula aos pés. Subir a pé (~20 min) ou de autocarro (12 ou 13). Pôr do sol lindíssimo.",
         link: "https://pt.wikipedia.org/wiki/Piazzale_Michelangelo",
         icon: Sun,
+        image:
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Florence_Duomo_from_Piazzale_Michelangelo_04_2024_6980.jpg?width=1600",
+        imageAlt: "Vista de Florença e do Duomo a partir do Piazzale Michelangelo",
       },
     ],
   },
@@ -337,6 +353,9 @@ const days: Day[] = [
     vibe: "Por dentro da catedral, subida ao Campanário com a cúpula em frente, e os túmulos de Santa Croce e a capela dos Medici.",
     accent: "from-rose-500/20 to-amber-400/10",
     icon: Church,
+    cover:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Basilica_di_Santa_Croce_%2812437%29.jpg?width=1600",
+    coverAlt: "Fachada da Basílica de Santa Croce em Florença",
     walkTotal: "A pé hoje: ~30 min no total.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Duomo+Florence&daddr=Campanile+di+Giotto+Florence+to:Battistero+di+San+Giovanni+Florence+to:Basilica+di+Santa+Croce+Florence+to:Cappelle+Medicee+Florence&dirflg=w",
@@ -381,6 +400,9 @@ const days: Day[] = [
         bookingUrl: "https://www.santacroceopera.it/en/",
         hours: "Seg–Sáb ~9:30–17:30",
         walkTo: "~15 min",
+        image:
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Firenze_-Basilica_di_Santa_Croce%2842013667144%29.jpg?width=1600",
+        imageAlt: "Interior e fachada de Santa Croce em Florença",
       },
       {
         time: "16:00",
@@ -407,7 +429,16 @@ function Hero() {
   return (
     <section ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0">
-        <div className="h-[120%] w-full bg-gradient-to-br from-terracotta/50 via-plum to-twilight" />
+        <div
+          className="h-[120%] w-full bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://commons.wikimedia.org/wiki/Special:FilePath/FlorenceFromPiazzaleMichelangeloTwilight.jpg?width=2400')",
+          }}
+          role="img"
+          aria-label="Florença ao crepúsculo vista do Piazzale Michelangelo"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-terracotta/40 via-plum/60 to-twilight/85" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,oklch(0.78_0.13_75/0.30),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_80%,oklch(0.58_0.15_40/0.25),transparent_55%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-twilight/40 to-background" />
@@ -468,11 +499,20 @@ function Overview() {
               className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card backdrop-blur-md transition-shadow hover:shadow-[0_20px_60px_-20px_oklch(0.82_0.14_78/0.4)]"
             >
               <div className="relative h-44 w-full overflow-hidden bg-gradient-to-br from-terracotta/30 via-gold/15 to-twilight">
+                {d.cover ? (
+                  <img
+                    src={d.cover}
+                    alt={d.coverAlt ?? d.title}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Icon className="h-14 w-14 text-gold/70" />
+                  </div>
+                )}
                 <div className={`absolute inset-0 bg-gradient-to-t ${d.accent}`} />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Icon className="h-14 w-14 text-gold/70" />
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
                 <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full glass">
                   <Icon className="h-5 w-5 text-gold" />
                 </div>
@@ -512,6 +552,16 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
       </div>
 
       <div className="w-full rounded-2xl border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80">
+        {stop.image && (
+          <div className="mb-4 -mx-6 -mt-5 overflow-hidden">
+            <img
+              src={stop.image}
+              alt={stop.imageAlt ?? stop.title}
+              loading="lazy"
+              className="h-56 w-full object-cover"
+            />
+          </div>
+        )}
         <button
           type="button"
           onClick={() => hasExtra && setOpen((o) => !o)}
@@ -811,7 +861,7 @@ function Duomo() {
 // ----------------------- FOOD -----------------------
 
 function Food() {
-  const restaurants = [
+  const restaurants: Array<{ name: string; desc: string; link: string; image?: string; imageAlt?: string }> = [
     {
       name: "Gustapanino (Piazza Santo Spirito)",
       desc: "Schiacciata recheada e ótima relação qualidade-preço, mesmo na praça. Ideal para o almoço do Dia 2.",
@@ -826,6 +876,9 @@ function Food() {
       name: "Mercato Centrale (San Lorenzo)",
       desc: "Food hall no 1.º piso, perfeito para um almoço variado e descontraído.",
       link: "https://www.mercatocentrale.com/florence/",
+      image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Mercato_Centrale_%28Florence%29-Interior-Second_floor.jpg?width=1600",
+      imageAlt: "Interior do food hall do Mercato Centrale em Florença",
     },
     {
       name: "La Carraia (Ponte alla Carraia)",
@@ -834,10 +887,13 @@ function Food() {
     },
   ];
 
-  const dishes = [
+  const dishes: Array<{ name: string; desc: string; icon?: React.ComponentType<{ className?: string }>; image?: string; imageAlt?: string }> = [
     {
       name: "Bistecca alla Fiorentina",
       desc: "O enorme bife de vaca grelhado, mal passado. Vendido ao peso; confirmar o preço antes de pedir.",
+      image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Bistecca_alla_Fiorentina.jpg?width=1600",
+      imageAlt: "Bistecca alla Fiorentina grelhada no ponto",
     },
     {
       name: "Lampredotto",
@@ -884,6 +940,14 @@ function Food() {
             whileHover={{ y: -4 }}
             className="group flex flex-col overflow-hidden rounded-2xl border border-gold/15 bg-card transition-all hover:border-gold/40 hover:shadow-[0_20px_50px_-20px_oklch(0.82_0.14_78/0.35)]"
           >
+            {r.image && (
+              <img
+                src={r.image}
+                alt={r.imageAlt ?? r.name}
+                loading="lazy"
+                className="h-40 w-full object-cover"
+              />
+            )}
             <div className="flex flex-1 flex-col p-5">
               <div className="flex items-center gap-2 text-gold">
                 <Utensils className="h-4 w-4" />
@@ -911,6 +975,14 @@ function Food() {
               transition={{ duration: 0.5, delay: i * 0.06 }}
               className="overflow-hidden rounded-2xl border border-gold/15 bg-card"
             >
+              {d.image && (
+                <img
+                  src={d.image}
+                  alt={d.imageAlt ?? d.name}
+                  loading="lazy"
+                  className="h-40 w-full object-cover"
+                />
+              )}
               <div className="p-5">
                 <div className="flex items-center gap-2 text-gold">
                   <Icon className="h-4 w-4" />
@@ -1069,6 +1141,9 @@ function Footer() {
         <p className="font-serif text-3xl text-gradient-gold md:text-4xl">Salute, à vossa.</p>
         <p className="mt-4 text-sm text-muted-foreground">
           O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
+        </p>
+        <p className="mt-3 text-xs text-muted-foreground/80">
+          Fotos: Unsplash · Wikimedia Commons
         </p>
       </div>
     </footer>
@@ -1335,6 +1410,14 @@ function ConhecerFlorenca() {
         variants={fadeUp}
         className="mx-auto max-w-3xl"
       >
+        <div className="mb-8 overflow-hidden rounded-2xl border border-gold/20 shadow-[0_30px_80px_-40px_oklch(0.83_0.16_78/0.5)]">
+          <img
+            src="https://commons.wikimedia.org/wiki/Special:FilePath/Florence_skyline_at_dusk_%283867485023%29.jpg?width=1600"
+            alt="Skyline de Florença ao entardecer"
+            loading="lazy"
+            className="h-56 w-full object-cover md:h-72"
+          />
+        </div>
         <Accordion type="multiple" className="flex flex-col gap-4">
           <AccordionItem value="overview" className={itemCls}>
             <AccordionTrigger className={triggerCls}>
