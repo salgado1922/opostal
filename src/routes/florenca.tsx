@@ -1385,6 +1385,14 @@ function ConhecerFlorenca() {
         variants={fadeUp}
         className="mx-auto max-w-3xl"
       >
+        <div className="mb-8 overflow-hidden rounded-2xl border border-gold/20 shadow-[0_30px_80px_-40px_oklch(0.83_0.16_78/0.5)]">
+          <img
+            src="https://commons.wikimedia.org/wiki/Special:FilePath/Florence_skyline_at_dusk_%283867485023%29.jpg?width=1600"
+            alt="Skyline de Florença ao entardecer"
+            loading="lazy"
+            className="h-56 w-full object-cover md:h-72"
+          />
+        </div>
         <Accordion type="multiple" className="flex flex-col gap-4">
           <AccordionItem value="overview" className={itemCls}>
             <AccordionTrigger className={triggerCls}>
