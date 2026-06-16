@@ -157,8 +157,6 @@ type Stop = {
   desc: string;
   tip?: string;
   link?: string;
-  img?: string;
-  imgAlt?: string;
   icon: React.ComponentType<{ className?: string }>;
   bookingUrl?: string;
   hours?: string;
@@ -174,7 +172,6 @@ type Day = {
   vibe: string;
   accent: string;
   icon: React.ComponentType<{ className?: string }>;
-  cover: string;
   stops: Stop[];
   walkTotal?: string;
   howToGet?: string;
@@ -192,8 +189,6 @@ const days: Day[] = [
     vibe: "Chegar com calma, o Duomo por fora, o David na Accademia e o primeiro gelato à beira do Arno.",
     accent: "from-amber-400/30 to-rose-400/10",
     icon: Sun,
-    cover:
-      "https://images.unsplash.com/photo-1543429776-2782fc8e1acd?auto=format&fit=crop&w=1200&q=80",
     walkTotal: "A pé hoje: pouco, o centro é compacto.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Piazza+del+Duomo+Florence&daddr=Piazza+della+Repubblica+Florence+to:Mercato+Centrale+Florence+to:Galleria+dell%27Accademia+Florence+to:Ponte+Vecchio+Florence&dirflg=w",
@@ -249,8 +244,6 @@ const days: Day[] = [
         title: "Ponte Vecchio",
         desc: "A ponte medieval das ourivesarias, linda ao fim da tarde sobre o Arno.",
         link: "https://pt.wikipedia.org/wiki/Ponte_Vecchio",
-        img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Ponte Vecchio sobre o Arno em Florença",
         icon: Camera,
         walkTo: "~5 min",
       },
@@ -271,8 +264,6 @@ const days: Day[] = [
     vibe: "Manhã de obras-primas nos Uffizi, tarde no Oltrarno e o pôr do sol dourado no Piazzale Michelangelo.",
     accent: "from-amber-300/30 to-violet-500/10",
     icon: Palette,
-    cover:
-      "https://images.unsplash.com/photo-1534445867742-43195f401b6c?auto=format&fit=crop&w=1200&q=80",
     howToGet: "Como andar: tudo a pé, atravessando o Arno.",
     highlightTip:
       "Dica: reservar os Uffizi com slot horário; é dos museus mais concorridos da Europa.",
@@ -334,8 +325,6 @@ const days: Day[] = [
         title: "Piazzale Michelangelo (pôr do sol)",
         desc: "O miradouro mais famoso, com a cidade e a cúpula aos pés. Subir a pé (~20 min) ou de autocarro (12 ou 13). Pôr do sol lindíssimo.",
         link: "https://pt.wikipedia.org/wiki/Piazzale_Michelangelo",
-        img: "https://images.unsplash.com/photo-1543429776-2782fc8e1acd?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Vista de Florença do Piazzale Michelangelo ao pôr do sol",
         icon: Sun,
       },
     ],
@@ -348,8 +337,6 @@ const days: Day[] = [
     vibe: "Por dentro da catedral, subida ao Campanário com a cúpula em frente, e os túmulos de Santa Croce e a capela dos Medici.",
     accent: "from-rose-500/20 to-amber-400/10",
     icon: Church,
-    cover:
-      "https://images.unsplash.com/photo-1499678329028-101435549a4e?auto=format&fit=crop&w=1200&q=80",
     walkTotal: "A pé hoje: ~30 min no total.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Duomo+Florence&daddr=Campanile+di+Giotto+Florence+to:Battistero+di+San+Giovanni+Florence+to:Basilica+di+Santa+Croce+Florence+to:Cappelle+Medicee+Florence&dirflg=w",
@@ -390,8 +377,6 @@ const days: Day[] = [
         title: "Basílica de Santa Croce",
         desc: "A igreja dos túmulos, com Michelangelo, Galileu e Maquiavel, e capelas com frescos de Giotto.",
         link: "https://pt.wikipedia.org/wiki/Bas%C3%ADlica_de_Santa_Cruz_(Floren%C3%A7a)",
-        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Florence_-_Santa_Croce.jpg?width=1200",
-        imgAlt: "Fachada da Basílica de Santa Croce em Florença",
         icon: Church,
         bookingUrl: "https://www.santacroceopera.it/en/",
         hours: "Seg–Sáb ~9:30–17:30",
@@ -422,13 +407,10 @@ function Hero() {
   return (
     <section ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1543429776-2782fc8e1acd?auto=format&fit=crop&w=2400&q=80"
-          alt="Vista de Florença ao pôr do sol: Duomo e telhados de terracota a partir do Piazzale Michelangelo"
-          className="h-[120%] w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-twilight/40 via-twilight/60 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,oklch(0.16_0.035_290/0.7)_100%)]" />
+        <div className="h-[120%] w-full bg-gradient-to-br from-terracotta/50 via-plum to-twilight" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,oklch(0.78_0.13_75/0.30),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_80%,oklch(0.58_0.15_40/0.25),transparent_55%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-twilight/40 to-background" />
       </motion.div>
 
       <motion.div
@@ -485,14 +467,12 @@ function Overview() {
               whileHover={{ y: -6 }}
               className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card backdrop-blur-md transition-shadow hover:shadow-[0_20px_60px_-20px_oklch(0.82_0.14_78/0.4)]"
             >
-              <div className="relative h-44 w-full overflow-hidden">
-                <img
-                  src={d.cover}
-                  alt={d.title}
-                  className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"
-                />
+              <div className="relative h-44 w-full overflow-hidden bg-gradient-to-br from-terracotta/30 via-gold/15 to-twilight">
                 <div className={`absolute inset-0 bg-gradient-to-t ${d.accent}`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Icon className="h-14 w-14 text-gold/70" />
+                </div>
                 <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full glass">
                   <Icon className="h-5 w-5 text-gold" />
                 </div>
@@ -517,7 +497,7 @@ function Overview() {
 function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
   const [open, setOpen] = useState(false);
   const Icon = stop.icon;
-  const hasExtra = !!(stop.tip || stop.img);
+  const hasExtra = !!stop.tip;
 
   return (
     <motion.div
@@ -599,20 +579,12 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
         className="overflow-hidden"
       >
-        <div className="mt-3 grid gap-4 rounded-2xl border border-gold/15 bg-twilight/60 p-5 md:grid-cols-[1fr_auto]">
+        <div className="mt-3 rounded-2xl border border-gold/15 bg-twilight/60 p-5">
           {stop.tip && (
             <div className="flex gap-3">
               <Lightbulb className="mt-1 h-4 w-4 flex-shrink-0 text-gold" />
               <p className="text-sm italic text-cream/90">{stop.tip}</p>
             </div>
-          )}
-          {stop.img && (
-            <img
-              src={stop.img}
-              alt={stop.imgAlt ?? stop.title}
-              className="h-40 w-full rounded-xl object-cover shadow-lg md:w-64"
-              loading="lazy"
-            />
           )}
         </div>
       </motion.div>
@@ -854,12 +826,10 @@ function Food() {
       name: "Mercato Centrale (San Lorenzo)",
       desc: "Food hall no 1.º piso, perfeito para um almoço variado e descontraído.",
       link: "https://www.mercatocentrale.com/florence/",
-      img: "https://images.unsplash.com/photo-1505253758473-96b7015fcd40?auto=format&fit=crop&w=1200&q=80",
-      imgAlt: "Bancas de comida no Mercato Centrale de Florença",
     },
     {
       name: "La Carraia (Ponte alla Carraia)",
-      desc: "Gelataria de preço imbatível e dos melhores da cidade. Pistácio, chocolate branco com pistácio, bacio. Segunda casa junto a Santa Croce.",
+      desc: "Gelataria de preço imbatível e dos melhores da cidade. Pistácio, chocolate branco com pistácio, bacio. Segunda casa junto a Santa Croce. Outras gelatarias a provar: Vivoli, Perché No! e La Sorbettiera.",
       link: "https://www.lacarraiagroup.eu/",
     },
   ];
@@ -868,8 +838,6 @@ function Food() {
     {
       name: "Bistecca alla Fiorentina",
       desc: "O enorme bife de vaca grelhado, mal passado. Vendido ao peso; confirmar o preço antes de pedir.",
-      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Bistecca_alla_fiorentina.jpg?width=1200",
-      imgAlt: "Bistecca alla Fiorentina, bife toscano grelhado",
     },
     {
       name: "Lampredotto",
@@ -884,14 +852,6 @@ function Food() {
       desc: "Sopas toscanas rústicas, à base de pão.",
     },
     {
-      name: "Crostini di fegatini",
-      desc: "Tostas com paté de fígados de galinha, antipasto típico.",
-    },
-    {
-      name: "Pappardelle al cinghiale",
-      desc: "Massa larga com ragù de javali.",
-    },
-    {
       name: "Cantucci com Vin Santo",
       desc: "Biscoitos de amêndoa para molhar no vinho doce.",
     },
@@ -900,12 +860,6 @@ function Food() {
       desc: "O vinho tinto da região, companheiro natural da bistecca.",
       icon: Wine,
     },
-  ];
-
-  const gelatoMentions = [
-    "Vivoli (a mais antiga, junto a Santa Croce)",
-    "Perché No! (no centro)",
-    "La Sorbettiera (em Santo Spirito)",
   ];
 
   return (
@@ -930,15 +884,6 @@ function Food() {
             whileHover={{ y: -4 }}
             className="group flex flex-col overflow-hidden rounded-2xl border border-gold/15 bg-card transition-all hover:border-gold/40 hover:shadow-[0_20px_50px_-20px_oklch(0.82_0.14_78/0.35)]"
           >
-            {r.img && (
-              <div className="relative h-40 overflow-hidden">
-                <img
-                  src={r.img}
-                  alt={r.imgAlt}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-              </div>
-            )}
             <div className="flex flex-1 flex-col p-5">
               <div className="flex items-center gap-2 text-gold">
                 <Utensils className="h-4 w-4" />
@@ -953,17 +898,6 @@ function Food() {
         ))}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mt-6 rounded-2xl border border-gold/20 bg-twilight/50 p-5 text-sm text-cream/85"
-      >
-        <span className="text-gold">Outras gelatarias a provar: </span>
-        {gelatoMentions.join(" · ")}.
-      </motion.div>
-
       <h3 className="mb-6 mt-16 font-serif text-2xl text-cream">Provar sem falta</h3>
       <div className="grid gap-5 md:grid-cols-3">
         {dishes.map((d, i) => {
@@ -977,9 +911,6 @@ function Food() {
               transition={{ duration: 0.5, delay: i * 0.06 }}
               className="overflow-hidden rounded-2xl border border-gold/15 bg-card"
             >
-              {d.img && (
-                <img src={d.img} alt={d.imgAlt} className="h-44 w-full object-cover" />
-              )}
               <div className="p-5">
                 <div className="flex items-center gap-2 text-gold">
                   <Icon className="h-4 w-4" />
@@ -1139,9 +1070,6 @@ function Footer() {
         <p className="mt-4 text-sm text-muted-foreground">
           O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
         </p>
-        <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground/60">
-          Fotos: Unsplash · Wikimedia Commons
-        </p>
       </div>
     </footer>
   );
@@ -1151,7 +1079,7 @@ function Footer() {
 
 function Index() {
   return (
-    <main id="top" className="bg-twilight-radial min-h-screen overflow-x-hidden">
+    <main id="top" className="theme-firenze bg-twilight-radial min-h-screen overflow-x-hidden">
       <StickyNav />
       <Hero />
       <VePrimeiro />
