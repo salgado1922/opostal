@@ -470,14 +470,12 @@ function Overview() {
               whileHover={{ y: -6 }}
               className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card backdrop-blur-md transition-shadow hover:shadow-[0_20px_60px_-20px_oklch(0.82_0.14_78/0.4)]"
             >
-              <div className="relative h-44 w-full overflow-hidden">
-                <img
-                  src={d.cover}
-                  alt={d.title}
-                  className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"
-                />
+              <div className="relative h-44 w-full overflow-hidden bg-gradient-to-br from-terracotta/30 via-gold/15 to-twilight">
                 <div className={`absolute inset-0 bg-gradient-to-t ${d.accent}`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Icon className="h-14 w-14 text-gold/70" />
+                </div>
                 <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full glass">
                   <Icon className="h-5 w-5 text-gold" />
                 </div>
