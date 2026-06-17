@@ -43,6 +43,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
+import { PremiumGate } from "@/components/PremiumGate";
 
 export const Route = createFileRoute("/florenca")({
   head: () => ({
@@ -1161,11 +1162,19 @@ function Index() {
       <ConhecerFlorenca />
       <EssentialInfo />
       <Overview />
-      <Itineraries />
-      <Duomo />
-      <Food />
-      <Tips />
-      <Checklist />
+      <PremiumGate
+        slug="florenca"
+        teaserLines={[
+          "Dia 1, manhã. Começamos na Piazza del Duomo com a luz ainda baixa, antes das filas.",
+          "Subimos à Cúpula com bilhete temporizado; depois descemos para um café curto na Via dei Servi.",
+        ]}
+      >
+        <Itineraries />
+        <Duomo />
+        <Food />
+        <Tips />
+        <Checklist />
+      </PremiumGate>
       <Footer />
     </main>
   );

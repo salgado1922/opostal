@@ -45,6 +45,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
+import { PremiumGate } from "@/components/PremiumGate";
 import { AffiliateLink } from "@/components/AffiliateLink";
 
 export const Route = createFileRoute("/praga")({
@@ -1260,11 +1261,19 @@ function Index() {
       <ConhecerPraga />
       <EssentialInfo />
       <Overview />
-      <Itineraries />
-      <Concerts />
-      <Food />
-      <Tips />
-      <Checklist />
+      <PremiumGate
+        slug="praga"
+        teaserLines={[
+          "Dia 1, manhã. Encontro junto à Torre da Pólvora antes da cidade encher.",
+          "Atravessamos a Cidade Velha em direcção à Ponte Carlos, parando nos pormenores que ninguém vê com pressa.",
+        ]}
+      >
+        <Itineraries />
+        <Concerts />
+        <Food />
+        <Tips />
+        <Checklist />
+      </PremiumGate>
       <Footer />
     </main>
   );
