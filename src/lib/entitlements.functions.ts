@@ -73,6 +73,20 @@ export const redeemCreditForGuide = createServerFn({ method: "POST" })
     return { success: Boolean(ok) };
   });
 
+/** Authenticated: list the signed-in user's completed purchases. */
+export const getMyPurchases = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data, error } = await context.supabase
+      .from("purchases")
+      .select("id,bundle_size,amount_cents,currency,initial_guide_slug,status,created_at")
+      .eq("status", "complete")
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (error) return { purchases: [] as [] };
+    return { purchases: data ?? [] };
+  });
+
 /** Authenticated: create a Stripe Checkout session for a bundle. */
 export const createBundleCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
