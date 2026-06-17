@@ -139,13 +139,7 @@ function GateUI({
           viewport={{ once: true }}
           className="rounded-2xl border border-gold/20 bg-background/40 p-8 backdrop-blur-sm md:p-12"
         >
-          {/* Eyebrow */}
-          <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-gold/80">
-            <span className="h-px w-8 bg-gold/30" />
-            <span>Conteúdo premium</span>
-          </div>
-
-          <h3 className="mt-5 font-serif text-3xl leading-tight md:text-4xl">
+          <h3 className="font-serif text-3xl leading-tight md:text-4xl">
             Desbloqueie o itinerário completo deste guia
           </h3>
 
