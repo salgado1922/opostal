@@ -14,13 +14,105 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      guide_access: {
+        Row: {
+          granted_at: string
+          guide_slug: string
+          id: string
+          source: string
+          user_id: string
+        }
+        Insert: {
+          granted_at?: string
+          guide_slug: string
+          id?: string
+          source?: string
+          user_id: string
+        }
+        Update: {
+          granted_at?: string
+          guide_slug?: string
+          id?: string
+          source?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          credits_remaining: number
+          display_name: string | null
+          email: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          credits_remaining?: number
+          display_name?: string | null
+          email?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          credits_remaining?: number
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      purchases: {
+        Row: {
+          amount_cents: number
+          bundle_size: number
+          created_at: string
+          currency: string
+          id: string
+          initial_guide_slug: string | null
+          status: string
+          stripe_payment_intent: string | null
+          stripe_session_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount_cents: number
+          bundle_size: number
+          created_at?: string
+          currency?: string
+          id?: string
+          initial_guide_slug?: string | null
+          status?: string
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          bundle_size?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          initial_guide_slug?: string | null
+          status?: string
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      redeem_credit_for_guide: { Args: { _slug: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
