@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as PragaRouteImport } from './routes/praga'
 import { Route as IstambulRouteImport } from './routes/istambul'
@@ -23,6 +24,11 @@ import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/publi
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PremiumRoute = PremiumRouteImport.update({
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
   '/premium': typeof PremiumRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
   '/premium': typeof PremiumRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
   '/premium': typeof PremiumRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -119,6 +128,7 @@ export interface FileRouteTypes {
     | '/istambul'
     | '/praga'
     | '/premium'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/checkout/return'
     | '/api/public/payments/webhook'
@@ -131,6 +141,7 @@ export interface FileRouteTypes {
     | '/istambul'
     | '/praga'
     | '/premium'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/checkout/return'
     | '/api/public/payments/webhook'
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/istambul'
     | '/praga'
     | '/premium'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/checkout/return'
     | '/api/public/payments/webhook'
@@ -156,6 +168,7 @@ export interface RootRouteChildren {
   IstambulRoute: typeof IstambulRoute
   PragaRoute: typeof PragaRoute
   PremiumRoute: typeof PremiumRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CheckoutReturnRoute: typeof CheckoutReturnRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/premium': {
@@ -244,6 +264,7 @@ const rootRouteChildren: RootRouteChildren = {
   IstambulRoute: IstambulRoute,
   PragaRoute: PragaRoute,
   PremiumRoute: PremiumRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CheckoutReturnRoute: CheckoutReturnRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
