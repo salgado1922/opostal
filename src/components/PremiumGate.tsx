@@ -110,6 +110,29 @@ function GateUI({
       className="relative scroll-mt-24 px-6 py-20 md:px-12 md:py-28"
     >
       <div className="mx-auto max-w-3xl">
+        {/* Teaser: a single calm sentence with a soft fade, marking the boundary */}
+        <div className="mb-10 text-center md:mb-14">
+          <div
+            className="mx-auto max-w-2xl"
+            style={{
+              WebkitMaskImage:
+                "linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0))",
+              maskImage:
+                "linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0))",
+            }}
+          >
+            <p className="font-serif text-lg italic leading-relaxed text-cream/60 md:text-xl">
+              O itinerário deste guia está organizado dia a dia, com percursos,
+              horários e escolhas já feitas por si.
+            </p>
+          </div>
+          <div className="mt-6 flex items-center justify-center gap-3 text-[10px] uppercase tracking-[0.28em] text-gold/80">
+            <span aria-hidden className="h-px w-6 bg-gold/30" />
+            <span>Itinerário detalhado — premium</span>
+            <span aria-hidden className="h-px w-6 bg-gold/30" />
+          </div>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
