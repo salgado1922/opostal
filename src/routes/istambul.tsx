@@ -75,6 +75,7 @@ import d5S4 from "@/assets/istambul/d5-s4.jpg";
 import d5S5 from "@/assets/istambul/d5-s5.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import { PremiumGate } from "@/components/PremiumGate";
+import { PremiumVideoGate, EndOfArticleCTA } from "@/components/PremiumPromo";
 
 export const Route = createFileRoute("/istambul")({
   head: () => ({
@@ -1352,6 +1353,7 @@ function IstambulPage() {
         <Tips />
         <Checklist />
       </PremiumGate>
+      <EndOfArticleCTA slug="istambul" />
       <Footer />
     </main>
   );
@@ -1517,19 +1519,21 @@ function VePrimeiro() {
         variants={fadeUp}
         className="mx-auto max-w-4xl"
       >
-        <div className="relative rounded-3xl bg-gradient-to-br from-gold/20 via-terracotta/10 to-transparent p-[1px] shadow-2xl shadow-black/50">
-          <div className="relative aspect-video overflow-hidden rounded-3xl border border-gold/20 bg-black">
-            <iframe
-              src="https://www.youtube.com/embed/Tn1zT8RJ0kI"
-              title="Vê primeiro: Istambul"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-              className="absolute inset-0 h-full w-full"
-            />
+        <PremiumVideoGate slug="istambul">
+          <div className="relative rounded-3xl bg-gradient-to-br from-gold/20 via-terracotta/10 to-transparent p-[1px] shadow-2xl shadow-black/50">
+            <div className="relative aspect-video overflow-hidden rounded-3xl border border-gold/20 bg-black">
+              <iframe
+                src="https://www.youtube.com/embed/Tn1zT8RJ0kI"
+                title="Vê primeiro: Istambul"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="absolute inset-0 h-full w-full"
+              />
+            </div>
           </div>
-        </div>
+        </PremiumVideoGate>
         <p className="mt-5 text-center font-serif italic text-gold/90 flex items-center justify-center gap-2">
           <Play className="h-4 w-4" aria-hidden />
           Uma vista de olhos por Istambul antes de partir.
