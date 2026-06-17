@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { StripeEmbeddedCheckoutBundle } from "@/components/StripeEmbeddedCheckout";
 import { useMyAccess } from "@/hooks/use-auth";
+import { CITIES } from "@/data/cities";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 
 export const Route = createFileRoute("/premium")({
@@ -239,12 +240,16 @@ function Bundles() {
   const navigate = useNavigate();
   const [bundle, setBundle] = useState<Bundle>(2);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
-
-  // Default checkout slug: first city, simple choice. Real per-guide checkout
-  // happens from each guide's own gate; here it's a generic entry point.
-  const slug = "florenca";
+  const readyCities = CITIES.filter((c) => c.status === "ready");
+  const [slug, setSlug] = useState<string>(readyCities[0]?.slug ?? "florenca");
+  const [error, setError] = useState<string | null>(null);
 
   const onBuy = () => {
+    if (!slug) {
+      setError("Escolha o primeiro guia a desbloquear.");
+      return;
+    }
+    setError(null);
     if (!signedIn) {
       navigate({ to: "/auth", search: { redirect: "/premium" } });
       return;
@@ -297,6 +302,30 @@ function Bundles() {
             );
           })}
         </fieldset>
+
+        <div className="mt-8">
+          <label htmlFor="initial-guide" className="block text-[10px] uppercase tracking-[0.3em] text-gold/80">
+            Primeiro guia a desbloquear
+          </label>
+          <select
+            id="initial-guide"
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
+            className="mt-3 w-full rounded-md border border-gold/20 bg-background/60 px-3 py-2.5 text-sm text-cream outline-none focus:border-gold/50"
+          >
+            {readyCities.map((c) => (
+              <option key={c.slug} value={c.slug} className="bg-background text-cream">
+                {c.name} — {c.country}
+              </option>
+            ))}
+          </select>
+          {bundle > 1 && (
+            <p className="mt-2 text-xs text-cream/55">
+              Os restantes {bundle - 1} {bundle - 1 === 1 ? "guia fica como crédito" : "guias ficam como créditos"} na sua conta, para escolher quando quiser.
+            </p>
+          )}
+          {error && <p className="mt-2 text-xs text-red-300">{error}</p>}
+        </div>
 
         <div className="mt-8 flex flex-col gap-4">
           <button
