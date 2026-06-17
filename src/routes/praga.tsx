@@ -1261,13 +1261,7 @@ function Index() {
       <ConhecerPraga />
       <EssentialInfo />
       <Overview />
-      <PremiumGate
-        slug="praga"
-        teaserLines={[
-          "Dia 1, manhã. Encontro junto à Torre da Pólvora antes da cidade encher.",
-          "Atravessamos a Cidade Velha em direcção à Ponte Carlos, parando nos pormenores que ninguém vê com pressa.",
-        ]}
-      >
+      <PremiumGate slug="praga">
         <Itineraries />
         <Concerts />
         <Food />

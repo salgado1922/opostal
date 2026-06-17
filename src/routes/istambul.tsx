@@ -1345,13 +1345,7 @@ function IstambulPage() {
       <ConhecerIstambul />
       <EssentialInfo />
       <Overview />
-      <PremiumGate
-        slug="istambul"
-        teaserLines={[
-          "Dia 1, manhã. Começamos em Sultanahmet com a Mesquita Azul ainda calma.",
-          "Atravessamos para Santa Sofia com bilhete temporizado e respiramos entre as duas, num pátio à sombra.",
-        ]}
-      >
+      <PremiumGate slug="istambul">
         <Itineraries />
         <Bosforo />
         <Food />
