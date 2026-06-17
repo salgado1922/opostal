@@ -97,6 +97,12 @@ function ContaPage() {
               ? `Tem ${data.credits} ${data.credits === 1 ? "crédito" : "créditos"} para desbloquear outros guias.`
               : "Sem créditos. Os pacotes de 2 ou 3 guias dão créditos para outros guias à sua escolha."}
           </p>
+          <Link
+            to="/premium"
+            className="mt-4 inline-flex items-center gap-2 rounded-md border border-gold/40 px-4 py-2 text-xs font-medium text-gold transition-colors hover:bg-gold/10"
+          >
+            Comprar mais guias
+          </Link>
         </section>
 
         <section className="mt-10">
@@ -157,6 +163,40 @@ function ContaPage() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-serif text-2xl">Histórico de compras</h2>
+          {purchasesQuery.isLoading ? (
+            <p className="mt-2 text-sm text-cream/55">A carregar…</p>
+          ) : purchasesQuery.data && purchasesQuery.data.purchases.length > 0 ? (
+            <ul className="mt-4 divide-y divide-gold/10 rounded-lg border border-gold/15 bg-background/20">
+              {purchasesQuery.data.purchases.map((p) => {
+                const date = new Date(p.created_at).toLocaleDateString("pt-PT", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                });
+                const amount = (p.amount_cents / 100).toLocaleString("pt-PT", {
+                  style: "currency",
+                  currency: (p.currency || "eur").toUpperCase(),
+                });
+                return (
+                  <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
+                    <div>
+                      <div className="text-sm text-cream">
+                        Pacote de {p.bundle_size} {p.bundle_size === 1 ? "guia" : "guias"}
+                      </div>
+                      <div className="text-xs text-cream/55">{date} · {p.initial_guide_slug}</div>
+                    </div>
+                    <div className="text-sm tabular-nums text-cream/85">{amount}</div>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p className="mt-2 text-sm text-cream/55">Ainda não tem compras.</p>
+          )}
         </section>
       </div>
     </main>
