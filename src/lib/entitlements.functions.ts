@@ -194,7 +194,7 @@ export async function fulfillCheckoutSession(args: {
     _bundle: bundle,
     _slug: initialSlug,
     _payment_intent:
-      typeof session.payment_intent === "string" ? session.payment_intent : null,
+      typeof session.payment_intent === "string" ? session.payment_intent : "",
   });
   if (error) {
     console.error("[fulfill] rpc error", error);
