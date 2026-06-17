@@ -112,6 +112,19 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      claim_and_fulfill_purchase: {
+        Args: {
+          _bundle: number
+          _payment_intent: string
+          _session_id: string
+          _slug: string
+          _user_id: string
+        }
+        Returns: {
+          already_complete: boolean
+          claimed: boolean
+        }[]
+      }
       redeem_credit_for_guide: { Args: { _slug: string }; Returns: boolean }
     }
     Enums: {
