@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Lock, Check, Loader2 } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useServerFn } from "@tanstack/react-start";
 import { useQueryClient } from "@tanstack/react-query";
@@ -16,16 +16,21 @@ import {
 
 type Bundle = 1 | 2 | 3;
 
-const BUNDLES: { value: Bundle; label: string; sub: string }[] = [
-  { value: 1, label: "1 guia — 7,90 €", sub: "Acesso a este guia" },
-  { value: 2, label: "2 guias — 14,90 €", sub: "Este guia + 1 à escolha" },
-  { value: 3, label: "3 guias — 18,90 €", sub: "Este guia + 2 à escolha" },
+const BUNDLES: { value: Bundle; label: string }[] = [
+  { value: 1, label: "1 guia — 7,90 €" },
+  { value: 2, label: "2 guias — 14,90 €" },
+  { value: 3, label: "3 guias — 18,90 €" },
+];
+
+const INCLUDED = [
+  "Itinerário detalhado, dia a dia",
+  "Vídeo do guia",
+  "Recursos práticos de planeamento",
+  "Acesso permanente, sem subscrição",
 ];
 
 export interface PremiumGateProps {
   slug: string;
-  /** Optional 2-3 short lines shown faded as itinerary teaser. */
-  teaserLines?: string[];
   /** Full premium content (itinerary, video, practical sections). */
   children: React.ReactNode;
 }
@@ -35,7 +40,7 @@ export interface PremiumGateProps {
  * Otherwise renders a discreet editorial gate with checkout options.
  * Premium DOM is NEVER emitted for users without access.
  */
-export function PremiumGate({ slug, teaserLines, children }: PremiumGateProps) {
+export function PremiumGate({ slug, children }: PremiumGateProps) {
   const { ready, hasAccess, data } = useHasGuideAccess(slug);
 
   if (ready && hasAccess) {
@@ -45,7 +50,6 @@ export function PremiumGate({ slug, teaserLines, children }: PremiumGateProps) {
   return (
     <GateUI
       slug={slug}
-      teaserLines={teaserLines}
       loading={!ready}
       signedIn={!!(data && data.signedIn)}
       credits={data && data.signedIn ? data.credits : 0}
@@ -55,30 +59,22 @@ export function PremiumGate({ slug, teaserLines, children }: PremiumGateProps) {
 
 function GateUI({
   slug,
-  teaserLines,
   loading,
   signedIn,
   credits,
 }: {
   slug: string;
-  teaserLines?: string[];
   loading: boolean;
   signedIn: boolean;
   credits: number;
 }) {
   const navigate = useNavigate();
-  const [bundle, setBundle] = useState<Bundle | null>(null);
+  const [bundle, setBundle] = useState<Bundle>(2);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [redeeming, setRedeeming] = useState(false);
   const [redeemError, setRedeemError] = useState<string | null>(null);
   const qc = useQueryClient();
   const redeem = useServerFn(redeemCreditForGuide);
-
-  const defaultTeaser = [
-    "Manhã. Encontro junto à praça principal, café curto antes do primeiro percurso.",
-    "Passamos pelas ruelas mais calmas até ao primeiro miradouro, sem turistadas.",
-  ];
-  const lines = teaserLines && teaserLines.length ? teaserLines : defaultTeaser;
 
   const onBuy = () => {
     if (!bundle) return;
@@ -114,73 +110,42 @@ function GateUI({
       className="relative scroll-mt-24 px-6 py-20 md:px-12 md:py-28"
     >
       <div className="mx-auto max-w-3xl">
-        {/* Editorial divider */}
-        <div className="mb-10 flex items-center justify-center gap-3 text-[10px] uppercase tracking-[0.3em] text-gold/80">
-          <span className="h-px w-12 bg-gold/30" />
-          <span>Conteúdo premium</span>
-          <span className="h-px w-12 bg-gold/30" />
-        </div>
-        <h2 className="text-center font-serif text-4xl leading-tight md:text-5xl">
-          Itinerário detalhado
-        </h2>
-
-        {/* Faded teaser */}
-        <div className="relative mt-10">
-          <div
-            aria-hidden
-            className="space-y-3 font-serif text-lg leading-relaxed text-cream/85 md:text-xl"
-            style={{
-              WebkitMaskImage:
-                "linear-gradient(to bottom, black 0%, black 35%, transparent 100%)",
-              maskImage:
-                "linear-gradient(to bottom, black 0%, black 35%, transparent 100%)",
-            }}
-          >
-            {lines.map((line, i) => (
-              <p key={i}>{line}</p>
-            ))}
-            <p className="opacity-70">
-              Depois seguimos para a próxima paragem, com horários, percursos e os pormenores que
-              fazem a diferença...
-            </p>
-          </div>
-        </div>
-
-        {/* Teaser message */}
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-10 text-center font-serif text-base italic text-cream/75 md:text-lg"
+          className="rounded-2xl border border-gold/20 bg-background/40 p-8 backdrop-blur-sm md:p-12"
         >
-          A partir daqui começa o itinerário detalhado — o plano completo, organizado dia a dia,
-          com percursos, horários e todas as escolhas já feitas por si. É a parte que transforma
-          este guia num roteiro pronto a seguir.
-        </motion.p>
-
-        {/* CTA card */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="mt-14 rounded-2xl border border-gold/20 bg-background/40 p-8 backdrop-blur-sm md:p-10"
-        >
-          <div className="flex items-center gap-3 text-gold">
-            <Lock className="h-4 w-4" aria-hidden />
-            <span className="text-[10px] uppercase tracking-[0.3em]">Acesso ao guia</span>
+          {/* Eyebrow */}
+          <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-gold/80">
+            <span className="h-px w-8 bg-gold/30" />
+            <span>Conteúdo premium</span>
           </div>
 
-          <h3 className="mt-4 font-serif text-2xl leading-snug md:text-3xl">
+          <h3 className="mt-5 font-serif text-3xl leading-tight md:text-4xl">
             Desbloqueie o itinerário completo deste guia
           </h3>
-          <p className="mt-3 text-sm leading-relaxed text-cream/75 md:text-base">
-            Acesso único, sem subscrições. Inclui o itinerário detalhado dia a dia, o vídeo do
-            guia e todos os recursos práticos de planeamento. Compra-se uma vez e fica seu.
+
+          <p className="mt-5 text-base leading-relaxed text-cream/80 md:text-lg">
+            A partir daqui começa a parte prática do guia: o itinerário detalhado, organizado dia
+            a dia, com os percursos, os horários e as escolhas já feitas por si. Acesso único, sem
+            subscrições — compra-se uma vez e fica seu.
           </p>
 
+          <ul className="mt-8 space-y-2.5 text-sm text-cream/80 md:text-base">
+            {INCLUDED.map((item) => (
+              <li key={item} className="flex items-start gap-3">
+                <span
+                  aria-hidden
+                  className="mt-[0.6em] inline-block h-[3px] w-[3px] rounded-full bg-gold/70"
+                />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
           {signedIn && credits > 0 && (
-            <div className="mt-6 rounded-lg border border-gold/25 bg-gold/5 p-4">
+            <div className="mt-8 rounded-lg border border-gold/25 bg-gold/5 p-4">
               <p className="text-sm text-cream/85">
                 Tem {credits} {credits === 1 ? "crédito" : "créditos"} por usar do seu pacote.
               </p>
@@ -201,44 +166,39 @@ function GateUI({
             </div>
           )}
 
-          <fieldset className="mt-8 space-y-2">
+          <fieldset className="mt-10 space-y-2">
             <legend className="sr-only">Escolha um pacote</legend>
             {BUNDLES.map((b) => {
               const selected = bundle === b.value;
               return (
                 <label
                   key={b.value}
-                  className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg border px-4 py-3 transition-colors ${
+                  className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3.5 transition-colors ${
                     selected
                       ? "border-gold/60 bg-gold/5"
-                      : "border-gold/15 hover:border-gold/35"
+                      : "border-gold/15 hover:border-gold/30"
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="bundle"
-                      value={b.value}
-                      checked={selected}
-                      onChange={() => setBundle(b.value)}
-                      className="h-4 w-4 accent-[color:var(--color-gold,#c8a85a)]"
-                    />
-                    <div>
-                      <div className="text-sm font-medium text-cream">{b.label}</div>
-                      <div className="text-xs text-cream/60">{b.sub}</div>
-                    </div>
-                  </div>
+                  <input
+                    type="radio"
+                    name="bundle"
+                    value={b.value}
+                    checked={selected}
+                    onChange={() => setBundle(b.value)}
+                    className="h-4 w-4 accent-[color:var(--color-gold,#c8a85a)]"
+                  />
+                  <span className="text-sm text-cream md:text-base">{b.label}</span>
                 </label>
               );
             })}
           </fieldset>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-8 flex flex-col gap-4">
             <button
               type="button"
               onClick={onBuy}
-              disabled={!bundle || loading}
-              className="inline-flex items-center justify-center rounded-md bg-gold px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+              disabled={loading}
+              className="inline-flex w-full items-center justify-center rounded-md bg-gold px-6 py-3.5 text-sm font-medium tracking-wide text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto sm:self-start"
             >
               Comprar acesso
             </button>
@@ -246,7 +206,7 @@ function GateUI({
               <Link
                 to="/auth"
                 search={{ redirect: typeof window !== "undefined" ? window.location.pathname + "#dias" : "/" }}
-                className="text-xs text-cream/65 underline-offset-4 hover:text-cream hover:underline"
+                className="text-sm text-cream/60 underline-offset-4 hover:text-cream/90 hover:underline"
               >
                 Já comprou? Inicie sessão para desbloquear.
               </Link>
@@ -254,7 +214,7 @@ function GateUI({
             {signedIn && (
               <Link
                 to="/conta"
-                className="text-xs text-cream/65 underline-offset-4 hover:text-cream hover:underline"
+                className="text-sm text-cream/60 underline-offset-4 hover:text-cream/90 hover:underline"
               >
                 Ver a minha conta
               </Link>

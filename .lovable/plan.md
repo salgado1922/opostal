@@ -1,40 +1,52 @@
+
+## Goal
+
+Replace the current pre-itinerary gate in `src/components/PremiumGate.tsx` with a quieter, editorial inline conversion block that matches the supplied PT-PT copy and structure exactly. It already renders inline (no popup) right before the locked itinerary on `/florenca`, `/praga`, `/istambul`, so no route or gating logic changes.
+
 ## Scope
 
-Replace the header and city back-link logo with the newly uploaded transparent PNG, and strip the logo image out of all footers (text only).
+- Edit only `src/components/PremiumGate.tsx`.
+- No changes to routes, free sections, header, footer, checkout dialog logic, or other pages.
+- Behaviour preserved: block renders only for users without access; users with access see the real premium content; the checkout itself stays in its existing Dialog (the spec forbids popups for the *block*, not for the checkout flow triggered by the CTA).
 
-## 1. Asset
+## Block structure (top to bottom)
 
-Upload `user-uploads://8c5d475a-1979-4462-b05d-7dd62d461d24_1.jpg` (the new transparent stamp + outlined "O Postal" lockup — file is named `.jpg` on upload but is the transparent PNG the user described) via `lovable-assets` with filename `opostal-horizontal-transparent.png` → write pointer to `src/assets/brand/opostal-horizontal-transparent.png.asset.json`.
+1. Eyebrow: `Conteúdo premium` (small, uppercase, tracked, gold, with thin rules — keep existing style).
+2. Title: `Desbloqueie o itinerário completo deste guia` (serif, large, calm).
+3. Body paragraph (verbatim): `A partir daqui começa a parte prática do guia: o itinerário detalhado, organizado dia a dia, com os percursos, os horários e as escolhas já feitas por si. Acesso único, sem subscrições — compra-se uma vez e fica seu.`
+4. "O que está incluído" bullet list (text-only, no icons, hairline bullets):
+   - Itinerário detalhado, dia a dia
+   - Vídeo do guia
+   - Recursos práticos de planeamento
+   - Acesso permanente, sem subscrição
+5. Pricing selector — three understated radio rows with quiet selected state (thin gold border + subtle tint). Default selected: **2 guias**.
+   - `1 guia — 7,90 €`
+   - `2 guias — 14,90 €`
+   - `3 guias — 18,90 €`
+6. Primary CTA button below selector: `Comprar acesso` (existing gold button style).
+7. Secondary quiet link below CTA: `Já comprou? Inicie sessão para desbloquear.` (always shown when signed-out; replaced by `Ver a minha conta` when signed-in, same quiet style).
 
-## 2. Header (`src/routes/index.tsx`)
+## Removed from current implementation
 
-Replace the import `opostalHorizontalDark` → `opostalHorizontalTransparent`. Update the header `<img>` (line ~103):
+- Faded itinerary teaser paragraphs (masked text).
+- Italic "A partir daqui começa o itinerário detalhado…" preamble (replaced by the new body copy inside the block).
+- The Lock icon row above the title (eyebrow alone is enough; keeps it less UI-like).
 
-- `src` = new asset url, `alt="O Postal"`
-- classes: `h-8 w-auto object-contain md:h-10` (≈32→40px desktop, 32 mobile — within the requested 28–32 / 34–40 range)
-- ensure the wrapping `<Link to="/">` has no background / border / shadow / rounded utility — keep it a bare link; add `px-2 md:px-3` for breathing room
-- verify the parent fixed top bar container has no chip/card behind the logo (transparent)
+## Kept
 
-## 3. City back-links (`src/routes/praga.tsx`, `src/routes/istambul.tsx`)
+- The credits panel ("Tem N créditos…" + redeem button) when signed-in user has remaining credits — appears between the bullets and the pricing selector as a subtle bordered note.
+- Checkout Dialog triggered by `Comprar acesso` (unchanged).
+- Sign-in redirect for guests when they click `Comprar acesso` (redirects to `/auth` with return to `#dias`).
+- `id="dias"` and `scroll-mt-24` on the section so anchor links keep working.
+- `PremiumGate` API (`slug`, `children`); the `teaserLines` prop becomes unused and is removed from the type.
 
-Currently render `‹ [stampIcon] O Postal`. Replace with a single `<img src={opostalHorizontalTransparent.url} alt="O Postal" className="h-7 w-auto object-contain md:h-9" />` preceded by the `‹` chevron, wrapped in `<Link to="/">` with no background/border/shadow, `px-2` for spacing. Drop the now-unused `opostalStampIcon` import and the cream "O Postal" text node.
+## Visual tone
 
-## 4. Footers — remove logo images
+- Reuse current tokens: cream text, gold accents, `bg-background/40` with `border-gold/20`, serif headings, generous padding (`p-8 md:p-10`), max-width matches existing (`max-w-3xl`).
+- No badges, no "popular" tag, no urgency copy, no emojis.
+- Bullets rendered as a plain `<ul>` with `·` or thin gold dot markers and tight serif-adjacent line-height.
 
-- `src/routes/index.tsx` line ~794: delete the `<img src={opostalVerticalDark.url} ... />` line; keep the existing footer text untouched.
-- `src/routes/praga.tsx` line ~1217: delete the equivalent footer `<img>`.
-- `src/routes/istambul.tsx` line ~1311: delete the equivalent footer `<img>`.
-- Drop the `opostalVerticalDark` import from those three files (still used for og:image in `__root.tsx` — keep it there).
+## Out of scope
 
-## 5. Cleanup / verification
-
-- `rg "Compasso Routes|Viagens do Carlos"` → expect 0 hits (already verified previously).
-- `rg "opostalHorizontalDark|opostalStampIcon"` in routes → expect 0 hits after refactor (the old dark/stamp asset JSONs stay on disk; they're still referenced by `__root.tsx` for favicon + og:image, so leave them).
-- Visual: header transparent, logo crisp, back-links show new lockup, footers are text-only.
-
-## Files touched
-
-- `src/assets/brand/opostal-horizontal-transparent.png.asset.json` (new)
-- `src/routes/index.tsx`
-- `src/routes/praga.tsx`
-- `src/routes/istambul.tsx`
+- Stripe price ids, checkout server fn, auth flow, access hooks — all unchanged.
+- No edits to the three guide route files; the gate is already inserted there.

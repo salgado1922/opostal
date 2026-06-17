@@ -1162,13 +1162,7 @@ function Index() {
       <ConhecerFlorenca />
       <EssentialInfo />
       <Overview />
-      <PremiumGate
-        slug="florenca"
-        teaserLines={[
-          "Dia 1, manhã. Começamos na Piazza del Duomo com a luz ainda baixa, antes das filas.",
-          "Subimos à Cúpula com bilhete temporizado; depois descemos para um café curto na Via dei Servi.",
-        ]}
-      >
+      <PremiumGate slug="florenca">
         <Itineraries />
         <Duomo />
         <Food />
