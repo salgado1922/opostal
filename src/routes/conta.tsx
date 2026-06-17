@@ -1,10 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CITIES } from "@/data/cities";
 import { useMyAccess, useSignOut } from "@/hooks/use-auth";
-import { redeemCreditForGuide } from "@/lib/entitlements.functions";
+import { redeemCreditForGuide, getMyPurchases } from "@/lib/entitlements.functions";
 import { Loader2, Check, Lock } from "lucide-react";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 
@@ -25,6 +25,13 @@ function ContaPage() {
   const signOut = useSignOut();
   const qc = useQueryClient();
   const redeem = useServerFn(redeemCreditForGuide);
+  const fetchPurchases = useServerFn(getMyPurchases);
+  const purchasesQuery = useQuery({
+    queryKey: ["my-purchases"],
+    queryFn: () => fetchPurchases(),
+    enabled: !!(data && data.signedIn),
+    staleTime: 60_000,
+  });
   const [pending, setPending] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
