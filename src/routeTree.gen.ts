@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as PragaRouteImport } from './routes/praga'
 import { Route as IstambulRouteImport } from './routes/istambul'
 import { Route as FlorencaRouteImport } from './routes/florenca'
@@ -22,6 +23,11 @@ import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/publi
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PremiumRoute = PremiumRouteImport.update({
+  id: '/premium',
+  path: '/premium',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PragaRoute = PragaRouteImport.update({
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
+  '/premium': typeof PremiumRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
+  '/premium': typeof PremiumRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/praga': typeof PragaRoute
+  '/premium': typeof PremiumRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/florenca'
     | '/istambul'
     | '/praga'
+    | '/premium'
     | '/sitemap.xml'
     | '/checkout/return'
     | '/api/public/payments/webhook'
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/florenca'
     | '/istambul'
     | '/praga'
+    | '/premium'
     | '/sitemap.xml'
     | '/checkout/return'
     | '/api/public/payments/webhook'
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/florenca'
     | '/istambul'
     | '/praga'
+    | '/premium'
     | '/sitemap.xml'
     | '/checkout/return'
     | '/api/public/payments/webhook'
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   FlorencaRoute: typeof FlorencaRoute
   IstambulRoute: typeof IstambulRoute
   PragaRoute: typeof PragaRoute
+  PremiumRoute: typeof PremiumRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CheckoutReturnRoute: typeof CheckoutReturnRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/premium': {
+      id: '/premium'
+      path: '/premium'
+      fullPath: '/premium'
+      preLoaderRoute: typeof PremiumRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/praga': {
@@ -223,6 +243,7 @@ const rootRouteChildren: RootRouteChildren = {
   FlorencaRoute: FlorencaRoute,
   IstambulRoute: IstambulRoute,
   PragaRoute: PragaRoute,
+  PremiumRoute: PremiumRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CheckoutReturnRoute: CheckoutReturnRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
