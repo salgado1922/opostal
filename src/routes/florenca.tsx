@@ -44,7 +44,7 @@ import {
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import { PremiumGate } from "@/components/PremiumGate";
-import { PremiumVideoGate, EndOfArticleCTA } from "@/components/PremiumPromo";
+import { EndOfArticleCTA } from "@/components/PremiumPromo";
 
 export const Route = createFileRoute("/florenca")({
   head: () => ({
@@ -1159,12 +1159,12 @@ function Index() {
     <main id="top" className="theme-firenze bg-twilight-radial min-h-screen overflow-x-hidden">
       <StickyNav />
       <Hero />
-      <VePrimeiro />
       <ConhecerFlorenca />
       <EssentialInfo />
       <Overview />
       <PremiumGate slug="florenca">
         <Itineraries />
+        <GuideVideo />
         <Duomo />
         <Food />
         <Tips />
@@ -1179,10 +1179,10 @@ function Index() {
 // ----------------------- STICKY NAV -----------------------
 
 const navLinks = [
-  { id: "ve-primeiro", label: "Vê primeiro" },
   { id: "d1", label: "Dia 1" },
   { id: "d2", label: "Dia 2" },
   { id: "d3", label: "Dia 3" },
+  { id: "video", label: "Vídeo" },
   { id: "duomo", label: "Duomo" },
   { id: "comer", label: "Comer" },
   { id: "dicas", label: "Dicas" },
@@ -1321,15 +1321,15 @@ function StickyNav() {
   );
 }
 
-// ----------------------- VÊ PRIMEIRO -----------------------
+// ----------------------- VÍDEO DO GUIA (premium) -----------------------
 
-function VePrimeiro() {
+function GuideVideo() {
   return (
     <Section
-      id="ve-primeiro"
-      eyebrow="Antes de partir"
-      title="Vê primeiro"
-      intro="Uns minutos de Florença em movimento para entrar no espírito da viagem."
+      id="video"
+      eyebrow="Vídeo do guia"
+      title="Vídeo do guia"
+      intro="O vídeo completo deste guia, disponível com o seu acesso."
     >
       <motion.div
         initial="hidden"
@@ -1338,24 +1338,22 @@ function VePrimeiro() {
         variants={fadeUp}
         className="mx-auto max-w-4xl"
       >
-        <PremiumVideoGate slug="florenca">
-          <div className="relative rounded-3xl bg-gradient-to-br from-gold/20 via-terracotta/10 to-transparent p-[1px] shadow-2xl shadow-black/50">
-            <div className="relative aspect-video overflow-hidden rounded-3xl border border-gold/20 bg-black">
-              <iframe
-                src="https://www.youtube.com/embed/QnzZF-FQ_qE"
-                title="Vê primeiro: Florença"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                className="absolute inset-0 h-full w-full"
-              />
-            </div>
+        <div className="relative rounded-3xl bg-gradient-to-br from-gold/20 via-terracotta/10 to-transparent p-[1px] shadow-2xl shadow-black/50">
+          <div className="relative aspect-video overflow-hidden rounded-3xl border border-gold/20 bg-black">
+            <iframe
+              src="https://www.youtube.com/embed/QnzZF-FQ_qE"
+              title="Vídeo do guia: Florença"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+            />
           </div>
-        </PremiumVideoGate>
+        </div>
         <p className="mt-5 text-center font-serif italic text-gold/90 flex items-center justify-center gap-2">
           <Play className="h-4 w-4" aria-hidden />
-          Uns minutos de Florença em movimento para entrar no espírito da viagem.
+          O vídeo completo deste guia, disponível com o seu acesso.
         </p>
       </motion.div>
     </Section>
