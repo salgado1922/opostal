@@ -75,7 +75,7 @@ import d5S4 from "@/assets/istambul/d5-s4.jpg";
 import d5S5 from "@/assets/istambul/d5-s5.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import { PremiumGate } from "@/components/PremiumGate";
-import { PremiumVideoGate, EndOfArticleCTA } from "@/components/PremiumPromo";
+import { EndOfArticleCTA } from "@/components/PremiumPromo";
 
 export const Route = createFileRoute("/istambul")({
   head: () => ({
@@ -1342,12 +1342,12 @@ function IstambulPage() {
     >
       <StickyNav />
       <Hero />
-      <VePrimeiro />
       <ConhecerIstambul />
       <EssentialInfo />
       <Overview />
       <PremiumGate slug="istambul">
         <Itineraries />
+        <GuideVideo />
         <Bosforo />
         <Food />
         <Tips />
@@ -1362,12 +1362,12 @@ function IstambulPage() {
 // ----------------------- STICKY NAV -----------------------
 
 const navLinks = [
-  { id: "ve-primeiro", label: "Vê primeiro" },
   { id: "d1", label: "Dia 1" },
   { id: "d2", label: "Dia 2" },
   { id: "d3", label: "Dia 3" },
   { id: "d4", label: "Dia 4" },
   { id: "d5", label: "Dia 5" },
+  { id: "video", label: "Vídeo" },
   { id: "bosforo", label: "Bósforo" },
   { id: "comer", label: "Comer" },
   { id: "dicas", label: "Dicas" },
@@ -1502,15 +1502,15 @@ function StickyNav() {
   );
 }
 
-// ----------------------- VÊ PRIMEIRO -----------------------
+// ----------------------- VÍDEO DO GUIA (premium) -----------------------
 
-function VePrimeiro() {
+function GuideVideo() {
   return (
     <Section
-      id="ve-primeiro"
-      eyebrow="Antes de partir"
-      title="Vê primeiro"
-      intro="Uns minutos de Istambul em movimento para entrar no espírito da viagem."
+      id="video"
+      eyebrow="Vídeo do guia"
+      title="Vídeo do guia"
+      intro="O vídeo completo deste guia, disponível com o seu acesso."
     >
       <motion.div
         initial="hidden"
@@ -1519,24 +1519,22 @@ function VePrimeiro() {
         variants={fadeUp}
         className="mx-auto max-w-4xl"
       >
-        <PremiumVideoGate slug="istambul">
-          <div className="relative rounded-3xl bg-gradient-to-br from-gold/20 via-terracotta/10 to-transparent p-[1px] shadow-2xl shadow-black/50">
-            <div className="relative aspect-video overflow-hidden rounded-3xl border border-gold/20 bg-black">
-              <iframe
-                src="https://www.youtube.com/embed/Tn1zT8RJ0kI"
-                title="Vê primeiro: Istambul"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                className="absolute inset-0 h-full w-full"
-              />
-            </div>
+        <div className="relative rounded-3xl bg-gradient-to-br from-gold/20 via-terracotta/10 to-transparent p-[1px] shadow-2xl shadow-black/50">
+          <div className="relative aspect-video overflow-hidden rounded-3xl border border-gold/20 bg-black">
+            <iframe
+              src="https://www.youtube.com/embed/Tn1zT8RJ0kI"
+              title="Vídeo do guia: Istambul"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+            />
           </div>
-        </PremiumVideoGate>
+        </div>
         <p className="mt-5 text-center font-serif italic text-gold/90 flex items-center justify-center gap-2">
           <Play className="h-4 w-4" aria-hidden />
-          Uma vista de olhos por Istambul antes de partir.
+          O vídeo completo deste guia, disponível com o seu acesso.
         </p>
       </motion.div>
     </Section>
