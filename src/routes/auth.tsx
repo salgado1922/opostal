@@ -30,6 +30,7 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
+  const [forgotMode, setForgotMode] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -61,7 +62,13 @@ function AuthPage() {
     setInfo(null);
     setLoading(true);
     try {
-      if (mode === "signin") {
+      if (forgotMode) {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: window.location.origin + "/reset-password",
+        });
+        if (error) throw error;
+        setInfo("Se existir uma conta com este email, enviámos um link de reposição.");
+      } else if (mode === "signin") {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
       } else {
@@ -97,14 +104,18 @@ function AuthPage() {
           className="mt-10 rounded-2xl border border-gold/20 bg-background/40 p-8 backdrop-blur-sm"
         >
           <h1 className="font-serif text-3xl">
-            {mode === "signin" ? "Iniciar sessão" : "Criar conta"}
+            {forgotMode ? "Repor palavra-passe" : mode === "signin" ? "Iniciar sessão" : "Criar conta"}
           </h1>
           <p className="mt-2 text-sm text-cream/70">
-            {mode === "signin"
+            {forgotMode
+              ? "Indique o seu email e enviamos um link para definir uma nova palavra-passe."
+              : mode === "signin"
               ? "Aceda aos seus guias premium."
               : "Crie a sua conta para guardar os guias premium."}
           </p>
 
+          {!forgotMode && (
+          <>
           <button
             type="button"
             onClick={onGoogle}
@@ -118,6 +129,8 @@ function AuthPage() {
             <span>ou com email</span>
             <span className="h-px flex-1 bg-cream/15" />
           </div>
+          </>
+          )}
 
           <form onSubmit={onSubmit} className="space-y-3">
             <label className="block">
@@ -131,6 +144,7 @@ function AuthPage() {
                 className="mt-1 w-full rounded-md border border-gold/20 bg-background/60 px-3 py-2 text-sm text-cream outline-none focus:border-gold/50"
               />
             </label>
+            {!forgotMode && (
             <label className="block">
               <span className="text-xs uppercase tracking-[0.2em] text-cream/60">Palavra-passe</span>
               <input
@@ -143,6 +157,7 @@ function AuthPage() {
                 className="mt-1 w-full rounded-md border border-gold/20 bg-background/60 px-3 py-2 text-sm text-cream outline-none focus:border-gold/50"
               />
             </label>
+            )}
 
             {error && <p className="text-xs text-red-300">{error}</p>}
             {info && <p className="text-xs text-cream/80">{info}</p>}
@@ -152,19 +167,34 @@ function AuthPage() {
               disabled={loading}
               className="inline-flex w-full items-center justify-center rounded-md bg-gold px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-60"
             >
-              {mode === "signin" ? "Entrar" : "Criar conta"}
+              {forgotMode ? "Enviar link" : mode === "signin" ? "Entrar" : "Criar conta"}
             </button>
           </form>
 
-          <button
-            type="button"
-            onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-            className="mt-6 text-xs text-cream/65 underline-offset-4 hover:text-cream hover:underline"
-          >
-            {mode === "signin"
-              ? "Ainda não tem conta? Criar conta."
-              : "Já tem conta? Iniciar sessão."}
-          </button>
+          <div className="mt-6 flex flex-col items-start gap-2">
+            {!forgotMode && (
+              <button
+                type="button"
+                onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+                className="text-xs text-cream/65 underline-offset-4 hover:text-cream hover:underline"
+              >
+                {mode === "signin"
+                  ? "Ainda não tem conta? Criar conta."
+                  : "Já tem conta? Iniciar sessão."}
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => {
+                setForgotMode(!forgotMode);
+                setError(null);
+                setInfo(null);
+              }}
+              className="text-xs text-cream/65 underline-offset-4 hover:text-cream hover:underline"
+            >
+              {forgotMode ? "Voltar ao início de sessão" : "Esqueceu-se da palavra-passe?"}
+            </button>
+          </div>
         </motion.div>
       </div>
     </main>
