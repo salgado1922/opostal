@@ -1,9 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
-import { Check, Loader2 } from "lucide-react";
 import {
   Accordion,
   AccordionItem,
@@ -17,9 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { StripeEmbeddedCheckoutBundle } from "@/components/StripeEmbeddedCheckout";
-import { useHasGuideAccess } from "@/hooks/use-auth";
 import { useMyAccess } from "@/hooks/use-auth";
-import { redeemCreditForGuide } from "@/lib/entitlements.functions";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 
 export const Route = createFileRoute("/premium")({
@@ -453,11 +448,3 @@ function SimpleFooter() {
     </footer>
   );
 }
-
-// Keep imports tree-shake friendly
-void useHasGuideAccess;
-void redeemCreditForGuide;
-void useQueryClient;
-void useServerFn;
-void Check;
-void Loader2;
