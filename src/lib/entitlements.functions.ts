@@ -186,50 +186,22 @@ export async function fulfillCheckoutSession(args: {
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-  // Idempotency: if already marked complete, skip
-  const { data: existing } = await supabaseAdmin
-    .from("purchases")
-    .select("id,status")
-    .eq("stripe_session_id", session.id)
-    .maybeSingle();
-
-  if (existing?.status === "complete") {
-    return { ok: true, alreadyComplete: true as const };
+  // Atomic: claim purchase + grant access + credit top-up in one transaction.
+  // Safe against concurrent webhook + return-page confirm calls.
+  const { data, error } = await supabaseAdmin.rpc("claim_and_fulfill_purchase", {
+    _session_id: session.id,
+    _user_id: userId,
+    _bundle: bundle,
+    _slug: initialSlug,
+    _payment_intent:
+      typeof session.payment_intent === "string" ? session.payment_intent : null,
+  });
+  if (error) {
+    console.error("[fulfill] rpc error", error);
+    return { ok: false, reason: "rpc_error" as const };
   }
-
-  // Grant access to initial guide
-  await supabaseAdmin
-    .from("guide_access")
-    .upsert(
-      { user_id: userId, guide_slug: initialSlug, source: "purchase" },
-      { onConflict: "user_id,guide_slug", ignoreDuplicates: true },
-    );
-
-  // Remaining credits to add
-  const remaining = bundle - 1;
-  if (remaining > 0) {
-    const { data: profile } = await supabaseAdmin
-      .from("profiles")
-      .select("credits_remaining")
-      .eq("id", userId)
-      .maybeSingle();
-    const current = profile?.credits_remaining ?? 0;
-    await supabaseAdmin
-      .from("profiles")
-      .update({ credits_remaining: current + remaining })
-      .eq("id", userId);
-  }
-
-  // Mark purchase complete
-  await supabaseAdmin
-    .from("purchases")
-    .update({
-      status: "complete",
-      stripe_payment_intent:
-        typeof session.payment_intent === "string" ? session.payment_intent : null,
-    })
-    .eq("stripe_session_id", session.id);
-
+  const row = Array.isArray(data) ? data[0] : data;
+  if (row?.already_complete) return { ok: true, alreadyComplete: true as const };
   return { ok: true };
 }
 
