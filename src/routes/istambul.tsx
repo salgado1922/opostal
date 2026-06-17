@@ -74,6 +74,7 @@ import d5S3 from "@/assets/istambul/d5-s3.jpg";
 import d5S4 from "@/assets/istambul/d5-s4.jpg";
 import d5S5 from "@/assets/istambul/d5-s5.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
+import { PremiumGate } from "@/components/PremiumGate";
 
 export const Route = createFileRoute("/istambul")({
   head: () => ({
@@ -1344,11 +1345,19 @@ function IstambulPage() {
       <ConhecerIstambul />
       <EssentialInfo />
       <Overview />
-      <Itineraries />
-      <Bosforo />
-      <Food />
-      <Tips />
-      <Checklist />
+      <PremiumGate
+        slug="istambul"
+        teaserLines={[
+          "Dia 1, manhã. Começamos em Sultanahmet com a Mesquita Azul ainda calma.",
+          "Atravessamos para Santa Sofia com bilhete temporizado e respiramos entre as duas, num pátio à sombra.",
+        ]}
+      >
+        <Itineraries />
+        <Bosforo />
+        <Food />
+        <Tips />
+        <Checklist />
+      </PremiumGate>
       <Footer />
     </main>
   );
