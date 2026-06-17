@@ -13,6 +13,7 @@ import {
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
+import { HomePremiumCTA, PremiumCardTag } from "@/components/PremiumPromo";
 import {
   ComposableMap,
   Geographies,
@@ -75,6 +76,7 @@ function Home() {
       <MethodStrip />
       <EuropeMap />
       <About />
+      <HomePremiumCTA />
       <SiteFooter />
     </main>
   );
@@ -485,6 +487,11 @@ function CityCard({ city }: { city: CityMeta }) {
               </span>
             )}
           </div>
+          {isReady && (
+            <div className="mt-2">
+              <PremiumCardTag slug={city.slug} />
+            </div>
+          )}
         </div>
       </div>
     </article>
