@@ -117,6 +117,7 @@ export function PremiumVideoGate({
   if (hasAccess) return <>{children}</>;
   return (
     <div className="mx-auto max-w-2xl rounded-2xl border border-gold/20 bg-background/40 px-8 py-10 text-center backdrop-blur-sm md:py-12">
+      <PremiumLabel className="mb-5">Recurso premium</PremiumLabel>
       <Lock className="mx-auto mb-4 h-4 w-4 text-gold/70" aria-hidden />
       <p className="font-serif text-lg italic text-cream/80 md:text-xl">
         O vídeo deste guia faz parte do conteúdo premium.
