@@ -43,6 +43,30 @@ export function HomePremiumCTA() {
   );
 }
 
+/* -------- Shared: tiny editorial premium label -------- */
+
+/**
+ * Hairline uppercase label, no fill, no border, no icon.
+ * Use above any locked section to mark it as premium.
+ */
+export function PremiumLabel({
+  children = "Conteúdo premium",
+  className = "",
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`flex items-center justify-center gap-3 text-[10px] uppercase tracking-[0.28em] text-gold/80 ${className}`}
+    >
+      <span aria-hidden className="h-px w-6 bg-gold/30" />
+      <span>{children}</span>
+      <span aria-hidden className="h-px w-6 bg-gold/30" />
+    </div>
+  );
+}
+
 /* -------- 2. Guide card / listing tag -------- */
 
 /** Discreet "Inclui roteiro premium" tag. Hidden when the user already owns the guide. */
@@ -51,10 +75,10 @@ export function PremiumCardTag({ slug, className = "" }: { slug: string; classNa
   if (!ready || hasAccess) return null;
   return (
     <span
-      className={`inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-cream/55 ${className}`}
+      className={`inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-cream/55 ${className}`}
     >
-      <Lock className="h-2.5 w-2.5 opacity-70" aria-hidden />
-      Inclui roteiro premium
+      <span aria-hidden className="text-gold/70">·</span>
+      Inclui itinerário premium
     </span>
   );
 }
@@ -93,6 +117,7 @@ export function PremiumVideoGate({
   if (hasAccess) return <>{children}</>;
   return (
     <div className="mx-auto max-w-2xl rounded-2xl border border-gold/20 bg-background/40 px-8 py-10 text-center backdrop-blur-sm md:py-12">
+      <PremiumLabel className="mb-5">Recurso premium</PremiumLabel>
       <Lock className="mx-auto mb-4 h-4 w-4 text-gold/70" aria-hidden />
       <p className="font-serif text-lg italic text-cream/80 md:text-xl">
         O vídeo deste guia faz parte do conteúdo premium.
