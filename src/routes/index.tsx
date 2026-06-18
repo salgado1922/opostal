@@ -31,13 +31,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga e Istambul já disponíveis. Paris, Viena, Lisboa, Budapeste, Florença, Barcelona e Londres a caminho.",
+          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga, Istambul, Florença e Londres já disponíveis. Paris, Viena, Lisboa, Budapeste e Barcelona a caminho.",
       },
       { property: "og:title", content: "O Postal: guias de viagem pela Europa" },
       {
         property: "og:description",
         content:
-          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga e Istambul já disponíveis. Paris, Viena, Lisboa, Budapeste, Florença, Barcelona e Londres a caminho.",
+          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga, Istambul, Florença e Londres já disponíveis. Paris, Viena, Lisboa, Budapeste e Barcelona a caminho.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://opostal.pt/" },

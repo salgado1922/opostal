@@ -1,51 +1,84 @@
-## Objetivo
+# Plano: Guia de Londres em opostal.pt
 
-Tornar a página `/conta` (que já existe e já lista guias desbloqueados, créditos, outros guias e histórico) acessível a partir do menu principal e mostrar o login inline para quem ainda não entrou, sem mexer em auth, paywall, tema ou conteúdo. Tirar todos os travessões "—" da página e do link.
+Adicionar uma nova página `/londres` que se integra perfeitamente com os guias existentes (Praga, Istambul, Florença), sem tocar em auth, billing ou no router gerado.
 
-## Alterações
+## 1. Novo ficheiro: `src/routes/londres.tsx`
 
-### 1. Link no menu principal (`src/routes/index.tsx`)
+Espelhar a estrutura de `florenca.tsx` (a referência mais recente e completa) secção a secção, em PT-PT, sem travessões longos:
 
-No `<nav>` (a seguir a "Cidades" e "A nossa abordagem"), acrescentar:
+1. `head()` completo: title, description, og:*, twitter:*, canonical para `https://opostal.pt/londres`, JSON-LD `TravelGuide`.
+2. `<main className="theme-londres bg-twilight-radial min-h-screen overflow-x-hidden">`.
+3. Componentes locais reaproveitados (mesmas assinaturas das outras cidades):
+   - `StickyNav` com âncoras: contexto, antes, roteiro, itinerario, video, vs, comida, dicas, checklist.
+   - `Hero` com imagem verificada do Commons.
+   - `ConhecerLondres` (contexto editorial; integra "para quem é" e "como usar 3 dias + extra" em prosa, não em bullets).
+   - `EssentialInfo` (transportes Oyster/contactless, bilhetes timed-entry London Eye / Madame Tussauds / WB Studio Tour, Changing of the Guard com padrão `hours` + `hoursNote` "Horário (confirmar):" janela ~10:45–11:30, Borough Market cedo, mini conversor GBP opcional).
+   - `Overview` com os 4 dias.
+   - `Itineraries` → `GuidePreviewGate slug="londres" sampleDays={1}` envolvendo `DayBlock` × 4.
+   - `PremiumGate slug="londres"` envolve: `GuideVideo`, secção "vs" (Ir ou não aos Harry Potter Studios?), `Food`, `Tips`, `Checklist`.
+   - `EndOfArticleCTA slug="londres"`, `Footer`.
+4. Tipos `Day` / `Stop` e helpers (`Section`, `StopItem`, `DayBlock`) copiados da referência, com ícones `lucide-react`.
 
-```tsx
-<Link to="/conta" className="...mesmo estilo dos outros links">
-  A minha conta
-</Link>
-```
+### Conteúdo dos dias (PT-PT, prosa editorial)
 
-Reaproveita exatamente as classes dos links existentes. Nenhum controlo de login/logout existe hoje no nav, por isso não há duplicação a evitar.
+- **Dia 1 — West End e primeira South Bank:** Piccadilly Circus, Leicester Square, lojas M&M's/LEGO, Trafalgar Square, National Gallery (visita breve), almoço sem pressa em Chinatown/Soho, fim de tarde a caminhar na South Bank.
+- **Dia 2 — Westminster, parques e South Kensington:** manhã Westminster/Big Ben/Parliament, St James's Park até Buckingham (Changing of the Guard opcional), tarde Hyde Park como pausa longa, Natural History Museum, Harrods como experiência.
+- **Dia 3 — City, miradouro, Borough, Tate, Tower Bridge:** manhã St Paul's e miradouro (Sky Garden/Horizon 22, lógica "vistas fortes sem o preço do Shard"), meio-dia Borough Market (cedo), tarde Tate Modern / Millennium Bridge, caminhada à beira-rio até Tower Bridge.
+- **Dia extra — Madame Tussauds e Harry Potter Studios:** manhã Madame Tussauds (combinar com Marylebone/Regent's Park), tarde Warner Bros. Studio Tour em Leavesden (~3,5–4 h de visita, meio-dia longo com transporte, reserva antecipada com transfer). Bloco textual "Alternativa sem os estúdios" como dia "Londres bónus".
 
-### 2. Estado logged-out em `/conta` (`src/routes/conta.tsx`)
+### Secção "vs" (dentro de `PremiumGate`)
 
-Hoje, se a sessão não existir, a página faz `navigate({ to: "/auth", ... })`. Substituir esse redirect por um bloco inline:
+"Ir ou não aos Harry Potter Studios?" — duas cartas pró/contra (ícones `Check`/`X`) seguindo o padrão das comparações de Praga e Florença, com conclusão clara para fãs vs não fãs.
 
-- Cabeçalho: `Entra na tua conta`
-- Linha: `Inicia sessão para veres os guias que compraste.`
-- Por baixo, renderizar o componente de login que já vive em `src/routes/auth.tsx`. Para reutilizar sem duplicar lógica, extrair o formulário atual de `auth.tsx` para um componente `AuthForm` (mesmo ficheiro ou `src/components/AuthForm.tsx`), e usá-lo tanto em `/auth` como em `/conta`. Comportamento, providers e estilo ficam iguais.
+## 2. Editar `src/styles.css`
 
-Manter o mesmo invólucro visual (`bg-twilight-radial`, container, tipografia "Golden Hour") do resto da página.
+Acrescentar (a seguir ao bloco `.theme-firenze`) `.theme-londres` e `.theme-londres.bg-twilight-radial`, mesma estrutura do Firenze mas com paleta Londres:
 
-### 3. Estado logged-in: manter tudo como está
+- Base: cinzas "fog" e azuis petróleo/marinho esbatidos para background, card, popover, muted.
+- `--terracotta` / `--secondary`: vermelho britânico profundo (autocarros, cabines).
+- `--gold` / `--primary`: dourado discreto para detalhes finos.
+- Re-rotear todos os tokens partilhados (`--twilight`, `--plum`, `--gold`, `--gold-soft`, `--terracotta`, `--cream`, `--background`, `--foreground`, `--card`, `--popover`, `--primary`, `--secondary`, `--accent`, `--muted`, `--border`, `--input`, `--ring`).
+- Override radial com tonalidades das fog/red/blue.
 
-Por decisão do utilizador, as secções já existentes (`Créditos por usar`, `Guias desbloqueados`, `Outros guias disponíveis`, `Histórico de compras`, `Terminar sessão`) ficam intactas. Não acrescentar `Perguntas ao guia` nem `O teu passe` porque esses dados não existem no sistema.
+Sem alterações fora deste bloco. Na página só se usam classes/tokens existentes (sem `bg-[oklch(...)]` à mão).
 
-### 4. Remoção de travessões "—"
+## 3. Editar `src/data/cities.ts`
 
-Substituir todos os `—` por vírgula, dois pontos ou hífen curto, em:
+Na entrada Londres já existente: `status: "ready"`, acrescentar `to: "/londres"`, `duration: "3 dias + extra"`, rever `vibe` e `idealFor` em PT-PT no tom do site. Sem entrada duplicada. Outras cidades intactas.
 
-- `src/routes/conta.tsx`: `title` da meta (`A minha conta — O Postal` → `A minha conta, O Postal`) e qualquer outro travessão visível.
-- Texto novo do link no nav e do estado logged-out: usar só vírgulas/pontos.
+## 4. Editar `src/routes/index.tsx`
 
-Não tocar noutras páginas nem no SEO global.
+Ajustar a frase no hero que lista Londres entre as cidades "a caminho": mover Londres para o conjunto disponível, mantendo a frase natural em PT-PT. Sem outras alterações estruturais.
 
-## Fora do âmbito
+## Imagens
 
-Auth, paywall, free-sample gate, conteúdo dos guias, preços, tema, tipografia, SEO de outras rotas, sitemap.
+Fonte primária: Wikimedia Commons via `Special:FilePath/<ficheiro>?width=1600` (cover) ou `?width=1200` (stops). Verificar cada URL antes de fixar.
 
-## Critérios de aceitação
+Sementes confirmadas a usar já:
+- Hero: `London_skyline_at_night_facing_tower_bridge.jpg`
+- Dia 2 / Westminster: `Big_Ben_and_Palace_of_Westminster_London_2016_03.jpg`, `Palace_of_Westminster_night.JPG`, `Westminster_Bridge_with_shadows_and_Big_Ben.jpg`
+- Dia 3 / Tower Bridge: `Tower_Bridge_London_Feb_2006.jpg`
 
-- "A minha conta" aparece no menu principal e leva a `/conta`.
-- Sem sessão: `/conta` mostra o cabeçalho pedido e o formulário de login existente inline, sem redirect e sem novo sistema de auth.
-- Com sessão: a página continua a listar os guias comprados, créditos e histórico reais, e o `Terminar sessão` continua a funcionar.
-- Nenhum "—" em texto visível da página `/conta` nem no novo link do menu.
+Restantes (uma por paragem) extraídas e verificadas a partir das categorias Commons listadas: National Gallery, Trafalgar Square, Piccadilly Circus, South Bank, St James's Park, Buckingham Palace, Hyde Park, Natural History Museum, Harrods, St Paul's, Sky Garden, Borough Market, Tate Modern, Millennium Bridge, Regent's Park, Marylebone.
+
+Regras:
+- Constante `FALLBACK_COVER` apontando para o `city-londres.jpg` local (mesmo import que `cities.ts`); usar em qualquer caso onde a verificação falhar.
+- Dia extra Harry Potter / Madame Tussauds: SEM imagens de filmes, sets, props, personagens ou figuras de cera de pessoas reais. Apenas Marylebone, Regent's Park, viagem ou sinalética exterior dos estúdios.
+- Todas as `<img>` com `loading="lazy"` e `alt` em PT-PT.
+
+## Links de afiliado
+
+Reutilizar `AffiliateLink` (Booking/GetYourGuide) apenas onde houver URL real. Onde não houver, comentário `// TODO: affiliate link`. Links informativos apontam para sites oficiais.
+
+## Restrições
+
+- Não tocar em `src/routeTree.gen.ts`, auth, Supabase, Stripe, entitlements, `.env`, design system, outras rotas, dependências.
+- Sem travessão longo `—` no copy do utilizador (vírgulas, dois pontos, parênteses; `–` só em intervalos numéricos).
+- Sem `bg-[oklch(...)]` hardcoded na página.
+
+## Verificação
+
+- Build de produção passa, `routeTree.gen.ts` regenera com `/londres`.
+- Página renderiza com a paleta `.theme-londres`.
+- Cartão Londres aparece na homepage como guia disponível, pino do mapa ativo.
+- Cada `<img>` da página devolve 200 (verificado antes de submeter).

@@ -279,3 +279,58 @@ html { scroll-behavior: smooth; }
     radial-gradient(ellipse at 50% 100%, oklch(0.18 0.032 42 / 70%), transparent 60%),
     var(--background);
 }
+
+/* ------------------------------------------------------------------ */
+/* London "Fog & Bus Red" theme — scoped overrides for /londres.      */
+/* Cool slate/petrol greys for surfaces, deep British red as primary  */
+/* accent (buses, telephone boxes), and a very discreet warm gold for */
+/* fine detail. Re-routes the shared palette tokens so utilities like */
+/* text-gold, text-terracotta, gold-link, text-gradient-gold and      */
+/* bg-twilight-radial automatically take the London colours.          */
+/* ------------------------------------------------------------------ */
+.theme-londres {
+  --london-fog: oklch(0.86 0.012 240);     /* soft fog cream */
+  --london-slate: oklch(0.30 0.018 245);   /* petrol slate */
+  --london-navy: oklch(0.17 0.025 250);    /* deep navy night */
+  --london-red: oklch(0.55 0.18 25);       /* British bus red */
+  --london-brass: oklch(0.78 0.10 78);     /* discreet warm brass */
+
+  --twilight: oklch(0.16 0.025 250);
+  --plum: oklch(0.22 0.028 250);
+  --gold: var(--london-brass);
+  --gold-soft: oklch(0.86 0.08 80);
+  --terracotta: var(--london-red);
+  --cream: var(--london-fog);
+
+  --background: oklch(0.15 0.022 250);
+  --foreground: var(--london-fog);
+
+  --card: oklch(0.22 0.028 250 / 72%);
+  --card-foreground: var(--london-fog);
+  --popover: oklch(0.22 0.028 250);
+  --popover-foreground: var(--london-fog);
+
+  --primary: var(--london-red);
+  --primary-foreground: var(--london-fog);
+  --secondary: var(--london-brass);
+  --secondary-foreground: oklch(0.15 0.022 250);
+
+  --muted: oklch(0.26 0.022 248);
+  --muted-foreground: oklch(0.80 0.018 240);
+  --accent: var(--london-red);
+  --accent-foreground: var(--london-fog);
+
+  --border: oklch(0.78 0.10 78 / 22%);
+  --input: oklch(0.78 0.10 78 / 26%);
+  --ring: var(--london-brass);
+}
+
+/* Foggy-night radial background override for the London theme */
+.theme-londres.bg-twilight-radial,
+.theme-londres .bg-twilight-radial {
+  background:
+    radial-gradient(ellipse at 20% 0%, oklch(0.55 0.18 25 / 16%), transparent 55%),
+    radial-gradient(ellipse at 85% 25%, oklch(0.78 0.10 78 / 14%), transparent 50%),
+    radial-gradient(ellipse at 50% 100%, oklch(0.20 0.028 250 / 70%), transparent 60%),
+    var(--background);
+}
