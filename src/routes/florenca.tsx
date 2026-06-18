@@ -45,6 +45,7 @@ import {
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import { PremiumGate } from "@/components/PremiumGate";
 import { EndOfArticleCTA } from "@/components/PremiumPromo";
+import { GuidePreviewGate } from "@/components/GuidePreviewGate";
 
 export const Route = createFileRoute("/florenca")({
   head: () => ({
@@ -763,9 +764,12 @@ function Itineraries() {
       intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
-        {days.map((d) => (
-          <DayBlock key={d.key} day={d} />
-        ))}
+        <GuidePreviewGate
+          slug="florenca"
+          days={days}
+          sampleDays={1}
+          renderDay={(d) => <DayBlock day={d} />}
+        />
       </div>
     </Section>
   );
@@ -1162,8 +1166,8 @@ function Index() {
       <ConhecerFlorenca />
       <EssentialInfo />
       <Overview />
+      <Itineraries />
       <PremiumGate slug="florenca">
-        <Itineraries />
         <GuideVideo />
         <Duomo />
         <Food />
