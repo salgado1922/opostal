@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { User } from "lucide-react";
 import {
   Accordion,
   AccordionItem,
