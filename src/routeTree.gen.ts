@@ -17,6 +17,7 @@ import { Route as IstambulRouteImport } from './routes/istambul'
 import { Route as FlorencaRouteImport } from './routes/florenca'
 import { Route as ContaRouteImport } from './routes/conta'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AbordagemRouteImport } from './routes/abordagem'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
@@ -61,6 +62,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AbordagemRoute = AbordagemRouteImport.update({
+  id: '/abordagem',
+  path: '/abordagem',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -80,6 +86,7 @@ const ApiPublicPaymentsWebhookRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/abordagem': typeof AbordagemRoute
   '/auth': typeof AuthRoute
   '/conta': typeof ContaRoute
   '/florenca': typeof FlorencaRoute
@@ -93,6 +100,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/abordagem': typeof AbordagemRoute
   '/auth': typeof AuthRoute
   '/conta': typeof ContaRoute
   '/florenca': typeof FlorencaRoute
@@ -107,6 +115,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/abordagem': typeof AbordagemRoute
   '/auth': typeof AuthRoute
   '/conta': typeof ContaRoute
   '/florenca': typeof FlorencaRoute
@@ -122,6 +131,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/abordagem'
     | '/auth'
     | '/conta'
     | '/florenca'
@@ -135,6 +145,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/abordagem'
     | '/auth'
     | '/conta'
     | '/florenca'
@@ -148,6 +159,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/abordagem'
     | '/auth'
     | '/conta'
     | '/florenca'
@@ -162,6 +174,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AbordagemRoute: typeof AbordagemRoute
   AuthRoute: typeof AuthRoute
   ContaRoute: typeof ContaRoute
   FlorencaRoute: typeof FlorencaRoute
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/abordagem': {
+      id: '/abordagem'
+      path: '/abordagem'
+      fullPath: '/abordagem'
+      preLoaderRoute: typeof AbordagemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -258,6 +278,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AbordagemRoute: AbordagemRoute,
   AuthRoute: AuthRoute,
   ContaRoute: ContaRoute,
   FlorencaRoute: FlorencaRoute,
