@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { User } from "lucide-react";
 import {
   Accordion,
   AccordionItem,
@@ -91,9 +92,10 @@ function SimpleNav() {
         </Link>
         <Link
           to="/conta"
-          className="text-xs uppercase tracking-[0.2em] text-cream/70 transition-colors hover:text-cream"
+          aria-label="A minha conta"
+          className="inline-flex items-center text-cream/70 transition-colors hover:text-cream"
         >
-          A minha conta
+          <User className="h-[18px] w-[18px]" strokeWidth={1.8} />
         </Link>
       </div>
     </nav>

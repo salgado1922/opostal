@@ -9,6 +9,7 @@ import {
   Footprints,
   Link2,
   Lock,
+  User,
 } from "lucide-react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
@@ -127,11 +128,12 @@ function SiteNav() {
         </Link>
         <Link
           to="/conta"
-          className={`ml-6 text-xs uppercase tracking-[0.2em] transition-colors ${
+          aria-label="A minha conta"
+          className={`ml-4 md:ml-6 inline-flex items-center transition-colors ${
             scrolled ? "text-cream/70 hover:text-cream" : "text-cream/90 hover:text-cream [text-shadow:0_1px_8px_rgba(0,0,0,0.65)]"
           }`}
         >
-          A minha conta
+          <User className="h-[18px] w-[18px]" strokeWidth={1.8} />
         </Link>
       </div>
     </nav>
