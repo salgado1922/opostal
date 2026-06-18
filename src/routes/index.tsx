@@ -9,6 +9,7 @@ import {
   Footprints,
   Link2,
   Lock,
+  User,
 } from "lucide-react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
