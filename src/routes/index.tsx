@@ -215,7 +215,7 @@ function Hero() {
           </h1>
           <div className="my-7 h-px w-28 bg-gold/70" />
           <p className="max-w-xl text-lg text-cream md:text-xl [text-shadow:0_1px_12px_rgba(0,0,0,0.55)]">
-            Guias de viagem ao meu ritmo, testados por mim, cidade a cidade.
+            Guias de viagem ao teu ritmo, testados no terreno, cidade a cidade.
           </p>
           <p className="mt-4 max-w-xl text-sm text-cream/75 md:text-base [text-shadow:0_1px_10px_rgba(0,0,0,0.5)]">
             Roteiros de ritmo tranquilo, sem turistadas, para quem quer ver bem em vez de ver tudo.
@@ -787,7 +787,7 @@ function About() {
           Viajar devagar, sem turistadas.
         </h2>
         <p className="mt-4 text-cream/75 leading-relaxed">
-          Estes guias são pessoais. Caminhei cada rua, comi em cada mesa, escutei cada concerto.
+          Estes guias são feitos com cuidado. Percorremos cada rua a pé, provámos antes de recomendar, ouvimos cada concerto.
           Aqui só fica o que valeu a pena: horários sugeridos, nunca obrigatórios. Adapta ao teu ritmo.
         </p>
       </motion.div>
