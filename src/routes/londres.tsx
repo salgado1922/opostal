@@ -1394,6 +1394,7 @@ const navLinks = [
   { id: "d2", label: "Dia 2" },
   { id: "d3", label: "Dia 3" },
   { id: "d4", label: "Extra" },
+  { id: "alternativa", label: "Alternativa" },
   { id: "video", label: "Vídeo" },
   { id: "vs", label: "HP Studios" },
   { id: "comer", label: "Comer" },
