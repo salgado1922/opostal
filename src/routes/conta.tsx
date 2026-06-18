@@ -1,18 +1,19 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CITIES } from "@/data/cities";
 import { useMyAccess, useSignOut } from "@/hooks/use-auth";
 import { redeemCreditForGuide, getMyPurchases } from "@/lib/entitlements.functions";
 import { Loader2, Check, Lock } from "lucide-react";
+import { AuthForm } from "@/components/AuthForm";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 
 export const Route = createFileRoute("/conta")({
   head: () => ({
     meta: [
-      { title: "A minha conta — O Postal" },
-      { name: "description", content: "Os seus guias premium e créditos." },
+      { title: "A minha conta, O Postal" },
+      { name: "description", content: "Os teus guias premium e créditos." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -35,16 +36,32 @@ function ContaPage() {
   const [pending, setPending] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (sessionLoaded && data && !data.signedIn) {
-      navigate({ to: "/auth", search: { redirect: "/conta" } });
-    }
-  }, [data, sessionLoaded, navigate]);
+  if (!sessionLoaded || isLoading) {
+    return (
+      <main className="bg-twilight-radial flex min-h-screen items-center justify-center px-6 text-cream/70">
+        <Loader2 className="h-5 w-5 animate-spin" />
+      </main>
+    );
+  }
 
   if (!data || !data.signedIn) {
     return (
-      <main className="bg-twilight-radial flex min-h-screen items-center justify-center px-6 text-cream/70">
-        {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : null}
+      <main className="bg-twilight-radial min-h-screen px-6 py-16">
+        <div className="mx-auto max-w-md">
+          <Link to="/" className="inline-flex items-center gap-2 text-gold hover:text-cream">
+            <img src={opostalHorizontalTransparent.url} alt="O Postal" className="h-8 w-auto object-contain" />
+          </Link>
+          <div className="mt-10">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-gold">A minha conta</p>
+            <h1 className="mt-2 font-serif text-3xl md:text-4xl">Entra na tua conta</h1>
+            <p className="mt-2 text-sm text-cream/70">
+              Inicia sessão para veres os guias que compraste.
+            </p>
+          </div>
+          <div className="mt-8">
+            <AuthForm redirectUrl="/conta" />
+          </div>
+        </div>
       </main>
     );
   }
