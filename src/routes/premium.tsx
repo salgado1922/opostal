@@ -355,11 +355,13 @@ function Bundles() {
       </div>
 
       <Dialog open={checkoutOpen} onOpenChange={setCheckoutOpen}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
+        <DialogContent className="flex max-h-[90vh] max-w-2xl flex-col overflow-hidden p-0">
+          <DialogHeader className="shrink-0 border-b border-gold/15 px-6 py-4">
             <DialogTitle className="font-serif text-2xl">Finalizar compra</DialogTitle>
           </DialogHeader>
-          {checkoutOpen && <StripeEmbeddedCheckoutBundle bundle={bundle} slug={slug} />}
+          <div className="min-h-0 flex-1 overflow-y-auto px-2 py-2 sm:px-4">
+            {checkoutOpen && <StripeEmbeddedCheckoutBundle bundle={bundle} slug={slug} />}
+          </div>
         </DialogContent>
       </Dialog>
     </section>
