@@ -539,6 +539,58 @@ const days: Day[] = [
   },
 ];
 
+const altDay: Day = {
+  key: "d4-alt",
+  label: "Dia extra · alternativa",
+  date: "Londres bónus, sem os estúdios",
+  title: "Londres bónus, sem os estúdios",
+  vibe: "Para quem não tem ligação a Harry Potter: troca-se a viagem a Leavesden por mais um dia a viver a cidade, com calma e num bairro menos óbvio.",
+  accent: "from-rose-500/20 to-amber-300/10",
+  icon: Trees,
+  cover: COMMONS("Lake, Regents Park, London - geograph.org.uk - 4102919.jpg"),
+  coverAlt: "Lago e arvoredo em Regent's Park, Londres",
+  walkTotal: "A pé hoje: muito, é um dia de cidade ao ritmo lento.",
+  highlightTip:
+    "A ideia não é encaixar mais atrações, é viver Londres outra vez: bairros menos óbvios, miradouros sem fila e cafés sem pressa.",
+  stops: [
+    {
+      time: "10:00",
+      title: "Madame Tussauds (opcional)",
+      desc: "Se ainda fizer sentido, manter a manhã em Marylebone com Madame Tussauds. Caso contrário, café demorado em Marylebone High Street e uma volta calma por Regent's Park.",
+      link: "https://www.madametussauds.com/london/",
+      icon: Camera,
+      walkTo: "~20 min até St Paul's de metro",
+    },
+    {
+      time: "12:00",
+      title: "St Paul's por dentro e miradouro",
+      desc: "Regresso longo à City: visitar St Paul's por dentro sem pressa, subir ao miradouro do Sky Garden ou Horizon 22 com tempo para ficar lá em cima. Vistas fortes, sem o preço do Shard.",
+      link: "https://pt.wikipedia.org/wiki/Catedral_de_S%C3%A3o_Paulo_(Londres)",
+      icon: Church,
+      walkTo: "~10 min até South Bank",
+    },
+    {
+      time: "14:30",
+      title: "Mais uma volta pela South Bank",
+      desc: "Almoço tranquilo perto do Tamisa e uma caminhada lenta pela South Bank, agora a reconhecer os sítios do Dia 1 e a perceber Londres a outra luz.",
+      icon: Footprints,
+    },
+    {
+      time: "16:30",
+      title: "Escolher um bairro: Notting Hill, Shoreditch ou Greenwich",
+      desc: "A escolha depende do mood: Notting Hill para casas pastel e Portobello, Shoreditch para arte urbana e cafés, Greenwich para mercado, observatório e vista da cidade do outro lado do rio.",
+      tip: "Um bairro de cada vez. Tentar dois no mesmo dia tira o sossego que se está a procurar.",
+      icon: MapPin,
+    },
+    {
+      time: "20:00",
+      title: "Jantar calmo no bairro escolhido",
+      desc: "Ficar a jantar onde se passou a tarde, sem voltar ao centro só pelo centro. Fechar Londres a um ritmo lento.",
+      icon: Wine,
+    },
+  ],
+};
+
 // ----------------------- HERO -----------------------
 
 function Hero() {
