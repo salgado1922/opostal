@@ -272,6 +272,7 @@ function AbordagemPage() {
         </div>
       </footer>
     </main>
+    </MotionConfig>
   );
 }
 
