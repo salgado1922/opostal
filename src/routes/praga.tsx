@@ -46,6 +46,7 @@ import {
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import { PremiumGate } from "@/components/PremiumGate";
+import { GuidePreviewGate } from "@/components/GuidePreviewGate";
 import { EndOfArticleCTA } from "@/components/PremiumPromo";
 import { AffiliateLink } from "@/components/AffiliateLink";
 
@@ -842,9 +843,12 @@ function Itineraries() {
       intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
-        {days.map((d) => (
-          <DayBlock key={d.key} day={d} />
-        ))}
+        <GuidePreviewGate
+          slug="praga"
+          days={days}
+          sampleDays={1}
+          renderDay={(d) => <DayBlock day={d} />}
+        />
       </div>
     </Section>
   );
@@ -1261,8 +1265,8 @@ function Index() {
       <ConhecerPraga />
       <EssentialInfo />
       <Overview />
+      <Itineraries />
       <PremiumGate slug="praga">
-        <Itineraries />
         <GuideVideo />
         <Concerts />
         <Food />
