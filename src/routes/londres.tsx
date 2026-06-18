@@ -1339,6 +1339,7 @@ function Index() {
       <Overview />
       <Itineraries />
       <PremiumGate slug="londres">
+        <AlternativaSemEstudios />
         <GuideVideo />
         <HarryPotterVs />
         <Food />
