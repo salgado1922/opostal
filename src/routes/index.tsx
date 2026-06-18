@@ -49,7 +49,7 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: "https://opostal.pt/" },
-      { rel: "preload", as: "image", href: hubHero, fetchpriority: "high" },
+      { rel: "preload", as: "image", href: hubHero, fetchPriority: "high" },
     ],
     scripts: [
       {
