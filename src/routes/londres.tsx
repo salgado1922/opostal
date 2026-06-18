@@ -605,10 +605,10 @@ function Hero() {
         <div
           className="h-[120%] w-full bg-cover bg-center"
           style={{
-            backgroundImage: `url('${COMMONS("London_skyline_at_night_facing_tower_bridge.jpg", 2400)}')`,
+            backgroundImage: `url('${COMMONS("City_of_London_skyline_from_London_City_Hall_-_Oct_2008.jpg", 3200)}')`,
           }}
           role="img"
-          aria-label="Skyline noturno de Londres com a Tower Bridge"
+          aria-label="Skyline da City de Londres visto do outro lado do Tamisa, à hora dourada"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-terracotta/35 via-plum/65 to-twilight/90" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,oklch(0.55_0.18_25/0.20),transparent_60%)]" />
