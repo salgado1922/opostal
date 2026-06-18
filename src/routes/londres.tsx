@@ -894,22 +894,6 @@ function Itineraries() {
           renderDay={(d) => <DayBlock day={d} />}
         />
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.6 }}
-        className="mt-16 rounded-2xl border border-gold/20 bg-card p-7"
-      >
-        <div className="mb-3 flex items-center gap-3">
-          <Info className="h-5 w-5 text-gold" />
-          <h3 className="font-serif text-2xl text-cream">Alternativa sem os estúdios</h3>
-        </div>
-        <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
-          Para quem não tem ligação a Harry Potter, troca-se o dia extra por uma "Londres bónus": manhã em Madame Tussauds se ainda fizer sentido, depois um regresso longo à City e a St Paul's por dentro, miradouro com tempo, mais uma volta à South Bank, ou um bairro menos óbvio (Notting Hill, Shoreditch, Greenwich). A ideia é trocar a magia por uma forma diferente de viver a cidade, não por uma lista maior de atrações.
-        </p>
-      </motion.div>
     </Section>
   );
 }
