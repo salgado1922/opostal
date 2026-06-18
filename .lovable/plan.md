@@ -1,60 +1,46 @@
-# Mudança em `src/routes/londres.tsx`
+# 4 ajustes visuais
 
-## 1. Remover o callout antigo
-Em `Itineraries()` (linhas ~898-912), apagar a `motion.div` "Alternativa sem os estúdios". A função fica apenas com a `<Section>` que envolve o `GuidePreviewGate`.
+## 1. Hero da página `/londres` mais nítido
+`src/routes/londres.tsx`, função `Hero` (linha ~596): a imagem atual (`London_skyline_at_night_facing_tower_bridge.jpg`, width=2400) tem um original Commons relativamente pequeno e fica esticada num ecrã 1338+ px.
 
-## 2. Criar um novo `Day` para a alternativa
-A seguir ao array `days` (depois da linha 540), declarar:
+- Trocar por um ficheiro Commons de alta resolução já verificado, por exemplo `Tower_Bridge_at_night_London_2017.jpg` ou `Palace_of_Westminster,_Westminster_Bridge_and_Big_Ben_-_September_2006.jpg`.
+- Subir o `width` para `3200` no `COMMONS(...)` para evitar upscaling.
+- Atualizar `aria-label` para descrever a nova foto, em PT-PT.
 
-```ts
-const altDay: Day = {
-  key: "d4-alt",
-  label: "Dia extra · alternativa",
-  date: "Londres bónus, sem os estúdios",
-  title: "Londres bónus, sem os estúdios",
-  vibe: "Para quem não tem ligação a Harry Potter: troca-se a viagem a Leavesden por mais um dia a viver a cidade, num bairro menos óbvio.",
-  accent: "from-rose-500/20 to-amber-300/10",
-  icon: Trees, // ícone existente
-  cover: COMMONS("<imagem já usada noutro dia, ex. Regent's Park ou South Bank>"),
-  coverAlt: "...",
-  stops: [
-    // 4 a 5 paragens curtas reaproveitando o tom do parágrafo atual:
-    // Madame Tussauds opcional (manhã, Marylebone)
-    // Regresso longo à City + St Paul's por dentro, miradouro com tempo
-    // Mais uma volta pela South Bank
-    // Escolher um bairro: Notting Hill / Shoreditch / Greenwich
-    // Jantar calmo
-  ],
-};
-```
+## 2. Slides do hero da homepage com os novos destinos
+`src/routes/index.tsx`, `HERO_SLIDES` (linha ~143): tem 3 slides (hub, Praga, Istambul). Acrescentar 2 novos para **Florença** e **Londres**, em alta qualidade e à mesma escala (`w=2000&q=80`), mantendo a mesma estrutura `{ src, alt }`:
 
-Reusar campos e ícones já importados (`Camera`, `Trees`, `Castle`, `Wine`, `MapPin`). Sem `mapEmbedUrl` (não é um roteiro fixo).
+- Florença: foto do Duomo / Ponte Vecchio ao entardecer.
+- Londres: foto do skyline / Tower Bridge à hora azul.
 
-## 3. Renderizar como acordeão dentro do `PremiumGate`
-No JSX da página (linhas ~1304-1311), entre `<Itineraries />` e o conteúdo já existente do `PremiumGate`, adicionar uma nova função `AlternativaSemEstudios()` chamada **dentro** de `<PremiumGate slug="londres">`, antes de `<HarryPotterVs />`:
+Usar Unsplash URLs ao mesmo formato dos atuais (consistência), com alt PT-PT. Sem alterações ao ciclo nem ao componente Hero.
 
-```tsx
-<PremiumGate slug="londres">
-  <AlternativaSemEstudios />
-  <GuideVideo />
-  <HarryPotterVs />
-  ...
-</PremiumGate>
-```
+## 3. `/abordagem` com imagens de destinos do site
+`src/routes/abordagem.tsx`, objeto `IMAGES` (linhas 31-59): substituir os 4 placeholders Unsplash genéricos por fotos de destinos que **já têm guia (Praga, Istambul, Florença, Londres)** ou que **estão planeados** (Barcelona, Paris, Viena, Lisboa, Budapeste). Manter URLs Unsplash em alta resolução (mesmo formato), só mudando o conteúdo:
 
-A função usa o `Accordion` de `@/components/ui/accordion` (collapsible, `type="single"`, `defaultValue` indefinido para começar fechado) envolvido numa `<Section id="alternativa" eyebrow="Opcional" title="Alternativa ao dia dos estúdios" intro="Para quem não vai aos Harry Potter Studios, este é o dia extra equivalente, com a mesma estrutura dos outros." >`.
+- `hero` → vista de Londres ou Florença, calma, ao fim de tarde.
+- `block1` "Testado no terreno" → rua de calçada em Praga ao amanhecer.
+- `block2` "Sem turistadas" → ruela / café local de Istambul.
+- `block3` "Pensado ao teu ritmo" → alguém a caminhar devagar em Florença.
 
-Dentro:
-- 1 `AccordionItem` com `AccordionTrigger` que mostra cabeçalho ao estilo dos dias (label + data + vibe curta) com o ícone à esquerda.
-- `AccordionContent` renderiza `<DayBlock day={altDay} />` (mesmo componente que os outros dias).
+Atualizar os `*Alt` correspondentes em PT-PT. Sem outras mudanças na página.
 
-Estilos: aplicar `border border-gold/20 rounded-2xl bg-card` no `AccordionItem` para encaixar visualmente, remover a `border-b` default do componente via `className`.
+## 4. Ordem dos cards de cidade
+`src/data/cities.ts`, array `CITIES`: mover a entrada **Londres** para **antes** de Barcelona. Ordem final passa a:
 
-## 4. Adicionar âncora no `StickyNav`
-Acrescentar a entrada `{ id: "alternativa", label: "Alternativa" }` (em PT-PT, sem travessão) na lista de âncoras do `StickyNav`, posicionada entre `itinerario` e `video`. Só fica visível na prática para utilizadores premium; isso é aceitável e consistente com as outras âncoras premium (`vs`, `comida`, etc.).
+1. Praga (ready)
+2. Istambul (ready)
+3. Florença (ready)
+4. Londres (ready)
+5. Barcelona (coming-soon)
+6. Paris (coming-soon)
+7. Viena (coming-soon)
+8. Lisboa (coming-soon)
+9. Budapeste (coming-soon)
+
+Sem alterações de campos, só a ordem do array.
 
 ## Restrições
-- Sem mudanças fora de `src/routes/londres.tsx`.
+- Só edito `src/routes/londres.tsx`, `src/routes/index.tsx`, `src/routes/abordagem.tsx`, `src/data/cities.ts`.
 - Sem travessão longo em texto visível.
-- Imagem do `cover` reaproveita um Commons já verificado (Regent's Park ou similar) para não introduzir 404.
-- O conteúdo permanece estritamente premium (renderizado por baixo do `PremiumGate`, portanto invisível para visitantes sem acesso).
+- Verifico que cada URL de imagem nova devolve 200 antes de fechar.

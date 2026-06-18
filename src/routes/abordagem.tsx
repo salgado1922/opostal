@@ -29,33 +29,29 @@ export const Route = createFileRoute("/abordagem")({
 // Substituir os URLs abaixo pelas fotos próprias d'O Postal quando existirem.
 // ---------------------------------------------------------------------------
 const IMAGES = {
-  // PLACEHOLDER - substituir por foto propria.
-  // Hero: rua europeia tranquila ao fim da tarde, luz dourada.
+  // Hero: Tower Bridge ao crepúsculo, destino com guia no site.
   hero:
-    "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=2000&q=80",
+    "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?auto=format&fit=crop&w=2000&q=80",
   heroAlt:
-    "Rua europeia vazia ao entardecer, banhada por luz dourada de fim de tarde.",
+    "Tower Bridge em Londres ao crepúsculo, com as luzes refletidas no Tamisa.",
 
-  // PLACEHOLDER - substituir por foto propria.
-  // Bloco 01 - Testado no terreno: rua de pedra ao amanhecer, sem pessoas.
+  // Bloco 01 - Testado no terreno: Praga ao pôr-do-sol, destino com guia no site.
   block1:
-    "https://images.unsplash.com/photo-1491557345352-5929e343eb89?auto=format&fit=crop&w=1400&q=80",
+    "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1400&q=80",
   block1Alt:
-    "Rua estreita de calçada de pedra ao início da manhã, completamente vazia.",
+    "Praga ao pôr-do-sol vista sobre o rio Vltava, com a cidade antiga em primeiro plano.",
 
-  // PLACEHOLDER - substituir por foto propria.
-  // Bloco 02 - Sem turistadas: café local discreto ou ruela tranquila.
+  // Bloco 02 - Sem turistadas: Istambul à hora azul, destino com guia no site.
   block2:
-    "https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=1400&q=80",
+    "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&w=1400&q=80",
   block2Alt:
-    "Pequeno café local de bairro com mesas de madeira e luz quente, sem turistas.",
+    "Istambul à hora azul, com a silhueta das mesquitas sobre o Bósforo.",
 
-  // PLACEHOLDER - substituir por foto propria.
-  // Bloco 03 - Pensado ao teu ritmo: alguém a caminhar devagar ou esplanada calma.
+  // Bloco 03 - Pensado ao teu ritmo: Florença vista do alto, destino com guia no site.
   block3:
-    "https://images.unsplash.com/photo-1473625247510-8ceb1760943f?auto=format&fit=crop&w=1400&q=80",
+    "https://images.unsplash.com/photo-1543429776-2782fc8e1acd?auto=format&fit=crop&w=1400&q=80",
   block3Alt:
-    "Pessoa a caminhar devagar por uma rua histórica europeia, sem pressa.",
+    "Florença vista do alto ao fim da tarde, com o Duomo e os telhados de terracota.",
 };
 
 const METHOD_BLOCKS = [

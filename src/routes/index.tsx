@@ -150,6 +150,14 @@ const HERO_SLIDES: { src: string; alt: string }[] = [
     src: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&w=2000&q=80",
     alt: "Istambul à hora azul sobre o Bósforo",
   },
+  {
+    src: "https://images.unsplash.com/photo-1543429776-2782fc8e1acd?auto=format&fit=crop&w=2000&q=80",
+    alt: "Florença com o Duomo e os telhados ao fim da tarde",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1486299267070-83823f5448dd?auto=format&fit=crop&w=2000&q=80",
+    alt: "Londres com o Big Ben e o Tamisa à hora dourada",
+  },
 ];
 
 function Hero() {
