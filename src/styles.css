@@ -289,48 +289,49 @@ html { scroll-behavior: smooth; }
 /* bg-twilight-radial automatically take the London colours.          */
 /* ------------------------------------------------------------------ */
 .theme-londres {
-  --london-fog: oklch(0.86 0.012 240);     /* soft fog cream */
-  --london-slate: oklch(0.30 0.018 245);   /* petrol slate */
-  --london-navy: oklch(0.17 0.025 250);    /* deep navy night */
-  --london-red: oklch(0.55 0.18 25);       /* British bus red */
-  --london-brass: oklch(0.78 0.10 78);     /* discreet warm brass */
+  /* "Fog & Bus Red" palette — explicit */
+  --london-fog: oklch(0.90 0.010 235);     /* soft fog cream */
+  --london-petrol: oklch(0.28 0.040 245);  /* petrol/navy slate */
+  --london-navy: oklch(0.13 0.035 250);    /* deep navy night */
+  --london-red: oklch(0.52 0.22 25);       /* deep British bus red */
+  --london-brass: oklch(0.70 0.05 80);     /* very discreet warm brass */
 
-  --twilight: oklch(0.16 0.025 250);
-  --plum: oklch(0.22 0.028 250);
+  --twilight: oklch(0.13 0.035 250);
+  --plum: oklch(0.19 0.040 248);
   --gold: var(--london-brass);
-  --gold-soft: oklch(0.86 0.08 80);
+  --gold-soft: oklch(0.82 0.05 82);
   --terracotta: var(--london-red);
   --cream: var(--london-fog);
 
-  --background: oklch(0.15 0.022 250);
+  --background: oklch(0.13 0.035 250);
   --foreground: var(--london-fog);
 
-  --card: oklch(0.22 0.028 250 / 72%);
+  --card: oklch(0.21 0.045 245 / 78%);
   --card-foreground: var(--london-fog);
-  --popover: oklch(0.22 0.028 250);
+  --popover: oklch(0.21 0.045 245);
   --popover-foreground: var(--london-fog);
 
   --primary: var(--london-red);
   --primary-foreground: var(--london-fog);
   --secondary: var(--london-brass);
-  --secondary-foreground: oklch(0.15 0.022 250);
+  --secondary-foreground: oklch(0.13 0.035 250);
 
-  --muted: oklch(0.26 0.022 248);
-  --muted-foreground: oklch(0.80 0.018 240);
+  --muted: oklch(0.24 0.040 246);
+  --muted-foreground: oklch(0.78 0.020 235);
   --accent: var(--london-red);
   --accent-foreground: var(--london-fog);
 
-  --border: oklch(0.78 0.10 78 / 22%);
-  --input: oklch(0.78 0.10 78 / 26%);
-  --ring: var(--london-brass);
+  --border: oklch(0.70 0.05 80 / 20%);
+  --input: oklch(0.70 0.05 80 / 24%);
+  --ring: var(--london-red);
 }
 
 /* Foggy-night radial background override for the London theme */
 .theme-londres.bg-twilight-radial,
 .theme-londres .bg-twilight-radial {
   background:
-    radial-gradient(ellipse at 20% 0%, oklch(0.55 0.18 25 / 16%), transparent 55%),
-    radial-gradient(ellipse at 85% 25%, oklch(0.78 0.10 78 / 14%), transparent 50%),
-    radial-gradient(ellipse at 50% 100%, oklch(0.20 0.028 250 / 70%), transparent 60%),
+    radial-gradient(ellipse at 20% 0%, oklch(0.52 0.22 25 / 26%), transparent 55%),
+    radial-gradient(ellipse at 85% 20%, oklch(0.28 0.040 245 / 60%), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, oklch(0.19 0.040 248 / 80%), transparent 60%),
     var(--background);
 }

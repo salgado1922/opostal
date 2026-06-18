@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useId } from "react";
 import {
   ChevronDown,
   MapPin,
@@ -35,6 +35,7 @@ import {
   Wand2,
   Camera,
   Trees,
+  ArrowLeftRight,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
 import {
@@ -100,6 +101,9 @@ export const Route = createFileRoute("/londres")({
 // ----------------------- helpers -----------------------
 
 const FALLBACK_COVER = londresFallback;
+
+// 1 € ≈ £0.85  (£1 ≈ €1.17)
+const RATE_GBP_PER_EUR = 0.85;
 
 const COMMONS = (file: string, width = 1600) =>
   `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=${width}`;
@@ -1554,46 +1558,12 @@ function ConhecerLondres() {
         variants={fadeUp}
         className="mx-auto max-w-3xl"
       >
-        <div className="mb-8 overflow-hidden rounded-2xl border border-gold/20 shadow-[0_30px_80px_-40px_oklch(0.55_0.18_25/0.5)]">
-          <img
-            src={COMMONS("London_skyline_at_night_facing_tower_bridge.jpg")}
-            alt="Skyline noturno de Londres com a Tower Bridge"
-            loading="lazy"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src = FALLBACK_COVER;
-            }}
-            className="h-56 w-full object-cover md:h-72"
-          />
-        </div>
-
         <Accordion type="multiple" className="flex flex-col gap-4">
-          <AccordionItem value="overview" className={itemCls}>
-            <AccordionTrigger className={triggerCls}>
-              <span className="flex items-center gap-3">
-                <span className={iconCls}>
-                  <Info className="h-4 w-4" />
-                </span>
-                Para quem é (e como usar) este guia
-              </span>
-            </AccordionTrigger>
-            <AccordionContent className="pb-6 text-sm leading-relaxed text-cream/90 space-y-3">
-              <p>
-                Londres é uma cidade para viver sem pressa, e este guia foi nascendo assim: de uma viagem feita ao próprio ritmo, depois afinada com outros guias e dicas de quem mora cá.
-              </p>
-              <p>
-                É um guia pensado para primeiras vezes que não querem encavalitar 12 atrações por dia: para quem gosta de caminhar, comer com tempo, parar nos parques, dar uma volta no mercado, e talvez (ou não) tenha sido fã de Harry Potter.
-              </p>
-              <p>
-                A espinha são 3 dias tranquilos, quase tudo a pé dentro de cada zona, mais um dia extra opcional para Madame Tussauds e os Warner Bros. Studio Tour de Harry Potter. Para quem salta os estúdios, há uma alternativa de "Londres bónus" mais à frente.
-              </p>
-            </AccordionContent>
-          </AccordionItem>
-
           <AccordionItem value="contexto" className={itemCls}>
             <AccordionTrigger className={triggerCls}>
               <span className="flex items-center gap-3">
                 <span className={iconCls}>
-                  <Castle className="h-4 w-4" />
+                  <Info className="h-4 w-4" />
                 </span>
                 Londres em 2 minutos
               </span>
@@ -1833,31 +1803,160 @@ function EssentialInfo() {
         </ul>
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.6, delay: 0.15 }}
-        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
-      >
-        <div className="mb-3 flex items-center gap-3">
-          <Coins className="h-5 w-5 text-gold" />
-          <h3 className="font-serif text-2xl text-cream">Câmbio rápido (GBP → EUR)</h3>
-        </div>
-        <p className="mb-4 text-sm text-muted-foreground">
-          Referência indicativa: £1 ≈ €1,17. Confirmar com o teu banco antes de partir.
-        </p>
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {[5, 10, 20, 50].map((v) => (
-            <li key={v} className="rounded-xl border border-gold/15 bg-background/30 p-4 text-center">
-              <div className="font-serif text-2xl text-cream">£{v}</div>
-              <div className="mt-1 text-xs uppercase tracking-[0.2em] text-gold/80">
-                ≈ €{(v * 1.17).toFixed(2)}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </motion.div>
+      <CurrencyConverter />
     </Section>
+  );
+}
+
+// ----------------------- CURRENCY CONVERTER -----------------------
+
+function CurrencyConverter() {
+  const [eur, setEur] = useState<string>("10");
+  const [gbp, setGbp] = useState<string>((10 * RATE_GBP_PER_EUR).toFixed(2));
+  const eurId = useId();
+  const gbpId = useId();
+  const eurRef = useRef<HTMLInputElement>(null);
+  const gbpRef = useRef<HTMLInputElement>(null);
+  const [lastEdited, setLastEdited] = useState<"eur" | "gbp">("eur");
+
+  const onEurChange = (v: string) => {
+    setEur(v);
+    setLastEdited("eur");
+    if (v === "" || isNaN(Number(v))) {
+      setGbp("");
+      return;
+    }
+    setGbp((Number(v) * RATE_GBP_PER_EUR).toFixed(2));
+  };
+
+  const onGbpChange = (v: string) => {
+    setGbp(v);
+    setLastEdited("gbp");
+    if (v === "" || isNaN(Number(v))) {
+      setEur("");
+      return;
+    }
+    setEur((Number(v) / RATE_GBP_PER_EUR).toFixed(2));
+  };
+
+  const invert = () => {
+    if (lastEdited === "eur") {
+      gbpRef.current?.focus();
+      setLastEdited("gbp");
+    } else {
+      eurRef.current?.focus();
+      setLastEdited("eur");
+    }
+  };
+
+  const chipPreset = (gbpVal: number) => {
+    const eurValue = (gbpVal / RATE_GBP_PER_EUR).toFixed(2);
+    setGbp(String(gbpVal));
+    setEur(eurValue);
+    setLastEdited("gbp");
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, delay: 0.1 }}
+      className="mt-8 overflow-hidden rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+    >
+      <div className="mb-6 flex items-center gap-3">
+        <Coins className="h-5 w-5 text-gold" />
+        <h3 className="font-serif text-2xl text-cream">Conversor rápido</h3>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_auto_1.1fr] lg:items-center">
+        {/* EUR */}
+        <div>
+          <label
+            htmlFor={eurId}
+            className="mb-2 block text-[10px] uppercase tracking-[0.22em] text-muted-foreground"
+          >
+            Euro
+          </label>
+          <div className="group relative">
+            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 font-serif text-2xl text-gold/70">
+              €
+            </span>
+            <input
+              id={eurId}
+              ref={eurRef}
+              type="number"
+              inputMode="decimal"
+              min="0"
+              step="0.01"
+              value={eur}
+              onChange={(e) => onEurChange(e.target.value)}
+              className="w-full rounded-xl border border-gold/20 bg-background/40 py-4 pl-10 pr-4 text-right font-serif text-3xl text-cream outline-none transition-colors focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
+            />
+          </div>
+        </div>
+
+        {/* Inverter */}
+        <div className="flex justify-center lg:px-2">
+          <button
+            type="button"
+            onClick={invert}
+            aria-label="Inverter"
+            className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/30 bg-background/40 text-gold shadow-[0_10px_30px_-15px_oklch(0.52_0.22_25/0.6)] transition-all hover:bg-gold/10 hover:rotate-180"
+          >
+            <ArrowLeftRight className="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* GBP */}
+        <div>
+          <label
+            htmlFor={gbpId}
+            className="mb-2 block text-[10px] uppercase tracking-[0.22em] text-muted-foreground"
+          >
+            Libra esterlina
+          </label>
+          <div className="relative">
+            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 font-serif text-2xl text-gold/70">
+              £
+            </span>
+            <input
+              id={gbpId}
+              ref={gbpRef}
+              type="number"
+              inputMode="decimal"
+              min="0"
+              step="0.01"
+              value={gbp}
+              onChange={(e) => onGbpChange(e.target.value)}
+              className="w-full rounded-xl border border-gold/20 bg-background/40 py-4 pl-10 pr-4 text-right font-serif text-3xl text-cream outline-none transition-colors focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 flex flex-wrap items-center gap-2">
+        <span className="mr-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+          Atalhos
+        </span>
+        {[5, 10, 20, 50].map((g) => {
+          const eurValue = (g / RATE_GBP_PER_EUR).toFixed(2);
+          return (
+            <button
+              key={g}
+              type="button"
+              onClick={() => chipPreset(g)}
+              className="rounded-full border border-gold/20 bg-background/30 px-3.5 py-1.5 text-xs text-gold/90 transition-colors hover:border-gold/50 hover:bg-gold/10"
+            >
+              £{g} ≈ {eurValue} €
+            </button>
+          );
+        })}
+      </div>
+
+      <p className="mt-5 text-xs italic text-gold/80">
+        Taxa fixa aproximada (1 € ≈ £{RATE_GBP_PER_EUR}); pode estar desatualizada. Confirmar a taxa de câmbio do dia antes de pagar.
+      </p>
+    </motion.div>
   );
 }
