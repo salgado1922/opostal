@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion, MotionConfig } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 
@@ -84,6 +84,7 @@ const METHOD_BLOCKS = [
 
 function AbordagemPage() {
   return (
+    <MotionConfig reducedMotion="user">
     <main className="bg-twilight-radial min-h-screen overflow-x-hidden">
       <TopNav />
 
