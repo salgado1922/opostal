@@ -13,6 +13,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as PragaRouteImport } from './routes/praga'
+import { Route as LondresRouteImport } from './routes/londres'
 import { Route as IstambulRouteImport } from './routes/istambul'
 import { Route as FlorencaRouteImport } from './routes/florenca'
 import { Route as ContaRouteImport } from './routes/conta'
@@ -40,6 +41,11 @@ const PremiumRoute = PremiumRouteImport.update({
 const PragaRoute = PragaRouteImport.update({
   id: '/praga',
   path: '/praga',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LondresRoute = LondresRouteImport.update({
+  id: '/londres',
+  path: '/londres',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IstambulRoute = IstambulRouteImport.update({
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/conta': typeof ContaRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
+  '/londres': typeof LondresRoute
   '/praga': typeof PragaRoute
   '/premium': typeof PremiumRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/conta': typeof ContaRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
+  '/londres': typeof LondresRoute
   '/praga': typeof PragaRoute
   '/premium': typeof PremiumRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/conta': typeof ContaRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
+  '/londres': typeof LondresRoute
   '/praga': typeof PragaRoute
   '/premium': typeof PremiumRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/conta'
     | '/florenca'
     | '/istambul'
+    | '/londres'
     | '/praga'
     | '/premium'
     | '/reset-password'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/conta'
     | '/florenca'
     | '/istambul'
+    | '/londres'
     | '/praga'
     | '/premium'
     | '/reset-password'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/conta'
     | '/florenca'
     | '/istambul'
+    | '/londres'
     | '/praga'
     | '/premium'
     | '/reset-password'
@@ -179,6 +191,7 @@ export interface RootRouteChildren {
   ContaRoute: typeof ContaRoute
   FlorencaRoute: typeof FlorencaRoute
   IstambulRoute: typeof IstambulRoute
+  LondresRoute: typeof LondresRoute
   PragaRoute: typeof PragaRoute
   PremiumRoute: typeof PremiumRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -215,6 +228,13 @@ declare module '@tanstack/react-router' {
       path: '/praga'
       fullPath: '/praga'
       preLoaderRoute: typeof PragaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/londres': {
+      id: '/londres'
+      path: '/londres'
+      fullPath: '/londres'
+      preLoaderRoute: typeof LondresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/istambul': {
@@ -283,6 +303,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContaRoute: ContaRoute,
   FlorencaRoute: FlorencaRoute,
   IstambulRoute: IstambulRoute,
+  LondresRoute: LondresRoute,
   PragaRoute: PragaRoute,
   PremiumRoute: PremiumRoute,
   ResetPasswordRoute: ResetPasswordRoute,
