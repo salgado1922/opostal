@@ -1329,6 +1329,41 @@ function Footer() {
 
 // ----------------------- INDEX -----------------------
 
+function AlternativaSemEstudios() {
+  const Icon = altDay.icon;
+  return (
+    <Section
+      id="alternativa"
+      eyebrow="Opcional"
+      title="Alternativa ao dia dos estúdios"
+      intro="Para quem não vai aos Harry Potter Studios, este é o dia extra equivalente, com a mesma estrutura dos outros. Abre para ver o roteiro completo."
+    >
+      <Accordion type="single" collapsible className="w-full">
+        <AccordionItem
+          value="alt"
+          className="overflow-hidden rounded-2xl border border-gold/20 bg-card !border-b"
+        >
+          <AccordionTrigger className="px-6 py-5 hover:no-underline">
+            <div className="flex flex-1 flex-col items-start gap-2 text-left">
+              <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-gold">
+                <Icon className="h-4 w-4" />
+                {altDay.label} · {altDay.date}
+              </div>
+              <h3 className="font-serif text-2xl text-cream md:text-3xl">
+                <span className="text-gradient-gold">{altDay.title}</span>
+              </h3>
+              <p className="max-w-2xl text-sm italic text-muted-foreground">{altDay.vibe}</p>
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-8 pt-2">
+            <DayBlock day={altDay} />
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </Section>
+  );
+}
+
 function Index() {
   return (
     <main id="top" className="theme-londres bg-twilight-radial min-h-screen overflow-x-hidden">
