@@ -117,6 +117,14 @@ function SiteNav() {
         >
           Cidades
         </a>
+        <Link
+          to="/abordagem"
+          className={`ml-6 text-xs uppercase tracking-[0.2em] transition-colors ${
+            scrolled ? "text-cream/70 hover:text-cream" : "text-cream/90 hover:text-cream [text-shadow:0_1px_8px_rgba(0,0,0,0.65)]"
+          }`}
+        >
+          A nossa abordagem
+        </Link>
       </div>
     </nav>
   );
