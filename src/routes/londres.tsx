@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useId } from "react";
 import {
   ChevronDown,
   MapPin,
@@ -35,6 +35,7 @@ import {
   Wand2,
   Camera,
   Trees,
+  ArrowLeftRight,
 } from "lucide-react";
 import type { Variants } from "framer-motion";
 import {
@@ -100,6 +101,9 @@ export const Route = createFileRoute("/londres")({
 // ----------------------- helpers -----------------------
 
 const FALLBACK_COVER = londresFallback;
+
+// 1 € ≈ £0.85  (£1 ≈ €1.17)
+const RATE_GBP_PER_EUR = 0.85;
 
 const COMMONS = (file: string, width = 1600) =>
   `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=${width}`;
