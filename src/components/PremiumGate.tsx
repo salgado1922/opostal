@@ -79,7 +79,7 @@ function GateUI({
   const onBuy = () => {
     if (!bundle) return;
     if (!signedIn) {
-      navigate({ to: "/auth", search: { redirect: window.location.pathname + "#dias" } });
+      navigate({ to: "/auth", search: { redirect: window.location.pathname + "#desbloquear" } });
       return;
     }
     setCheckoutOpen(true);
@@ -105,7 +105,7 @@ function GateUI({
 
   return (
     <section
-      id="dias"
+      id="desbloquear"
       aria-label="Conteúdo premium"
       className="relative scroll-mt-24 px-6 py-20 md:px-12 md:py-28"
     >
@@ -222,7 +222,7 @@ function GateUI({
             {!signedIn && (
               <Link
                 to="/auth"
-                search={{ redirect: typeof window !== "undefined" ? window.location.pathname + "#dias" : "/" }}
+                search={{ redirect: typeof window !== "undefined" ? window.location.pathname + "#desbloquear" : "/" }}
                 className="text-sm text-cream/60 underline-offset-4 hover:text-cream/90 hover:underline"
               >
                 Já comprou? Inicie sessão para desbloquear.

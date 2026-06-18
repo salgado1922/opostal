@@ -75,6 +75,7 @@ import d5S4 from "@/assets/istambul/d5-s4.jpg";
 import d5S5 from "@/assets/istambul/d5-s5.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import { PremiumGate } from "@/components/PremiumGate";
+import { GuidePreviewGate } from "@/components/GuidePreviewGate";
 import { EndOfArticleCTA } from "@/components/PremiumPromo";
 
 export const Route = createFileRoute("/istambul")({
@@ -985,9 +986,12 @@ function Itineraries() {
       intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
-        {days.map((d) => (
-          <DayBlock key={d.key} day={d} />
-        ))}
+        <GuidePreviewGate
+          slug="istambul"
+          days={days}
+          sampleDays={1}
+          renderDay={(d) => <DayBlock day={d} />}
+        />
       </div>
     </Section>
   );
@@ -1345,8 +1349,8 @@ function IstambulPage() {
       <ConhecerIstambul />
       <EssentialInfo />
       <Overview />
+      <Itineraries />
       <PremiumGate slug="istambul">
-        <Itineraries />
         <GuideVideo />
         <Bosforo />
         <Food />
