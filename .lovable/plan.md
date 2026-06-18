@@ -1,52 +1,54 @@
+# Plan: "A nossa abordagem" page + voice conversion
 
-## Goal
+## 1. New route `/abordagem`
 
-Replace the current pre-itinerary gate in `src/components/PremiumGate.tsx` with a quieter, editorial inline conversion block that matches the supplied PT-PT copy and structure exactly. It already renders inline (no popup) right before the locked itinerary on `/florenca`, `/praga`, `/istambul`, so no route or gating logic changes.
+Create `src/routes/abordagem.tsx` (TanStack file route). Reuse the existing editorial primitives already used by `index.tsx` and the guide pages:
 
-## Scope
+- `SiteNav` style header (extract or duplicate the small nav from `index.tsx` so the page sits inside the same shell, fixed top nav + footer area).
+- Section/Card visuals from the homepage (`bg-background`, `border-gold/15`, `text-cream`, Cormorant headings, `text-[10px] uppercase tracking-[0.3em] text-gold` eyebrows) so it matches the "Golden Hour" look without inventing styles.
+- Primary CTA button: reuse the same button class used by the homepage CTA (`PremiumPromo` / hero CTA) for "Ver os guias", linking to `/#cidades` (the existing guides listing anchor on the homepage).
 
-- Edit only `src/components/PremiumGate.tsx`.
-- No changes to routes, free sections, header, footer, checkout dialog logic, or other pages.
-- Behaviour preserved: block renders only for users without access; users with access see the real premium content; the checkout itself stays in its existing Dialog (the spec forbids popups for the *block*, not for the checkout flow triggered by the CTA).
+Page structure (exact pt-PT copy, no em-dash):
 
-## Block structure (top to bottom)
+1. Hero block
+   - Eyebrow: `O Postal`
+   - H1: `A nossa abordagem`
+   - Subtitle: `Como fazemos os guias d'O Postal, e porque é que os fazemos assim.`
+2. Intro paragraph: `O Postal nasceu de uma frustração simples: quase todos os guias de viagem dizem para ver tudo, e quase nenhum ajuda a ver bem. Os nossos roteiros existem para o contrário. Menos pontos, mais sentido. Tempo para parar num café sem culpa de estar a perder outra coisa qualquer.`
+3. Three cards in a responsive grid (1 col mobile, 3 col desktop), each with small gold eyebrow number ("01/02/03"), heading, body:
+   - `Testado no terreno` + body as given.
+   - `Sem turistadas` + body as given.
+   - `Pensado ao teu ritmo` + body as given.
+4. Closing block: small line `Cada guia é percorrido e verificado antes de o publicarmos. É essa a promessa d'O Postal.` followed by the CTA button `Ver os guias` → `/#cidades`.
 
-1. Eyebrow: `Conteúdo premium` (small, uppercase, tracked, gold, with thin rules — keep existing style).
-2. Title: `Desbloqueie o itinerário completo deste guia` (serif, large, calm).
-3. Body paragraph (verbatim): `A partir daqui começa a parte prática do guia: o itinerário detalhado, organizado dia a dia, com os percursos, os horários e as escolhas já feitas por si. Acesso único, sem subscrições — compra-se uma vez e fica seu.`
-4. "O que está incluído" bullet list (text-only, no icons, hairline bullets):
-   - Itinerário detalhado, dia a dia
-   - Vídeo do guia
-   - Recursos práticos de planeamento
-   - Acesso permanente, sem subscrição
-5. Pricing selector — three understated radio rows with quiet selected state (thin gold border + subtle tint). Default selected: **2 guias**.
-   - `1 guia — 7,90 €`
-   - `2 guias — 14,90 €`
-   - `3 guias — 18,90 €`
-6. Primary CTA button below selector: `Comprar acesso` (existing gold button style).
-7. Secondary quiet link below CTA: `Já comprou? Inicie sessão para desbloquear.` (always shown when signed-out; replaced by `Ver a minha conta` when signed-in, same quiet style).
+`head()` meta: page-specific title `A nossa abordagem - O Postal` and description matching the subtitle (these are new tags for a new page, not edits to existing SEO).
 
-## Removed from current implementation
+## 2. Nav link
 
-- Faded itinerary teaser paragraphs (masked text).
-- Italic "A partir daqui começa o itinerário detalhado…" preamble (replaced by the new body copy inside the block).
-- The Lock icon row above the title (eyebrow alone is enough; keeps it less UI-like).
+Add a single link `A nossa abordagem` → `/abordagem` to the homepage `SiteNav` (`src/routes/index.tsx`, ~line 112), placed next to the existing `Cidades` link, using the same classes so the visual treatment is identical. The guide-page `StickyNav` is content-anchor based (per-day sections); it stays unchanged to preserve the in-article reading experience. The new page exposes the same top `SiteNav` so visitors can return home.
 
-## Kept
+## 3. Voice conversion (eu → nós / O Postal)
 
-- The credits panel ("Tem N créditos…" + redeem button) when signed-in user has remaining credits — appears between the bullets and the pricing selector as a subtle bordered note.
-- Checkout Dialog triggered by `Comprar acesso` (unchanged).
-- Sign-in redirect for guests when they click `Comprar acesso` (redirects to `/auth` with return to `#dias`).
-- `id="dias"` and `scroll-mt-24` on the section so anchor links keep working.
-- `PremiumGate` API (`slug`, `children`); the `teaserLines` prop becomes unused and is removed from the type.
+Visible site changes only. SEO meta tags in `__root.tsx` and `index.tsx` `head()` blocks stay untouched per the boundary rule. "A minha conta" stays (it's the logged-in user's own account, not author voice).
 
-## Visual tone
+Edits:
 
-- Reuse current tokens: cream text, gold accents, `bg-background/40` with `border-gold/20`, serif headings, generous padding (`p-8 md:p-10`), max-width matches existing (`max-w-3xl`).
-- No badges, no "popular" tag, no urgency copy, no emojis.
-- Bullets rendered as a plain `<ul>` with `·` or thin gold dot markers and tight serif-adjacent line-height.
+- `src/routes/index.tsx` line 210 (hero subtitle):
+  - from: `Guias de viagem ao meu ritmo, testados por mim, cidade a cidade.`
+  - to:   `Guias de viagem ao teu ritmo, testados no terreno, cidade a cidade.`
+- `src/routes/index.tsx` line 782 (about paragraph):
+  - from: `Estes guias são pessoais. Caminhei cada rua, comi em cada mesa, escutei cada concerto.`
+  - to:   `Estes guias são feitos com cuidado. Percorremos cada rua a pé, provámos antes de recomendar, ouvimos cada concerto.`
+  - The following sentence (`Aqui só fica o que valeu a pena...`) already uses `tu` and stays.
 
-## Out of scope
+A repo-wide `rg` for `\b(eu|mim|meu|minha|testei|caminhei|provei|escutei|recomendo)\b` confirms no other author first-person strings exist in guide routes (`florenca.tsx`, `istambul.tsx`, `praga.tsx`), `premium.tsx` body copy, or shared components. Only matches are "A minha conta" (user account label, keep) and URLs/code, which are not copy.
 
-- Stripe price ids, checkout server fn, auth flow, access hooks — all unchanged.
-- No edits to the three guide route files; the gate is already inserted there.
+## Out of scope (untouched)
+
+Paywall, free-sample gate, pricing, theme tokens, fonts, guide content, SEO meta tags in `__root.tsx` and existing route `head()` blocks, testimonials/photos.
+
+## Acceptance check
+
+- New `/abordagem` route renders with the exact copy above, no em-dash, styled like the rest of the site, linked from the homepage nav.
+- Visible homepage copy uses `nós` / brand voice; reader `tu` address preserved.
+- No changes to `PremiumGate`, `StripeEmbeddedCheckout`, pricing, or guide bodies.
