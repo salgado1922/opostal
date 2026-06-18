@@ -90,18 +90,18 @@ function ContaPage() {
           <img src={opostalHorizontalTransparent.url} alt="O Postal" className="h-8 w-auto object-contain" />
         </Link>
 
-        <header className="mt-10 flex flex-wrap items-end justify-between gap-4">
-          <div>
+        <header className="mt-10 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4 sm:flex sm:flex-wrap sm:justify-between">
+          <div className="min-w-0">
             <p className="text-[10px] uppercase tracking-[0.3em] text-gold">A minha conta</p>
-            <h1 className="mt-2 font-serif text-3xl md:text-4xl">
+            <h1 className="mt-2 font-serif text-2xl sm:text-3xl md:text-4xl truncate">
               Olá{data.displayName ? `, ${data.displayName.split(" ")[0]}` : ""}
             </h1>
-            <p className="mt-1 text-sm text-cream/70">{data.email}</p>
+            <p className="mt-1 text-sm text-cream/70 truncate">{data.email}</p>
           </div>
           <button
             type="button"
             onClick={() => signOut().then(() => navigate({ to: "/" }))}
-            className="text-xs text-cream/60 underline-offset-4 hover:text-cream hover:underline"
+            className="shrink-0 text-xs text-cream/60 underline-offset-4 hover:text-cream hover:underline"
           >
             Terminar sessão
           </button>
@@ -129,15 +129,15 @@ function ContaPage() {
           ) : (
             <ul className="mt-4 grid gap-3 sm:grid-cols-2">
               {unlocked.map((c) => (
-                <li key={c.slug}>
-                  <Link
-                    to={c.to ?? "/"}
-                    className="flex items-center justify-between rounded-lg border border-gold/20 bg-background/30 px-4 py-3 transition-colors hover:bg-gold/5"
-                  >
-                    <span className="font-serif text-lg">{c.name}</span>
-                    <Check className="h-4 w-4 text-gold" aria-hidden />
-                  </Link>
-                </li>
+                  <li key={c.slug}>
+                    <Link
+                      to={c.to ?? "/"}
+                      className="flex items-center justify-between gap-3 rounded-lg border border-gold/20 bg-background/30 px-4 py-3 transition-colors hover:bg-gold/5"
+                    >
+                      <span className="min-w-0 truncate font-serif text-base sm:text-lg">{c.name}</span>
+                      <Check className="h-4 w-4 shrink-0 text-gold" aria-hidden />
+                    </Link>
+                  </li>
               ))}
             </ul>
           )}
@@ -148,36 +148,36 @@ function ContaPage() {
           {error && <p className="mt-2 text-xs text-red-300">{error}</p>}
           <ul className="mt-4 grid gap-3 sm:grid-cols-2">
             {lockedReady.map((c) => (
-              <li
-                key={c.slug}
-                className="flex items-center justify-between rounded-lg border border-gold/15 bg-background/20 px-4 py-3"
-              >
-                <div>
-                  <div className="font-serif text-lg">{c.name}</div>
-                  <div className="text-xs text-cream/55">{c.country}</div>
-                </div>
-                {data.credits > 0 ? (
-                  <button
-                    type="button"
-                    onClick={() => onUseCredit(c.slug)}
-                    disabled={pending === c.slug}
-                    className="inline-flex items-center gap-2 rounded-md border border-gold/40 px-3 py-1.5 text-xs text-gold transition-colors hover:bg-gold/10 disabled:opacity-60"
-                  >
-                    {pending === c.slug ? (
-                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                    ) : (
-                      "Usar 1 crédito"
-                    )}
-                  </button>
-                ) : (
-                  <Link
-                    to={c.to ?? "/"}
-                    className="inline-flex items-center gap-2 rounded-md border border-gold/20 px-3 py-1.5 text-xs text-cream/70 transition-colors hover:bg-gold/5"
-                  >
-                    <Lock className="h-3 w-3" aria-hidden /> Ver guia
-                  </Link>
-                )}
-              </li>
+                <li
+                  key={c.slug}
+                  className="flex items-center justify-between gap-3 rounded-lg border border-gold/15 bg-background/20 px-4 py-3"
+                >
+                  <div className="min-w-0">
+                    <div className="truncate font-serif text-base sm:text-lg">{c.name}</div>
+                    <div className="text-xs text-cream/55">{c.country}</div>
+                  </div>
+                  {data.credits > 0 ? (
+                    <button
+                      type="button"
+                      onClick={() => onUseCredit(c.slug)}
+                      disabled={pending === c.slug}
+                      className="shrink-0 inline-flex items-center gap-2 rounded-md border border-gold/40 px-3 py-1.5 text-xs text-gold transition-colors hover:bg-gold/10 disabled:opacity-60"
+                    >
+                      {pending === c.slug ? (
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      ) : (
+                        "Usar 1 crédito"
+                      )}
+                    </button>
+                  ) : (
+                    <Link
+                      to={c.to ?? "/"}
+                      className="shrink-0 inline-flex items-center gap-2 rounded-md border border-gold/20 px-3 py-1.5 text-xs text-cream/70 transition-colors hover:bg-gold/5"
+                    >
+                      <Lock className="h-3 w-3" aria-hidden /> Ver guia
+                    </Link>
+                  )}
+                </li>
             ))}
           </ul>
         </section>
@@ -200,13 +200,13 @@ function ContaPage() {
                 });
                 return (
                   <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
-                    <div>
-                      <div className="text-sm text-cream">
+                    <div className="min-w-0 flex-1">
+                      <div className="truncate text-sm text-cream">
                         Pacote de {p.bundle_size} {p.bundle_size === 1 ? "guia" : "guias"}
                       </div>
                       <div className="text-xs text-cream/55">{date} · {p.initial_guide_slug}</div>
                     </div>
-                    <div className="text-sm tabular-nums text-cream/85">{amount}</div>
+                    <div className="shrink-0 text-sm tabular-nums text-cream/85">{amount}</div>
                   </li>
                 );
               })}
