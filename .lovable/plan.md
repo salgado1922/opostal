@@ -1,54 +1,51 @@
-# Plan: "A nossa abordagem" page + voice conversion
+## Objetivo
 
-## 1. New route `/abordagem`
+Tornar a página `/conta` (que já existe e já lista guias desbloqueados, créditos, outros guias e histórico) acessível a partir do menu principal e mostrar o login inline para quem ainda não entrou, sem mexer em auth, paywall, tema ou conteúdo. Tirar todos os travessões "—" da página e do link.
 
-Create `src/routes/abordagem.tsx` (TanStack file route). Reuse the existing editorial primitives already used by `index.tsx` and the guide pages:
+## Alterações
 
-- `SiteNav` style header (extract or duplicate the small nav from `index.tsx` so the page sits inside the same shell, fixed top nav + footer area).
-- Section/Card visuals from the homepage (`bg-background`, `border-gold/15`, `text-cream`, Cormorant headings, `text-[10px] uppercase tracking-[0.3em] text-gold` eyebrows) so it matches the "Golden Hour" look without inventing styles.
-- Primary CTA button: reuse the same button class used by the homepage CTA (`PremiumPromo` / hero CTA) for "Ver os guias", linking to `/#cidades` (the existing guides listing anchor on the homepage).
+### 1. Link no menu principal (`src/routes/index.tsx`)
 
-Page structure (exact pt-PT copy, no em-dash):
+No `<nav>` (a seguir a "Cidades" e "A nossa abordagem"), acrescentar:
 
-1. Hero block
-   - Eyebrow: `O Postal`
-   - H1: `A nossa abordagem`
-   - Subtitle: `Como fazemos os guias d'O Postal, e porque é que os fazemos assim.`
-2. Intro paragraph: `O Postal nasceu de uma frustração simples: quase todos os guias de viagem dizem para ver tudo, e quase nenhum ajuda a ver bem. Os nossos roteiros existem para o contrário. Menos pontos, mais sentido. Tempo para parar num café sem culpa de estar a perder outra coisa qualquer.`
-3. Three cards in a responsive grid (1 col mobile, 3 col desktop), each with small gold eyebrow number ("01/02/03"), heading, body:
-   - `Testado no terreno` + body as given.
-   - `Sem turistadas` + body as given.
-   - `Pensado ao teu ritmo` + body as given.
-4. Closing block: small line `Cada guia é percorrido e verificado antes de o publicarmos. É essa a promessa d'O Postal.` followed by the CTA button `Ver os guias` → `/#cidades`.
+```tsx
+<Link to="/conta" className="...mesmo estilo dos outros links">
+  A minha conta
+</Link>
+```
 
-`head()` meta: page-specific title `A nossa abordagem - O Postal` and description matching the subtitle (these are new tags for a new page, not edits to existing SEO).
+Reaproveita exatamente as classes dos links existentes. Nenhum controlo de login/logout existe hoje no nav, por isso não há duplicação a evitar.
 
-## 2. Nav link
+### 2. Estado logged-out em `/conta` (`src/routes/conta.tsx`)
 
-Add a single link `A nossa abordagem` → `/abordagem` to the homepage `SiteNav` (`src/routes/index.tsx`, ~line 112), placed next to the existing `Cidades` link, using the same classes so the visual treatment is identical. The guide-page `StickyNav` is content-anchor based (per-day sections); it stays unchanged to preserve the in-article reading experience. The new page exposes the same top `SiteNav` so visitors can return home.
+Hoje, se a sessão não existir, a página faz `navigate({ to: "/auth", ... })`. Substituir esse redirect por um bloco inline:
 
-## 3. Voice conversion (eu → nós / O Postal)
+- Cabeçalho: `Entra na tua conta`
+- Linha: `Inicia sessão para veres os guias que compraste.`
+- Por baixo, renderizar o componente de login que já vive em `src/routes/auth.tsx`. Para reutilizar sem duplicar lógica, extrair o formulário atual de `auth.tsx` para um componente `AuthForm` (mesmo ficheiro ou `src/components/AuthForm.tsx`), e usá-lo tanto em `/auth` como em `/conta`. Comportamento, providers e estilo ficam iguais.
 
-Visible site changes only. SEO meta tags in `__root.tsx` and `index.tsx` `head()` blocks stay untouched per the boundary rule. "A minha conta" stays (it's the logged-in user's own account, not author voice).
+Manter o mesmo invólucro visual (`bg-twilight-radial`, container, tipografia "Golden Hour") do resto da página.
 
-Edits:
+### 3. Estado logged-in: manter tudo como está
 
-- `src/routes/index.tsx` line 210 (hero subtitle):
-  - from: `Guias de viagem ao meu ritmo, testados por mim, cidade a cidade.`
-  - to:   `Guias de viagem ao teu ritmo, testados no terreno, cidade a cidade.`
-- `src/routes/index.tsx` line 782 (about paragraph):
-  - from: `Estes guias são pessoais. Caminhei cada rua, comi em cada mesa, escutei cada concerto.`
-  - to:   `Estes guias são feitos com cuidado. Percorremos cada rua a pé, provámos antes de recomendar, ouvimos cada concerto.`
-  - The following sentence (`Aqui só fica o que valeu a pena...`) already uses `tu` and stays.
+Por decisão do utilizador, as secções já existentes (`Créditos por usar`, `Guias desbloqueados`, `Outros guias disponíveis`, `Histórico de compras`, `Terminar sessão`) ficam intactas. Não acrescentar `Perguntas ao guia` nem `O teu passe` porque esses dados não existem no sistema.
 
-A repo-wide `rg` for `\b(eu|mim|meu|minha|testei|caminhei|provei|escutei|recomendo)\b` confirms no other author first-person strings exist in guide routes (`florenca.tsx`, `istambul.tsx`, `praga.tsx`), `premium.tsx` body copy, or shared components. Only matches are "A minha conta" (user account label, keep) and URLs/code, which are not copy.
+### 4. Remoção de travessões "—"
 
-## Out of scope (untouched)
+Substituir todos os `—` por vírgula, dois pontos ou hífen curto, em:
 
-Paywall, free-sample gate, pricing, theme tokens, fonts, guide content, SEO meta tags in `__root.tsx` and existing route `head()` blocks, testimonials/photos.
+- `src/routes/conta.tsx`: `title` da meta (`A minha conta — O Postal` → `A minha conta, O Postal`) e qualquer outro travessão visível.
+- Texto novo do link no nav e do estado logged-out: usar só vírgulas/pontos.
 
-## Acceptance check
+Não tocar noutras páginas nem no SEO global.
 
-- New `/abordagem` route renders with the exact copy above, no em-dash, styled like the rest of the site, linked from the homepage nav.
-- Visible homepage copy uses `nós` / brand voice; reader `tu` address preserved.
-- No changes to `PremiumGate`, `StripeEmbeddedCheckout`, pricing, or guide bodies.
+## Fora do âmbito
+
+Auth, paywall, free-sample gate, conteúdo dos guias, preços, tema, tipografia, SEO de outras rotas, sitemap.
+
+## Critérios de aceitação
+
+- "A minha conta" aparece no menu principal e leva a `/conta`.
+- Sem sessão: `/conta` mostra o cabeçalho pedido e o formulário de login existente inline, sem redirect e sem novo sistema de auth.
+- Com sessão: a página continua a listar os guias comprados, créditos e histórico reais, e o `Terminar sessão` continua a funcionar.
+- Nenhum "—" em texto visível da página `/conta` nem no novo link do menu.
