@@ -17,7 +17,7 @@ import {
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/[FORMSPREE_FORM_ID]";
 
 const searchSchema = z.object({
-  destino: fallback(z.string(), "").default(""),
+  destino: fallback(z.string().optional(), undefined),
 });
 
 export const Route = createFileRoute("/roteiro-personalizado")({
