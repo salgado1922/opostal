@@ -15,6 +15,9 @@ import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import { HomePremiumCTA, PremiumCardTag } from "@/components/PremiumPromo";
+import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
+import { PostalStamp } from "@/components/postal/PostalStamp";
+import { PostcardBack } from "@/components/postal/PostcardBack";
 import {
   ComposableMap,
   Geographies,
@@ -78,6 +81,7 @@ function Home() {
       <EuropeMap />
       <About />
       <HomePremiumCTA />
+      <PostcardBlock />
       <SiteFooter />
     </main>
   );
