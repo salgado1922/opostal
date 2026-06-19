@@ -164,6 +164,18 @@ const HERO_SLIDES: { src: string; alt: string }[] = [
   },
 ];
 
+const CITY_STAMP_CODES: Record<string, string> = {
+  praga: "PRG",
+  istambul: "IST",
+  florenca: "FLR",
+  londres: "LDN",
+  barcelona: "BCN",
+  paris: "PAR",
+  viena: "VIE",
+  lisboa: "LIS",
+  budapeste: "BUD",
+};
+
 function Hero() {
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
@@ -220,6 +232,10 @@ function Hero() {
 
       {/* content block */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-24 pt-40 md:px-10 md:pb-32 md:pt-44">
+        {/* Carimbo postal sobreposto */}
+        <div className="pointer-events-none absolute right-6 top-28 hidden md:block md:right-12 md:top-32">
+          <PostmarkCircle city="O POSTAL" year="MMXXVI" rotate={-10} />
+        </div>
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
@@ -463,6 +479,7 @@ function MetaPills({ city, dimmed }: { city: CityMeta; dimmed?: boolean }) {
 
 function CityCard({ city }: { city: CityMeta }) {
   const isReady = city.status === "ready";
+  const stampCode = CITY_STAMP_CODES[city.slug] ?? city.slug.slice(0, 3).toUpperCase();
 
   const inner = (
     <article
@@ -484,6 +501,16 @@ function CityCard({ city }: { city: CityMeta }) {
         }`}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+
+      {/* Selo postal no canto da capa */}
+      <div className="absolute left-3 top-3">
+        <PostalStamp
+          code={stampCode}
+          label="O Postal"
+          value={isReady ? "Visitado" : "Em breve"}
+          rotate={-6}
+        />
+      </div>
 
       {!isReady && (
         <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-background/70 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-gold backdrop-blur">
@@ -818,6 +845,39 @@ function About() {
 }
 
 function SiteFooter() {
+  return SiteFooterImpl();
+}
+
+function PostcardBlock() {
+  return (
+    <section className="relative px-6 pb-20 md:pb-28">
+      <div className="mx-auto max-w-5xl">
+        <p className="mb-6 text-center text-[11px] uppercase tracking-[0.35em] text-gold/80">
+          Um postal para ti
+        </p>
+        <PostcardBack
+          city="O POSTAL"
+          stampCode="OP"
+          message={
+            <>
+              Saudações da Europa. Os guias aqui são pequenos postais&nbsp;—
+              pensados a pé, ao ritmo de quem se senta no café antes de subir
+              a colina. Espero que o próximo seja o teu.
+            </>
+          }
+          signature="O Postal"
+          addressLines={[
+            "Para: viajante curioso",
+            "Algures na Europa",
+            "Próxima paragem a teu gosto",
+          ]}
+        />
+      </div>
+    </section>
+  );
+}
+
+function SiteFooterImpl() {
   const [copied, setCopied] = useState(false);
   const handleCopy = async () => {
     try {
