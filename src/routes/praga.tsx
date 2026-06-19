@@ -1433,7 +1433,7 @@ function GuideVideo() {
       id="video"
       eyebrow="Vídeo do guia"
       title="Vídeo do guia"
-      intro="O vídeo completo deste guia, disponível com o seu acesso."
+      intro="Vídeo completo do guia."
     >
       <motion.div
         initial="hidden"
@@ -1457,7 +1457,7 @@ function GuideVideo() {
         </div>
         <p className="mt-5 text-center font-serif italic text-gold/90 flex items-center justify-center gap-2">
           <Play className="h-4 w-4" aria-hidden />
-          O vídeo completo deste guia, disponível com o seu acesso.
+          Vídeo completo do guia.
         </p>
       </motion.div>
     </Section>
