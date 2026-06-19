@@ -1830,18 +1830,45 @@ function EssentialInfo() {
             <p className="mt-2 text-sm text-muted-foreground">
               A pé do West End, dos teatros e da South Bank; central, animado, mais caro.
             </p>
+            <a
+              href="[LINK_BOOKING_LONDRES_COVENT_GARDEN_SOHO]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Covent Garden / Soho
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">South Bank / London Bridge</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Junto ao rio e ao Borough Market, com fácil acesso à City e a Westminster pelo Tamisa.
             </p>
+            <a
+              href="[LINK_BOOKING_LONDRES_SOUTH_BANK]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em South Bank / London Bridge
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Kensington / South Kensington</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Calmo, residencial, com museus à porta e ligação direta de metro ao centro.
             </p>
+            <a
+              href="[LINK_BOOKING_LONDRES_KENSINGTON]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Kensington / South Kensington
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
         </ul>
       </motion.div>
