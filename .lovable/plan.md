@@ -1,34 +1,62 @@
-## Plan: Hero Headline & Legibility Update
+## Goal
+Lighten the opostal.pt homepage into a calmer, more editorial single-message page (free guides first, discreet pointer to paid service). Only `src/routes/index.tsx` is touched.
 
-### Goal
-Change the homepage hero headline to **"O Postal"** and add a subtle, targeted gradient scrim + soft text-shadows so the text remains clearly readable over both bright and dark slideshow backgrounds. No other section, text, button, or layout changes.
+## Changes
 
-### File to edit
-- `src/routes/index.tsx` (Hero component only)
+### 1. Merge "Como fazemos os roteiros" + "Testado no terreno" into one section
+- Replace the existing `MethodSection` component with a single merged section placed in its current position.
+- Remove the `TestedOnGround` component entirely.
+- New content (verbatim PT-PT):
+  - Eyebrow: "Método"
+  - Title: "Como fazemos os roteiros"
+  - Intro: "Cada guia nasce no chão da cidade, não atrás de um ecrã."
+  - Bullets:
+    - "Percorremos cada cidade a pé, com tempo, sem pressa de cumprir lista."
+    - "Testamos os sítios antes de os recomendar: as mesas, os miradouros, os cafés."
+    - "Ficamos só com o que vale mesmo a pena, e dizemos do que vale a pena fugir."
+    - "Só recomendamos cidades que percorremos pessoalmente, rua a rua."
+  - Closing paragraph: "Não copiamos listas nem repetimos o que toda a gente diz. O que está aqui foi visto, provado e escolhido com critério."
+- Preserve existing motion wrapper, max-width, padding, and bullet styling.
 
-### Changes
+### 2. Remove "Tudo num só sítio" section
+- Delete the `EditorialNote` component entirely.
+- Remove it from the `Home` component render order.
 
-1. **Headline text**
-   - Replace the `<h1>` inner text with exactly: `O Postal`
-   - Keep it as the page `<h1>`, keep existing `text-gradient-gold` class, font size, font family, weight, and `[-webkit-text-stroke]`.
+### 3. Shrink custom-itinerary section into a single invitation
+- Replace the `CustomItinerary` component (currently two price cards + grid) with a simple calm block.
+- Content (verbatim PT-PT):
+  - Eyebrow: "À tua medida"
+  - Title: "Quando o roteiro precisa de ser teu"
+  - Text: "Os guias gratuitos servem a maioria das viagens. Mas às vezes queres algo desenhado à tua medida: o teu ritmo, os teus interesses, as tuas datas. Para isso, preparamos roteiros personalizados."
+  - CTA button: "Ver roteiro personalizado" -> links to `/roteiro-personalizado`
+- Do not show prices, product cards, or comparison on the homepage.
+- Keep existing motion wrapper and max-width styling.
 
-2. **Add a targeted dark gradient overlay**
-   - Inside the hero’s background container (`-z-10`), add a new absolute div with a directional linear-gradient that is darkest where the text sits (bottom-left) and fades to transparent toward the top-right.
-   - Gradient: `linear-gradient(to top right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.05) 60%)`.
-   - This sits above the images and below the text layer (inside the `-z-10` wrapper), so it only darkens the hero background without affecting page content below.
-   - The existing bottom fade-to-background gradient is kept unchanged so the hero still blends into the page.
+### 4. Remove 4-step "Como funciona" section
+- Delete the `HowItWorks` component entirely.
+- Remove it from the `Home` component render order.
+- The `#como-funciona` anchor in the header/footer is left untouched per instructions; it will simply not scroll to a matching element.
 
-3. **Refine text-shadows**
-   - Headline (`<h1>`): change from `0 2px 24px rgba(0,0,0,0.45)` to `0 1px 12px rgba(0,0,0,0.45)` (subtler, tighter).
-   - Subheadline (`<p>` below divider): change from `0 1px 12px rgba(0,0,0,0.55)` to `0 1px 12px rgba(0,0,0,0.45)` to match.
-   - Eyebrow text shadow is left as-is.
+### 5. Trim FAQ to three questions
+- Keep only these three entries (verbatim):
+  1. Q: "Os roteiros são mesmo gratuitos?"
+     A: "São. Os guias base de cada cidade do catálogo estão abertos a toda a gente, sem registo e sem pagamento."
+  2. Q: "Como é que O Postal ganha dinheiro?"
+     A: "Com os roteiros personalizados e com ligações úteis a parceiros de reserva. Alguns desses links são afiliados, o que significa que podemos receber uma pequena comissão, sem qualquer custo adicional para ti."
+  3. Q: "O que é um roteiro testado no terreno?"
+     A: "É um guia de uma cidade que percorremos pessoalmente, a pé, antes de a recomendar. Tudo o que está no guia foi visto e provado."
+- Remove all other FAQ entries.
+- Preserve Accordion markup and styling.
 
-4. **No other changes**
-   - Eyebrow text, subheadline text, both CTA buttons, slideshow images/timing, and all other page sections remain untouched.
+### 6. Update `Home` render order
+After all changes, the `Home` component should render:
+`Hero -> CityGrid -> MethodSection (merged) -> CustomItinerary (invitation) -> Faq (3 items) -> About -> SiteFooter`
 
-### Acceptance criteria
-- Hero displays "O Postal" as the h1 with unchanged gold gradient styling.
-- Text remains clearly legible on bright slideshow slides (e.g., the Prague sunset image).
-- Text does not look crushed or muddy on dark slides.
-- No boxes, banners, or solid color blocks behind the text.
-- No em-dash character used anywhere.
+## Visual guardrails
+- Reuse existing Tailwind classes, fonts, spacing, motion wrappers, and component imports.
+- Do not change hero, city grid, header, or footer styling.
+- Do not use em-dash, placeholder copy, or Brazilian Portuguese.
+- Maintain "nós" voice throughout.
+
+## Files touched
+- `src/routes/index.tsx` only.
