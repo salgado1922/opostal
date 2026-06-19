@@ -992,12 +992,9 @@ function Itineraries() {
       intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
-        <GuidePreviewGate
-          slug="istambul"
-          days={days}
-          sampleDays={1}
-          renderDay={(d) => <DayBlock day={d} />}
-        />
+        {days.map((d) => (
+          <DayBlock key={d.key} day={d} />
+        ))}
       </div>
     </Section>
   );
@@ -1356,14 +1353,12 @@ function IstambulPage() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PremiumGate slug="istambul">
-        <GuideVideo />
-        <Bosforo />
-        <Food />
-        <Tips />
-        <Checklist />
-      </PremiumGate>
-      <EndOfArticleCTA slug="istambul" />
+      <GuideVideo />
+      <Bosforo />
+      <Food />
+      <Tips />
+      <Checklist />
+      <CustomItineraryCTA city="Istambul" />
       <Footer />
     </main>
   );
