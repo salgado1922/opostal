@@ -75,9 +75,11 @@ import d5S3 from "@/assets/istambul/d5-s3.jpg";
 import d5S4 from "@/assets/istambul/d5-s4.jpg";
 import d5S5 from "@/assets/istambul/d5-s5.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
-import { PremiumGate } from "@/components/PremiumGate";
-import { GuidePreviewGate } from "@/components/GuidePreviewGate";
-import { EndOfArticleCTA } from "@/components/PremiumPromo";
+import { AffiliateLink } from "@/components/AffiliateLink";
+import {
+  CustomItineraryCTA,
+  CustomItineraryHeroLink,
+} from "@/components/CustomItineraryCTA";
 
 export const Route = createFileRoute("/istambul")({
   head: () => ({
