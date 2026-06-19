@@ -22,7 +22,6 @@ import {
   Phone,
   HandCoins,
   Languages,
-  Ticket,
   ExternalLink,
   Footprints,
   Menu,
