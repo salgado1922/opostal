@@ -770,12 +770,9 @@ function Itineraries() {
       intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
-        <GuidePreviewGate
-          slug="florenca"
-          days={days}
-          sampleDays={1}
-          renderDay={(d) => <DayBlock day={d} />}
-        />
+        {days.map((d) => (
+          <DayBlock key={d.key} day={d} />
+        ))}
       </div>
     </Section>
   );
@@ -1173,14 +1170,12 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PremiumGate slug="florenca">
-        <GuideVideo />
-        <Duomo />
-        <Food />
-        <Tips />
-        <Checklist />
-      </PremiumGate>
-      <EndOfArticleCTA slug="florenca" />
+      <GuideVideo />
+      <Duomo />
+      <Food />
+      <Tips />
+      <Checklist />
+      <CustomItineraryCTA city="Florença" />
       <Footer />
     </main>
   );
