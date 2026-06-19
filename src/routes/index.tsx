@@ -246,7 +246,7 @@ function Hero() {
             Diários de viagem · Europa
           </p>
           <h1
-            className="text-gradient-gold font-serif leading-[1.02] [text-shadow:0_2px_24px_rgba(0,0,0,0.45)]"
+            className="text-gradient-gold font-serif leading-[1.02] [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] [-webkit-text-stroke:1.2px_rgba(0,0,0,0.55)]"
             style={{ fontSize: "clamp(3rem, 7.2vw, 6.5rem)" }}
           >
             O Postal

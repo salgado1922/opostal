@@ -1,24 +1,17 @@
-# Ajustar selos nas cards e datar carimbos por cidade
+## Alterações propostas
 
-## Mudanças
+### 1. Carimbos de Londres — um de cada lado no hero
+Atualmente os dois carimbos (2024 e 2025) estão sobrepostos no canto superior direito do hero de Londres. Vou separá-los para ficarem um à esquerda e outro à direita do centro do hero, mantendo a estética de postal e a sugestão de revisitas.
 
-### 1. Selos das cards da homepage
-Em `src/routes/index.tsx`, linhas 507-512, alterar o `PostalStamp`:
-- `label="O Postal"` → `label="Postal"` (fica mais clean, sem "O" solto)
-- `value={isReady ? "Visitado" : "Em breve"}` → `value={isReady ? "VISITADO" : "EM BREVE"}` (mais uniforme com o selo)
+- **Ficheiro**: `src/routes/londres.tsx`
+- **Mudança**: Substituir o container absoluto com os dois carimbos sobrepostos por dois containers absolutos separados — um `left-6 top-24` (2024) e outro `right-6 top-24` (2025), com rotações ligeiramente diferentes.
 
-### 2. Carimbos circulares dos heros das cidades
-Substituir `year="MMXXVI"` pelo ano real em que o guia foi publicado:
-- `src/routes/istambul.tsx` → `year="2025"`
-- `src/routes/praga.tsx` → `year="2026"`
-- `src/routes/florenca.tsx` → `year="2025"`
+### 2. Contorno suave a preto nas letras douradas da homepage
+As letras douradas do título "O Postal" no hero da homepage perdem legibilidade em algumas fotos do slideshow. Vou adicionar um contorno suave a preto.
 
-### 3. Londres — dois carimbos
-Em `src/routes/londres.tsx`, no hero, colocar dois `PostmarkCircle` sobrepostos:
-- Carimbo de 2024: atrás, ligeiramente deslocado para a esquerda, rotação `-14`
-- Carimbo de 2025: à frente, ligeiramente deslocado para a direita, rotação `-6`
-- Fica bem porque dá ideia de cidade revisitada — coerente com a abordagem d'O Postal.
+- **Ficheiro**: `src/routes/index.tsx`
+- **Mudança**: No `<h1>` do hero (linha ~248), adicionar `[-webkit-text-stroke:1.2px_rgba(0,0,0,0.55)]` junto ao `text-shadow` existente. O `-webkit-text-stroke` funciona com `background-clip: text` e cria um contorno preciso sem afetar o gradiente dourado.
 
-## Fora de âmbito
-- Carimbo da homepage (`O POSTAL · MMXXVI`) mantém-se — é assinatura geral da marca.
-- Selo "O Postal" no hero da página A nossa abordagem mantém-se.
+---
+
+**Ficheiros a alterar**: `src/routes/londres.tsx`, `src/routes/index.tsx`
