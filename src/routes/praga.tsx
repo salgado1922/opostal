@@ -1268,14 +1268,12 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PremiumGate slug="praga">
-        <GuideVideo />
-        <Concerts />
-        <Food />
-        <Tips />
-        <Checklist />
-      </PremiumGate>
-      <EndOfArticleCTA slug="praga" />
+      <GuideVideo />
+      <Concerts />
+      <Food />
+      <Tips />
+      <Checklist />
+      <CustomItineraryCTA city="Praga" />
       <Footer />
     </main>
   );
