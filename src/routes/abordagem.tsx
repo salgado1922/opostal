@@ -253,12 +253,25 @@ function AbordagemPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
-          className="mx-auto max-w-3xl text-center"
+          className="mx-auto max-w-4xl"
         >
-          <p className="font-serif text-2xl text-cream leading-snug md:text-4xl">
-            Cada guia é percorrido e verificado antes de o publicarmos. É essa a promessa d'O Postal.
-          </p>
-          <div className="mt-10 flex justify-center">
+          <PostcardBack
+            city="O POSTAL"
+            stampCode="OP"
+            message={
+              <>
+                Menos pontos, mais sentido. Cada guia é percorrido e verificado
+                antes de o publicarmos — é essa a promessa d'O Postal.
+              </>
+            }
+            signature="O Postal"
+            addressLines={[
+              "Para: viajante curioso",
+              "Um café qualquer, hora dourada",
+              "Próxima paragem a teu gosto",
+            ]}
+          />
+          <div className="mt-12 flex justify-center">
             <Link
               to="/"
               hash="cidades"
