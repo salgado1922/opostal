@@ -69,10 +69,7 @@ function Home() {
       <Hero />
       <CityGrid />
       <MethodSection />
-      <TestedOnGround />
-      <EditorialNote />
       <CustomItinerary />
-      <HowItWorks />
       <Faq />
       <About />
       <SiteFooter />
@@ -373,7 +370,7 @@ function MethodSection() {
     "Percorremos cada cidade a pé, com tempo, sem pressa de cumprir lista.",
     "Testamos os sítios antes de os recomendar: as mesas, os miradouros, os cafés.",
     "Ficamos só com o que vale mesmo a pena, e dizemos do que vale a pena fugir.",
-    "Sugerimos horários e percursos, nunca obrigatórios. O ritmo é teu.",
+    "Só recomendamos cidades que percorremos pessoalmente, rua a rua.",
   ];
   return (
     <section className="relative px-6 py-20 md:py-24">
@@ -399,47 +396,8 @@ function MethodSection() {
             </li>
           ))}
         </ul>
-      </motion.div>
-    </section>
-  );
-}
-
-function TestedOnGround() {
-  return (
-    <section className="relative px-6 py-16 md:py-20">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.7 }}
-        className="glass mx-auto max-w-3xl rounded-2xl px-8 py-10 text-center"
-      >
-        <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">No terreno</p>
-        <h2 className="font-serif text-2xl text-cream md:text-3xl">
-          Guias que conhecem o chão que pisas
-        </h2>
-        <p className="mt-4 text-cream/75 leading-relaxed">
-          As cidades do catálogo foram percorridas pessoalmente, rua a rua. Não copiamos listas nem repetimos o que toda a gente diz. O que está aqui foi visto, provado e escolhido com critério.
-        </p>
-      </motion.div>
-    </section>
-  );
-}
-
-function EditorialNote() {
-  return (
-    <section className="relative px-6 py-16 md:py-20">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.7 }}
-        className="mx-auto max-w-2xl"
-      >
-        <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Dentro do guia</p>
-        <h2 className="font-serif text-2xl text-cream md:text-3xl">Tudo num só sítio</h2>
-        <p className="mt-4 text-cream/75 leading-relaxed">
-          Dentro de cada guia encontras também o que precisas para tratar do resto da viagem: onde ficar, que experiências reservar e como circular entre cidades. Tudo no seu lugar, à medida que lês o roteiro.
+        <p className="mt-8 text-cream/75 leading-relaxed">
+          Não copiamos listas nem repetimos o que toda a gente diz. O que está aqui foi visto, provado e escolhido com critério.
         </p>
       </motion.div>
     </section>
@@ -447,123 +405,32 @@ function EditorialNote() {
 }
 
 function CustomItinerary() {
-  const cards = [
-    {
-      tag: "Testado no terreno",
-      title: "Roteiro Personalizado O Postal",
-      text: "Para as cidades do catálogo, que percorri pessoalmente. Feito à medida, com base em experiência direta no destino.",
-      price: "A partir de 34,90 €",
-    },
-    {
-      tag: "Curadoria digital",
-      title: "Roteiro Digital Curado",
-      text: "Para destinos fora do catálogo. Pesquisa cuidada em fontes atualizadas, sem experiência presencial, mas com o mesmo critério editorial.",
-      price: "A partir de 19,90 €",
-    },
-  ];
   return (
     <section id="roteiro-personalizado" className="relative px-6 py-24 md:py-32">
-      <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-12 max-w-2xl"
-        >
-          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">À tua medida</p>
-          <h2 className="font-serif text-3xl text-cream md:text-5xl">
-            Quando o roteiro precisa de ser teu
-          </h2>
-          <p className="mt-4 text-cream/70 leading-relaxed">
-            Os guias gratuitos servem a maioria das viagens. Mas às vezes queres algo desenhado à tua medida: o teu ritmo, os teus interesses, as tuas datas. É aí que entra o roteiro personalizado.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
-          {cards.map((c, i) => (
-            <motion.article
-              key={c.title}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7, delay: i * 0.1 }}
-              className="flex flex-col rounded-2xl border border-gold/15 bg-plum/40 p-8 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.85)] transition-colors hover:border-gold/30"
-            >
-              <span className="mb-4 inline-flex w-fit items-center rounded-full border border-gold/30 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.22em] text-gold/85">
-                {c.tag}
-              </span>
-              <h3 className="font-serif text-2xl text-cream md:text-3xl">{c.title}</h3>
-              <p className="mt-4 text-cream/75 leading-relaxed">{c.text}</p>
-              <p className="mt-6 border-t border-gold/15 pt-4 text-[12px] uppercase tracking-[0.25em] text-gold">
-                {c.price}
-              </p>
-            </motion.article>
-          ))}
-        </div>
-
-        <div className="mt-10 text-center">
-          <a
-            href="/roteiro-personalizado"
-            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-gold gold-link"
-          >
-            Ver os roteiros personalizados
-            <ArrowRight className="h-3.5 w-3.5" />
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function HowItWorks() {
-  const steps = [
-    { n: "01", t: "Envias o pedido", d: "Dizes-me o destino, as datas e o que mais gostas de fazer em viagem." },
-    { n: "02", t: "Analiso o pedido", d: "Confirmo qual o tipo de roteiro mais indicado para ti e para o destino." },
-    { n: "03", t: "Recebes o teu roteiro", d: "Um plano com mapa, sugestões, tempos e contexto, pronto a seguir." },
-    { n: "04", t: "Ajusto se precisares", d: "Uma revisão pontual antes da viagem, se alguma coisa mudar." },
-  ];
-  return (
-    <section id="como-funciona" className="relative px-6 py-24 md:py-32">
-      <div className="mx-auto max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-12 max-w-2xl"
-        >
-          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Processo</p>
-          <h2 className="font-serif text-3xl text-cream md:text-5xl">Como funciona</h2>
-        </motion.div>
-
-        <ol className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
-          {steps.map((s, i) => (
-            <motion.li
-              key={s.n}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              className="rounded-2xl border border-gold/10 bg-plum/25 p-6 transition-colors hover:border-gold/25"
-            >
-              <p className="font-serif text-3xl text-gold/80">{s.n}</p>
-              <h3 className="mt-3 font-serif text-xl text-cream">{s.t}</h3>
-              <p className="mt-2 text-cream/75 leading-relaxed">{s.d}</p>
-            </motion.li>
-          ))}
-        </ol>
-
-        <div className="mt-12 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.7 }}
+        className="mx-auto max-w-2xl"
+      >
+        <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">À tua medida</p>
+        <h2 className="font-serif text-3xl text-cream md:text-4xl">
+          Quando o roteiro precisa de ser teu
+        </h2>
+        <p className="mt-4 text-cream/75 leading-relaxed">
+          Os guias gratuitos servem a maioria das viagens. Mas às vezes queres algo desenhado à tua medida: o teu ritmo, os teus interesses, as tuas datas. Para isso, preparamos roteiros personalizados.
+        </p>
+        <div className="mt-8">
           <a
             href="/roteiro-personalizado"
             className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-6 py-3 text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
           >
-            Pedir roteiro personalizado
+            Ver roteiro personalizado
             <ArrowRight className="h-3.5 w-3.5" />
           </a>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -574,20 +441,12 @@ const FAQS: { q: string; a: string }[] = [
     a: "São. Os guias base de cada cidade do catálogo estão abertos a toda a gente, sem registo e sem pagamento.",
   },
   {
-    q: "Qual é a diferença entre o roteiro gratuito e o personalizado?",
-    a: "O gratuito é um itinerário sugerido, igual para todos. O personalizado é desenhado à tua medida: o teu ritmo, os teus interesses e as tuas datas.",
-  },
-  {
     q: "Como é que O Postal ganha dinheiro?",
-    a: "De duas formas. Com os roteiros personalizados e com ligações úteis a parceiros de reserva. Alguns desses links são afiliados, o que significa que posso receber uma pequena comissão, sem qualquer custo adicional para ti.",
+    a: "Com os roteiros personalizados e com ligações úteis a parceiros de reserva. Alguns desses links são afiliados, o que significa que podemos receber uma pequena comissão, sem qualquer custo adicional para ti.",
   },
   {
     q: "O que é um roteiro testado no terreno?",
-    a: "É um guia de uma cidade que percorri pessoalmente, a pé, antes de a recomendar. Tudo o que está no guia foi visto e provado.",
-  },
-  {
-    q: "E um Roteiro Digital Curado?",
-    a: "É um roteiro para destinos que ainda não visitei. Em vez de experiência presencial, baseia-se em pesquisa cuidada em fontes atualizadas, com o mesmo critério editorial. Digo sempre, com clareza, quando é este o caso.",
+    a: "É um guia de uma cidade que percorremos pessoalmente, a pé, antes de a recomendar. Tudo o que está no guia foi visto e provado.",
   },
 ];
 
