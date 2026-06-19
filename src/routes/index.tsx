@@ -197,7 +197,7 @@ function Hero() {
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2} />
             </button>
             <a
-              href="#roteiro-personalizado"
+              href="/roteiro-personalizado"
               className="text-[11px] uppercase tracking-[0.3em] text-cream/75 gold-link"
             >
               Pedir roteiro personalizado
@@ -503,7 +503,7 @@ function CustomItinerary() {
 
         <div className="mt-10 text-center">
           <a
-            href="#como-funciona"
+            href="/roteiro-personalizado"
             className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-gold gold-link"
           >
             Ver os roteiros personalizados
@@ -555,7 +555,7 @@ function HowItWorks() {
 
         <div className="mt-12 text-center">
           <a
-            href="#roteiro-personalizado"
+            href="/roteiro-personalizado"
             className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-6 py-3 text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
           >
             Pedir roteiro personalizado
