@@ -781,18 +781,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
 
         {(stop.hours || stop.bookingUrl) && (
           <div className="mt-4 flex flex-wrap items-center gap-3">
-            {stop.bookingUrl && (
-              <a
-                href={stop.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.78_0.14_200/0.6)]"
-              >
-                <Ticket className="h-3.5 w-3.5" />
-                Reservar
-                <ExternalLink className="h-3 w-3 opacity-70" />
-              </a>
-            )}
+            {stop.bookingUrl && <AffiliateLink href={stop.bookingUrl} />}
             {stop.hours && (
               <div className="flex flex-col gap-0.5">
                 <div className="flex items-center gap-2 text-xs text-cream/80">
