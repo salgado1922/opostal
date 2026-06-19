@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowRight, Lock, Menu, X } from "lucide-react";
+import { ArrowRight, Lock } from "lucide-react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { PostalStamp } from "@/components/postal/PostalStamp";
+import { SiteNav } from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import {
   Accordion,
   AccordionContent,
@@ -75,105 +77,6 @@ function Home() {
       <About />
       <SiteFooter />
     </main>
-  );
-}
-
-const NAV_LINKS: { href: string; label: string }[] = [
-  { href: "#cidades", label: "Roteiros gratuitos" },
-  { href: "#roteiro-personalizado", label: "Roteiro personalizado" },
-  { href: "#como-funciona", label: "Como funciona" },
-  { href: "#sobre", label: "Sobre" },
-];
-
-function SiteNav() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.5);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  const linkClass = scrolled
-    ? "text-cream/70 hover:text-cream"
-    : "text-cream/90 hover:text-cream [text-shadow:0_1px_8px_rgba(0,0,0,0.65)]";
-  return (
-    <nav
-      aria-label="Navegação principal"
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500 ease-out ${
-        scrolled
-          ? "border-b border-gold/15 bg-background/70 backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
-        <Link
-          to="/"
-          aria-label="O Postal"
-          className={`ml-1 inline-flex items-center transition duration-300 hover:scale-[1.01] hover:opacity-85 ${
-            scrolled ? "" : "[filter:drop-shadow(0_1px_8px_rgba(0,0,0,0.65))]"
-          }`}
-        >
-          <img
-            src={opostalHorizontalTransparent.url}
-            alt="O Postal"
-            className="h-8 w-auto object-contain md:h-10"
-          />
-        </Link>
-
-        <div className="hidden items-center gap-7 md:flex">
-          {NAV_LINKS.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className={`text-xs uppercase tracking-[0.2em] transition-colors ${linkClass}`}
-            >
-              {l.label}
-            </a>
-          ))}
-          <a
-            href="#roteiro-personalizado"
-            className="inline-flex items-center rounded-full border border-gold/40 px-4 py-1.5 text-[11px] uppercase tracking-[0.22em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
-          >
-            Roteiro personalizado
-          </a>
-        </div>
-
-        <button
-          type="button"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className={`md:hidden inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/25 ${linkClass}`}
-        >
-          {open ? <Menu className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-        </button>
-      </div>
-
-      {open && (
-        <div className="md:hidden border-t border-gold/15 bg-background/95 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
-            {NAV_LINKS.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-3 text-xs uppercase tracking-[0.22em] text-cream/80 transition-colors hover:bg-gold/[0.08] hover:text-cream"
-              >
-                {l.label}
-              </a>
-            ))}
-            <a
-              href="#roteiro-personalizado"
-              onClick={() => setOpen(false)}
-              className="mt-2 inline-flex items-center justify-center rounded-full border border-gold/40 px-4 py-2.5 text-[11px] uppercase tracking-[0.22em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
-            >
-              Roteiro personalizado
-            </a>
-          </div>
-        </div>
-      )}
-    </nav>
   );
 }
 
@@ -294,7 +197,7 @@ function Hero() {
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2} />
             </button>
             <a
-              href="#roteiro-personalizado"
+              href="/roteiro-personalizado"
               className="text-[11px] uppercase tracking-[0.3em] text-cream/75 gold-link"
             >
               Pedir roteiro personalizado
@@ -600,7 +503,7 @@ function CustomItinerary() {
 
         <div className="mt-10 text-center">
           <a
-            href="#como-funciona"
+            href="/roteiro-personalizado"
             className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-gold gold-link"
           >
             Ver os roteiros personalizados
@@ -652,7 +555,7 @@ function HowItWorks() {
 
         <div className="mt-12 text-center">
           <a
-            href="#roteiro-personalizado"
+            href="/roteiro-personalizado"
             className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-6 py-3 text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
           >
             Pedir roteiro personalizado
@@ -744,41 +647,4 @@ function About() {
   );
 }
 
-function SiteFooter() {
-  const links = [
-    { href: "#cidades", label: "Roteiros gratuitos" },
-    { href: "#roteiro-personalizado", label: "Roteiro personalizado" },
-    { href: "#como-funciona", label: "Como funciona" },
-    { href: "#sobre", label: "Sobre" },
-    { href: "mailto:contacto@opostal.pt", label: "Contacto" },
-  ];
-  return (
-    <footer className="border-t border-gold/10 px-6 py-12">
-      <div className="mx-auto flex max-w-5xl flex-col gap-6 text-center sm:text-left">
-        <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 sm:justify-start">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="text-[11px] uppercase tracking-[0.22em] text-cream/65 transition-colors hover:text-gold"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <p className="text-[11px] text-cream/40 leading-relaxed">
-          Alguns dos links de reserva são afiliados. Só recomendo o que faz sentido para a viagem.
-        </p>
-        <div className="flex flex-col gap-1.5 border-t border-gold/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-cream/55">
-            O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
-          </p>
-          <p className="text-[11px] uppercase tracking-[0.2em] text-cream/35">
-            Fotos: Unsplash · Wikimedia Commons
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
-}
+

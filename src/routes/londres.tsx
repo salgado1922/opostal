@@ -650,7 +650,7 @@ function Hero() {
             Uma cidade para viver sem pressa, quase tudo a pé, com parques pelo meio, mercados, um pub honesto e um dia extra opcional para quem cresceu com Harry Potter.
           </p>
         </motion.div>
-        <CustomItineraryHeroLink />
+        <CustomItineraryHeroLink city="Londres" />
       </motion.div>
     </section>
   );

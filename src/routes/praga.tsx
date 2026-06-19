@@ -485,7 +485,7 @@ function Hero() {
             vistas longas, e o melhor da Boémia, para qualquer viajante.
           </p>
         </motion.div>
-        <CustomItineraryHeroLink />
+        <CustomItineraryHeroLink city="Praga" />
       </motion.div>
 
     </section>

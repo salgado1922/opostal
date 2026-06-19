@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RoteiroPersonalizadoRouteImport } from './routes/roteiro-personalizado'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as PragaRouteImport } from './routes/praga'
@@ -26,6 +27,11 @@ import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/publi
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoteiroPersonalizadoRoute = RoteiroPersonalizadoRouteImport.update({
+  id: '/roteiro-personalizado',
+  path: '/roteiro-personalizado',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/praga': typeof PragaRoute
   '/premium': typeof PremiumRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/praga': typeof PragaRoute
   '/premium': typeof PremiumRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/praga': typeof PragaRoute
   '/premium': typeof PremiumRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/praga'
     | '/premium'
     | '/reset-password'
+    | '/roteiro-personalizado'
     | '/sitemap.xml'
     | '/checkout/return'
     | '/api/public/payments/webhook'
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
     | '/praga'
     | '/premium'
     | '/reset-password'
+    | '/roteiro-personalizado'
     | '/sitemap.xml'
     | '/checkout/return'
     | '/api/public/payments/webhook'
@@ -179,6 +190,7 @@ export interface FileRouteTypes {
     | '/praga'
     | '/premium'
     | '/reset-password'
+    | '/roteiro-personalizado'
     | '/sitemap.xml'
     | '/checkout/return'
     | '/api/public/payments/webhook'
@@ -195,6 +207,7 @@ export interface RootRouteChildren {
   PragaRoute: typeof PragaRoute
   PremiumRoute: typeof PremiumRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  RoteiroPersonalizadoRoute: typeof RoteiroPersonalizadoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CheckoutReturnRoute: typeof CheckoutReturnRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
@@ -207,6 +220,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roteiro-personalizado': {
+      id: '/roteiro-personalizado'
+      path: '/roteiro-personalizado'
+      fullPath: '/roteiro-personalizado'
+      preLoaderRoute: typeof RoteiroPersonalizadoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reset-password': {
@@ -307,6 +327,7 @@ const rootRouteChildren: RootRouteChildren = {
   PragaRoute: PragaRoute,
   PremiumRoute: PremiumRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  RoteiroPersonalizadoRoute: RoteiroPersonalizadoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CheckoutReturnRoute: CheckoutReturnRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,

@@ -686,7 +686,7 @@ function Hero() {
             <EightPointStar className="h-4 w-4 text-gold/80" />
           </div>
         </motion.div>
-        <CustomItineraryHeroLink />
+        <CustomItineraryHeroLink city="Istambul" />
       </motion.div>
     </section>
   );

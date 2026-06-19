@@ -477,7 +477,7 @@ function Hero() {
             Um guia público para descobrir Florença sem pressa: berço do Renascimento, museu a céu aberto, arte a cada esquina, para qualquer viajante.
           </p>
         </motion.div>
-        <CustomItineraryHeroLink />
+        <CustomItineraryHeroLink city="Florença" />
       </motion.div>
     </section>
   );
