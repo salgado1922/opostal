@@ -1622,18 +1622,45 @@ function EssentialInfo() {
             <p className="mt-2 text-sm text-muted-foreground">
               A pé de tudo, ideal para a primeira visita.
             </p>
+            <a
+              href="[LINK_BOOKING_FLORENCA_CENTRO_STORICO]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Centro Storico
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Santa Croce</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Histórico e animado, com boas trattorias e vida local.
             </p>
+            <a
+              href="[LINK_BOOKING_FLORENCA_SANTA_CROCE]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Santa Croce
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Oltrarno / Santo Spirito</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Do outro lado do Arno, mais local e charmoso, cheio de artesãos e esplanadas.
             </p>
+            <a
+              href="[LINK_BOOKING_FLORENCA_OLTRARNO]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Oltrarno / Santo Spirito
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
         </ul>
       </motion.div>
