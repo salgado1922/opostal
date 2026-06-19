@@ -5,8 +5,6 @@ import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-tran
 
 const NAV_LINKS: { href: string; label: string }[] = [
   { href: "/#cidades", label: "Roteiros gratuitos" },
-  { href: "/roteiro-personalizado", label: "Roteiro personalizado" },
-  { href: "/#como-funciona", label: "Como funciona" },
   { href: "/#sobre", label: "Sobre" },
 ];
 
