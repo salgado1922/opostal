@@ -790,7 +790,7 @@ function DayBlock({ day }: { day: Day }) {
               <a
                 href={day.transport.primaryUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="sponsored noopener"
                 className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2 text-xs font-medium uppercase tracking-[0.2em] text-twilight hover:bg-gold/90"
               >
                 <Ticket className="h-3.5 w-3.5" />
