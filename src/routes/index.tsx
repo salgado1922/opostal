@@ -506,8 +506,8 @@ function CityCard({ city }: { city: CityMeta }) {
       <div className="absolute left-3 top-3">
         <PostalStamp
           code={stampCode}
-          label="O Postal"
-          value={isReady ? "Visitado" : "Em breve"}
+          label="Postal"
+          value={isReady ? "VISITADO" : "EM BREVE"}
           rotate={-6}
         />
       </div>
