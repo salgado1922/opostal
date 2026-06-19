@@ -194,12 +194,6 @@ function Hero() {
               Explorar roteiros gratuitos
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2} />
             </button>
-            <a
-              href="/roteiro-personalizado"
-              className="text-[11px] uppercase tracking-[0.3em] text-cream/75 gold-link"
-            >
-              Pedir roteiro personalizado
-            </a>
           </div>
         </motion.div>
 
