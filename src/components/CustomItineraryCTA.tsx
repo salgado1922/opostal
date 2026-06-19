@@ -29,7 +29,7 @@ export function CustomItineraryCTA({ city }: { city: string }) {
           só teu.
         </p>
         <a
-          href="/#roteiro-personalizado"
+          href={`/roteiro-personalizado?destino=${encodeURIComponent(city)}`}
           className="mt-7 inline-flex items-center gap-2 rounded-full border border-gold/40 px-6 py-3 text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
         >
           Pedir roteiro personalizado para {city}
@@ -44,11 +44,14 @@ export function CustomItineraryCTA({ city }: { city: string }) {
  * Link de texto discreto, secundário, para colocar logo abaixo do bloco
  * principal do Hero da página de cidade.
  */
-export function CustomItineraryHeroLink() {
+export function CustomItineraryHeroLink({ city }: { city?: string } = {}) {
+  const href = city
+    ? `/roteiro-personalizado?destino=${encodeURIComponent(city)}`
+    : "/roteiro-personalizado";
   return (
     <div className="relative z-10 mt-6 flex justify-center">
       <a
-        href="/#roteiro-personalizado"
+        href={href}
         className="text-[11px] uppercase tracking-[0.3em] text-cream/75 transition-colors hover:text-gold"
       >
         Pedir roteiro personalizado
