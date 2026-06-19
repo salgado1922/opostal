@@ -162,6 +162,7 @@ function Hero() {
         })}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.10_0.03_290/0.55)_0%,transparent_28%,transparent_45%,oklch(0.10_0.03_290/0.75)_78%,var(--background)_100%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_70%,oklch(0.62_0.14_38/0.18),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top_right,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.05)_60%)]" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-24 pt-40 md:px-10 md:pb-32 md:pt-44">
@@ -178,13 +179,13 @@ function Hero() {
             Diários de viagem · Europa
           </p>
           <h1
-            className="text-gradient-gold font-serif leading-[1.05] [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] [-webkit-text-stroke:1.2px_rgba(0,0,0,0.55)]"
+            className="text-gradient-gold font-serif leading-[1.05] [text-shadow:0_1px_12px_rgba(0,0,0,0.45)] [-webkit-text-stroke:1.2px_rgba(0,0,0,0.55)]"
             style={{ fontSize: "clamp(2.4rem, 5.2vw, 4.6rem)" }}
           >
-            Roteiros de viagem gratuitos, feitos com tempo.
+            O Postal
           </h1>
           <div className="my-7 h-px w-28 bg-gold/70" />
-          <p className="max-w-xl text-base text-cream md:text-lg [text-shadow:0_1px_12px_rgba(0,0,0,0.55)]">
+          <p className="max-w-xl text-base text-cream md:text-lg [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
             Guias em português, testados no terreno, cidade a cidade. Para viajar com calma, ver bem e fugir às turistadas.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-5">
