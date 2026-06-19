@@ -44,9 +44,11 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
-import { PremiumGate } from "@/components/PremiumGate";
-import { EndOfArticleCTA } from "@/components/PremiumPromo";
-import { GuidePreviewGate } from "@/components/GuidePreviewGate";
+import { AffiliateLink } from "@/components/AffiliateLink";
+import {
+  CustomItineraryCTA,
+  CustomItineraryHeroLink,
+} from "@/components/CustomItineraryCTA";
 
 export const Route = createFileRoute("/florenca")({
   head: () => ({
