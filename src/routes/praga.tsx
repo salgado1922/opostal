@@ -363,7 +363,7 @@ const days: Day[] = [
         desc: "Joia gótica patrocinada pelos mineiros de prata. Tetos abobadados de cortar a respiração.",
         link: "https://pt.wikipedia.org/wiki/Catedral_de_Santa_B%C3%A1rbara",
         icon: Church,
-        bookingUrl: "https://khfarnost.cz/en/",
+        bookingUrl: "[LINK_GETYOURGUIDE_PRAGA_KUTNA_HORA]",
         hours: "~9:00–18:00",
         walkTo: "Sedlec ↔ centro ~2,5 km, usar autocarro/táxi local",
       },
