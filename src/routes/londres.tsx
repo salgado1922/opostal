@@ -1805,6 +1805,17 @@ function EssentialInfo() {
               </div>
               <h3 className="font-serif text-xl text-cream">{e.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
+              {e.title === "Transportes" && (
+                <a
+                  href="[LINK_OMIO_LONDRES]"
+                  target="_blank"
+                  rel="sponsored noopener"
+                  className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+                >
+                  Procurar comboios e autocarros
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              )}
             </motion.div>
           );
         })}
