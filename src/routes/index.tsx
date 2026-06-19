@@ -1,53 +1,43 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import {
-  ArrowRight,
-  Clock,
-  Coffee,
-  Compass,
-  Footprints,
-  Link2,
-  Lock,
-  User,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight, Lock, Menu, X } from "lucide-react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
-import { HomePremiumCTA, PremiumCardTag } from "@/components/PremiumPromo";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { PostalStamp } from "@/components/postal/PostalStamp";
-import { PostcardBack } from "@/components/postal/PostcardBack";
 import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Marker,
-  Line,
-} from "react-simple-maps";
-import worldGeo from "world-atlas/countries-110m.json";
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "O Postal: guias de viagem pela Europa" },
+      { title: "O Postal: roteiros de viagem gratuitos" },
       {
         name: "description",
         content:
-          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga, Istambul, Florença e Londres já disponíveis. Paris, Viena, Lisboa, Budapeste e Barcelona a caminho.",
+          "Roteiros de viagem gratuitos em português, testados no terreno, cidade a cidade. Para viajar com calma, ver bem e fugir às turistadas.",
       },
-      { property: "og:title", content: "O Postal: guias de viagem pela Europa" },
+      { property: "og:title", content: "O Postal: roteiros de viagem gratuitos" },
       {
         property: "og:description",
         content:
-          "Guias de viagem editoriais, testados por mim, cidade a cidade. Praga, Istambul, Florença e Londres já disponíveis. Paris, Viena, Lisboa, Budapeste e Barcelona a caminho.",
+          "Roteiros de viagem gratuitos em português, testados no terreno, cidade a cidade.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://opostal.pt/" },
       { property: "og:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "O Postal: guias de viagem pela Europa" },
-      { name: "twitter:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
+      { name: "twitter:title", content: "O Postal: roteiros de viagem gratuitos" },
+      {
+        name: "twitter:description",
+        content: "Roteiros de viagem gratuitos em português, testados no terreno, cidade a cidade.",
+      },
       { name: "twitter:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
     ],
     links: [
@@ -75,26 +65,38 @@ function Home() {
     <main id="top" className="bg-twilight-radial min-h-screen overflow-x-hidden">
       <SiteNav />
       <Hero />
-      <FeaturedBand />
       <CityGrid />
-      <MethodStrip />
-      <EuropeMap />
+      <MethodSection />
+      <TestedOnGround />
+      <EditorialNote />
+      <CustomItinerary />
+      <HowItWorks />
+      <Faq />
       <About />
-      <HomePremiumCTA />
-      <PostcardBlock />
       <SiteFooter />
     </main>
   );
 }
 
+const NAV_LINKS: { href: string; label: string }[] = [
+  { href: "#cidades", label: "Roteiros gratuitos" },
+  { href: "#roteiro-personalizado", label: "Roteiro personalizado" },
+  { href: "#como-funciona", label: "Como funciona" },
+  { href: "#sobre", label: "Sobre" },
+];
+
 function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.5);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+  const linkClass = scrolled
+    ? "text-cream/70 hover:text-cream"
+    : "text-cream/90 hover:text-cream [text-shadow:0_1px_8px_rgba(0,0,0,0.65)]";
   return (
     <nav
       aria-label="Navegação principal"
@@ -112,34 +114,65 @@ function SiteNav() {
             scrolled ? "" : "[filter:drop-shadow(0_1px_8px_rgba(0,0,0,0.65))]"
           }`}
         >
-          <img src={opostalHorizontalTransparent.url} alt="O Postal" className="h-8 w-auto object-contain md:h-10" />
+          <img
+            src={opostalHorizontalTransparent.url}
+            alt="O Postal"
+            className="h-8 w-auto object-contain md:h-10"
+          />
         </Link>
-        <a
-          href="#cidades"
-          className={`text-xs uppercase tracking-[0.2em] transition-colors ${
-            scrolled ? "text-cream/70 hover:text-cream" : "text-cream/90 hover:text-cream [text-shadow:0_1px_8px_rgba(0,0,0,0.65)]"
-          }`}
+
+        <div className="hidden items-center gap-7 md:flex">
+          {NAV_LINKS.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className={`text-xs uppercase tracking-[0.2em] transition-colors ${linkClass}`}
+            >
+              {l.label}
+            </a>
+          ))}
+          <a
+            href="#roteiro-personalizado"
+            className="inline-flex items-center rounded-full border border-gold/40 px-4 py-1.5 text-[11px] uppercase tracking-[0.22em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
+          >
+            Roteiro personalizado
+          </a>
+        </div>
+
+        <button
+          type="button"
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          className={`md:hidden inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/25 ${linkClass}`}
         >
-          Cidades
-        </a>
-        <Link
-          to="/abordagem"
-          className={`ml-6 text-xs uppercase tracking-[0.2em] transition-colors ${
-            scrolled ? "text-cream/70 hover:text-cream" : "text-cream/90 hover:text-cream [text-shadow:0_1px_8px_rgba(0,0,0,0.65)]"
-          }`}
-        >
-          A nossa abordagem
-        </Link>
-        <Link
-          to="/conta"
-          aria-label="A minha conta"
-          className={`ml-4 md:ml-6 inline-flex items-center transition-colors ${
-            scrolled ? "text-cream/70 hover:text-cream" : "text-cream/90 hover:text-cream [text-shadow:0_1px_8px_rgba(0,0,0,0.65)]"
-          }`}
-        >
-          <User className="h-[18px] w-[18px]" strokeWidth={1.8} />
-        </Link>
+          {open ? <Menu className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+        </button>
       </div>
+
+      {open && (
+        <div className="md:hidden border-t border-gold/15 bg-background/95 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
+            {NAV_LINKS.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="rounded-md px-3 py-3 text-xs uppercase tracking-[0.22em] text-cream/80 transition-colors hover:bg-gold/[0.08] hover:text-cream"
+              >
+                {l.label}
+              </a>
+            ))}
+            <a
+              href="#roteiro-personalizado"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex items-center justify-center rounded-full border border-gold/40 px-4 py-2.5 text-[11px] uppercase tracking-[0.22em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
+            >
+              Roteiro personalizado
+            </a>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
@@ -189,12 +222,11 @@ function Hero() {
   }, [reduce]);
 
   const goToCidades = () => {
-    document.getElementById("destaque")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById("cidades")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <section className="bg-grain bg-vignette relative isolate flex min-h-screen items-end overflow-hidden">
-      {/* crossfading background slides */}
       <div className="absolute inset-0 -z-10">
         {HERO_SLIDES.map((slide, i) => {
           const active = i === index;
@@ -225,14 +257,11 @@ function Hero() {
             />
           );
         })}
-        {/* scrims */}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.10_0.03_290/0.55)_0%,transparent_28%,transparent_45%,oklch(0.10_0.03_290/0.75)_78%,var(--background)_100%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_70%,oklch(0.62_0.14_38/0.18),transparent_55%)]" />
       </div>
 
-      {/* content block */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-24 pt-40 md:px-10 md:pb-32 md:pt-44">
-        {/* Carimbo postal sobreposto */}
         <div className="pointer-events-none absolute right-6 top-28 hidden md:block md:right-12 md:top-32">
           <PostmarkCircle city="O POSTAL" year="MMXXVI" rotate={-10} />
         </div>
@@ -240,43 +269,39 @@ function Hero() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-          className="max-w-2xl"
+          className="max-w-3xl"
         >
           <p className="mb-5 text-[11px] uppercase tracking-[0.42em] text-gold [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
             Diários de viagem · Europa
           </p>
           <h1
-            className="text-gradient-gold font-serif leading-[1.02] [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] [-webkit-text-stroke:1.2px_rgba(0,0,0,0.55)]"
-            style={{ fontSize: "clamp(3rem, 7.2vw, 6.5rem)" }}
+            className="text-gradient-gold font-serif leading-[1.05] [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] [-webkit-text-stroke:1.2px_rgba(0,0,0,0.55)]"
+            style={{ fontSize: "clamp(2.4rem, 5.2vw, 4.6rem)" }}
           >
-            O Postal
+            Roteiros de viagem gratuitos, feitos com tempo.
           </h1>
           <div className="my-7 h-px w-28 bg-gold/70" />
-          <p className="max-w-xl text-lg text-cream md:text-xl [text-shadow:0_1px_12px_rgba(0,0,0,0.55)]">
-            Guias de viagem ao teu ritmo, testados no terreno, cidade a cidade.
+          <p className="max-w-xl text-base text-cream md:text-lg [text-shadow:0_1px_12px_rgba(0,0,0,0.55)]">
+            Guias em português, testados no terreno, cidade a cidade. Para viajar com calma, ver bem e fugir às turistadas.
           </p>
-          <p className="mt-4 max-w-xl text-sm text-cream/75 md:text-base [text-shadow:0_1px_10px_rgba(0,0,0,0.5)]">
-            Roteiros de ritmo tranquilo, sem turistadas, para quem quer ver bem em vez de ver tudo.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="mt-10 flex flex-wrap items-center gap-5">
             <button
               type="button"
               onClick={goToCidades}
               className="group inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-[12px] uppercase tracking-[0.25em] text-[oklch(0.18_0.04_285)] shadow-[0_18px_40px_-18px_rgba(200,119,46,0.7)] transition-all hover:bg-gold-soft hover:shadow-[0_22px_50px_-18px_rgba(216,162,74,0.85)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              Ver cidades
+              Explorar roteiros gratuitos
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2} />
             </button>
             <a
-              href="#mapa"
+              href="#roteiro-personalizado"
               className="text-[11px] uppercase tracking-[0.3em] text-cream/75 gold-link"
             >
-              Ver mapa
+              Pedir roteiro personalizado
             </a>
           </div>
         </motion.div>
 
-        {/* slide indicators */}
         <div className="mt-14 flex items-center gap-2" aria-hidden>
           {HERO_SLIDES.map((_, i) => (
             <span
@@ -287,134 +312,9 @@ function Hero() {
         </div>
       </div>
 
-      {/* scroll cue */}
       <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center">
         <div className="relative h-12 w-px overflow-hidden bg-cream/15">
           <span className="absolute left-1/2 top-0 h-3 w-px -translate-x-1/2 bg-gold animate-scroll-cue" />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ----------------------- FEATURED BAND ----------------------- */
-
-type Featured = {
-  to: string;
-  badge?: string;
-  title: string;
-  country: string;
-  tagline: string;
-  chips: string[];
-  img: string;
-  alt: string;
-};
-
-const FEATURED: Featured[] = [
-  {
-    to: "/istambul",
-    badge: "Novo",
-    title: "Istambul",
-    country: "Turquia",
-    tagline: "Entre dois continentes, do azul do Bósforo ao azulejo de İznik.",
-    chips: ["Abr–Jun / Set", "€€", "Ritmo tranquilo", "5 dias"],
-    img: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1800&q=80",
-    alt: "Mesquita iluminada em Istambul ao entardecer",
-  },
-  {
-    to: "/praga",
-    title: "Praga",
-    country: "Chéquia",
-    tagline: "Hora dourada sobre o Vltava, sem turistadas.",
-    chips: ["Mai–Set", "€€", "Ritmo tranquilo", "4 dias"],
-    img: "https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=1800&q=80",
-    alt: "Telhados de Praga ao pôr-do-sol",
-  },
-];
-
-function FeaturedBand() {
-  return (
-    <section id="destaque" className="relative px-6 pt-20 pb-10 md:pt-28 md:pb-14">
-      <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-10 flex items-end justify-between gap-6"
-        >
-          <div>
-            <p className="mb-3 text-[11px] uppercase tracking-[0.35em] text-gold/80">
-              Em destaque
-            </p>
-            <h2 className="font-serif text-3xl text-cream md:text-4xl">
-              Os guias já a viver online
-            </h2>
-          </div>
-          <a href="#cidades" className="hidden sm:inline-flex text-[11px] uppercase tracking-[0.3em] text-cream/65 gold-link">
-            Todas as cidades
-          </a>
-        </motion.div>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
-          {FEATURED.map((f, i) => (
-            <motion.div
-              key={f.to}
-              initial={{ opacity: 0, y: 36 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Link
-                to={f.to}
-                aria-label={`Abrir guia de ${f.title}`}
-                className="group relative block aspect-[4/3] overflow-hidden rounded-3xl border border-gold/15 bg-plum/40 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.9)] transition-all duration-500 hover:-translate-y-1 hover:border-gold/45 hover:shadow-[0_40px_80px_-30px_rgba(0,0,0,0.95)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              >
-                <img
-                  src={f.img}
-                  alt={f.alt}
-                  loading="lazy"
-                  decoding="async"
-                  width={1800}
-                  height={1350}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.06]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
-                {f.badge && (
-                  <span className="absolute right-4 top-4 inline-flex items-center rounded-full border border-gold/50 bg-background/55 px-3 py-1 text-[10px] uppercase tracking-[0.28em] text-gold backdrop-blur">
-                    {f.badge}
-                  </span>
-                )}
-                <div className="absolute inset-x-5 bottom-5 md:inset-x-7 md:bottom-7">
-                  <p className="mb-2 text-[10px] uppercase tracking-[0.3em] text-gold/85">
-                    {f.country}
-                  </p>
-                  <h3 className="font-serif text-3xl text-cream md:text-4xl">
-                    <span className="bg-[linear-gradient(var(--gold),var(--gold))] bg-[length:0%_1.5px] bg-[position:0_100%] bg-no-repeat pb-0.5 transition-[background-size] duration-500 group-hover:bg-[length:100%_1.5px]">
-                      {f.title}
-                    </span>
-                  </h3>
-                  <p className="mt-2 max-w-md text-sm italic text-cream/85 md:text-base">
-                    {f.tagline}
-                  </p>
-                  <ul className="mt-4 flex flex-wrap gap-1.5">
-                    {f.chips.map((c) => (
-                      <li
-                        key={c}
-                        className="inline-flex items-center rounded-full border border-gold/30 bg-gold/[0.08] px-2.5 py-0.5 text-[10px] uppercase tracking-[0.18em] text-gold/90 backdrop-blur-sm"
-                      >
-                        {c}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-5 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-gold">
-                    Abrir guia
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
         </div>
       </div>
     </section>
@@ -432,9 +332,12 @@ function CityGrid() {
           transition={{ duration: 0.7 }}
           className="mb-14 max-w-2xl"
         >
-          <h2 className="font-serif text-3xl text-cream md:text-5xl">Cidades</h2>
-          <p className="mt-3 text-cream/70">
-            Cada guia é uma cidade que percorri a pé, com tempo. Abre o que te interessar.
+          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Catálogo</p>
+          <h2 className="font-serif text-3xl text-cream md:text-5xl">
+            Começa com um roteiro gratuito
+          </h2>
+          <p className="mt-4 text-cream/70 leading-relaxed">
+            Cada cidade do catálogo tem um guia completo e aberto a toda a gente, com itinerário sugerido dia a dia. Lê, guarda e parte quando quiseres. Sem registo e sem pagar nada.
           </p>
         </motion.div>
 
@@ -464,15 +367,9 @@ function MetaPills({ city, dimmed }: { city: CityMeta; dimmed?: boolean }) {
     : "border-gold/30 bg-gold/[0.08] text-gold/90";
   return (
     <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Resumo da cidade">
-      <li className={`${base} ${tone}`} title="Melhor época">
-        {city.bestSeason}
-      </li>
-      <li className={`${base} ${tone}`} title="Nível de preço">
-        {city.price}
-      </li>
-      <li className={`${base} ${tone}`} title="Ideal para">
-        {city.idealFor}
-      </li>
+      <li className={`${base} ${tone}`} title="Melhor época">{city.bestSeason}</li>
+      <li className={`${base} ${tone}`} title="Nível de preço">{city.price}</li>
+      <li className={`${base} ${tone}`} title="Ideal para">{city.idealFor}</li>
     </ul>
   );
 }
@@ -502,7 +399,6 @@ function CityCard({ city }: { city: CityMeta }) {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
 
-      {/* Selo postal no canto da capa */}
       <div className="absolute left-3 top-3">
         <PostalStamp
           code={stampCode}
@@ -520,6 +416,11 @@ function CityCard({ city }: { city: CityMeta }) {
 
       <div className="absolute inset-x-4 bottom-4">
         <div className="glass rounded-xl px-4 py-3">
+          {isReady && (
+            <span className="mb-2 inline-flex items-center rounded-full border border-gold/20 px-2 py-0.5 text-[10px] uppercase tracking-[0.22em] text-cream/60">
+              Guia gratuito
+            </span>
+          )}
           <div className="flex items-baseline justify-between gap-3">
             <h3
               className={`font-serif text-2xl leading-none ${
@@ -540,15 +441,10 @@ function CityCard({ city }: { city: CityMeta }) {
             </span>
             {isReady && (
               <span className="inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.2em] text-gold">
-                Abrir guia <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                Abrir roteiro <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
               </span>
             )}
           </div>
-          {isReady && (
-            <div className="mt-2">
-              <PremiumCardTag slug={city.slug} />
-            </div>
-          )}
         </div>
       </div>
     </article>
@@ -556,7 +452,7 @@ function CityCard({ city }: { city: CityMeta }) {
 
   if (isReady && city.to) {
     return (
-      <Link to={city.to} aria-label={`Abrir guia de ${city.name}`} className="block rounded-2xl outline-none">
+      <Link to={city.to} aria-label={`Abrir roteiro de ${city.name}`} className="block rounded-2xl outline-none">
         {inner}
       </Link>
     );
@@ -568,262 +464,267 @@ function CityCard({ city }: { city: CityMeta }) {
   );
 }
 
-function MethodStrip() {
-  const items = [
-    { icon: Footprints, label: "Feito a pé" },
-    { icon: Coffee, label: "Ritmo tranquilo" },
-    { icon: Compass, label: "Sem turistadas" },
-    { icon: Clock, label: "Horários sugeridos" },
+function MethodSection() {
+  const bullets = [
+    "Percorremos cada cidade a pé, com tempo, sem pressa de cumprir lista.",
+    "Testamos os sítios antes de os recomendar: as mesas, os miradouros, os cafés.",
+    "Ficamos só com o que vale mesmo a pena, e dizemos do que vale a pena fugir.",
+    "Sugerimos horários e percursos, nunca obrigatórios. O ritmo é teu.",
   ];
   return (
-    <section className="px-6 pb-8">
-      <div className="mx-auto max-w-5xl">
-        <p className="mb-6 text-center text-xs uppercase tracking-[0.3em] text-gold/70">
-          Como faço estes guias
+    <section className="relative px-6 py-20 md:py-24">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.7 }}
+        className="mx-auto max-w-3xl"
+      >
+        <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Método</p>
+        <h2 className="font-serif text-3xl text-cream md:text-4xl">
+          Como fazemos os roteiros
+        </h2>
+        <p className="mt-4 font-serif italic text-cream/80 md:text-lg">
+          Cada guia nasce no chão da cidade, não atrás de um ecrã.
         </p>
-        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
-          {items.map(({ icon: Icon, label }) => (
-            <li
-              key={label}
-              className="flex flex-col items-center gap-2.5 rounded-xl border border-gold/10 bg-plum/20 px-4 py-5 text-center transition-colors hover:border-gold/25"
-            >
-              <Icon className="h-5 w-5 text-gold" strokeWidth={1.5} aria-hidden />
-              <span className="text-[12px] uppercase tracking-[0.18em] text-cream/75">
-                {label}
-              </span>
+        <ul className="mt-8 space-y-4">
+          {bullets.map((b) => (
+            <li key={b} className="flex gap-3 text-cream/80 leading-relaxed">
+              <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />
+              <span>{b}</span>
             </li>
           ))}
         </ul>
-      </div>
+      </motion.div>
     </section>
   );
 }
 
-/* ----------------------- EUROPE MAP ----------------------- */
-
-const MAP_W = 1000;
-const MAP_H = 720;
-
-function EuropeMap() {
-  const reduce = useReducedMotion();
-  const [visible, setVisible] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setVisible(true)),
-      { threshold: 0.25 },
-    );
-    io.observe(ref.current);
-    return () => io.disconnect();
-  }, []);
-
-  // Connect only the active guides — a single calm line between them.
-  const activeCities = CITIES.filter((c) => c.status === "ready");
-  const pairs: Array<[CityMeta, CityMeta]> = [];
-  for (let i = 0; i < activeCities.length - 1; i++) {
-    pairs.push([activeCities[i], activeCities[i + 1]]);
-  }
-
+function TestedOnGround() {
   return (
-    <section id="mapa" className="relative px-6 py-24 md:py-32">
-      <div ref={ref} className="mx-auto max-w-5xl">
+    <section className="relative px-6 py-16 md:py-20">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.7 }}
+        className="glass mx-auto max-w-3xl rounded-2xl px-8 py-10 text-center"
+      >
+        <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">No terreno</p>
+        <h2 className="font-serif text-2xl text-cream md:text-3xl">
+          Guias que conhecem o chão que pisas
+        </h2>
+        <p className="mt-4 text-cream/75 leading-relaxed">
+          As cidades do catálogo foram percorridas pessoalmente, rua a rua. Não copiamos listas nem repetimos o que toda a gente diz. O que está aqui foi visto, provado e escolhido com critério.
+        </p>
+      </motion.div>
+    </section>
+  );
+}
+
+function EditorialNote() {
+  return (
+    <section className="relative px-6 py-16 md:py-20">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.7 }}
+        className="mx-auto max-w-2xl"
+      >
+        <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Dentro do guia</p>
+        <h2 className="font-serif text-2xl text-cream md:text-3xl">Tudo num só sítio</h2>
+        <p className="mt-4 text-cream/75 leading-relaxed">
+          Dentro de cada guia encontras também o que precisas para tratar do resto da viagem: onde ficar, que experiências reservar e como circular entre cidades. Tudo no seu lugar, à medida que lês o roteiro.
+        </p>
+      </motion.div>
+    </section>
+  );
+}
+
+function CustomItinerary() {
+  const cards = [
+    {
+      tag: "Testado no terreno",
+      title: "Roteiro Personalizado O Postal",
+      text: "Para as cidades do catálogo, que percorri pessoalmente. Feito à medida, com base em experiência direta no destino.",
+      price: "A partir de 34,90 €",
+    },
+    {
+      tag: "Curadoria digital",
+      title: "Roteiro Digital Curado",
+      text: "Para destinos fora do catálogo. Pesquisa cuidada em fontes atualizadas, sem experiência presencial, mas com o mesmo critério editorial.",
+      price: "A partir de 19,90 €",
+    },
+  ];
+  return (
+    <section id="roteiro-personalizado" className="relative px-6 py-24 md:py-32">
+      <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
-          className="mb-10 max-w-2xl"
+          className="mb-12 max-w-2xl"
         >
-          <p className="mb-3 text-xs uppercase tracking-[0.3em] text-gold/70">Constelação</p>
-          <h2 className="font-serif text-3xl text-cream md:text-5xl">O mapa das viagens</h2>
+          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">À tua medida</p>
+          <h2 className="font-serif text-3xl text-cream md:text-5xl">
+            Quando o roteiro precisa de ser teu
+          </h2>
+          <p className="mt-4 text-cream/70 leading-relaxed">
+            Os guias gratuitos servem a maioria das viagens. Mas às vezes queres algo desenhado à tua medida: o teu ritmo, os teus interesses, as tuas datas. É aí que entra o roteiro personalizado.
+          </p>
         </motion.div>
 
-        <div className="relative overflow-hidden rounded-3xl border border-gold/15 bg-plum/25 p-3 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] sm:p-6">
-          {/* sea background */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{ background: "oklch(0.16 0.035 290)" }}
-          />
-          {/* radial golden glow behind the map */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse at 45% 55%, oklch(0.82 0.14 78 / 14%), transparent 55%), radial-gradient(ellipse at 80% 20%, oklch(0.62 0.14 38 / 10%), transparent 50%)",
-            }}
-          />
-          <div
-            role="img"
-            aria-label="Mapa da Europa com as cidades visitadas"
-            className="relative"
-          >
-            <ComposableMap
-              projection="geoMercator"
-              projectionConfig={{ center: [10, 52], scale: 700 }}
-              width={MAP_W}
-              height={MAP_H}
-              style={{ width: "100%", height: "auto", display: "block" }}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+          {cards.map((c, i) => (
+            <motion.article
+              key={c.title}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, delay: i * 0.1 }}
+              className="flex flex-col rounded-2xl border border-gold/15 bg-plum/40 p-8 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.85)] transition-colors hover:border-gold/30"
             >
-              <defs>
-                <filter id="pinGlow" x="-100%" y="-100%" width="300%" height="300%">
-                  <feGaussianBlur stdDeviation="6" />
-                </filter>
-              </defs>
+              <span className="mb-4 inline-flex w-fit items-center rounded-full border border-gold/30 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.22em] text-gold/85">
+                {c.tag}
+              </span>
+              <h3 className="font-serif text-2xl text-cream md:text-3xl">{c.title}</h3>
+              <p className="mt-4 text-cream/75 leading-relaxed">{c.text}</p>
+              <p className="mt-6 border-t border-gold/15 pt-4 text-[12px] uppercase tracking-[0.25em] text-gold">
+                {c.price}
+              </p>
+            </motion.article>
+          ))}
+        </div>
 
-              <Geographies geography={worldGeo as unknown as object}>
-                {({ geographies }) =>
-                  geographies.map((geo) => (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      style={{
-                        default: {
-                          fill: "oklch(0.28 0.055 310)",
-                          stroke: "oklch(0.82 0.14 78 / 0.18)",
-                          strokeWidth: 0.4,
-                          outline: "none",
-                        },
-                        hover: {
-                          fill: "oklch(0.28 0.055 310)",
-                          stroke: "oklch(0.82 0.14 78 / 0.18)",
-                          strokeWidth: 0.4,
-                          outline: "none",
-                        },
-                        pressed: {
-                          fill: "oklch(0.28 0.055 310)",
-                          stroke: "oklch(0.82 0.14 78 / 0.18)",
-                          strokeWidth: 0.4,
-                          outline: "none",
-                        },
-                      }}
-                    />
-                  ))
-                }
-              </Geographies>
-
-              {/* connector constellation lines */}
-              {pairs.map(([a, b]) => (
-                <motion.g
-                  key={`${a.slug}-${b.slug}`}
-                  initial={reduce ? false : { opacity: 0 }}
-                  animate={reduce ? undefined : { opacity: visible ? 1 : 0 }}
-                  transition={{ duration: 1.2, delay: 0.4, ease: "easeInOut" }}
-                >
-                  <Line
-                    from={[a.coords.lng, a.coords.lat]}
-                    to={[b.coords.lng, b.coords.lat]}
-                    stroke="oklch(0.82 0.14 78 / 0.32)"
-                    strokeWidth={0.8}
-                    strokeDasharray="2 5"
-                    strokeLinecap="round"
-                  />
-                </motion.g>
-              ))}
-
-              {/* pins */}
-              {CITIES.map((city, i) => (
-                <CityMarker
-                  key={city.slug}
-                  city={city}
-                  visible={visible}
-                  reduce={!!reduce}
-                  delay={0.2 + i * 0.15}
-                />
-              ))}
-            </ComposableMap>
-          </div>
-
-          <p className="mt-6 text-center font-serif text-sm italic text-gold/85 md:text-base">
-            Uma cidade percorrida, e o mapa só vai crescer.
-          </p>
+        <div className="mt-10 text-center">
+          <a
+            href="#como-funciona"
+            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-gold gold-link"
+          >
+            Ver os roteiros personalizados
+            <ArrowRight className="h-3.5 w-3.5" />
+          </a>
         </div>
       </div>
     </section>
   );
 }
 
-function CityMarker({
-  city,
-  visible,
-  reduce,
-  delay,
-}: {
-  city: CityMeta;
-  visible: boolean;
-  reduce: boolean;
-  delay: number;
-}) {
-  const active = city.status === "ready";
-  const dotColor = active ? "oklch(0.82 0.14 78)" : "oklch(0.75 0.03 75 / 0.55)";
-  const labelClass = active
-    ? "fill-[oklch(0.96_0.02_75)] font-medium"
-    : "fill-[oklch(0.75_0.03_75/0.6)]";
-
-  const inner = (
-    <motion.g
-      initial={reduce ? false : { opacity: 0, scale: 0.4 }}
-      animate={
-        reduce ? undefined : visible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.4 }
-      }
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={active ? "cursor-pointer" : ""}
-    >
-      {active && (
-        <>
-          <circle r={18} fill={dotColor} opacity={0.25} filter="url(#pinGlow)" />
-          {!reduce && (
-            <circle r={8} fill="none" stroke={dotColor} strokeWidth={1.2}>
-              <animate attributeName="r" from="8" to="22" dur="2.4s" repeatCount="indefinite" />
-              <animate
-                attributeName="opacity"
-                from="0.7"
-                to="0"
-                dur="2.4s"
-                repeatCount="indefinite"
-              />
-            </circle>
-          )}
-        </>
-      )}
-      <circle r={active ? 5 : 3.5} fill={dotColor} />
-      {active && <circle r={2} fill="oklch(0.96 0.02 75)" />}
-      <text
-        x={active ? 12 : 9}
-        y={4}
-        fontSize={active ? 16 : 13}
-        className={labelClass}
-        style={{ fontFamily: "var(--font-serif)", letterSpacing: "0.02em" }}
-      >
-        {city.name}
-      </text>
-    </motion.g>
-  );
-
-  const marker = (
-    <Marker coordinates={[city.coords.lng, city.coords.lat]}>{inner}</Marker>
-  );
-
-  if (active && city.to) {
-    return (
-      <Link to={city.to} aria-label={`Abrir guia de ${city.name}`}>
-        {marker}
-      </Link>
-    );
-  }
+function HowItWorks() {
+  const steps = [
+    { n: "01", t: "Envias o pedido", d: "Dizes-me o destino, as datas e o que mais gostas de fazer em viagem." },
+    { n: "02", t: "Analiso o pedido", d: "Confirmo qual o tipo de roteiro mais indicado para ti e para o destino." },
+    { n: "03", t: "Recebes o teu roteiro", d: "Um plano com mapa, sugestões, tempos e contexto, pronto a seguir." },
+    { n: "04", t: "Ajusto se precisares", d: "Uma revisão pontual antes da viagem, se alguma coisa mudar." },
+  ];
   return (
-    <g aria-label={`${city.name}: em breve`} opacity={0.85}>
-      {marker}
-    </g>
+    <section id="como-funciona" className="relative px-6 py-24 md:py-32">
+      <div className="mx-auto max-w-5xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="mb-12 max-w-2xl"
+        >
+          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Processo</p>
+          <h2 className="font-serif text-3xl text-cream md:text-5xl">Como funciona</h2>
+        </motion.div>
+
+        <ol className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+          {steps.map((s, i) => (
+            <motion.li
+              key={s.n}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
+              className="rounded-2xl border border-gold/10 bg-plum/25 p-6 transition-colors hover:border-gold/25"
+            >
+              <p className="font-serif text-3xl text-gold/80">{s.n}</p>
+              <h3 className="mt-3 font-serif text-xl text-cream">{s.t}</h3>
+              <p className="mt-2 text-cream/75 leading-relaxed">{s.d}</p>
+            </motion.li>
+          ))}
+        </ol>
+
+        <div className="mt-12 text-center">
+          <a
+            href="#roteiro-personalizado"
+            className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-6 py-3 text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
+          >
+            Pedir roteiro personalizado
+            <ArrowRight className="h-3.5 w-3.5" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const FAQS: { q: string; a: string }[] = [
+  {
+    q: "Os roteiros são mesmo gratuitos?",
+    a: "São. Os guias base de cada cidade do catálogo estão abertos a toda a gente, sem registo e sem pagamento.",
+  },
+  {
+    q: "Qual é a diferença entre o roteiro gratuito e o personalizado?",
+    a: "O gratuito é um itinerário sugerido, igual para todos. O personalizado é desenhado à tua medida: o teu ritmo, os teus interesses e as tuas datas.",
+  },
+  {
+    q: "Como é que O Postal ganha dinheiro?",
+    a: "De duas formas. Com os roteiros personalizados e com ligações úteis a parceiros de reserva. Alguns desses links são afiliados, o que significa que posso receber uma pequena comissão, sem qualquer custo adicional para ti.",
+  },
+  {
+    q: "O que é um roteiro testado no terreno?",
+    a: "É um guia de uma cidade que percorri pessoalmente, a pé, antes de a recomendar. Tudo o que está no guia foi visto e provado.",
+  },
+  {
+    q: "E um Roteiro Digital Curado?",
+    a: "É um roteiro para destinos que ainda não visitei. Em vez de experiência presencial, baseia-se em pesquisa cuidada em fontes atualizadas, com o mesmo critério editorial. Digo sempre, com clareza, quando é este o caso.",
+  },
+];
+
+function Faq() {
+  return (
+    <section className="relative px-6 py-24 md:py-32">
+      <div className="mx-auto max-w-3xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="mb-10"
+        >
+          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">FAQ</p>
+          <h2 className="font-serif text-3xl text-cream md:text-4xl">Perguntas frequentes</h2>
+        </motion.div>
+        <Accordion type="single" collapsible className="w-full">
+          {FAQS.map((f, i) => (
+            <AccordionItem
+              key={f.q}
+              value={`faq-${i}`}
+              className="border-b border-gold/10"
+            >
+              <AccordionTrigger className="text-left font-serif text-lg text-cream hover:no-underline">
+                {f.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-cream/75 leading-relaxed">
+                {f.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    </section>
   );
 }
 
 function About() {
   return (
-    <section className="relative px-6 pb-24">
+    <section id="sobre" className="relative px-6 pb-24">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -836,8 +737,7 @@ function About() {
           Viajar devagar, sem turistadas.
         </h2>
         <p className="mt-4 text-cream/75 leading-relaxed">
-          Estes guias são feitos com cuidado. Percorremos cada rua a pé, provámos antes de recomendar, ouvimos cada concerto.
-          Aqui só fica o que valeu a pena: horários sugeridos, nunca obrigatórios. Adapta ao teu ritmo.
+          Estes guias são feitos com cuidado. Percorremos cada rua a pé, provámos antes de recomendar, ouvimos cada concerto. Aqui só fica o que valeu a pena: horários sugeridos, nunca obrigatórios. Adapta ao teu ritmo.
         </p>
       </motion.div>
     </section>
@@ -845,54 +745,32 @@ function About() {
 }
 
 function SiteFooter() {
-  return SiteFooterImpl();
-}
-
-function PostcardBlock() {
-  return (
-    <section className="relative px-6 pb-20 md:pb-28">
-      <div className="mx-auto max-w-5xl">
-        <p className="mb-6 text-center text-[11px] uppercase tracking-[0.35em] text-gold/80">
-          Um postal para ti
-        </p>
-        <PostcardBack
-          city="O POSTAL"
-          stampCode="OP"
-          message={
-            <>
-              Saudações da Europa. Os guias aqui são pequenos postais&nbsp;—
-              pensados a pé, ao ritmo de quem se senta no café antes de subir
-              a colina. Espero que o próximo seja o teu.
-            </>
-          }
-          signature="O Postal"
-          addressLines={[
-            "Para: viajante curioso",
-            "Algures na Europa",
-            "Próxima paragem a teu gosto",
-          ]}
-        />
-      </div>
-    </section>
-  );
-}
-
-function SiteFooterImpl() {
-  const [copied, setCopied] = useState(false);
-  const handleCopy = async () => {
-    try {
-      const url = typeof window !== "undefined" ? window.location.href : "";
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* noop */
-    }
-  };
+  const links = [
+    { href: "#cidades", label: "Roteiros gratuitos" },
+    { href: "#roteiro-personalizado", label: "Roteiro personalizado" },
+    { href: "#como-funciona", label: "Como funciona" },
+    { href: "#sobre", label: "Sobre" },
+    { href: "mailto:contacto@opostal.pt", label: "Contacto" },
+  ];
   return (
     <footer className="border-t border-gold/10 px-6 py-12">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
-        <div className="space-y-1.5">
+      <div className="mx-auto flex max-w-5xl flex-col gap-6 text-center sm:text-left">
+        <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 sm:justify-start">
+          {links.map((l) => (
+            <li key={l.href}>
+              <a
+                href={l.href}
+                className="text-[11px] uppercase tracking-[0.22em] text-cream/65 transition-colors hover:text-gold"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p className="text-[11px] text-cream/40 leading-relaxed">
+          Alguns dos links de reserva são afiliados. Só recomendo o que faz sentido para a viagem.
+        </p>
+        <div className="flex flex-col gap-1.5 border-t border-gold/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-cream/55">
             O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
           </p>
@@ -900,15 +778,6 @@ function SiteFooterImpl() {
             Fotos: Unsplash · Wikimedia Commons
           </p>
         </div>
-        <button
-          type="button"
-          onClick={handleCopy}
-          className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-2 text-[11px] uppercase tracking-[0.2em] text-gold transition-colors hover:border-gold/60 hover:bg-gold/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          aria-live="polite"
-        >
-          <Link2 className="h-3.5 w-3.5" />
-          {copied ? "Link copiado" : "Copiar link"}
-        </button>
       </div>
     </footer>
   );
