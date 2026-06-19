@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { zodValidator, fallback } from "@tanstack/zod-adapter";
+import { zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ import {
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/[FORMSPREE_FORM_ID]";
 
 const searchSchema = z.object({
-  destino: fallback(z.string().optional(), undefined),
+  destino: z.string().optional(),
 });
 
 export const Route = createFileRoute("/roteiro-personalizado")({
