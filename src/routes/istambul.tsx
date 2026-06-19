@@ -22,7 +22,6 @@ import {
   Phone,
   HandCoins,
   Languages,
-  Ticket,
   ExternalLink,
   Footprints,
   Ship,
@@ -75,9 +74,11 @@ import d5S3 from "@/assets/istambul/d5-s3.jpg";
 import d5S4 from "@/assets/istambul/d5-s4.jpg";
 import d5S5 from "@/assets/istambul/d5-s5.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
-import { PremiumGate } from "@/components/PremiumGate";
-import { GuidePreviewGate } from "@/components/GuidePreviewGate";
-import { EndOfArticleCTA } from "@/components/PremiumPromo";
+import { AffiliateLink } from "@/components/AffiliateLink";
+import {
+  CustomItineraryCTA,
+  CustomItineraryHeroLink,
+} from "@/components/CustomItineraryCTA";
 
 export const Route = createFileRoute("/istambul")({
   head: () => ({
@@ -342,7 +343,7 @@ const days: Day[] = [
         img: d1S2,
         imgAlt: "Interior da Hagia Sophia",
         icon: Church,
-        bookingUrl: "https://muze.gen.tr/muze-detay/ayasofya",
+        bookingUrl: "[LINK_GETYOURGUIDE_ISTAMBUL_HAGIA_SOFIA]",
         hours: "~9:00, fechada nas horas de oração",
         walkTo: "~3 min",
       },
@@ -372,7 +373,7 @@ const days: Day[] = [
         desc: "336 colunas e as cabeças de Medusa invertidas. Cara mas única; bilhete online para saltar a fila.",
         link: "https://pt.wikipedia.org/wiki/Cisterna_da_Bas%C3%ADlica",
         icon: Castle,
-        bookingUrl: "https://yerebatan.com/en/",
+        bookingUrl: "[LINK_GETYOURGUIDE_ISTAMBUL_CISTERNA_BASILICA]",
         hours: "~9:00–22:00",
         img: d1S5,
         imgAlt: "Colunas da Cisterna da Basílica",
@@ -403,7 +404,7 @@ const days: Day[] = [
         desc: "Logo à abertura. Fechado às terças. Paga o extra do Harém (vale a pena) e vai ao 4.º pátio pelas vistas do Bósforo.",
         link: "https://pt.wikipedia.org/wiki/Pal%C3%A1cio_de_Topkap%C4%B1",
         icon: Crown,
-        bookingUrl: "https://muze.gen.tr/muze-detay/topkapi",
+        bookingUrl: "[LINK_GETYOURGUIDE_ISTAMBUL_TOPKAPI]",
         hours: "~9:00–18:00",
         hoursNote: "FECHADO ÀS TERÇAS",
         img: d2S1,
@@ -465,7 +466,7 @@ const days: Day[] = [
         desc: "Luxo otomano-europeu à beira do Bósforo, candelabros gigantes. Fechado às segundas. Vai cedo; audioguia recomendado.",
         link: "https://pt.wikipedia.org/wiki/Pal%C3%A1cio_de_Dolmabah%C3%A7e",
         icon: Crown,
-        bookingUrl: "https://www.millisaraylar.gov.tr/saraylar/dolmabahce-sarayi",
+        bookingUrl: "[LINK_GETYOURGUIDE_ISTAMBUL_DOLMABAHCE]",
         hours: "~9:00–16:00",
         hoursNote: "FECHADO ÀS SEGUNDAS",
         img: d3S1,
@@ -609,7 +610,7 @@ const days: Day[] = [
         img: d5S4,
         imgAlt: "Torre de Gálata",
         icon: Castle,
-        bookingUrl: "https://galatakulesi.gov.tr/",
+        bookingUrl: "[LINK_GETYOURGUIDE_ISTAMBUL_TORRE_GALATA]",
         hours: "~8:30–23:00",
         walkTo: "~15 min",
       },
@@ -685,6 +686,7 @@ function Hero() {
             <EightPointStar className="h-4 w-4 text-gold/80" />
           </div>
         </motion.div>
+        <CustomItineraryHeroLink />
       </motion.div>
     </section>
   );
@@ -779,18 +781,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
 
         {(stop.hours || stop.bookingUrl) && (
           <div className="mt-4 flex flex-wrap items-center gap-3">
-            {stop.bookingUrl && (
-              <a
-                href={stop.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.78_0.14_200/0.6)]"
-              >
-                <Ticket className="h-3.5 w-3.5" />
-                Reservar
-                <ExternalLink className="h-3 w-3 opacity-70" />
-              </a>
-            )}
+            {stop.bookingUrl && <AffiliateLink href={stop.bookingUrl} />}
             {stop.hours && (
               <div className="flex flex-col gap-0.5">
                 <div className="flex items-center gap-2 text-xs text-cream/80">
@@ -990,12 +981,9 @@ function Itineraries() {
       intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
-        <GuidePreviewGate
-          slug="istambul"
-          days={days}
-          sampleDays={1}
-          renderDay={(d) => <DayBlock day={d} />}
-        />
+        {days.map((d) => (
+          <DayBlock key={d.key} day={d} />
+        ))}
       </div>
     </Section>
   );
@@ -1354,14 +1342,12 @@ function IstambulPage() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PremiumGate slug="istambul">
-        <GuideVideo />
-        <Bosforo />
-        <Food />
-        <Tips />
-        <Checklist />
-      </PremiumGate>
-      <EndOfArticleCTA slug="istambul" />
+      <GuideVideo />
+      <Bosforo />
+      <Food />
+      <Tips />
+      <Checklist />
+      <CustomItineraryCTA city="Istambul" />
       <Footer />
     </main>
   );
@@ -1518,7 +1504,7 @@ function GuideVideo() {
       id="video"
       eyebrow="Vídeo do guia"
       title="Vídeo do guia"
-      intro="O vídeo completo deste guia, disponível com o seu acesso."
+      intro="Vídeo completo do guia."
     >
       <motion.div
         initial="hidden"
@@ -1542,7 +1528,7 @@ function GuideVideo() {
         </div>
         <p className="mt-5 text-center font-serif italic text-gold/90 flex items-center justify-center gap-2">
           <Play className="h-4 w-4" aria-hidden />
-          O vídeo completo deste guia, disponível com o seu acesso.
+          Vídeo completo do guia.
         </p>
       </motion.div>
     </Section>
@@ -1813,6 +1799,17 @@ function EssentialInfo() {
               </div>
               <h3 className="font-serif text-xl text-cream">{e.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
+              {e.title === "Transportes" && (
+                <a
+                  href="[LINK_OMIO_ISTAMBUL]"
+                  target="_blank"
+                  rel="sponsored noopener"
+                  className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+                >
+                  Procurar comboios e autocarros
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              )}
             </motion.div>
           );
         })}
@@ -1837,12 +1834,30 @@ function EssentialInfo() {
             <p className="mt-2 text-sm text-muted-foreground">
               Central e histórico, a pé dos grandes monumentos. Ideal para a 1.ª visita.
             </p>
+            <a
+              href="[LINK_BOOKING_ISTAMBUL_SULTANAHMET]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Sultanahmet
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Beyoğlu / Galata</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Moderno e animado, cafés, rooftops e vida noturna. Bom para quem quer movimento.
             </p>
+            <a
+              href="[LINK_BOOKING_ISTAMBUL_BEYOGLU_GALATA]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Beyoğlu / Galata
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Kadıköy (lado asiático)</h4>
@@ -1850,6 +1865,15 @@ function EssentialInfo() {
               Jovem, local e descontraído, mercado de comida e esplanadas à beira-mar. Mais barato e
               autêntico, a um ferry do centro.
             </p>
+            <a
+              href="[LINK_BOOKING_ISTAMBUL_KADIKOY]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Kadıköy
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
         </ul>
       </motion.div>

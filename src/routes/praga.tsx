@@ -46,10 +46,11 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
-import { PremiumGate } from "@/components/PremiumGate";
-import { GuidePreviewGate } from "@/components/GuidePreviewGate";
-import { EndOfArticleCTA } from "@/components/PremiumPromo";
 import { AffiliateLink } from "@/components/AffiliateLink";
+import {
+  CustomItineraryCTA,
+  CustomItineraryHeroLink,
+} from "@/components/CustomItineraryCTA";
 
 export const Route = createFileRoute("/praga")({
   head: () => ({
@@ -248,7 +249,7 @@ const days: Day[] = [
         link: "https://pt.wikipedia.org/wiki/Josefov",
         tip: "Bilhete combinado para várias sinagogas, vale a pena se as pernas aguentarem.",
         icon: Church,
-        bookingUrl: "https://www.jewishmuseum.cz/en/",
+        bookingUrl: "[LINK_GETYOURGUIDE_PRAGA_BAIRRO_JUDAICO]",
         hours: "Dom–Sex ~9:00–18:00",
         hoursNote: "FECHA AOS SÁBADOS",
         walkTo: "~4 min",
@@ -297,8 +298,7 @@ const days: Day[] = [
         img: "https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1200&q=80",
         imgAlt: "Vitrais interiores da Catedral de São Vito",
         icon: Castle,
-        bookingUrl: "https://gyg.me/UcZAB6XK",
-        affiliate: true,
+        bookingUrl: "[LINK_GETYOURGUIDE_PRAGA_CASTELO]",
         hours: "~9:00–17:00",
         walkTo: "~12 min",
       },
@@ -342,8 +342,8 @@ const days: Day[] = [
     transport: {
       title: "Como chegar a Kutná Hora",
       text: "Comboio de Praha hl.n. → Kutná Hora (~55 min)",
-      primaryLabel: "Ver horários (ČD)",
-      primaryUrl: "https://www.cd.cz/en/",
+      primaryLabel: "Procurar comboios e autocarros",
+      primaryUrl: "[LINK_OMIO_PRAGA]",
       note: "Dentro de Kutná Hora, do Ossário de Sedlec ao centro são ~2,5 km, usar autocarro/táxi local.",
       secondaryLabel: "Abrir Sedlec → centro no Google Maps",
       secondaryUrl:
@@ -355,7 +355,7 @@ const days: Day[] = [
         title: "Comboio para Kutná Hora",
         desc: "Saída da Hlavní Nádraží. ~1h de viagem confortável, lugares marcados.",
         icon: Train,
-        bookingUrl: "https://www.cd.cz/en/",
+        bookingUrl: "[LINK_OMIO_PRAGA]",
       },
       {
         time: "10:00",
@@ -363,7 +363,7 @@ const days: Day[] = [
         desc: "Joia gótica patrocinada pelos mineiros de prata. Tetos abobadados de cortar a respiração.",
         link: "https://pt.wikipedia.org/wiki/Catedral_de_Santa_B%C3%A1rbara",
         icon: Church,
-        bookingUrl: "https://khfarnost.cz/en/",
+        bookingUrl: "[LINK_GETYOURGUIDE_PRAGA_KUTNA_HORA]",
         hours: "~9:00–18:00",
         walkTo: "Sedlec ↔ centro ~2,5 km, usar autocarro/táxi local",
       },
@@ -376,7 +376,7 @@ const days: Day[] = [
         img: "https://commons.wikimedia.org/wiki/Special:FilePath/Ossuary_in_Sedlec.JPG?width=1200",
         imgAlt: "Lustre feito de ossos humanos no Ossário de Sedlec",
         icon: AlertTriangle,
-        bookingUrl: "https://www.sedlec.info/en/",
+        bookingUrl: "[LINK_GETYOURGUIDE_PRAGA_OSSARIO]",
         hours: "~9:00–18:00",
         hoursNote: "ENTRADA POR HORÁRIO MARCADO",
       },
@@ -485,6 +485,7 @@ function Hero() {
             vistas longas, e o melhor da Boémia, para qualquer viajante.
           </p>
         </motion.div>
+        <CustomItineraryHeroLink />
       </motion.div>
 
     </section>
@@ -583,21 +584,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
 
         {(stop.hours || stop.bookingUrl) && (
           <div className="mt-4 flex flex-wrap items-center gap-3">
-            {stop.bookingUrl &&
-              (stop.affiliate ? (
-                <AffiliateLink href={stop.bookingUrl} />
-              ) : (
-                <a
-                  href={stop.bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
-                >
-                  <Ticket className="h-3.5 w-3.5" />
-                  Reservar
-                  <ExternalLink className="h-3 w-3 opacity-70" />
-                </a>
-              ))}
+            {stop.bookingUrl && <AffiliateLink href={stop.bookingUrl} />}
             {stop.hours && (
               <div className="flex flex-col gap-0.5">
                 <div className="flex items-center gap-2 text-xs text-cream/80">
@@ -803,7 +790,7 @@ function DayBlock({ day }: { day: Day }) {
               <a
                 href={day.transport.primaryUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="sponsored noopener"
                 className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2 text-xs font-medium uppercase tracking-[0.2em] text-twilight hover:bg-gold/90"
               >
                 <Ticket className="h-3.5 w-3.5" />
@@ -847,12 +834,9 @@ function Itineraries() {
       intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
-        <GuidePreviewGate
-          slug="praga"
-          days={days}
-          sampleDays={1}
-          renderDay={(d) => <DayBlock day={d} />}
-        />
+        {days.map((d) => (
+          <DayBlock key={d.key} day={d} />
+        ))}
       </div>
     </Section>
   );
@@ -944,31 +928,22 @@ function Concerts() {
 
             {t.highlight && (
               <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="https://www.rudolfinum.cz/en/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
-                >
-                  <Ticket className="h-3.5 w-3.5" />
-                  Reservar Rudolfinum
-                  <ExternalLink className="h-3 w-3 opacity-70" />
-                </a>
-                <a
-                  href="https://www.obecnidum.cz/en/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
-                >
-                  <Ticket className="h-3.5 w-3.5" />
-                  Reservar Casa Municipal
-                  <ExternalLink className="h-3 w-3 opacity-70" />
-                </a>
+                <AffiliateLink
+                  href="[LINK_GETYOURGUIDE_PRAGA_CONCERTO]"
+                  label="Reservar Rudolfinum"
+                />
+                <AffiliateLink
+                  href="[LINK_GETYOURGUIDE_PRAGA_CONCERTO]"
+                  label="Reservar Casa Municipal"
+                />
               </div>
             )}
               {!t.highlight && (
               <div className="mt-6 flex flex-wrap gap-3">
-                <AffiliateLink href="https://gyg.me/CdaAOkPP" label="Reservar concerto" />
+                <AffiliateLink
+                  href="[LINK_GETYOURGUIDE_PRAGA_CONCERTO]"
+                  label="Reservar concerto"
+                />
               </div>
             )}
             <p className="mt-6 border-t border-gold/15 pt-5 text-sm italic text-cream/80">
@@ -1270,14 +1245,12 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PremiumGate slug="praga">
-        <GuideVideo />
-        <Concerts />
-        <Food />
-        <Tips />
-        <Checklist />
-      </PremiumGate>
-      <EndOfArticleCTA slug="praga" />
+      <GuideVideo />
+      <Concerts />
+      <Food />
+      <Tips />
+      <Checklist />
+      <CustomItineraryCTA city="Praga" />
       <Footer />
     </main>
   );
@@ -1436,7 +1409,7 @@ function GuideVideo() {
       id="video"
       eyebrow="Vídeo do guia"
       title="Vídeo do guia"
-      intro="O vídeo completo deste guia, disponível com o seu acesso."
+      intro="Vídeo completo do guia."
     >
       <motion.div
         initial="hidden"
@@ -1460,7 +1433,7 @@ function GuideVideo() {
         </div>
         <p className="mt-5 text-center font-serif italic text-gold/90 flex items-center justify-center gap-2">
           <Play className="h-4 w-4" aria-hidden />
-          O vídeo completo deste guia, disponível com o seu acesso.
+          Vídeo completo do guia.
         </p>
       </motion.div>
     </Section>
@@ -1750,6 +1723,17 @@ function EssentialInfo() {
               </div>
               <h3 className="font-serif text-xl text-cream">{e.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
+              {e.title === "Transportes" && (
+                <a
+                  href="[LINK_OMIO_PRAGA]"
+                  target="_blank"
+                  rel="sponsored noopener"
+                  className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+                >
+                  Procurar comboios e autocarros
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              )}
             </motion.div>
           );
         })}
@@ -1777,18 +1761,45 @@ function EssentialInfo() {
             <p className="mt-2 text-sm text-muted-foreground">
               Central, a pé de tudo. Ideal para quem quer sair do hotel e estar logo no meio da ação.
             </p>
+            <a
+              href="[LINK_BOOKING_PRAGA_STARE_MESTO]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Cidade Velha
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Malá Strana</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Charmosa, junto ao castelo. Ruas tranquilas à noite e vistas postal-perfeitas.
             </p>
+            <a
+              href="[LINK_BOOKING_PRAGA_MALA_STRANA]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Malá Strana
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Nové Město</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Mais barato e bem servido de metro. Boa relação qualidade-preço sem perder ligação ao centro.
             </p>
+            <a
+              href="[LINK_BOOKING_PRAGA_NOVE_MESTO]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Nové Město
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
         </ul>
       </motion.div>

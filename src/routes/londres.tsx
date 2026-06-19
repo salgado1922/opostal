@@ -47,9 +47,11 @@ import {
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import londresFallback from "@/assets/city-londres.jpg";
-import { PremiumGate } from "@/components/PremiumGate";
-import { EndOfArticleCTA } from "@/components/PremiumPromo";
-import { GuidePreviewGate } from "@/components/GuidePreviewGate";
+import { AffiliateLink } from "@/components/AffiliateLink";
+import {
+  CustomItineraryCTA,
+  CustomItineraryHeroLink,
+} from "@/components/CustomItineraryCTA";
 
 export const Route = createFileRoute("/londres")({
   head: () => ({
@@ -337,7 +339,7 @@ const days: Day[] = [
         link: "https://pt.wikipedia.org/wiki/Pal%C3%A1cio_de_Buckingham",
         tip: "Confirmar sempre o calendário oficial em householddivision.org.uk antes de organizar a manhã.",
         icon: Crown,
-        bookingUrl: "https://www.householddivision.org.uk/changing-the-guard",
+        bookingUrl: "[LINK_GETYOURGUIDE_LONDRES_CHANGING_OF_THE_GUARD]",
         hours: "Em dias selecionados ~10:45–11:30",
         hoursNote: "Horário sujeito a alterações; confirmar",
         walkTo: "~15 min até Hyde Park",
@@ -367,7 +369,7 @@ const days: Day[] = [
         desc: "Entrada gratuita. Um único museu forte, em vez de tentar três. O hall com o esqueleto da baleia, a galeria dos dinossauros, a sala dos minerais. Duas horas chegam e saem-se a ganhar.",
         link: "https://www.nhm.ac.uk/",
         icon: Sparkles,
-        bookingUrl: "https://www.nhm.ac.uk/",
+        bookingUrl: "[LINK_GETYOURGUIDE_LONDRES_NATURAL_HISTORY]",
         hours: "Diário ~10:00–17:50",
         hoursNote: "Entrada gratuita, exposições temporárias pagam à parte",
         walkTo: "~10 min",
@@ -408,7 +410,7 @@ const days: Day[] = [
         desc: "A cúpula de Wren a desenhar a City. Por dentro, vale para quem quer entrar; por fora e da praça, já cumpre. Os arredores são bons para fotografar a cúpula sem multidão.",
         link: "https://pt.wikipedia.org/wiki/Catedral_de_S%C3%A3o_Paulo_(Londres)",
         icon: Church,
-        bookingUrl: "https://www.stpauls.co.uk/",
+        bookingUrl: "[LINK_GETYOURGUIDE_LONDRES_ST_PAULS]",
         hours: "Seg–Sáb ~8:30–16:30",
         hoursNote: "Não visitável aos domingos (culto)",
         walkTo: "~12 min",
@@ -422,7 +424,7 @@ const days: Day[] = [
         link: "https://skygarden.london/",
         tip: "Reservar online com 1 a 2 semanas de antecedência. Levar documento, há controlo de identidade à entrada.",
         icon: Sparkles,
-        bookingUrl: "https://skygarden.london/",
+        bookingUrl: "[LINK_GETYOURGUIDE_LONDRES_SKY_GARDEN]",
         hours: "Slots gratuitos, reserva obrigatória",
         walkTo: "~15 min até Borough Market",
         image: COMMONS("The Sky Garden.jpg"),
@@ -447,7 +449,7 @@ const days: Day[] = [
         desc: "Entrada gratuita na coleção permanente da Tate Modern, dentro da antiga central elétrica de Bankside. Para quem não está com paciência de museu, atravessar a Millennium Bridge a pé já compensa, com St Paul's em frente.",
         link: "https://www.tate.org.uk/visit/tate-modern",
         icon: Sparkles,
-        bookingUrl: "https://www.tate.org.uk/visit/tate-modern",
+        bookingUrl: "[LINK_GETYOURGUIDE_LONDRES_TATE_MODERN]",
         hours: "Diário ~10:00–18:00",
         hoursNote: "Sextas e sábados até ~22:00",
         walkTo: "~5 min",
@@ -495,7 +497,7 @@ const days: Day[] = [
         link: "https://www.madametussauds.com/london/",
         tip: "Combinar com um café em Marylebone High Street ou um passeio rápido em Regent's Park, ali ao lado.",
         icon: Camera,
-        bookingUrl: "https://www.madametussauds.com/london/",
+        bookingUrl: "[LINK_GETYOURGUIDE_LONDRES_MADAME_TUSSAUDS]",
         hours: "Diário ~10:00–17:00",
         hoursNote: "Horário varia conforme estação; confirmar online",
         walkTo: "~15 min até Regent's Park",
@@ -524,7 +526,7 @@ const days: Day[] = [
         link: "https://www.wbstudiotour.co.uk/",
         tip: "Reservar com várias semanas (ou meses) de antecedência. Há pacotes com transporte de Londres incluído que poupam logística.",
         icon: Wand2,
-        bookingUrl: "https://www.wbstudiotour.co.uk/",
+        bookingUrl: "[LINK_GETYOURGUIDE_LONDRES_WB_STUDIO_TOUR]",
         hours: "Diário, slots horários, reserva obrigatória",
         hoursNote: "Esgota com muita antecedência",
         image: COMMONS("Entrance to the Making of Harry Potter studio tour.jpg"),
@@ -648,6 +650,7 @@ function Hero() {
             Uma cidade para viver sem pressa, quase tudo a pé, com parques pelo meio, mercados, um pub honesto e um dia extra opcional para quem cresceu com Harry Potter.
           </p>
         </motion.div>
+        <CustomItineraryHeroLink />
       </motion.div>
     </section>
   );
@@ -765,18 +768,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
 
         {(stop.hours || stop.bookingUrl) && (
           <div className="mt-4 flex flex-wrap items-center gap-3">
-            {stop.bookingUrl && (
-              <a
-                href={stop.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.78_0.10_78/0.6)]"
-              >
-                <Ticket className="h-3.5 w-3.5" />
-                Site oficial
-                <ExternalLink className="h-3 w-3 opacity-70" />
-              </a>
-            )}
+            {stop.bookingUrl && <AffiliateLink href={stop.bookingUrl} />}
             {stop.hours && (
               <div className="flex flex-col gap-0.5">
                 <div className="flex items-center gap-2 text-xs text-cream/80">
@@ -943,15 +935,12 @@ function Itineraries() {
       id="dias"
       eyebrow="Itinerário detalhado"
       title="Dia a dia, paragem a paragem"
-      intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo. O Dia 1 fica disponível como amostra; o resto do itinerário detalhado faz parte do guia completo."
+      intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
-        <GuidePreviewGate
-          slug="londres"
-          days={days}
-          sampleDays={1}
-          renderDay={(d) => <DayBlock day={d} />}
-        />
+        {days.map((d) => (
+          <DayBlock key={d.key} day={d} />
+        ))}
       </div>
     </Section>
   );
@@ -1380,15 +1369,13 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PremiumGate slug="londres">
-        <AlternativaSemEstudios />
-        <GuideVideo />
-        <HarryPotterVs />
-        <Food />
-        <Tips />
-        <Checklist />
-      </PremiumGate>
-      <EndOfArticleCTA slug="londres" />
+      <AlternativaSemEstudios />
+      <GuideVideo />
+      <HarryPotterVs />
+      <Food />
+      <Tips />
+      <Checklist />
+      <CustomItineraryCTA city="Londres" />
       <Footer />
     </main>
   );
@@ -1549,7 +1536,7 @@ function GuideVideo() {
       id="video"
       eyebrow="Vídeo do guia"
       title="Vídeo do guia"
-      intro="O vídeo completo deste guia, disponível com o seu acesso."
+      intro="Vídeo completo do guia."
     >
       <motion.div
         initial="hidden"
@@ -1571,7 +1558,7 @@ function GuideVideo() {
         </div>
         <p className="mt-5 text-center font-serif italic text-gold/90 flex items-center justify-center gap-2">
           <Play className="h-4 w-4" aria-hidden />
-          O vídeo completo deste guia, disponível com o seu acesso.
+          Vídeo completo do guia.
         </p>
       </motion.div>
     </Section>
@@ -1818,6 +1805,17 @@ function EssentialInfo() {
               </div>
               <h3 className="font-serif text-xl text-cream">{e.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
+              {e.title === "Transportes" && (
+                <a
+                  href="[LINK_OMIO_LONDRES]"
+                  target="_blank"
+                  rel="sponsored noopener"
+                  className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+                >
+                  Procurar comboios e autocarros
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              )}
             </motion.div>
           );
         })}
@@ -1843,18 +1841,45 @@ function EssentialInfo() {
             <p className="mt-2 text-sm text-muted-foreground">
               A pé do West End, dos teatros e da South Bank; central, animado, mais caro.
             </p>
+            <a
+              href="[LINK_BOOKING_LONDRES_COVENT_GARDEN_SOHO]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Covent Garden / Soho
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">South Bank / London Bridge</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Junto ao rio e ao Borough Market, com fácil acesso à City e a Westminster pelo Tamisa.
             </p>
+            <a
+              href="[LINK_BOOKING_LONDRES_SOUTH_BANK]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em South Bank / London Bridge
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Kensington / South Kensington</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Calmo, residencial, com museus à porta e ligação direta de metro ao centro.
             </p>
+            <a
+              href="[LINK_BOOKING_LONDRES_KENSINGTON]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Kensington / South Kensington
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
         </ul>
       </motion.div>

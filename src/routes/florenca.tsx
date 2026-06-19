@@ -22,7 +22,6 @@ import {
   Phone,
   HandCoins,
   Languages,
-  Ticket,
   ExternalLink,
   Footprints,
   Menu,
@@ -44,9 +43,11 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
-import { PremiumGate } from "@/components/PremiumGate";
-import { EndOfArticleCTA } from "@/components/PremiumPromo";
-import { GuidePreviewGate } from "@/components/GuidePreviewGate";
+import { AffiliateLink } from "@/components/AffiliateLink";
+import {
+  CustomItineraryCTA,
+  CustomItineraryHeroLink,
+} from "@/components/CustomItineraryCTA";
 
 export const Route = createFileRoute("/florenca")({
   head: () => ({
@@ -245,7 +246,7 @@ const days: Day[] = [
         link: "https://pt.wikipedia.org/wiki/Galleria_dell%27Accademia",
         tip: "Reservar slot online; esgota e a fila é enorme.",
         icon: Crown,
-        bookingUrl: "https://www.galleriaaccademiafirenze.it/en/",
+        bookingUrl: "[LINK_GETYOURGUIDE_FLORENCA_ACCADEMIA]",
         hours: "Ter–Dom ~8:15–18:50",
         hoursNote: "FECHA À SEGUNDA",
         walkTo: "~18 min",
@@ -304,7 +305,7 @@ const days: Day[] = [
         link: "https://pt.wikipedia.org/wiki/Gal%C3%A9ria_Uffizi",
         tip: "Reservar slot horário com semanas de antecedência.",
         icon: Palette,
-        bookingUrl: "https://www.uffizi.it/en",
+        bookingUrl: "[LINK_GETYOURGUIDE_FLORENCA_UFFIZI]",
         hours: "Ter–Dom ~8:15–18:30",
         hoursNote: "FECHA À SEGUNDA",
         walkTo: "~15 min",
@@ -323,7 +324,7 @@ const days: Day[] = [
         desc: "O grande palácio dos Medici, com galerias de pintura e apartamentos reais.",
         link: "https://pt.wikipedia.org/wiki/Pal%C3%A1cio_Pitti",
         icon: Crown,
-        bookingUrl: "https://www.uffizi.it/en/pitti-palace",
+        bookingUrl: "[LINK_GETYOURGUIDE_FLORENCA_PALAZZO_PITTI]",
         hours: "Ter–Dom ~8:15–18:30",
         walkTo: "~2 min",
       },
@@ -333,7 +334,7 @@ const days: Day[] = [
         desc: "Jardins à italiana atrás do Pitti, bom para abrandar.",
         link: "https://pt.wikipedia.org/wiki/Jardim_de_Boboli",
         icon: Sparkles,
-        bookingUrl: "https://www.uffizi.it/en/boboli-garden",
+        bookingUrl: "[LINK_GETYOURGUIDE_FLORENCA_BOBOLI]",
         hours: "Diário ~8:15 até ao pôr do sol",
         walkTo: "~25 min a subir, ou autocarro 12/13",
       },
@@ -372,7 +373,7 @@ const days: Day[] = [
         desc: "Entrada na catedral. Nota honesta: baixar as expectativas, é muito mais bonito por fora do que por dentro. O interior é sóbrio, com destaque para os frescos do Juízo Final de Vasari na cúpula.",
         link: "https://pt.wikipedia.org/wiki/Catedral_de_Santa_Maria_del_Fiore",
         icon: Church,
-        bookingUrl: "https://duomo.firenze.it/en/home",
+        bookingUrl: "[LINK_GETYOURGUIDE_FLORENCA_DUOMO]",
         hours: "Seg–Sáb ~10:15–16:30",
         walkTo: "~1 min",
       },
@@ -382,7 +383,7 @@ const days: Day[] = [
         desc: "Em vez da subida à cúpula: são 414 degraus, e a grande vantagem é veres a própria cúpula de Brunelleschi à tua frente, a vista mais bonita da cidade. Ver a secção Duomo abaixo. Reservar com o Brunelleschi Pass.",
         link: "https://pt.wikipedia.org/wiki/Campan%C3%A1rio_de_Giotto",
         icon: Crown,
-        bookingUrl: "https://duomo.firenze.it/en/home",
+        bookingUrl: "[LINK_GETYOURGUIDE_FLORENCA_DUOMO]",
         hours: "Diário ~8:15–19:00",
         walkTo: "~2 min",
       },
@@ -392,7 +393,7 @@ const days: Day[] = [
         desc: "O Batistério por dentro (mosaicos dourados no teto) e o Museu dell'Opera del Duomo (a Pietà de Michelangelo e as portas originais de Ghiberti).",
         link: "https://pt.wikipedia.org/wiki/Bapt%C3%A9rio_de_S%C3%A3o_Jo%C3%A3o_(Floren%C3%A7a)",
         icon: Sparkles,
-        bookingUrl: "https://duomo.firenze.it/en/home",
+        bookingUrl: "[LINK_GETYOURGUIDE_FLORENCA_DUOMO]",
         walkTo: "~15 min",
       },
       {
@@ -401,7 +402,7 @@ const days: Day[] = [
         desc: "A igreja dos túmulos, com Michelangelo, Galileu e Maquiavel, e capelas com frescos de Giotto.",
         link: "https://pt.wikipedia.org/wiki/Bas%C3%ADlica_de_Santa_Cruz_(Floren%C3%A7a)",
         icon: Church,
-        bookingUrl: "https://www.santacroceopera.it/en/",
+        bookingUrl: "[LINK_GETYOURGUIDE_FLORENCA_SANTA_CROCE]",
         hours: "Seg–Sáb ~9:30–17:30",
         walkTo: "~15 min",
         image:
@@ -414,7 +415,7 @@ const days: Day[] = [
         desc: "Os túmulos da família Medici e a Sacristia Nova, esculpida por Michelangelo.",
         link: "https://pt.wikipedia.org/wiki/Capelas_M%C3%A9dici",
         icon: Crown,
-        bookingUrl: "https://cappellemedicee.it/en/",
+        bookingUrl: "[LINK_GETYOURGUIDE_FLORENCA_CAPPELLE_MEDICEE]",
         hours: "Diário ~8:15–18:50",
         hoursNote: "VERIFICAR FECHO MENSAL",
       },
@@ -476,6 +477,7 @@ function Hero() {
             Um guia público para descobrir Florença sem pressa: berço do Renascimento, museu a céu aberto, arte a cada esquina, para qualquer viajante.
           </p>
         </motion.div>
+        <CustomItineraryHeroLink />
       </motion.div>
     </section>
   );
@@ -587,18 +589,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
 
         {(stop.hours || stop.bookingUrl) && (
           <div className="mt-4 flex flex-wrap items-center gap-3">
-            {stop.bookingUrl && (
-              <a
-                href={stop.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
-              >
-                <Ticket className="h-3.5 w-3.5" />
-                Reservar
-                <ExternalLink className="h-3 w-3 opacity-70" />
-              </a>
-            )}
+            {stop.bookingUrl && <AffiliateLink href={stop.bookingUrl} />}
             {stop.hours && (
               <div className="flex flex-col gap-0.5">
                 <div className="flex items-center gap-2 text-xs text-cream/80">
@@ -768,12 +759,9 @@ function Itineraries() {
       intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
-        <GuidePreviewGate
-          slug="florenca"
-          days={days}
-          sampleDays={1}
-          renderDay={(d) => <DayBlock day={d} />}
-        />
+        {days.map((d) => (
+          <DayBlock key={d.key} day={d} />
+        ))}
       </div>
     </Section>
   );
@@ -1171,14 +1159,12 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PremiumGate slug="florenca">
-        <GuideVideo />
-        <Duomo />
-        <Food />
-        <Tips />
-        <Checklist />
-      </PremiumGate>
-      <EndOfArticleCTA slug="florenca" />
+      <GuideVideo />
+      <Duomo />
+      <Food />
+      <Tips />
+      <Checklist />
+      <CustomItineraryCTA city="Florença" />
       <Footer />
     </main>
   );
@@ -1337,7 +1323,7 @@ function GuideVideo() {
       id="video"
       eyebrow="Vídeo do guia"
       title="Vídeo do guia"
-      intro="O vídeo completo deste guia, disponível com o seu acesso."
+      intro="Vídeo completo do guia."
     >
       <motion.div
         initial="hidden"
@@ -1361,7 +1347,7 @@ function GuideVideo() {
         </div>
         <p className="mt-5 text-center font-serif italic text-gold/90 flex items-center justify-center gap-2">
           <Play className="h-4 w-4" aria-hidden />
-          O vídeo completo deste guia, disponível com o seu acesso.
+          Vídeo completo do guia.
         </p>
       </motion.div>
     </Section>
@@ -1610,6 +1596,17 @@ function EssentialInfo() {
               </div>
               <h3 className="font-serif text-xl text-cream">{e.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
+              {e.title === "Transportes" && (
+                <a
+                  href="[LINK_OMIO_FLORENCA]"
+                  target="_blank"
+                  rel="sponsored noopener"
+                  className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+                >
+                  Procurar comboios e autocarros
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              )}
             </motion.div>
           );
         })}
@@ -1635,18 +1632,45 @@ function EssentialInfo() {
             <p className="mt-2 text-sm text-muted-foreground">
               A pé de tudo, ideal para a primeira visita.
             </p>
+            <a
+              href="[LINK_BOOKING_FLORENCA_CENTRO_STORICO]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Centro Storico
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Santa Croce</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Histórico e animado, com boas trattorias e vida local.
             </p>
+            <a
+              href="[LINK_BOOKING_FLORENCA_SANTA_CROCE]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Santa Croce
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Oltrarno / Santo Spirito</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Do outro lado do Arno, mais local e charmoso, cheio de artesãos e esplanadas.
             </p>
+            <a
+              href="[LINK_BOOKING_FLORENCA_OLTRARNO]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Oltrarno / Santo Spirito
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
         </ul>
       </motion.div>
