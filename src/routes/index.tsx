@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowRight, Lock, Menu, X } from "lucide-react";
+import { ArrowRight, Lock } from "lucide-react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { PostalStamp } from "@/components/postal/PostalStamp";
+import { SiteNav } from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import {
   Accordion,
   AccordionContent,
