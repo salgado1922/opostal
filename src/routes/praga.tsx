@@ -342,7 +342,7 @@ const days: Day[] = [
     transport: {
       title: "Como chegar a Kutná Hora",
       text: "Comboio de Praha hl.n. → Kutná Hora (~55 min)",
-      primaryLabel: "Ver horários (ČD)",
+      primaryLabel: "Procurar comboios e autocarros",
       primaryUrl: "[LINK_OMIO_PRAGA]",
       note: "Dentro de Kutná Hora, do Ossário de Sedlec ao centro são ~2,5 km, usar autocarro/táxi local.",
       secondaryLabel: "Abrir Sedlec → centro no Google Maps",
