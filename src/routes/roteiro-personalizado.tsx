@@ -13,8 +13,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Substituir [FORMSPREE_FORM_ID] pelo ID real do Formspree.
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/[FORMSPREE_FORM_ID]";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xzdqnrlg";
 
 const searchSchema = z.object({
   destino: z.string().optional(),
