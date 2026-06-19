@@ -1,46 +1,50 @@
-# 4 ajustes visuais
+# Mais "postal" em O Postal
 
-## 1. Hero da página `/londres` mais nítido
-`src/routes/londres.tsx`, função `Hero` (linha ~596): a imagem atual (`London_skyline_at_night_facing_tower_bridge.jpg`, width=2400) tem um original Commons relativamente pequeno e fica esticada num ecrã 1338+ px.
+A marca chama-se O Postal mas, fora o carimbo redondo no hero da Abordagem e a linha tracejada ocasional, pouca coisa no site evoca de facto um postal. A ideia é introduzir um vocabulário visual coerente, inspirado em postais reais (frente ilustrada + verso com linhas, carimbo, selo, morada, escrita à mão), aplicado com contenção para não cair no kitsch.
 
-- Trocar por um ficheiro Commons de alta resolução já verificado, por exemplo `Tower_Bridge_at_night_London_2017.jpg` ou `Palace_of_Westminster,_Westminster_Bridge_and_Big_Ben_-_September_2006.jpg`.
-- Subir o `width` para `3200` no `COMMONS(...)` para evitar upscaling.
-- Atualizar `aria-label` para descrever a nova foto, em PT-PT.
+## Vocabulário visual a introduzir
 
-## 2. Slides do hero da homepage com os novos destinos
-`src/routes/index.tsx`, `HERO_SLIDES` (linha ~143): tem 3 slides (hub, Praga, Istambul). Acrescentar 2 novos para **Florença** e **Londres**, em alta qualidade e à mesma escala (`w=2000&q=80`), mantendo a mesma estrutura `{ src, alt }`:
+1. **Selo (stamp)** — pequeno retângulo serrilhado no canto das fotos de capa de cidade, com a bandeira/ilustração mínima do destino e o valor (ex.: "€0,85 · LDN").
+2. **Carimbo postal circular** — duplo círculo tracejado com nome da cidade + data ("LONDRES · MMXXVI"), em dourado discreto, rodado ligeiramente. Já existe na Abordagem; replicar (em variantes) nos heros de cidade e no hero da home.
+3. **Verso de postal** — secção/cartão com linha vertical central a dividir "mensagem" (texto manuscrito) e "morada" (linhas horizontais + selo + carimbo). Usar em pontos-chave: intro de cada guia ("Postal de boas-vindas") e bloco de fecho da home.
+4. **Borda serrilhada / scalloped** — usar como moldura opcional em imagens-chave (cover de cidade nas cards da home).
+5. **Linha tracejada dourada** — já usada; sistematizar como divisor recorrente entre secções (substituir alguns `<hr>` lisos).
+6. **Tipografia manuscrita** — adicionar uma 2ª serif/handwritten discreta (ex.: Caveat ou Homemade Apple via Google Fonts) só para citações curtas tipo "saudações de…", legendas de fotos e o "verso do postal". Manter Cormorant Garamond como display principal.
+7. **Par "Wish you were here"** — micro-legenda em itálico manuscrito recorrente em fechos de secção.
 
-- Florença: foto do Duomo / Ponte Vecchio ao entardecer.
-- Londres: foto do skyline / Tower Bridge à hora azul.
+## Onde aplicar
 
-Usar Unsplash URLs ao mesmo formato dos atuais (consistência), com alt PT-PT. Sem alterações ao ciclo nem ao componente Hero.
+- **`src/routes/index.tsx`**
+  - Hero: adicionar carimbo circular sobreposto ao slideshow (canto sup. dir.), com data MMXXVI.
+  - Cards de cidades (`CityCard`): moldura serrilhada subtil + mini-selo no canto da imagem com código de cidade (PRG, IST, FLR, LDN…). Carimbo "VISITADO" para guias `ready`; carimbo "EM BREVE" para `planned`.
+  - Bloco novo antes do footer: "Verso do postal" com mensagem manuscrita curta + assinatura O Postal.
 
-## 3. `/abordagem` com imagens de destinos do site
-`src/routes/abordagem.tsx`, objeto `IMAGES` (linhas 31-59): substituir os 4 placeholders Unsplash genéricos por fotos de destinos que **já têm guia (Praga, Istambul, Florença, Londres)** ou que **estão planeados** (Barcelona, Paris, Viena, Lisboa, Budapeste). Manter URLs Unsplash em alta resolução (mesmo formato), só mudando o conteúdo:
+- **`src/routes/abordagem.tsx`**
+  - Já tem carimbo; adicionar selo decorativo no hero e usar a linha tracejada como divisor entre os blocos do método (em vez de só whitespace).
+  - Fecho: substituir o atual call-to-action por um "verso de postal" com a frase "Menos pontos, mais sentido" como mensagem manuscrita.
 
-- `hero` → vista de Londres ou Florença, calma, ao fim de tarde.
-- `block1` "Testado no terreno" → rua de calçada em Praga ao amanhecer.
-- `block2` "Sem turistadas" → ruela / café local de Istambul.
-- `block3` "Pensado ao teu ritmo" → alguém a caminhar devagar em Florença.
+- **Páginas de cidade (`londres.tsx`, `praga.tsx`, `istambul.tsx`, `florenca.tsx`)**
+  - Hero: carimbo circular com nome da cidade + ano, sobreposto à foto.
+  - Logo a seguir ao hero: introduzir um bloco "Postal de boas-vindas" — verso de postal com 2-3 linhas manuscritas a apresentar o guia, selo do destino e morada estilizada ("Para: viajante curioso / De: O Postal").
+  - Divisores entre dias: linha tracejada com selo redondo central (em vez de divisor liso).
 
-Atualizar os `*Alt` correspondentes em PT-PT. Sem outras mudanças na página.
+## Implementação técnica
 
-## 4. Ordem dos cards de cidade
-`src/data/cities.ts`, array `CITIES`: mover a entrada **Londres** para **antes** de Barcelona. Ordem final passa a:
+- Criar componentes reutilizáveis em `src/components/postal/`:
+  - `PostalStamp.tsx` — selo retangular serrilhado (props: code, label, color).
+  - `PostmarkCircle.tsx` — carimbo circular tracejado (props: city, year, rotate).
+  - `PostcardBack.tsx` — layout verso-de-postal (props: message, signature, stampSlot, addressLines).
+  - `DashedDivider.tsx` — divisor tracejado opcionalmente com selo central.
+- Tokens em `src/styles.css`: variáveis `--postmark-gold`, `--stamp-edge`, e classe utilitária `.scalloped-border` (via `mask-image` com `radial-gradient` repetido) para a borda serrilhada.
+- Tipografia manuscrita: adicionar `Caveat` ao `<link>` Google Fonts em `__root.tsx` e expor como `font-hand` em CSS.
+- Aplicar com contenção: cada página recebe **1 carimbo + 1 selo + 1 verso de postal** no máximo, para o efeito ler como editorial e não como scrapbook.
 
-1. Praga (ready)
-2. Istambul (ready)
-3. Florença (ready)
-4. Londres (ready)
-5. Barcelona (coming-soon)
-6. Paris (coming-soon)
-7. Viena (coming-soon)
-8. Lisboa (coming-soon)
-9. Budapeste (coming-soon)
+## Fora de âmbito
 
-Sem alterações de campos, só a ordem do array.
+- Sem alterações de copy substanciais nem reorganização de secções.
+- Sem mexer em backend, dados ou auth.
+- Tema de Londres e ordenação de cidades ficam como estão.
 
-## Restrições
-- Só edito `src/routes/londres.tsx`, `src/routes/index.tsx`, `src/routes/abordagem.tsx`, `src/data/cities.ts`.
-- Sem travessão longo em texto visível.
-- Verifico que cada URL de imagem nova devolve 200 antes de fechar.
+## Questão antes de implementar
+
+Confirmas o conjunto acima, ou preferes que comece só pelo **kit base (selo + carimbo + verso de postal)** aplicado primeiro na home e numa página de cidade (Londres) para validares o estilo antes de o propagar a tudo?

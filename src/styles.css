@@ -43,6 +43,7 @@ html { scroll-behavior: smooth; }
 
   --font-serif: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat", "Homemade Apple", ui-serif, cursive;
 }
 
 :root, .dark {
@@ -127,6 +128,13 @@ html { scroll-behavior: smooth; }
     radial-gradient(ellipse at 90% 30%, oklch(0.82 0.14 78 / 12%), transparent 50%),
     radial-gradient(ellipse at 50% 100%, oklch(0.22 0.055 320 / 60%), transparent 60%),
     var(--background);
+}
+
+/* Fonte manuscrita — usada em mensagens de postal e legendas curtas. */
+@utility font-hand {
+  font-family: var(--font-hand);
+  font-weight: 500;
+  letter-spacing: 0.005em;
 }
 
 @keyframes bounce-soft {

@@ -2,6 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, MotionConfig } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
+import { PostalStamp } from "@/components/postal/PostalStamp";
+import { PostcardBack } from "@/components/postal/PostcardBack";
+import { DashedDivider } from "@/components/postal/DashedDivider";
 
 export const Route = createFileRoute("/abordagem")({
   head: () => ({
@@ -113,6 +116,11 @@ function AbordagemPage() {
           </div>
         </div>
 
+        {/* Selo postal decorativo */}
+        <div className="pointer-events-none absolute left-6 top-32 hidden md:block md:left-12">
+          <PostalStamp code="OP" label="O Postal" value="€0,85" rotate={-12} />
+        </div>
+
         <div className="relative mx-auto w-full max-w-4xl px-6 pb-24 pt-40 text-center md:px-10 md:pb-32 md:pt-48">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -184,6 +192,8 @@ function AbordagemPage() {
           </p>
           <div className="flex flex-col gap-20 md:gap-28">
             {METHOD_BLOCKS.map((b, i) => (
+              <div key={`${b.n}-wrap`} className="flex flex-col gap-20 md:gap-28">
+              {i > 0 && <DashedDivider withStamp className="mx-auto w-full max-w-3xl" />}
               <motion.article
                 key={b.n}
                 initial={{ opacity: 0, y: 32 }}
@@ -230,6 +240,7 @@ function AbordagemPage() {
                   </div>
                 </div>
               </motion.article>
+              </div>
             ))}
           </div>
         </div>
@@ -242,12 +253,25 @@ function AbordagemPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
-          className="mx-auto max-w-3xl text-center"
+          className="mx-auto max-w-4xl"
         >
-          <p className="font-serif text-2xl text-cream leading-snug md:text-4xl">
-            Cada guia é percorrido e verificado antes de o publicarmos. É essa a promessa d'O Postal.
-          </p>
-          <div className="mt-10 flex justify-center">
+          <PostcardBack
+            city="O POSTAL"
+            stampCode="OP"
+            message={
+              <>
+                Menos pontos, mais sentido. Cada guia é percorrido e verificado
+                antes de o publicarmos — é essa a promessa d'O Postal.
+              </>
+            }
+            signature="O Postal"
+            addressLines={[
+              "Para: viajante curioso",
+              "Um café qualquer, hora dourada",
+              "Próxima paragem a teu gosto",
+            ]}
+          />
+          <div className="mt-12 flex justify-center">
             <Link
               to="/"
               hash="cidades"
