@@ -928,31 +928,22 @@ function Concerts() {
 
             {t.highlight && (
               <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="https://www.rudolfinum.cz/en/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
-                >
-                  <Ticket className="h-3.5 w-3.5" />
-                  Reservar Rudolfinum
-                  <ExternalLink className="h-3 w-3 opacity-70" />
-                </a>
-                <a
-                  href="https://www.obecnidum.cz/en/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)]"
-                >
-                  <Ticket className="h-3.5 w-3.5" />
-                  Reservar Casa Municipal
-                  <ExternalLink className="h-3 w-3 opacity-70" />
-                </a>
+                <AffiliateLink
+                  href="[LINK_GETYOURGUIDE_PRAGA_CONCERTO]"
+                  label="Reservar Rudolfinum"
+                />
+                <AffiliateLink
+                  href="[LINK_GETYOURGUIDE_PRAGA_CONCERTO]"
+                  label="Reservar Casa Municipal"
+                />
               </div>
             )}
               {!t.highlight && (
               <div className="mt-6 flex flex-wrap gap-3">
-                <AffiliateLink href="https://gyg.me/CdaAOkPP" label="Reservar concerto" />
+                <AffiliateLink
+                  href="[LINK_GETYOURGUIDE_PRAGA_CONCERTO]"
+                  label="Reservar concerto"
+                />
               </div>
             )}
             <p className="mt-6 border-t border-gold/15 pt-5 text-sm italic text-cream/80">
