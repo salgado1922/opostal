@@ -1824,12 +1824,30 @@ function EssentialInfo() {
             <p className="mt-2 text-sm text-muted-foreground">
               Central e histórico, a pé dos grandes monumentos. Ideal para a 1.ª visita.
             </p>
+            <a
+              href="[LINK_BOOKING_ISTAMBUL_SULTANAHMET]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Sultanahmet
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Beyoğlu / Galata</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Moderno e animado, cafés, rooftops e vida noturna. Bom para quem quer movimento.
             </p>
+            <a
+              href="[LINK_BOOKING_ISTAMBUL_BEYOGLU_GALATA]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Beyoğlu / Galata
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Kadıköy (lado asiático)</h4>
@@ -1837,6 +1855,15 @@ function EssentialInfo() {
               Jovem, local e descontraído, mercado de comida e esplanadas à beira-mar. Mais barato e
               autêntico, a um ferry do centro.
             </p>
+            <a
+              href="[LINK_BOOKING_ISTAMBUL_KADIKOY]"
+              target="_blank"
+              rel="sponsored noopener"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+            >
+              Ver alojamentos em Kadıköy
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
           </li>
         </ul>
       </motion.div>
