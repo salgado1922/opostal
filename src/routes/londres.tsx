@@ -945,15 +945,12 @@ function Itineraries() {
       id="dias"
       eyebrow="Itinerário detalhado"
       title="Dia a dia, paragem a paragem"
-      intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo. O Dia 1 fica disponível como amostra; o resto do itinerário detalhado faz parte do guia completo."
+      intro="Toca para abrir cada paragem, com dicas, mini-histórias e imagens. Horários sugeridos, adapta ao teu ritmo."
     >
       <div className="space-y-24">
-        <GuidePreviewGate
-          slug="londres"
-          days={days}
-          sampleDays={1}
-          renderDay={(d) => <DayBlock day={d} />}
-        />
+        {days.map((d) => (
+          <DayBlock key={d.key} day={d} />
+        ))}
       </div>
     </Section>
   );
@@ -1382,15 +1379,13 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PremiumGate slug="londres">
-        <AlternativaSemEstudios />
-        <GuideVideo />
-        <HarryPotterVs />
-        <Food />
-        <Tips />
-        <Checklist />
-      </PremiumGate>
-      <EndOfArticleCTA slug="londres" />
+      <AlternativaSemEstudios />
+      <GuideVideo />
+      <HarryPotterVs />
+      <Food />
+      <Tips />
+      <Checklist />
+      <CustomItineraryCTA city="Londres" />
       <Footer />
     </main>
   );
