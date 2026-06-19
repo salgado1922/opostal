@@ -460,6 +460,9 @@ function Hero() {
         style={{ opacity }}
         className="relative z-10 flex h-full flex-col items-center justify-center px-6"
       >
+        <div className="pointer-events-none absolute right-6 top-24 hidden md:right-12 md:top-28 md:block">
+          <PostmarkCircle city="PRAGA" year="MMXXVI" rotate={-9} />
+        </div>
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
