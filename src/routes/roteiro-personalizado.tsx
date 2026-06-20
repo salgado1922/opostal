@@ -3,9 +3,15 @@ import { zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { pt } from "date-fns/locale";
+import type { DateRange } from "react-day-picker";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -248,7 +254,7 @@ type FormState = {
   interesses: string;
   restricoes: string;
   alojamento: string;
-  chegada: string;
+  partida: string;
   observacoes: string;
   email: string;
 };
@@ -263,7 +269,7 @@ const EMPTY_FORM: FormState = {
   interesses: "",
   restricoes: "",
   alojamento: "",
-  chegada: "",
+  partida: "",
   observacoes: "",
   email: "",
 };
@@ -277,6 +283,7 @@ function RequestForm() {
   const search = Route.useSearch();
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
 
   useEffect(() => {
     if (search.destino) {
@@ -286,6 +293,18 @@ function RequestForm() {
 
   const set = <K extends keyof FormState>(k: K, v: FormState[K]) =>
     setForm((f) => ({ ...f, [k]: v }));
+
+  const formatRange = (r: DateRange | undefined) => {
+    if (!r?.from) return "";
+    const f = format(r.from, "dd/MM/yyyy", { locale: pt });
+    if (!r.to) return f;
+    return `${f} – ${format(r.to, "dd/MM/yyyy", { locale: pt })}`;
+  };
+
+  const handleDateSelect = (r: DateRange | undefined) => {
+    setDateRange(r);
+    set("datas", formatRange(r));
+  };
 
   const handleSubmit = async () => {
     if (
@@ -314,7 +333,7 @@ function RequestForm() {
           Interesses: form.interesses,
           "Restrições alimentares": form.restricoes,
           "Tipo de alojamento preferido": form.alojamento,
-          "Aeroporto ou estação de chegada": form.chegada,
+          "Ponto de partida": form.partida,
           "Observações adicionais": form.observacoes,
           Email: form.email,
         }),
@@ -362,7 +381,32 @@ function RequestForm() {
               </div>
               <div>
                 <label htmlFor="f-datas" className={labelCls}>Datas da viagem</label>
-                <input id="f-datas" required className={`${inputCls} mt-2`} value={form.datas} onChange={(e) => set("datas", e.target.value)} />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      id="f-datas"
+                      className={cn(
+                        `${inputCls} mt-2 flex items-center justify-between text-left`,
+                        !form.datas && "text-cream/35",
+                      )}
+                    >
+                      <span>{form.datas || "Selecionar datas"}</span>
+                      <CalendarIcon className="h-4 w-4 text-cream/60" />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="range"
+                      selected={dateRange}
+                      onSelect={handleDateSelect}
+                      numberOfMonths={2}
+                      locale={pt}
+                      initialFocus
+                      className={cn("p-3 pointer-events-auto")}
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
               <div>
                 <label htmlFor="f-dias" className={labelCls}>Número de dias</label>
@@ -374,7 +418,17 @@ function RequestForm() {
               </div>
               <div>
                 <label htmlFor="f-orcamento" className={labelCls}>Orçamento aproximado</label>
-                <input id="f-orcamento" className={`${inputCls} mt-2`} value={form.orcamento} onChange={(e) => set("orcamento", e.target.value)} />
+                <select id="f-orcamento" className={`${inputCls} mt-2`} value={form.orcamento} onChange={(e) => set("orcamento", e.target.value)}>
+                  <option value=""></option>
+                  <option value="Até 250 €">Até 250 €</option>
+                  <option value="250 € – 500 €">250 € – 500 €</option>
+                  <option value="500 € – 750 €">500 € – 750 €</option>
+                  <option value="750 € – 1000 €">750 € – 1000 €</option>
+                  <option value="1000 € – 1500 €">1000 € – 1500 €</option>
+                  <option value="1500 € – 2500 €">1500 € – 2500 €</option>
+                  <option value="Mais de 2500 €">Mais de 2500 €</option>
+                  <option value="Sem orçamento definido">Sem orçamento definido</option>
+                </select>
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="f-ritmo" className={labelCls}>Ritmo de viagem</label>
@@ -396,11 +450,19 @@ function RequestForm() {
               </div>
               <div>
                 <label htmlFor="f-alojamento" className={labelCls}>Tipo de alojamento preferido</label>
-                <input id="f-alojamento" className={`${inputCls} mt-2`} value={form.alojamento} onChange={(e) => set("alojamento", e.target.value)} />
+                <select id="f-alojamento" className={`${inputCls} mt-2`} value={form.alojamento} onChange={(e) => set("alojamento", e.target.value)}>
+                  <option value=""></option>
+                  <option value="Hotel">Hotel</option>
+                  <option value="Apartamento / Airbnb">Apartamento / Airbnb</option>
+                  <option value="Hostel">Hostel</option>
+                  <option value="Boutique / Charme">Boutique / Charme</option>
+                  <option value="Resort">Resort</option>
+                  <option value="Sem preferência">Sem preferência</option>
+                </select>
               </div>
               <div className="md:col-span-2">
-                <label htmlFor="f-chegada" className={labelCls}>Aeroporto ou estação de chegada</label>
-                <input id="f-chegada" className={`${inputCls} mt-2`} value={form.chegada} onChange={(e) => set("chegada", e.target.value)} />
+                <label htmlFor="f-partida" className={labelCls}>Ponto de partida</label>
+                <input id="f-partida" className={`${inputCls} mt-2`} value={form.partida} onChange={(e) => set("partida", e.target.value)} />
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="f-obs" className={labelCls}>Observações adicionais</label>
