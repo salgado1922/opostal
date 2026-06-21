@@ -1,26 +1,25 @@
-## Alterações ao campo "Datas da viagem" em `/roteiro-personalizado`
+## Resumo de datas antes de enviar
 
-Ficheiro único: `src/routes/roteiro-personalizado.tsx` (componente `RequestForm`).
+Ficheiro: `src/routes/roteiro-personalizado.tsx`.
 
-### 1. Seletor do tipo de datas
-Acima do controlo atual, adicionar um `<select>` "Tipo de datas" com duas opções:
-- **Datas exatas** (default) → mostra o date range picker já existente.
-- **Datas flexíveis (mês)** → mostra um `<select>` de mês, com as opções dos próximos 18 meses no formato `"Setembro 2025"` (gerados a partir de `new Date()` com `date-fns/format(d, "LLLL yyyy", { locale: pt })`, primeira letra em maiúscula).
+### 1. Onde colocar
+Acima do bloco do botão "Enviar pedido" e por baixo dos campos do formulário, adicionar uma caixa de resumo (estilo "glass"/card) que mostre as datas como vão ser enviadas.
 
-Apenas um dos dois controlos fica visível de cada vez; o estado do outro é limpo ao trocar.
+### 2. Conteúdo do resumo
+- **Modo de datas**: etiqueta clara — "Datas exatas" ou "Mês flexível".
+- **Valor das datas**:
+  - Modo exato: intervalo selecionado (ex: "15/08/2025 – 22/08/2025"), ou só a data de início se ainda não houver "to", ou um aviso "Seleciona uma data de início".
+  - Modo mês: mês selecionado (ex: "Setembro 2025") ou aviso "Seleciona um mês".
+- **Fins de semana**: indicador visível (badge/texto) quando `weekendsOnly` estiver ativo — por exemplo "Apenas fins de semana".
 
-### 2. Checkbox "Apenas fins de semana"
-Por baixo do controlo de datas (visível em ambos os modos), uma checkbox: *"Apenas viagens ao fim de semana"*. Usa `@/components/ui/checkbox` + `<label>` no estilo dos restantes campos.
+### 3. Comportamento
+- O resumo só aparece quando há algo para mostrar (modo exato com `from` selecionado, ou modo mês com mês escolhido).
+- Se `weekendsOnly` estiver desligado e ainda não houver datas/mês, a caixa fica escondida.
+- Não altera o payload enviado ao Formspree nem a validação existente — é apenas apresentação.
 
-### 3. Estado e payload
-- Novo state local: `dateMode: "exact" | "month"`, `monthValue: string`, `weekendsOnly: boolean`.
-- A string final em `form.datas` (que continua a ser o que se envia) passa a ser composta:
-  - modo exato: `"DD/MM/AAAA – DD/MM/AAAA"` (igual a hoje).
-  - modo mês: `"Mês flexível: Setembro 2025"`.
-  - se `weekendsOnly` for true, anexa `" · Apenas fins de semana"`.
-- A validação atual de `form.datas` não-vazio mantém-se. No modo "mês", `form.datas` só é preenchido depois de o utilizador escolher um mês.
-- O payload Formspree mantém a chave `"Datas da viagem"` com a string composta; não se acrescentam novas chaves para não alterar o template do email.
+### 4. Estilo
+Usar classes consistentes com o resto da página: fundo `bg-plum/40`, borda `border-gold/15`, texto `text-cream/85`, e o indicador de fim de semana com destaque dourado suave (`text-gold`).
 
 ### Notas técnicas
-- Reutiliza `Calendar`/`Popover` já importados; o checkbox importa-se de `@/components/ui/checkbox`.
-- Sem alterações ao endpoint Formspree, ao layout do resto do formulário, nem a outros campos.
+- Nova função/constante local para gerar o texto do resumo a partir de `dateMode`, `dateRange`, `monthValue` e `weekendsOnly`.
+- Sem alterações ao `form.datas`, validação, endpoint ou estrutura do formulário.

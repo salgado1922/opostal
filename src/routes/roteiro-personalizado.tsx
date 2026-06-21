@@ -573,6 +573,33 @@ function RequestForm() {
               </p>
             )}
 
+            {(() => {
+              const hasExact = dateMode === "exact" && dateRange?.from;
+              const hasMonth = dateMode === "month" && monthValue;
+              if (!hasExact && !hasMonth) return null;
+              const modeLabel = dateMode === "exact" ? "Datas exatas" : "Mês flexível";
+              let value = "";
+              if (dateMode === "exact") {
+                value = formatRange(dateRange) || "Seleciona uma data de início";
+              } else {
+                value = monthValue || "Seleciona um mês";
+              }
+              return (
+                <div className="mt-6 rounded-xl border border-gold/15 bg-plum/40 px-5 py-4">
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-gold/80">Resumo das datas</p>
+                  <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-cream/85">
+                    <span className="text-sm text-cream/65">{modeLabel}:</span>
+                    <span className="font-serif text-base text-cream">{value}</span>
+                    {weekendsOnly && (
+                      <span className="inline-flex items-center rounded-full border border-gold/30 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.22em] text-gold">
+                        Apenas fins de semana
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+
             <div className="mt-8 flex justify-end">
               <button
                 type="button"
