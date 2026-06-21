@@ -11,6 +11,7 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import {
   Accordion,
@@ -284,6 +285,20 @@ function RequestForm() {
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
+  const [dateMode, setDateMode] = useState<"exact" | "month">("exact");
+  const [monthValue, setMonthValue] = useState<string>("");
+  const [weekendsOnly, setWeekendsOnly] = useState<boolean>(false);
+
+  const monthOptions = (() => {
+    const opts: string[] = [];
+    const now = new Date();
+    for (let i = 0; i < 18; i++) {
+      const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+      const label = format(d, "LLLL yyyy", { locale: pt });
+      opts.push(label.charAt(0).toUpperCase() + label.slice(1));
+    }
+    return opts;
+  })();
 
   useEffect(() => {
     if (search.destino) {
@@ -301,9 +316,46 @@ function RequestForm() {
     return `${f} – ${format(r.to, "dd/MM/yyyy", { locale: pt })}`;
   };
 
+  const composeDatas = (
+    mode: "exact" | "month",
+    range: DateRange | undefined,
+    month: string,
+    weekends: boolean,
+  ) => {
+    let base = "";
+    if (mode === "exact") {
+      base = formatRange(range);
+    } else if (mode === "month" && month) {
+      base = `Mês flexível: ${month}`;
+    }
+    if (!base) return "";
+    return weekends ? `${base} · Apenas fins de semana` : base;
+  };
+
   const handleDateSelect = (r: DateRange | undefined) => {
     setDateRange(r);
-    set("datas", formatRange(r));
+    set("datas", composeDatas("exact", r, monthValue, weekendsOnly));
+  };
+
+  const handleModeChange = (m: "exact" | "month") => {
+    setDateMode(m);
+    if (m === "exact") {
+      setMonthValue("");
+      set("datas", composeDatas("exact", dateRange, "", weekendsOnly));
+    } else {
+      setDateRange(undefined);
+      set("datas", composeDatas("month", undefined, monthValue, weekendsOnly));
+    }
+  };
+
+  const handleMonthChange = (m: string) => {
+    setMonthValue(m);
+    set("datas", composeDatas("month", undefined, m, weekendsOnly));
+  };
+
+  const handleWeekendsChange = (v: boolean) => {
+    setWeekendsOnly(v);
+    set("datas", composeDatas(dateMode, dateRange, monthValue, v));
   };
 
   const handleSubmit = async () => {
@@ -379,34 +431,74 @@ function RequestForm() {
                 <label htmlFor="f-destino" className={labelCls}>Destino</label>
                 <input id="f-destino" required className={`${inputCls} mt-2`} value={form.destino} onChange={(e) => set("destino", e.target.value)} />
               </div>
-              <div>
-                <label htmlFor="f-datas" className={labelCls}>Datas da viagem</label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <button
-                      type="button"
+              <div className="md:col-span-2 grid grid-cols-1 gap-5 md:grid-cols-2">
+                <div>
+                  <label htmlFor="f-datemode" className={labelCls}>Tipo de datas</label>
+                  <select
+                    id="f-datemode"
+                    className={`${inputCls} mt-2`}
+                    value={dateMode}
+                    onChange={(e) => handleModeChange(e.target.value as "exact" | "month")}
+                  >
+                    <option value="exact">Datas exatas</option>
+                    <option value="month">Datas flexíveis (mês)</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="f-datas" className={labelCls}>
+                    {dateMode === "exact" ? "Datas da viagem" : "Mês da viagem"}
+                  </label>
+                  {dateMode === "exact" ? (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <button
+                          type="button"
+                          id="f-datas"
+                          className={cn(
+                            `${inputCls} mt-2 flex items-center justify-between text-left`,
+                            !dateRange?.from && "text-cream/35",
+                          )}
+                        >
+                          <span>{formatRange(dateRange) || "Selecionar datas"}</span>
+                          <CalendarIcon className="h-4 w-4 text-cream/60" />
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="range"
+                          selected={dateRange}
+                          onSelect={handleDateSelect}
+                          numberOfMonths={2}
+                          locale={pt}
+                          initialFocus
+                          className={cn("p-3 pointer-events-auto")}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  ) : (
+                    <select
                       id="f-datas"
-                      className={cn(
-                        `${inputCls} mt-2 flex items-center justify-between text-left`,
-                        !form.datas && "text-cream/35",
-                      )}
+                      className={`${inputCls} mt-2`}
+                      value={monthValue}
+                      onChange={(e) => handleMonthChange(e.target.value)}
                     >
-                      <span>{form.datas || "Selecionar datas"}</span>
-                      <CalendarIcon className="h-4 w-4 text-cream/60" />
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="range"
-                      selected={dateRange}
-                      onSelect={handleDateSelect}
-                      numberOfMonths={2}
-                      locale={pt}
-                      initialFocus
-                      className={cn("p-3 pointer-events-auto")}
-                    />
-                  </PopoverContent>
-                </Popover>
+                      <option value="">Selecionar mês</option>
+                      {monthOptions.map((m) => (
+                        <option key={m} value={m}>{m}</option>
+                      ))}
+                    </select>
+                  )}
+                </div>
+                <div className="md:col-span-2 flex items-center gap-2">
+                  <Checkbox
+                    id="f-weekends"
+                    checked={weekendsOnly}
+                    onCheckedChange={(v) => handleWeekendsChange(v === true)}
+                  />
+                  <label htmlFor="f-weekends" className="text-sm text-cream/80 cursor-pointer">
+                    Apenas viagens ao fim de semana
+                  </label>
+                </div>
               </div>
               <div>
                 <label htmlFor="f-dias" className={labelCls}>Número de dias</label>
