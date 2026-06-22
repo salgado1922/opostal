@@ -279,11 +279,34 @@ const inputCls =
   "w-full rounded-md border border-gold/20 bg-plum/30 px-3 py-2.5 text-cream placeholder:text-cream/35 focus:border-gold/60 focus:outline-none focus:ring-1 focus:ring-gold/40";
 const labelCls = "block text-[11px] uppercase tracking-[0.2em] text-cream/70";
 const helpCls = "mt-1 text-[11px] text-cream/50";
+const errCls = "border-red-400/70 focus:border-red-400 focus:ring-red-400/40";
+
+type RequiredKey =
+  | "destino"
+  | "datas"
+  | "dias"
+  | "pessoas"
+  | "orcamento"
+  | "ritmo"
+  | "alojamento"
+  | "email";
+
+const REQUIRED_LABELS: Record<RequiredKey, string> = {
+  destino: "Destino",
+  datas: "Datas da viagem",
+  dias: "Número de dias",
+  pessoas: "Número de pessoas",
+  orcamento: "Orçamento aproximado",
+  ritmo: "Ritmo de viagem",
+  alojamento: "Tipo de alojamento preferido",
+  email: "Email",
+};
 
 function RequestForm() {
   const search = Route.useSearch();
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [missingFields, setMissingFields] = useState<RequiredKey[]>([]);
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const [dateMode, setDateMode] = useState<"exact" | "month">("exact");
   const [monthValue, setMonthValue] = useState<string>("");
@@ -306,8 +329,15 @@ function RequestForm() {
     }
   }, [search.destino]);
 
-  const set = <K extends keyof FormState>(k: K, v: FormState[K]) =>
+  const set = <K extends keyof FormState>(k: K, v: FormState[K]) => {
     setForm((f) => ({ ...f, [k]: v }));
+    if (typeof v === "string" && v.trim()) {
+      setMissingFields((prev) => prev.filter((key) => key !== (k as unknown as RequiredKey)));
+    }
+  };
+
+  const missing = (k: RequiredKey) => missingFields.includes(k);
+  const fieldCls = (k: RequiredKey) => (missing(k) ? errCls : "");
 
   const formatRange = (r: DateRange | undefined) => {
     if (!r?.from) return "";
@@ -359,19 +389,23 @@ function RequestForm() {
   };
 
   const handleSubmit = async () => {
-    if (
-      !form.destino.trim() ||
-      !form.datas.trim() ||
-      !form.dias.trim() ||
-      !form.pessoas.trim() ||
-      !form.ritmo.trim() ||
-      !form.orcamento.trim() ||
-      !form.alojamento.trim() ||
-      !form.email.trim()
-    ) {
-      setStatus("error");
+    const required: RequiredKey[] = [
+      "destino",
+      "datas",
+      "dias",
+      "pessoas",
+      "orcamento",
+      "ritmo",
+      "alojamento",
+      "email",
+    ];
+    const missingNow = required.filter((k) => !form[k].trim());
+    if (missingNow.length > 0) {
+      setMissingFields(missingNow);
+      setStatus("idle");
       return;
     }
+    setMissingFields([]);
     setStatus("submitting");
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
@@ -431,7 +465,7 @@ function RequestForm() {
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               <div className="md:col-span-2">
                 <label htmlFor="f-destino" className={labelCls}>Destino</label>
-                <input id="f-destino" required className={`${inputCls} mt-2`} value={form.destino} onChange={(e) => set("destino", e.target.value)} />
+                <input id="f-destino" required className={`${inputCls} ${fieldCls("destino")} mt-2`} value={form.destino} onChange={(e) => set("destino", e.target.value)} />
               </div>
               <div className="md:col-span-2 grid grid-cols-1 gap-5 md:grid-cols-2">
                 <div>
@@ -457,7 +491,7 @@ function RequestForm() {
                           type="button"
                           id="f-datas"
                           className={cn(
-                            `${inputCls} mt-2 flex items-center justify-between text-left`,
+                            `${inputCls} ${fieldCls("datas")} mt-2 flex items-center justify-between text-left`,
                             !dateRange?.from && "text-cream/35",
                           )}
                         >
@@ -480,7 +514,7 @@ function RequestForm() {
                   ) : (
                     <select
                       id="f-datas"
-                      className={`${inputCls} mt-2`}
+                      className={`${inputCls} ${fieldCls("datas")} mt-2`}
                       value={monthValue}
                       onChange={(e) => handleMonthChange(e.target.value)}
                     >
@@ -504,15 +538,15 @@ function RequestForm() {
               </div>
               <div>
                 <label htmlFor="f-dias" className={labelCls}>Número de dias</label>
-                <input id="f-dias" type="number" min={1} required className={`${inputCls} mt-2`} value={form.dias} onChange={(e) => set("dias", e.target.value)} />
+                <input id="f-dias" type="number" min={1} required className={`${inputCls} ${fieldCls("dias")} mt-2`} value={form.dias} onChange={(e) => set("dias", e.target.value)} />
               </div>
               <div>
                 <label htmlFor="f-pessoas" className={labelCls}>Número de pessoas</label>
-                <input id="f-pessoas" type="number" min={1} required className={`${inputCls} mt-2`} value={form.pessoas} onChange={(e) => set("pessoas", e.target.value)} />
+                <input id="f-pessoas" type="number" min={1} required className={`${inputCls} ${fieldCls("pessoas")} mt-2`} value={form.pessoas} onChange={(e) => set("pessoas", e.target.value)} />
               </div>
               <div>
                 <label htmlFor="f-orcamento" className={labelCls}>Orçamento aproximado</label>
-                <select id="f-orcamento" className={`${inputCls} mt-2`} value={form.orcamento} onChange={(e) => set("orcamento", e.target.value)}>
+                <select id="f-orcamento" className={`${inputCls} ${fieldCls("orcamento")} mt-2`} value={form.orcamento} onChange={(e) => set("orcamento", e.target.value)}>
                   <option value=""></option>
                   <option value="Até 250 €">Até 250 €</option>
                   <option value="250 € – 500 €">250 € – 500 €</option>
@@ -526,7 +560,7 @@ function RequestForm() {
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="f-ritmo" className={labelCls}>Ritmo de viagem</label>
-                <select id="f-ritmo" required className={`${inputCls} mt-2`} value={form.ritmo} onChange={(e) => set("ritmo", e.target.value)}>
+                <select id="f-ritmo" required className={`${inputCls} ${fieldCls("ritmo")} mt-2`} value={form.ritmo} onChange={(e) => set("ritmo", e.target.value)}>
                   <option value="" disabled></option>
                   <option value="Lento">Lento</option>
                   <option value="Intermédio">Intermédio</option>
@@ -544,7 +578,7 @@ function RequestForm() {
               </div>
               <div>
                 <label htmlFor="f-alojamento" className={labelCls}>Tipo de alojamento preferido</label>
-                <select id="f-alojamento" className={`${inputCls} mt-2`} value={form.alojamento} onChange={(e) => set("alojamento", e.target.value)}>
+                <select id="f-alojamento" className={`${inputCls} ${fieldCls("alojamento")} mt-2`} value={form.alojamento} onChange={(e) => set("alojamento", e.target.value)}>
                   <option value=""></option>
                   <option value="Hotel">Hotel</option>
                   <option value="Apartamento / Airbnb">Apartamento / Airbnb</option>
@@ -564,10 +598,20 @@ function RequestForm() {
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="f-email" className={labelCls}>O teu email</label>
-                <input id="f-email" type="email" required className={`${inputCls} mt-2`} value={form.email} onChange={(e) => set("email", e.target.value)} />
+                <input id="f-email" type="email" required className={`${inputCls} ${fieldCls("email")} mt-2`} value={form.email} onChange={(e) => set("email", e.target.value)} />
                 <p className={helpCls}>É para aqui que respondo ao teu pedido.</p>
               </div>
             </div>
+
+            {missingFields.length > 0 && (
+              <p className="mt-6 rounded-md border border-red-400/40 bg-red-400/[0.08] px-4 py-3 text-sm text-cream/90">
+                Faltam campos obrigatórios:{" "}
+                <span className="font-medium text-cream">
+                  {missingFields.map((k) => REQUIRED_LABELS[k]).join(", ")}
+                </span>
+                .
+              </p>
+            )}
 
             {status === "error" && (
               <p className="mt-6 rounded-md border border-gold/30 bg-gold/[0.06] px-4 py-3 text-sm text-cream/85">
