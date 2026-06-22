@@ -279,11 +279,34 @@ const inputCls =
   "w-full rounded-md border border-gold/20 bg-plum/30 px-3 py-2.5 text-cream placeholder:text-cream/35 focus:border-gold/60 focus:outline-none focus:ring-1 focus:ring-gold/40";
 const labelCls = "block text-[11px] uppercase tracking-[0.2em] text-cream/70";
 const helpCls = "mt-1 text-[11px] text-cream/50";
+const errCls = "border-red-400/70 focus:border-red-400 focus:ring-red-400/40";
+
+type RequiredKey =
+  | "destino"
+  | "datas"
+  | "dias"
+  | "pessoas"
+  | "orcamento"
+  | "ritmo"
+  | "alojamento"
+  | "email";
+
+const REQUIRED_LABELS: Record<RequiredKey, string> = {
+  destino: "Destino",
+  datas: "Datas da viagem",
+  dias: "Número de dias",
+  pessoas: "Número de pessoas",
+  orcamento: "Orçamento aproximado",
+  ritmo: "Ritmo de viagem",
+  alojamento: "Tipo de alojamento preferido",
+  email: "Email",
+};
 
 function RequestForm() {
   const search = Route.useSearch();
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [missingFields, setMissingFields] = useState<RequiredKey[]>([]);
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const [dateMode, setDateMode] = useState<"exact" | "month">("exact");
   const [monthValue, setMonthValue] = useState<string>("");
@@ -306,8 +329,15 @@ function RequestForm() {
     }
   }, [search.destino]);
 
-  const set = <K extends keyof FormState>(k: K, v: FormState[K]) =>
+  const set = <K extends keyof FormState>(k: K, v: FormState[K]) => {
     setForm((f) => ({ ...f, [k]: v }));
+    if (typeof v === "string" && v.trim()) {
+      setMissingFields((prev) => prev.filter((key) => key !== (k as unknown as RequiredKey)));
+    }
+  };
+
+  const missing = (k: RequiredKey) => missingFields.includes(k);
+  const fieldCls = (k: RequiredKey) => (missing(k) ? errCls : "");
 
   const formatRange = (r: DateRange | undefined) => {
     if (!r?.from) return "";
@@ -359,19 +389,23 @@ function RequestForm() {
   };
 
   const handleSubmit = async () => {
-    if (
-      !form.destino.trim() ||
-      !form.datas.trim() ||
-      !form.dias.trim() ||
-      !form.pessoas.trim() ||
-      !form.ritmo.trim() ||
-      !form.orcamento.trim() ||
-      !form.alojamento.trim() ||
-      !form.email.trim()
-    ) {
-      setStatus("error");
+    const required: RequiredKey[] = [
+      "destino",
+      "datas",
+      "dias",
+      "pessoas",
+      "orcamento",
+      "ritmo",
+      "alojamento",
+      "email",
+    ];
+    const missingNow = required.filter((k) => !form[k].trim());
+    if (missingNow.length > 0) {
+      setMissingFields(missingNow);
+      setStatus("idle");
       return;
     }
+    setMissingFields([]);
     setStatus("submitting");
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
