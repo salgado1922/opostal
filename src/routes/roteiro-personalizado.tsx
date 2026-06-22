@@ -365,6 +365,8 @@ function RequestForm() {
       !form.dias.trim() ||
       !form.pessoas.trim() ||
       !form.ritmo.trim() ||
+      !form.orcamento.trim() ||
+      !form.alojamento.trim() ||
       !form.email.trim()
     ) {
       setStatus("error");
