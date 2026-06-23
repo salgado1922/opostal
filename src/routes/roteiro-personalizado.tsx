@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { motion } from "framer-motion";
@@ -302,11 +302,56 @@ const REQUIRED_LABELS: Record<RequiredKey, string> = {
   email: "Email",
 };
 
+const FIELD_IDS: Record<RequiredKey, string> = {
+  destino: "f-destino",
+  datas: "f-datas",
+  dias: "f-dias",
+  pessoas: "f-pessoas",
+  orcamento: "f-orcamento",
+  ritmo: "f-ritmo",
+  alojamento: "f-alojamento",
+  email: "f-email",
+};
+
+const MAX_LENGTHS = {
+  destino: 120,
+  dias: 3,
+  pessoas: 3,
+  interesses: 500,
+  restricoes: 300,
+  partida: 120,
+  observacoes: 1000,
+  email: 255,
+} as const;
+
+const LENGTH_LABELS: Record<keyof typeof MAX_LENGTHS, string> = {
+  destino: "Destino",
+  dias: "Número de dias",
+  pessoas: "Número de pessoas",
+  interesses: "Interesses",
+  restricoes: "Restrições alimentares",
+  partida: "Ponto de partida",
+  observacoes: "Observações adicionais",
+  email: "Email",
+};
+
+const emailSchema = z.string().trim().email().max(MAX_LENGTHS.email);
+
+function focusField(id: string) {
+  if (typeof document === "undefined") return;
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "center" });
+  (el as HTMLElement).focus({ preventScroll: true });
+}
+
 function RequestForm() {
   const search = Route.useSearch();
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [missingFields, setMissingFields] = useState<RequiredKey[]>([]);
+  const [invalidMessages, setInvalidMessages] = useState<string[]>([]);
+  const [invalidKeys, setInvalidKeys] = useState<Set<string>>(new Set());
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const [dateMode, setDateMode] = useState<"exact" | "month">("exact");
   const [monthValue, setMonthValue] = useState<string>("");
@@ -334,10 +379,18 @@ function RequestForm() {
     if (typeof v === "string" && v.trim()) {
       setMissingFields((prev) => prev.filter((key) => key !== (k as unknown as RequiredKey)));
     }
+    setInvalidKeys((prev) => {
+      if (!prev.has(k as string)) return prev;
+      const next = new Set(prev);
+      next.delete(k as string);
+      return next;
+    });
+    setInvalidMessages([]);
   };
 
   const missing = (k: RequiredKey) => missingFields.includes(k);
-  const fieldCls = (k: RequiredKey) => (missing(k) ? errCls : "");
+  const fieldCls = (k: RequiredKey) =>
+    missing(k) || invalidKeys.has(k) ? errCls : "";
 
   const formatRange = (r: DateRange | undefined) => {
     if (!r?.from) return "";
@@ -402,28 +455,59 @@ function RequestForm() {
     const missingNow = required.filter((k) => !form[k].trim());
     if (missingNow.length > 0) {
       setMissingFields(missingNow);
+      setInvalidMessages([]);
+      setInvalidKeys(new Set());
       setStatus("idle");
+      focusField(FIELD_IDS[missingNow[0]]);
       return;
     }
     setMissingFields([]);
+
+    // Length + email validation
+    const msgs: string[] = [];
+    const badKeys = new Set<string>();
+    (Object.keys(MAX_LENGTHS) as (keyof typeof MAX_LENGTHS)[]).forEach((k) => {
+      const v = (form[k] ?? "").trim();
+      if (v.length > MAX_LENGTHS[k]) {
+        badKeys.add(k);
+        msgs.push(`${LENGTH_LABELS[k]}: máximo ${MAX_LENGTHS[k]} caracteres.`);
+      }
+    });
+    const emailCheck = emailSchema.safeParse(form.email);
+    if (!emailCheck.success && !badKeys.has("email")) {
+      badKeys.add("email");
+      msgs.push("Email inválido. Verifica o formato (exemplo: nome@dominio.pt).");
+    }
+    if (msgs.length > 0) {
+      setInvalidMessages(msgs);
+      setInvalidKeys(badKeys);
+      setStatus("idle");
+      const firstKey = Array.from(badKeys)[0];
+      if (firstKey && FIELD_IDS[firstKey as RequiredKey]) {
+        focusField(FIELD_IDS[firstKey as RequiredKey]);
+      }
+      return;
+    }
+    setInvalidMessages([]);
+    setInvalidKeys(new Set());
     setStatus("submitting");
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          Destino: form.destino,
-          "Datas da viagem": form.datas,
-          "Número de dias": form.dias,
-          "Número de pessoas": form.pessoas,
-          "Orçamento aproximado": form.orcamento,
-          "Ritmo de viagem": form.ritmo,
-          Interesses: form.interesses,
-          "Restrições alimentares": form.restricoes,
-          "Tipo de alojamento preferido": form.alojamento,
-          "Ponto de partida": form.partida,
-          "Observações adicionais": form.observacoes,
-          Email: form.email,
+          Destino: form.destino.trim(),
+          "Datas da viagem": form.datas.trim(),
+          "Número de dias": form.dias.trim(),
+          "Número de pessoas": form.pessoas.trim(),
+          "Orçamento aproximado": form.orcamento.trim(),
+          "Ritmo de viagem": form.ritmo.trim(),
+          Interesses: form.interesses.trim(),
+          "Restrições alimentares": form.restricoes.trim(),
+          "Tipo de alojamento preferido": form.alojamento.trim(),
+          "Ponto de partida": form.partida.trim(),
+          "Observações adicionais": form.observacoes.trim(),
+          Email: form.email.trim(),
         }),
       });
       if (res.ok) {
@@ -454,18 +538,38 @@ function RequestForm() {
         </motion.div>
 
         {status === "success" ? (
-          <div className="glass rounded-2xl border border-gold/20 px-8 py-10 text-center">
-            <h3 className="font-serif text-2xl text-cream md:text-3xl">Pedido recebido.</h3>
-            <p className="mt-4 text-cream/80 leading-relaxed">
-              Obrigado. Vou analisar o teu pedido e respondo pessoalmente para o email que indicaste. Até já.
+          <div className="glass rounded-2xl border border-gold/20 px-8 py-10">
+            <h3 className="font-serif text-2xl text-cream md:text-3xl text-center">Pedido recebido.</h3>
+            <p className="mt-4 text-cream/80 leading-relaxed text-center">
+              Obrigado. Vou analisar o teu pedido e respondo pessoalmente para{" "}
+              <span className="text-cream">{form.email.trim()}</span>.
             </p>
+            <ol className="mt-6 space-y-3 text-cream/80 leading-relaxed list-decimal pl-5 marker:text-gold/70">
+              <li>Respondo em até 2 dias úteis com a confirmação do tipo de roteiro e orçamento exacto.</li>
+              <li>Verifica também a pasta de spam, por precaução.</li>
+              <li>Se precisares de ajustar algo, basta responder a esse email.</li>
+            </ol>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link
+                to="/"
+                className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-5 py-2.5 text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
+              >
+                Voltar ao início
+              </Link>
+              <a
+                href="/#cidades"
+                className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-[11px] uppercase tracking-[0.25em] text-[oklch(0.18_0.04_285)] transition-colors hover:bg-gold-soft"
+              >
+                Explorar roteiros gratuitos
+              </a>
+            </div>
           </div>
         ) : (
           <div className="rounded-2xl border border-gold/15 bg-plum/30 p-6 md:p-8">
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               <div className="md:col-span-2">
                 <label htmlFor="f-destino" className={labelCls}>Destino</label>
-                <input id="f-destino" required className={`${inputCls} ${fieldCls("destino")} mt-2`} value={form.destino} onChange={(e) => set("destino", e.target.value)} />
+                <input id="f-destino" required maxLength={MAX_LENGTHS.destino} className={`${inputCls} ${fieldCls("destino")} mt-2`} value={form.destino} onChange={(e) => set("destino", e.target.value)} />
               </div>
               <div className="md:col-span-2 grid grid-cols-1 gap-5 md:grid-cols-2">
                 <div>
@@ -538,11 +642,11 @@ function RequestForm() {
               </div>
               <div>
                 <label htmlFor="f-dias" className={labelCls}>Número de dias</label>
-                <input id="f-dias" type="number" min={1} required className={`${inputCls} ${fieldCls("dias")} mt-2`} value={form.dias} onChange={(e) => set("dias", e.target.value)} />
+                <input id="f-dias" type="number" min={1} maxLength={MAX_LENGTHS.dias} required className={`${inputCls} ${fieldCls("dias")} mt-2`} value={form.dias} onChange={(e) => set("dias", e.target.value.slice(0, MAX_LENGTHS.dias))} />
               </div>
               <div>
                 <label htmlFor="f-pessoas" className={labelCls}>Número de pessoas</label>
-                <input id="f-pessoas" type="number" min={1} required className={`${inputCls} ${fieldCls("pessoas")} mt-2`} value={form.pessoas} onChange={(e) => set("pessoas", e.target.value)} />
+                <input id="f-pessoas" type="number" min={1} maxLength={MAX_LENGTHS.pessoas} required className={`${inputCls} ${fieldCls("pessoas")} mt-2`} value={form.pessoas} onChange={(e) => set("pessoas", e.target.value.slice(0, MAX_LENGTHS.pessoas))} />
               </div>
               <div>
                 <label htmlFor="f-orcamento" className={labelCls}>Orçamento aproximado</label>
@@ -569,12 +673,16 @@ function RequestForm() {
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="f-interesses" className={labelCls}>Interesses</label>
-                <textarea id="f-interesses" rows={3} className={`${inputCls} mt-2`} value={form.interesses} onChange={(e) => set("interesses", e.target.value)} />
-                <p className={helpCls}>Por exemplo: comida, museus, música, natureza, miradouros.</p>
+                <textarea id="f-interesses" rows={3} maxLength={MAX_LENGTHS.interesses} className={`${inputCls} mt-2`} value={form.interesses} onChange={(e) => set("interesses", e.target.value)} />
+                <div className="mt-1 flex items-center justify-between">
+                  <p className={helpCls}>Por exemplo: comida, museus, música, natureza, miradouros.</p>
+                  <p className={helpCls}>{form.interesses.length}/{MAX_LENGTHS.interesses}</p>
+                </div>
               </div>
               <div>
                 <label htmlFor="f-restricoes" className={labelCls}>Restrições alimentares</label>
-                <input id="f-restricoes" className={`${inputCls} mt-2`} value={form.restricoes} onChange={(e) => set("restricoes", e.target.value)} />
+                <input id="f-restricoes" maxLength={MAX_LENGTHS.restricoes} className={`${inputCls} mt-2`} value={form.restricoes} onChange={(e) => set("restricoes", e.target.value)} />
+                <p className={`${helpCls} text-right`}>{form.restricoes.length}/{MAX_LENGTHS.restricoes}</p>
               </div>
               <div>
                 <label htmlFor="f-alojamento" className={labelCls}>Tipo de alojamento preferido</label>
@@ -590,15 +698,16 @@ function RequestForm() {
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="f-partida" className={labelCls}>Ponto de partida</label>
-                <input id="f-partida" className={`${inputCls} mt-2`} value={form.partida} onChange={(e) => set("partida", e.target.value)} />
+                <input id="f-partida" maxLength={MAX_LENGTHS.partida} className={`${inputCls} mt-2`} value={form.partida} onChange={(e) => set("partida", e.target.value)} />
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="f-obs" className={labelCls}>Observações adicionais</label>
-                <textarea id="f-obs" rows={3} className={`${inputCls} mt-2`} value={form.observacoes} onChange={(e) => set("observacoes", e.target.value)} />
+                <textarea id="f-obs" rows={3} maxLength={MAX_LENGTHS.observacoes} className={`${inputCls} mt-2`} value={form.observacoes} onChange={(e) => set("observacoes", e.target.value)} />
+                <p className={`${helpCls} text-right`}>{form.observacoes.length}/{MAX_LENGTHS.observacoes}</p>
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="f-email" className={labelCls}>O teu email</label>
-                <input id="f-email" type="email" required className={`${inputCls} ${fieldCls("email")} mt-2`} value={form.email} onChange={(e) => set("email", e.target.value)} />
+                <input id="f-email" type="email" required maxLength={MAX_LENGTHS.email} className={`${inputCls} ${fieldCls("email")} mt-2`} value={form.email} onChange={(e) => set("email", e.target.value)} />
                 <p className={helpCls}>É para aqui que respondo ao teu pedido.</p>
               </div>
             </div>
@@ -611,6 +720,17 @@ function RequestForm() {
                 </span>
                 .
               </p>
+            )}
+
+            {invalidMessages.length > 0 && (
+              <div className="mt-6 rounded-md border border-red-400/40 bg-red-400/[0.08] px-4 py-3 text-sm text-cream/90">
+                <p className="font-medium text-cream">Corrige o seguinte:</p>
+                <ul className="mt-2 list-disc pl-5 space-y-1">
+                  {invalidMessages.map((m) => (
+                    <li key={m}>{m}</li>
+                  ))}
+                </ul>
+              </div>
             )}
 
             {status === "error" && (
