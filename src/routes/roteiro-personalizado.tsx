@@ -139,7 +139,7 @@ function Comparison() {
         ["Destinos", "Cidades do catálogo, percorridas a pé por mim."],
         ["Base de trabalho", "Experiência presencial e notas tiradas no terreno."],
         ["Detalhe local", "Muito elevado, do que se vê e do que se evita."],
-        ["Preço", "A partir de 34,90 €"],
+        ["Preço", "A partir de 24,90 €"],
         ["Para quem é", "Para quem quer a confiança de um roteiro já vivido."],
       ],
     },
