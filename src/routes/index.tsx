@@ -183,7 +183,7 @@ function Hero() {
           </h1>
           <div className="my-7 h-px w-28 bg-gold/70" />
           <p className="max-w-xl text-base text-cream md:text-lg [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
-            Guias em português, testados no terreno, cidade a cidade. Para viajar com calma, ver bem e fugir às turistadas.
+            Guias em português, testados no terreno, cidade a cidade. Para viajar com calma, ver bem e fugir às turistadas.&nbsp;Impact-Site-Verification: ee118822-e7bf-4474-b064-334684a1db86
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-5">
             <button
