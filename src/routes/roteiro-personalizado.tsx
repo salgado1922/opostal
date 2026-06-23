@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { motion } from "framer-motion";
@@ -302,11 +302,56 @@ const REQUIRED_LABELS: Record<RequiredKey, string> = {
   email: "Email",
 };
 
+const FIELD_IDS: Record<RequiredKey, string> = {
+  destino: "f-destino",
+  datas: "f-datas",
+  dias: "f-dias",
+  pessoas: "f-pessoas",
+  orcamento: "f-orcamento",
+  ritmo: "f-ritmo",
+  alojamento: "f-alojamento",
+  email: "f-email",
+};
+
+const MAX_LENGTHS = {
+  destino: 120,
+  dias: 3,
+  pessoas: 3,
+  interesses: 500,
+  restricoes: 300,
+  partida: 120,
+  observacoes: 1000,
+  email: 255,
+} as const;
+
+const LENGTH_LABELS: Record<keyof typeof MAX_LENGTHS, string> = {
+  destino: "Destino",
+  dias: "Número de dias",
+  pessoas: "Número de pessoas",
+  interesses: "Interesses",
+  restricoes: "Restrições alimentares",
+  partida: "Ponto de partida",
+  observacoes: "Observações adicionais",
+  email: "Email",
+};
+
+const emailSchema = z.string().trim().email().max(MAX_LENGTHS.email);
+
+function focusField(id: string) {
+  if (typeof document === "undefined") return;
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "center" });
+  (el as HTMLElement).focus({ preventScroll: true });
+}
+
 function RequestForm() {
   const search = Route.useSearch();
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [missingFields, setMissingFields] = useState<RequiredKey[]>([]);
+  const [invalidMessages, setInvalidMessages] = useState<string[]>([]);
+  const [invalidKeys, setInvalidKeys] = useState<Set<string>>(new Set());
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const [dateMode, setDateMode] = useState<"exact" | "month">("exact");
   const [monthValue, setMonthValue] = useState<string>("");
@@ -334,10 +379,18 @@ function RequestForm() {
     if (typeof v === "string" && v.trim()) {
       setMissingFields((prev) => prev.filter((key) => key !== (k as unknown as RequiredKey)));
     }
+    setInvalidKeys((prev) => {
+      if (!prev.has(k as string)) return prev;
+      const next = new Set(prev);
+      next.delete(k as string);
+      return next;
+    });
+    setInvalidMessages([]);
   };
 
   const missing = (k: RequiredKey) => missingFields.includes(k);
-  const fieldCls = (k: RequiredKey) => (missing(k) ? errCls : "");
+  const fieldCls = (k: RequiredKey) =>
+    missing(k) || invalidKeys.has(k) ? errCls : "";
 
   const formatRange = (r: DateRange | undefined) => {
     if (!r?.from) return "";
@@ -402,28 +455,59 @@ function RequestForm() {
     const missingNow = required.filter((k) => !form[k].trim());
     if (missingNow.length > 0) {
       setMissingFields(missingNow);
+      setInvalidMessages([]);
+      setInvalidKeys(new Set());
       setStatus("idle");
+      focusField(FIELD_IDS[missingNow[0]]);
       return;
     }
     setMissingFields([]);
+
+    // Length + email validation
+    const msgs: string[] = [];
+    const badKeys = new Set<string>();
+    (Object.keys(MAX_LENGTHS) as (keyof typeof MAX_LENGTHS)[]).forEach((k) => {
+      const v = (form[k] ?? "").trim();
+      if (v.length > MAX_LENGTHS[k]) {
+        badKeys.add(k);
+        msgs.push(`${LENGTH_LABELS[k]}: máximo ${MAX_LENGTHS[k]} caracteres.`);
+      }
+    });
+    const emailCheck = emailSchema.safeParse(form.email);
+    if (!emailCheck.success && !badKeys.has("email")) {
+      badKeys.add("email");
+      msgs.push("Email inválido. Verifica o formato (exemplo: nome@dominio.pt).");
+    }
+    if (msgs.length > 0) {
+      setInvalidMessages(msgs);
+      setInvalidKeys(badKeys);
+      setStatus("idle");
+      const firstKey = Array.from(badKeys)[0];
+      if (firstKey && FIELD_IDS[firstKey as RequiredKey]) {
+        focusField(FIELD_IDS[firstKey as RequiredKey]);
+      }
+      return;
+    }
+    setInvalidMessages([]);
+    setInvalidKeys(new Set());
     setStatus("submitting");
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          Destino: form.destino,
-          "Datas da viagem": form.datas,
-          "Número de dias": form.dias,
-          "Número de pessoas": form.pessoas,
-          "Orçamento aproximado": form.orcamento,
-          "Ritmo de viagem": form.ritmo,
-          Interesses: form.interesses,
-          "Restrições alimentares": form.restricoes,
-          "Tipo de alojamento preferido": form.alojamento,
-          "Ponto de partida": form.partida,
-          "Observações adicionais": form.observacoes,
-          Email: form.email,
+          Destino: form.destino.trim(),
+          "Datas da viagem": form.datas.trim(),
+          "Número de dias": form.dias.trim(),
+          "Número de pessoas": form.pessoas.trim(),
+          "Orçamento aproximado": form.orcamento.trim(),
+          "Ritmo de viagem": form.ritmo.trim(),
+          Interesses: form.interesses.trim(),
+          "Restrições alimentares": form.restricoes.trim(),
+          "Tipo de alojamento preferido": form.alojamento.trim(),
+          "Ponto de partida": form.partida.trim(),
+          "Observações adicionais": form.observacoes.trim(),
+          Email: form.email.trim(),
         }),
       });
       if (res.ok) {
