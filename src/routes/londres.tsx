@@ -1528,7 +1528,7 @@ function StickyNav() {
   );
 }
 
-// ----------------------- VÍDEO DO GUIA (premium) -----------------------
+// ----------------------- VÍDEO DO GUIA -----------------------
 
 function GuideVideo() {
   return (
