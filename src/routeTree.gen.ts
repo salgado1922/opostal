@@ -11,18 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RoteiroPersonalizadoRouteImport } from './routes/roteiro-personalizado'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as PragaRouteImport } from './routes/praga'
 import { Route as LondresRouteImport } from './routes/londres'
 import { Route as IstambulRouteImport } from './routes/istambul'
 import { Route as FlorencaRouteImport } from './routes/florenca'
-import { Route as ContaRouteImport } from './routes/conta'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AbordagemRouteImport } from './routes/abordagem'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
-import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -32,16 +26,6 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RoteiroPersonalizadoRoute = RoteiroPersonalizadoRouteImport.update({
   id: '/roteiro-personalizado',
   path: '/roteiro-personalizado',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PremiumRoute = PremiumRouteImport.update({
-  id: '/premium',
-  path: '/premium',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PragaRoute = PragaRouteImport.update({
@@ -64,16 +48,6 @@ const FlorencaRoute = FlorencaRouteImport.update({
   path: '/florenca',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ContaRoute = ContaRouteImport.update({
-  id: '/conta',
-  path: '/conta',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AbordagemRoute = AbordagemRouteImport.update({
   id: '/abordagem',
   path: '/abordagem',
@@ -84,133 +58,80 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CheckoutReturnRoute = CheckoutReturnRouteImport.update({
-  id: '/checkout/return',
-  path: '/checkout/return',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicPaymentsWebhookRoute =
-  ApiPublicPaymentsWebhookRouteImport.update({
-    id: '/api/public/payments/webhook',
-    path: '/api/public/payments/webhook',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/abordagem': typeof AbordagemRoute
-  '/auth': typeof AuthRoute
-  '/conta': typeof ContaRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
   '/praga': typeof PragaRoute
-  '/premium': typeof PremiumRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/checkout/return': typeof CheckoutReturnRoute
-  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/abordagem': typeof AbordagemRoute
-  '/auth': typeof AuthRoute
-  '/conta': typeof ContaRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
   '/praga': typeof PragaRoute
-  '/premium': typeof PremiumRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/checkout/return': typeof CheckoutReturnRoute
-  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/abordagem': typeof AbordagemRoute
-  '/auth': typeof AuthRoute
-  '/conta': typeof ContaRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
   '/praga': typeof PragaRoute
-  '/premium': typeof PremiumRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/checkout/return': typeof CheckoutReturnRoute
-  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/abordagem'
-    | '/auth'
-    | '/conta'
     | '/florenca'
     | '/istambul'
     | '/londres'
     | '/praga'
-    | '/premium'
-    | '/reset-password'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
-    | '/checkout/return'
-    | '/api/public/payments/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/abordagem'
-    | '/auth'
-    | '/conta'
     | '/florenca'
     | '/istambul'
     | '/londres'
     | '/praga'
-    | '/premium'
-    | '/reset-password'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
-    | '/checkout/return'
-    | '/api/public/payments/webhook'
   id:
     | '__root__'
     | '/'
     | '/abordagem'
-    | '/auth'
-    | '/conta'
     | '/florenca'
     | '/istambul'
     | '/londres'
     | '/praga'
-    | '/premium'
-    | '/reset-password'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
-    | '/checkout/return'
-    | '/api/public/payments/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AbordagemRoute: typeof AbordagemRoute
-  AuthRoute: typeof AuthRoute
-  ContaRoute: typeof ContaRoute
   FlorencaRoute: typeof FlorencaRoute
   IstambulRoute: typeof IstambulRoute
   LondresRoute: typeof LondresRoute
   PragaRoute: typeof PragaRoute
-  PremiumRoute: typeof PremiumRoute
-  ResetPasswordRoute: typeof ResetPasswordRoute
   RoteiroPersonalizadoRoute: typeof RoteiroPersonalizadoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  CheckoutReturnRoute: typeof CheckoutReturnRoute
-  ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -227,20 +148,6 @@ declare module '@tanstack/react-router' {
       path: '/roteiro-personalizado'
       fullPath: '/roteiro-personalizado'
       preLoaderRoute: typeof RoteiroPersonalizadoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/premium': {
-      id: '/premium'
-      path: '/premium'
-      fullPath: '/premium'
-      preLoaderRoute: typeof PremiumRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/praga': {
@@ -271,20 +178,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FlorencaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/conta': {
-      id: '/conta'
-      path: '/conta'
-      fullPath: '/conta'
-      preLoaderRoute: typeof ContaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/abordagem': {
       id: '/abordagem'
       path: '/abordagem'
@@ -299,38 +192,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/checkout/return': {
-      id: '/checkout/return'
-      path: '/checkout/return'
-      fullPath: '/checkout/return'
-      preLoaderRoute: typeof CheckoutReturnRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/payments/webhook': {
-      id: '/api/public/payments/webhook'
-      path: '/api/public/payments/webhook'
-      fullPath: '/api/public/payments/webhook'
-      preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AbordagemRoute: AbordagemRoute,
-  AuthRoute: AuthRoute,
-  ContaRoute: ContaRoute,
   FlorencaRoute: FlorencaRoute,
   IstambulRoute: IstambulRoute,
   LondresRoute: LondresRoute,
   PragaRoute: PragaRoute,
-  PremiumRoute: PremiumRoute,
-  ResetPasswordRoute: ResetPasswordRoute,
   RoteiroPersonalizadoRoute: RoteiroPersonalizadoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  CheckoutReturnRoute: CheckoutReturnRoute,
-  ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
