@@ -1,44 +1,70 @@
-# Limpeza: remover páginas e sistema obsoletos
+## Scope
+Single file: `src/routes/praga.tsx`. Only edit the Day 3 object inside the `days` array. Nothing else in the file or site is touched.
 
-O modelo atual é: **roteiros gratuitos das cidades + roteiro personalizado pago (one-off por email)**. Tudo o que existe para vender "acesso premium" aos guias, login de utilizador e área de conta deixa de fazer sentido.
+## Changes
 
-## Páginas a apagar
+### 1. Day-level fields
+- `howToGet`: change to `"comboio de Praha hl. n. → Kutná Hora hl. n. (~1h)"`.
+- Add `highlightTip`: `"Fazer Sedlec primeiro — fica a ~1 km da estação principal — e só depois o centro. Assim andas sempre num sentido e não atravessas a cidade duas vezes."`.
+- Add `mapEmbedUrl` and `mapLinkUrl` with destinations in this order:
+  - Sedlec Ossuary → Kutná Hora city centre → St. Barbara's Church Kutna Hora.
 
-- `src/routes/premium.tsx` — venda de pacotes premium
-- `src/routes/auth.tsx` — login/registo
-- `src/routes/reset-password.tsx` — reposição de password (só serve o login)
-- `src/routes/conta.tsx` — área de conta do utilizador
-- `src/routes/checkout.return.tsx` — retorno do checkout Stripe dos pacotes premium
+### 2. Replace the `stops` array
+New sequence (7 stops), reusing the existing `Stop` shape, component classes, and wiki links that already exist:
 
-## Componentes e lógica a apagar
+1. **08:40 — Comboio para Kutná Hora**
+   - `desc`: "Saída da Hlavní Nádraží. ~1h de viagem confortável, lugares marcados."
+   - `icon`: Train
+   - `bookingUrl`: `[LINK_OMIO_PRAGA]`
+   - `walkTo`: "~5 min de autocarro (Kutná Hora hl. n. → Sedlec)"
 
-- `src/components/PremiumGate.tsx`
-- `src/components/PremiumPromo.tsx`
-- `src/components/GuidePreviewGate.tsx`
-- `src/components/AuthForm.tsx`
-- `src/components/StripeEmbeddedCheckout.tsx`
-- `src/components/PaymentTestModeBanner.tsx` (banner de modo de teste do Stripe)
-- `src/hooks/use-auth.tsx` (useMyAccess, useHasGuideAccess, useSignOut)
-- `src/lib/entitlements.functions.ts`
-- `src/lib/stripe.ts` e `src/lib/stripe.server.ts`
-- `src/routes/api/public/payments/webhook.ts` (webhook Stripe)
+2. **10:00 — Ossário de Sedlec: reservar slot!**
+   - Keep existing `link` to pt.wikipedia.org/wiki/Ossário_de_Sedlec
+   - `desc`: "Capela revestida com ossos de 40 mil pessoas. Único, sombrio, inesquecível. ~30 min de visita + ~30 min para a Catedral de Sedlec ao lado (UNESCO) ou compras."
+   - `icon`: AlertTriangle
+   - `hours`: "~9:00–18:00"
+   - `hoursNote`: "ENTRADA POR HORÁRIO MARCADO"
+   - `bookingUrl`: `[LINK_GETYOURGUIDE_PRAGA_OSSARIO]`
+   - `tip` (renders inside the expandable "Mais detalhes" block): "Compra aqui o bilhete combinado (Ossário + Catedral de Sedlec + Santa Bárbara, ~360 CZK) e evita fila depois em Santa Bárbara."
+   - `walkTo`: "~10 min de autocarro até ao centro histórico"
 
-Também removo o registo do middleware Stripe/auth em `src/start.ts` caso esteja ligado a estes módulos.
+3. **12:00 — Almoço no centro**
+   - `desc`: "Cozinha checa tradicional. Sugestões: Restaurace V Ruthardce ou Dačický, a poucos passos de Santa Bárbara."
+   - `icon`: Utensils
+   - No booking link
 
-## Limpeza de referências
+4. **13:30 — Catedral de Santa Bárbara**
+   - Keep existing `link` to pt.wikipedia.org/wiki/Catedral_de_Santa_Bárbara
+   - `desc`: "Joia gótica patrocinada pelos mineiros de prata. Tetos abobadados de cortar a respiração. ~1h de visita + ~30 min para compras nas redondezas."
+   - `icon`: Church
+   - `hours`: "~9:00–18:00"
+   - `bookingUrl`: `[LINK_GETYOURGUIDE_PRAGA_KUTNA_HORA]`
 
-- `src/routes/conta.tsx` link para `/premium` → desaparece com a página
-- Comentários `// VÍDEO DO GUIA (premium)` nas páginas de cidade (`praga.tsx`, `londres.tsx`, `florenca.tsx`, `istambul.tsx`) — verificar se a secção em si depende de premium; se for só comentário, atualizar o texto
+5. **14:45 — Explorar o centro histórico**
+   - `desc`: "Rua Barborská com vista, Corte Italiana, fonte gótica e ruelas medievais — sem objetivos, até à hora do comboio."
+   - `icon`: Sparkles
+   - No booking link
 
-## O que NÃO toco
+6. **17:00 — Comboio de regresso a Praga**
+   - `desc`: "~1h. Confirmar o horário do comboio antes de sair do centro."
+   - `icon`: Train
+   - No booking link
 
-- Páginas de cidade (`/praga`, `/istambul`, `/florenca`, `/londres`) — continuam como roteiros gratuitos
-- `/roteiro-personalizado` — o produto pago atual
-- `/abordagem` — página editorial, faz sentido manter
-- `/sitemap.xml`
-- Navegação (`SiteNav`) — já não tem links para premium/conta/login, fica intacta
-- Tabelas de base de dados — só removo do frontend; se quiseres limpar `subscriptions`/entitlements/`user_roles` posso fazer numa migração separada depois
+7. **20:00 — Concerto & Jantar (opcional)**
+   - `title`: "Concerto & Jantar (opcional)"
+   - `desc`: "Jantar leve em Praga e concerto clássico para fechar a noite — ver secção de concertos abaixo."
+   - `icon`: Music
 
-## Detalhes técnicos
+### 3. Transport box note
+In `day.transport.note`, replace the current sentence with:
+`"Dentro de Kutná Hora: da estação hl. n. ao Ossário de Sedlec ~1 km (autocarro ~5 min); de Sedlec ao centro histórico ~2,5 km (autocarro ~10 min)."`
 
-Ficheiros auto-gerados (`routeTree.gen.ts`) regeneram-se sozinhos quando apago os routes. Após apagar, valido que o build passa sem imports partidos e que nenhum componente das cidades depende dos gates removidos (já confirmei que não dependem).
+### 4. Map link
+Add `mapEmbedUrl` and `mapLinkUrl` to Day 3 with the ordered destinations:
+- Sedlec Ossuary → Kutná Hora city centre → St. Barbara's Church Kutna Hora.
+
+### What is NOT changed
+- Day 1, Day 2, Day 4 stops and data.
+- Concertos, Comer, Dicas, Reservas sections.
+- Header, footer, global styles, hero, overview, or any other component.
+- Placeholder affiliate links (`[LINK_OMIO_PRAGA]`, `[LINK_GETYOURGUIDE_PRAGA_OSSARIO]`, etc.) stay exactly as-is.
