@@ -13,6 +13,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
+import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import {
   Accordion,
   AccordionContent,
@@ -44,6 +45,15 @@ export const Route = createFileRoute("/roteiro-personalizado")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://opostal.pt/roteiro-personalizado" },
+      { property: "og:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Roteiro personalizado | O Postal" },
+      {
+        name: "twitter:description",
+        content:
+          "Um roteiro de viagem desenhado ao teu ritmo, com as tuas datas e os teus interesses. Para cidades testadas no terreno ou destinos por curadoria digital.",
+      },
+      { name: "twitter:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
     ],
     links: [{ rel: "canonical", href: "https://opostal.pt/roteiro-personalizado" }],
   }),
