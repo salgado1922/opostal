@@ -14,12 +14,15 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const lastmod = "2026-06-14";
+        const lastmod = "2026-06-29";
         const entries: SitemapEntry[] = [
           { path: "/", lastmod, changefreq: "weekly", priority: "1.0" },
+          { path: "/abordagem", lastmod, changefreq: "monthly", priority: "0.8" },
+          { path: "/roteiro-personalizado", lastmod, changefreq: "monthly", priority: "0.8" },
           { path: "/praga", lastmod, changefreq: "monthly", priority: "0.9" },
           { path: "/istambul", lastmod, changefreq: "monthly", priority: "0.9" },
           { path: "/florenca", lastmod, changefreq: "monthly", priority: "0.9" },
+          { path: "/londres", lastmod, changefreq: "monthly", priority: "0.9" },
         ];
         const urls = entries.map(
           (e) =>
