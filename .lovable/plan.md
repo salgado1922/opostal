@@ -1,51 +1,44 @@
-## Melhorias ao formulário de roteiro personalizado
+# Limpeza: remover páginas e sistema obsoletos
 
-Ficheiro único: `src/routes/roteiro-personalizado.tsx`. Sem novas dependências (já usa `zod`).
+O modelo atual é: **roteiros gratuitos das cidades + roteiro personalizado pago (one-off por email)**. Tudo o que existe para vender "acesso premium" aos guias, login de utilizador e área de conta deixa de fazer sentido.
 
-### 1. Validação de email mais rigorosa
+## Páginas a apagar
 
-- Acrescentar um schema `zod` com `z.string().trim().email().max(255)` aplicado só ao campo `email`.
-- No `handleSubmit`, depois de verificar campos em falta, validar o email com o schema:
-  - Se falhar (formato inválido), marcar `email` num novo estado `invalidFields` e mostrar mensagem específica: **"Email inválido. Verifica o formato (exemplo: nome@dominio.pt)."**
-- `input type="email"` mantém-se; o `errCls` aplica-se também quando o email está em `invalidFields`.
-- Ao editar o campo, limpar de `invalidFields` (mesma lógica do `missingFields`).
+- `src/routes/premium.tsx` — venda de pacotes premium
+- `src/routes/auth.tsx` — login/registo
+- `src/routes/reset-password.tsx` — reposição de password (só serve o login)
+- `src/routes/conta.tsx` — área de conta do utilizador
+- `src/routes/checkout.return.tsx` — retorno do checkout Stripe dos pacotes premium
 
-### 2. Scroll automático e foco no 1º campo em falta
+## Componentes e lógica a apagar
 
-- Mapa `FIELD_IDS: Record<RequiredKey, string>` com os ids existentes (`f-destino`, `f-dias`, etc.). Para `datas`, usar o id do botão do popover do calendário (vou adicionar `id="f-datas"` ao trigger).
-- No `handleSubmit`, depois de calcular `missingNow` (ou `invalidFields`), pegar no primeiro, fazer `document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" })` e `focus()`.
+- `src/components/PremiumGate.tsx`
+- `src/components/PremiumPromo.tsx`
+- `src/components/GuidePreviewGate.tsx`
+- `src/components/AuthForm.tsx`
+- `src/components/StripeEmbeddedCheckout.tsx`
+- `src/components/PaymentTestModeBanner.tsx` (banner de modo de teste do Stripe)
+- `src/hooks/use-auth.tsx` (useMyAccess, useHasGuideAccess, useSignOut)
+- `src/lib/entitlements.functions.ts`
+- `src/lib/stripe.ts` e `src/lib/stripe.server.ts`
+- `src/routes/api/public/payments/webhook.ts` (webhook Stripe)
 
-### 3. Limites de caracteres e sanitização
+Também removo o registo do middleware Stripe/auth em `src/start.ts` caso esteja ligado a estes módulos.
 
-- Definir constantes de limite por campo:
-  - `destino` 120, `dias` 3, `pessoas` 3, `interesses` 500, `restricoes` 300, `partida` 120, `observacoes` 1000, `email` 255.
-- Aplicar `maxLength` aos inputs/textareas correspondentes.
-- Para `observacoes` (e `interesses`, `restricoes`), mostrar contador discreto por baixo: `{value.length}/{max}`, em `text-cream/50`.
-- No envio (`handleSubmit`) aplicar `.trim()` a todos os campos antes de montar o `body` do `fetch`, garantindo que espaços iniciais/finais não passam.
-- Validar comprimentos com zod num schema completo do formulário; se algum exceder, marcar em `invalidFields` com mensagem clara ("Destino: máximo 120 caracteres").
+## Limpeza de referências
 
-### 4. Mensagem de confirmação melhorada
+- `src/routes/conta.tsx` link para `/premium` → desaparece com a página
+- Comentários `// VÍDEO DO GUIA (premium)` nas páginas de cidade (`praga.tsx`, `londres.tsx`, `florenca.tsx`, `istambul.tsx`) — verificar se a secção em si depende de premium; se for só comentário, atualizar o texto
 
-Substituir o bloco actual `status === "success"` por uma caixa com:
+## O que NÃO toco
 
-- Título: "Pedido recebido."
-- Parágrafo: confirmação de envio para o email indicado (mostrar o email submetido).
-- Lista de próximos passos:
-  1. Respondo em até 2 dias úteis com a confirmação do tipo de roteiro e orçamento exacto.
-  2. Verifica também a pasta de spam.
-  3. Se precisares de ajustar algo, responde a esse email.
-- Dois botões:
-  - "Voltar ao início" → `Link` para `/`.
-  - "Explorar roteiros gratuitos" → `Link` para `/#cidades`.
+- Páginas de cidade (`/praga`, `/istambul`, `/florenca`, `/londres`) — continuam como roteiros gratuitos
+- `/roteiro-personalizado` — o produto pago atual
+- `/abordagem` — página editorial, faz sentido manter
+- `/sitemap.xml`
+- Navegação (`SiteNav`) — já não tem links para premium/conta/login, fica intacta
+- Tabelas de base de dados — só removo do frontend; se quiseres limpar `subscriptions`/entitlements/`user_roles` posso fazer numa migração separada depois
 
-### Mensagens de erro (resumo do que aparece acima do botão Submit)
+## Detalhes técnicos
 
-- `missingFields.length > 0`: caixa vermelha — "Faltam campos obrigatórios: …" (já existe).
-- `invalidFields.length > 0`: caixa vermelha separada — lista as razões específicas (ex.: "Email inválido", "Observações: máximo 1000 caracteres").
-- `status === "error"`: caixa dourada — falha no envio, tenta novamente (existente).
-
-### Notas técnicas
-
-- Toda a lógica fica em estado React local; payload Formspree mantém o mesmo formato (com valores já `trim`ados).
-- Sem alterações fora do componente `RequestForm` (excepto adicionar `id="f-datas"` ao `PopoverTrigger`/botão de datas e os ids necessários para foco).
-- Sem novas dependências.
+Ficheiros auto-gerados (`routeTree.gen.ts`) regeneram-se sozinhos quando apago os routes. Após apagar, valido que o build passa sem imports partidos e que nenhum componente das cidades depende dos gates removidos (já confirmei que não dependem).
