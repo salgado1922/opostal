@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReducedMotion } from "framer-motion";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
 import pragaImg from "@/assets/city-praga.jpg";
@@ -594,6 +594,3 @@ function About() {
     </section>
   );
 }
-
-// Silence unused-import warnings for tree-shaken hooks
-void useMemo;
