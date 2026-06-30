@@ -1,70 +1,52 @@
-## Scope
-Single file: `src/routes/praga.tsx`. Only edit the Day 3 object inside the `days` array. Nothing else in the file or site is touched.
+## Objetivo
 
-## Changes
+Substituir a homepage atual (`src/routes/index.tsx`) pela nova versão "WOW" do mockup enviado, mantendo a integração com o resto do site (SiteNav, SiteFooter, dados de `CITIES`, rotas TanStack, metadados SEO já existentes).
 
-### 1. Day-level fields
-- `howToGet`: change to `"comboio de Praha hl. n. → Kutná Hora hl. n. (~1h)"`.
-- Add `highlightTip`: `"Fazer Sedlec primeiro — fica a ~1 km da estação principal — e só depois o centro. Assim andas sempre num sentido e não atravessas a cidade duas vezes."`.
-- Add `mapEmbedUrl` and `mapLinkUrl` with destinations in this order:
-  - Sedlec Ossuary → Kutná Hora city centre → St. Barbara's Church Kutna Hora.
+## O que muda visualmente
 
-### 2. Replace the `stops` array
-New sequence (7 stops), reusing the existing `Stop` shape, component classes, and wiki links that already exist:
+A nova homepage tem apenas três blocos, mais limpa que a atual:
 
-1. **08:40 — Comboio para Kutná Hora**
-   - `desc`: "Saída da Hlavní Nádraží. ~1h de viagem confortável, lugares marcados."
-   - `icon`: Train
-   - `bookingUrl`: `[LINK_OMIO_PRAGA]`
-   - `walkTo`: "~5 min de autocarro (Kutná Hora hl. n. → Sedlec)"
+1. **Hero** — slideshow de cidades em fundo (com Ken Burns), título "O Postal" em gradiente dourado, carimbo MMXXVI no canto, e uma nota manuscrita "vira cada postal ↓" ao lado do botão dourado "Explorar roteiros gratuitos".
+2. **Catálogo de cidades** — grelha de **postais viráveis (flip 3D)**:
+   - Frente: capa da cidade, selo serrilhado "O Postal / XXX / Visitado", chip "vira →", painel com nome, vibe e duração.
+   - Verso: fundo de postal listrado com mensagem manuscrita (Caveat) escrita "na primeira pessoa" pelo Postal, mini-carimbo e botão "Abrir roteiro" que leva à rota da cidade.
+   - Carimbo "VISITADO" / "EM BREVE" em tinta vermelha aparece ao virar.
+3. **Sobre** — caixa final com a mesma cópia atual ("Viajar devagar, sem turistadas.").
 
-2. **10:00 — Ossário de Sedlec: reservar slot!**
-   - Keep existing `link` to pt.wikipedia.org/wiki/Ossário_de_Sedlec
-   - `desc`: "Capela revestida com ossos de 40 mil pessoas. Único, sombrio, inesquecível. ~30 min de visita + ~30 min para a Catedral de Sedlec ao lado (UNESCO) ou compras."
-   - `icon`: AlertTriangle
-   - `hours`: "~9:00–18:00"
-   - `hoursNote`: "ENTRADA POR HORÁRIO MARCADO"
-   - `bookingUrl`: `[LINK_GETYOURGUIDE_PRAGA_OSSARIO]`
-   - `tip` (renders inside the expandable "Mais detalhes" block): "Compra aqui o bilhete combinado (Ossário + Catedral de Sedlec + Santa Bárbara, ~360 CZK) e evita fila depois em Santa Bárbara."
-   - `walkTo`: "~10 min de autocarro até ao centro histórico"
+Por cima de tudo, uma **rota tracejada dourada em SVG** desenha um caminho vertical sinuoso ao longo da página, com um "ponto-token" pulsante que avança conforme o scroll — o "fio" que liga os postais.
 
-3. **12:00 — Almoço no centro**
-   - `desc`: "Cozinha checa tradicional. Sugestões: Restaurace V Ruthardce ou Dačický, a poucos passos de Santa Bárbara."
-   - `icon`: Utensils
-   - No booking link
+Detalhes adicionais:
+- Nav fixo transparente que ganha blur/border ao passar do hero (igual ao mockup).
+- Postmark do hero faz parallax suave no scroll.
 
-4. **13:30 — Catedral de Santa Bárbara**
-   - Keep existing `link` to pt.wikipedia.org/wiki/Catedral_de_Santa_Bárbara
-   - `desc`: "Joia gótica patrocinada pelos mineiros de prata. Tetos abobadados de cortar a respiração. ~1h de visita + ~30 min para compras nas redondezas."
-   - `icon`: Church
-   - `hours`: "~9:00–18:00"
-   - `bookingUrl`: `[LINK_GETYOURGUIDE_PRAGA_KUTNA_HORA]`
+## O que é removido
 
-5. **14:45 — Explorar o centro histórico**
-   - `desc`: "Rua Barborská com vista, Corte Italiana, fonte gótica e ruelas medievais — sem objetivos, até à hora do comboio."
-   - `icon`: Sparkles
-   - No booking link
+As secções **"Como fazemos os roteiros"**, **"Quando o roteiro precisa de ser teu"** (bloco do roteiro personalizado) e **FAQ** desaparecem da homepage para ficar tão minimal como o mockup. O CTA dourado "Roteiro personalizado" continua no `SiteNav`, por isso o serviço continua acessível em todo o site; a página `/roteiro-personalizado` mantém-se.
 
-6. **17:00 — Comboio de regresso a Praga**
-   - `desc`: "~1h. Confirmar o horário do comboio antes de sair do centro."
-   - `icon`: Train
-   - No booking link
+Se preferires manter alguma destas três secções (ex.: FAQ ou bloco do roteiro personalizado), diz-me antes de aprovar e ajusto.
 
-7. **20:00 — Concerto & Jantar (opcional)**
-   - `title`: "Concerto & Jantar (opcional)"
-   - `desc`: "Jantar leve em Praga e concerto clássico para fechar a noite — ver secção de concertos abaixo."
-   - `icon`: Music
+## O que NÃO muda
 
-### 3. Transport box note
-In `day.transport.note`, replace the current sentence with:
-`"Dentro de Kutná Hora: da estação hl. n. ao Ossário de Sedlec ~1 km (autocarro ~5 min); de Sedlec ao centro histórico ~2,5 km (autocarro ~10 min)."`
+- `src/components/SiteNav.tsx`, `src/components/SiteFooter.tsx`, `src/data/cities.ts`, rotas das cidades, `/abordagem`, `/roteiro-personalizado`, sitemap, estilos globais, fontes (Caveat e Cormorant já carregadas em `__root.tsx`).
+- Metadados SEO e JSON-LD do `head()` da homepage — preservados tal e qual.
+- Assets — uso os ficheiros já em `src/assets/` (`hub-hero.jpg`, `city-*.jpg`, `istambul/home-card.jpg`). Não importo as imagens do zip porque já existem no projeto.
 
-### 4. Map link
-Add `mapEmbedUrl` and `mapLinkUrl` to Day 3 with the ordered destinations:
-- Sedlec Ossuary → Kutná Hora city centre → St. Barbara's Church Kutna Hora.
+## Detalhes técnicos
 
-### What is NOT changed
-- Day 1, Day 2, Day 4 stops and data.
-- Concertos, Comer, Dicas, Reservas sections.
-- Header, footer, global styles, hero, overview, or any other component.
-- Placeholder affiliate links (`[LINK_OMIO_PRAGA]`, `[LINK_GETYOURGUIDE_PRAGA_OSSARIO]`, etc.) stay exactly as-is.
+Tudo num único ficheiro: rescrita completa de `src/routes/index.tsx`. Mantém `createFileRoute("/")` e o `head()` atual.
+
+- **Postcard flip**: cada card é um `<div>` com `perspective:1600px` + filho `transform-style:preserve-3d` que alterna entre `rotateY(0)` e `rotateY(180deg)` via state local (`useState<Record<string, boolean>>`). Frente e verso usam `backface-visibility:hidden`. Hover em desktop e clique em mobile (controlado por `useMediaQuery`/`matchMedia`).
+- **Selo e carimbo**: já existem `PostalStamp` e `PostmarkCircle`, mas o mockup tem variantes específicas (selo na frente, carimbo "VISITADO" no canto do verso). Reutilizo `PostalStamp` e `PostmarkCircle` onde encaixam; o carimbo vermelho do verso é inline (caixa com borda dupla e rotação) para corresponder ao mockup.
+- **Rota SVG**: componente `<RouteThread />` montado dentro do `<main>` com `position:absolute`, calcula o `path` em função de `clientWidth`/`scrollHeight` no `useEffect` + `ResizeObserver`. Atualiza `strokeDashoffset` e a posição do token num listener de `scroll` com `requestAnimationFrame`. `prefers-reduced-motion` desativa o token pulsante e o Ken Burns.
+- **Mensagens dos postais**: copio as cinco mensagens do mockup (Praga, Istambul, Florença, Londres, Barcelona) para uma constante local — não toco em `src/data/cities.ts`. O slug e o link `to` continuam a vir de `CITIES`.
+- **Acessibilidade**: cada card é um `<button>` com `aria-pressed` para o estado flipped; o link "Abrir roteiro" no verso é um `<Link>` real e usa `e.stopPropagation()` para não virar de volta ao clicar.
+- **Performance**: hero slideshow continua com `fetchPriority="high"` apenas na primeira imagem; restantes `loading="lazy"`. SVG da rota só corre o `requestAnimationFrame` enquanto o utilizador faz scroll.
+
+## Verificação após a implementação
+
+Não há schema novo nem dependências novas. Confirmo build TS (`tsgo`), carrego `/` no preview e valido:
+- Hero anima e troca de imagens.
+- Cartões viram ao clicar; carimbo "VISITADO/EM BREVE" aparece.
+- Botão "Abrir roteiro" navega para a rota da cidade.
+- "Em breve" (Barcelona) fica grayscale e não navega.
+- Rota dourada acompanha o scroll sem reflow visível.
