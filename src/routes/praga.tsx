@@ -357,7 +357,7 @@ const days: Day[] = [
     },
     stops: [
       {
-        time: "08:40",
+        time: "10:00",
         title: "Comboio para Kutná Hora",
         desc: "Saída da Hlavní Nádraží. ~1h de viagem confortável, lugares marcados.",
         icon: Train,
@@ -365,9 +365,9 @@ const days: Day[] = [
         walkTo: "~5 min de autocarro (Kutná Hora hl. n. → Sedlec)",
       },
       {
-        time: "10:00",
+        time: "11:00",
         title: "Ossário de Sedlec: reservar slot!",
-        desc: "Capela revestida com ossos de 40 mil pessoas. Único, sombrio, inesquecível. ~30 min de visita + ~30 min para a Catedral de Sedlec ao lado (UNESCO) ou compras.",
+        desc: "Capela revestida com ossos de 40 mil pessoas. Único, sombrio, inesquecível. ~45 min de visita + ~45 min para a Catedral de Sedlec ao lado (UNESCO) ou compras.",
         link: "https://pt.wikipedia.org/wiki/Oss%C3%A1rio_de_Sedlec",
         icon: AlertTriangle,
         hours: "~9:00–18:00",
@@ -377,13 +377,13 @@ const days: Day[] = [
         walkTo: "~10 min de autocarro até ao centro histórico",
       },
       {
-        time: "12:00",
+        time: "13:00",
         title: "Almoço no centro",
         desc: "Cozinha checa tradicional. Sugestões: Restaurace V Ruthardce ou Dačický, a poucos passos de Santa Bárbara.",
         icon: Utensils,
       },
       {
-        time: "13:30",
+        time: "14:30",
         title: "Catedral de Santa Bárbara",
         desc: "Joia gótica patrocinada pelos mineiros de prata. Tetos abobadados de cortar a respiração. ~1h de visita + ~30 min para compras nas redondezas.",
         link: "https://pt.wikipedia.org/wiki/Catedral_de_Santa_B%C3%A1rbara",
@@ -392,7 +392,7 @@ const days: Day[] = [
         bookingUrl: "[LINK_GETYOURGUIDE_PRAGA_KUTNA_HORA]",
       },
       {
-        time: "14:45",
+        time: "16:00",
         title: "Explorar o centro histórico",
         desc: "Rua Barborská com vista, Corte Italiana, fonte gótica e ruelas medievais — sem objetivos, até à hora do comboio.",
         icon: Sparkles,
