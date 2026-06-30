@@ -16,7 +16,6 @@ import { Route as LondresRouteImport } from './routes/londres'
 import { Route as IstambulRouteImport } from './routes/istambul'
 import { Route as FlorencaRouteImport } from './routes/florenca'
 import { Route as AbordagemRouteImport } from './routes/abordagem'
-import { Route as IndexRouteImport } from './routes/index'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -53,14 +52,8 @@ const AbordagemRoute = AbordagemRouteImport.update({
   path: '/abordagem',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/abordagem': typeof AbordagemRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
@@ -70,7 +63,6 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/abordagem': typeof AbordagemRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
@@ -81,7 +73,6 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/abordagem': typeof AbordagemRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
@@ -93,7 +84,6 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/abordagem'
     | '/florenca'
     | '/istambul'
@@ -103,7 +93,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/abordagem'
     | '/florenca'
     | '/istambul'
@@ -113,7 +102,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
   id:
     | '__root__'
-    | '/'
     | '/abordagem'
     | '/florenca'
     | '/istambul'
@@ -124,7 +112,6 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AbordagemRoute: typeof AbordagemRoute
   FlorencaRoute: typeof FlorencaRoute
   IstambulRoute: typeof IstambulRoute
@@ -185,18 +172,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AbordagemRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AbordagemRoute: AbordagemRoute,
   FlorencaRoute: FlorencaRoute,
   IstambulRoute: IstambulRoute,
