@@ -1,20 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useReducedMotion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { ArrowRight, Lock } from "lucide-react";
+import { useReducedMotion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
-import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
-import { PostalStamp } from "@/components/postal/PostalStamp";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -64,13 +55,18 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   return (
-    <main id="top" className="bg-twilight-radial min-h-screen overflow-x-hidden">
+    <main
+      id="top"
+      className="relative min-h-screen overflow-x-hidden"
+      style={{
+        background:
+          "radial-gradient(ellipse at 20% 0%, oklch(0.62 0.14 38 / 0.15), transparent 55%),radial-gradient(ellipse at 90% 30%, oklch(0.82 0.14 78 / 0.12), transparent 50%),radial-gradient(ellipse at 50% 100%, oklch(0.22 0.055 320 / 0.6), transparent 60%),oklch(0.16 0.035 290)",
+      }}
+    >
       <SiteNav />
+      <RouteThread />
       <Hero />
       <CityGrid />
-      <MethodSection />
-      <CustomItinerary />
-      <Faq />
       <About />
       <SiteFooter />
     </main>
