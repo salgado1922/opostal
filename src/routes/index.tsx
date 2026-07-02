@@ -71,6 +71,7 @@ function Home() {
       <RouteThread />
       <Hero />
       <CityGrid />
+      <HowItWorks />
       <About />
       <SiteFooter />
     </main>
