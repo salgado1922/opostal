@@ -575,6 +575,80 @@ function RouteThread() {
   );
 }
 
+/* ---------------- HOW IT WORKS ---------------- */
+
+const STEPS: { n: string; title: string; body: string }[] = [
+  {
+    n: "01",
+    title: "Escolhes a cidade",
+    body: "Vira o postal, lê o recado e abre o roteiro. Sem registo, sem app, sem paywall.",
+  },
+  {
+    n: "02",
+    title: "Levas o roteiro contigo",
+    body: "Dias sugeridos, mapas e horários. Segues à tua velocidade — tudo pensado para andar a pé.",
+  },
+  {
+    n: "03",
+    title: "Comes e vês o que vale",
+    body: "Só entra o que provámos e caminhámos. Sem turistadas, sem parcerias pagas, sem enchimento.",
+  },
+];
+
+function HowItWorks() {
+  return (
+    <section id="como-funciona" className="relative z-[2] px-6 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-12 max-w-2xl">
+          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Como funciona</p>
+          <h2 className="font-serif text-3xl text-cream md:text-5xl">
+            Do postal ao terreno, em três passos.
+          </h2>
+          <p className="mt-4 text-cream/70 leading-relaxed">
+            Roteiros gratuitos, escritos por quem esteve lá. Sem intermediários, sem comissões escondidas.
+          </p>
+        </div>
+
+        <ol
+          className="grid list-none gap-6 p-0 md:gap-8"
+          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}
+        >
+          {STEPS.map((s) => (
+            <li
+              key={s.n}
+              className="glass relative flex flex-col rounded-2xl p-6 md:p-7"
+            >
+              <span
+                aria-hidden
+                className="font-serif text-5xl leading-none text-gold/40 md:text-6xl"
+              >
+                {s.n}
+              </span>
+              <h3 className="mt-4 font-serif text-xl text-cream md:text-2xl">{s.title}</h3>
+              <p className="mt-2.5 text-cream/70 leading-relaxed">{s.body}</p>
+            </li>
+          ))}
+        </ol>
+
+        <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] uppercase tracking-[0.25em] text-cream/60">
+          <li className="flex items-center gap-2">
+            <span aria-hidden className="text-gold">✓</span> 100% gratuito
+          </li>
+          <li className="flex items-center gap-2">
+            <span aria-hidden className="text-gold">✓</span> Sem registo
+          </li>
+          <li className="flex items-center gap-2">
+            <span aria-hidden className="text-gold">✓</span> Testado no terreno
+          </li>
+          <li className="flex items-center gap-2">
+            <span aria-hidden className="text-gold">✓</span> Em português
+          </li>
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------- ABOUT ---------------- */
 
 function About() {
