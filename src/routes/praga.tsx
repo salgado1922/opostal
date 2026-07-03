@@ -1447,7 +1447,7 @@ function GuideVideo() {
               src="https://www.youtube.com/embed/n_R22ZbTJhg"
               title="Vídeo do guia: Praga"
               loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
               className="absolute inset-0 h-full w-full"

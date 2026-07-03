@@ -1338,7 +1338,7 @@ function GuideVideo() {
               src="https://www.youtube.com/embed/QnzZF-FQ_qE"
               title="Vídeo do guia: Florença"
               loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
               className="absolute inset-0 h-full w-full"
