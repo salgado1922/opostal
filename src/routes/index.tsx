@@ -117,7 +117,7 @@ function Hero() {
   };
 
   return (
-    <section className="relative z-[2] flex min-h-screen items-end overflow-hidden">
+    <section className="relative z-[2] flex min-h-[85vh] items-end overflow-hidden">
       <div className="absolute inset-0 -z-10">
         {HERO_SLIDES.map((slide, i) => {
           const active = i === index;
@@ -161,7 +161,7 @@ function Hero() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-28 pt-40 md:px-10 md:pb-32 md:pt-44">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-16 pt-28 md:px-10 md:pb-24 md:pt-32">
         <div className="max-w-3xl">
           <p className="mb-5 text-[11px] uppercase tracking-[0.42em] text-gold [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
             Diários de viagem · Europa
