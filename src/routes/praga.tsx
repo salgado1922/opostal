@@ -468,7 +468,7 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="relative flex min-h-[85vh] w-full items-center overflow-hidden">
+    <section ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=2400&q=80"
