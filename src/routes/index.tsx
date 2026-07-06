@@ -465,8 +465,8 @@ function RouteThread() {
     if (!w || !h) return;
     svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
     svg.style.height = `${h}px`;
-    const cx = w * 0.5;
-    const amp = Math.min(120, w * 0.085);
+    const cx = w * (w < 640 ? 0.22 : 0.5);
+    const amp = Math.min(120, w * (w < 640 ? 0.04 : 0.085));
     const top = h * 0.16;
     const bot = h * 0.9;
     const n = 80;
@@ -601,7 +601,7 @@ function HowItWorks() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 max-w-2xl">
           <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Como funciona</p>
-          <h2 className="font-serif text-3xl text-cream md:text-5xl">
+          <h2 className="font-serif text-2xl text-cream sm:text-3xl md:text-5xl">
             Do postal ao terreno, em três passos.
           </h2>
           <p className="mt-4 text-cream/70 leading-relaxed">
@@ -610,27 +610,29 @@ function HowItWorks() {
         </div>
 
         <ol
-          className="grid list-none gap-6 p-0 md:gap-8"
+          className="grid list-none gap-8 p-0 md:gap-10"
           style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}
         >
           {STEPS.map((s) => (
             <li
               key={s.n}
-              className="glass relative flex flex-col rounded-2xl p-6 md:p-7"
+              className="glass relative flex flex-col rounded-2xl p-7 md:p-8"
             >
-              <span
+              <div
                 aria-hidden
-                className="font-serif text-5xl leading-none text-gold/40 md:text-6xl"
+                className="grid h-14 w-14 place-items-center rounded-full border border-gold/25 bg-gold/10 md:h-16 md:w-16"
               >
-                {s.n}
-              </span>
-              <h3 className="mt-4 font-serif text-xl text-cream md:text-2xl">{s.title}</h3>
+                <span className="font-serif text-2xl font-bold text-gold md:text-3xl">
+                  {s.n}
+                </span>
+              </div>
+              <h3 className="mt-5 font-serif text-xl text-cream md:text-2xl">{s.title}</h3>
               <p className="mt-2.5 text-cream/70 leading-relaxed">{s.body}</p>
             </li>
           ))}
         </ol>
 
-        <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] uppercase tracking-[0.25em] text-cream/60">
+        <ul className="mt-12 flex flex-col items-center justify-center gap-4 text-[11px] uppercase tracking-[0.25em] text-cream/60 sm:flex-row sm:gap-x-8 sm:gap-y-3">
           <li className="flex items-center gap-2">
             <span aria-hidden className="text-gold">✓</span> 100% gratuito
           </li>
