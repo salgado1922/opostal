@@ -596,6 +596,38 @@ const STEPS: { n: string; title: string; body: string }[] = [
 ];
 
 function HowItWorks() {
+  const reduce = useReducedMotion();
+  const listRef = useRef<HTMLOListElement | null>(null);
+  const [visible, setVisible] = useState<boolean[]>(() => STEPS.map(() => false));
+
+  useEffect(() => {
+    if (reduce) {
+      setVisible(STEPS.map(() => true));
+      return;
+    }
+    const items = Array.from(listRef.current?.querySelectorAll<HTMLLIElement>("li[data-step]") ?? []);
+    if (items.length === 0) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const idx = Number((e.target as HTMLElement).dataset.step);
+            setVisible((prev) => {
+              if (prev[idx]) return prev;
+              const next = [...prev];
+              next[idx] = true;
+              return next;
+            });
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.25, rootMargin: "0px 0px -10% 0px" },
+    );
+    items.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [reduce]);
+
   return (
     <section id="como-funciona" className="relative z-[2] px-6 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
@@ -610,26 +642,50 @@ function HowItWorks() {
         </div>
 
         <ol
+          ref={listRef}
           className="grid list-none gap-8 p-0 md:gap-10"
           style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}
         >
-          {STEPS.map((s) => (
-            <li
-              key={s.n}
-              className="glass relative flex flex-col rounded-2xl p-7 md:p-8"
-            >
-              <div
-                aria-hidden
-                className="grid h-14 w-14 place-items-center rounded-full border border-gold/25 bg-gold/10 md:h-16 md:w-16"
+          {STEPS.map((s, i) => {
+            const isOn = visible[i];
+            const delayMs = reduce ? 0 : i * 120;
+            const circleDelayMs = reduce ? 0 : delayMs + 80;
+            return (
+              <li
+                key={s.n}
+                data-step={i}
+                className={[
+                  "glass group relative flex flex-col rounded-2xl p-7 md:p-8",
+                  "transition-[transform,opacity,border-color,box-shadow] duration-500 ease-out",
+                  "will-change-transform",
+                  "hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_16px_44px_-18px_oklch(0.82_0.14_78_/_45%)]",
+                  "active:scale-[0.99] motion-reduce:transition-none motion-reduce:transform-none",
+                  isOn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
+                ].join(" ")}
+                style={{ transitionDelay: `${delayMs}ms` }}
               >
-                <span className="font-serif text-2xl font-bold text-gold md:text-3xl">
-                  {s.n}
-                </span>
-              </div>
-              <h3 className="mt-5 font-serif text-xl text-cream md:text-2xl">{s.title}</h3>
-              <p className="mt-2.5 text-cream/70 leading-relaxed">{s.body}</p>
-            </li>
-          ))}
+                <div
+                  aria-hidden
+                  className={[
+                    "grid h-14 w-14 place-items-center rounded-full border border-gold/25 bg-gold/10 md:h-16 md:w-16",
+                    "transition-[transform,background-color,border-color,box-shadow] duration-500 ease-out",
+                    "group-hover:bg-gold/20 group-hover:border-gold/55 group-hover:shadow-[0_0_28px_-6px_oklch(0.82_0.14_78_/_55%)]",
+                    "motion-reduce:transition-none motion-reduce:transform-none",
+                    isOn ? "scale-100 opacity-100" : "scale-90 opacity-0",
+                  ].join(" ")}
+                  style={{ transitionDelay: `${circleDelayMs}ms` }}
+                >
+                  <span className="font-serif text-2xl font-bold text-gold md:text-3xl">
+                    {s.n}
+                  </span>
+                </div>
+                <h3 className="mt-5 font-serif text-xl text-cream/95 transition-colors duration-300 group-hover:text-cream md:text-2xl">
+                  {s.title}
+                </h3>
+                <p className="mt-2.5 text-cream/70 leading-relaxed">{s.body}</p>
+              </li>
+            );
+          })}
         </ol>
 
         <ul className="mt-12 flex flex-col items-center justify-center gap-4 text-[11px] uppercase tracking-[0.25em] text-cream/60 sm:flex-row sm:gap-x-8 sm:gap-y-3">
