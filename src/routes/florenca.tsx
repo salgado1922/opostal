@@ -1602,7 +1602,10 @@ function EssentialInfo() {
               whileHover={{ y: -4 }}
               className="glass rounded-2xl border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)]"
             >
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30">
+              <div
+                className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30"
+                style={{ boxShadow: "0 0 12px oklch(0.62 0.16 40 / 0.45)" }}
+              >
                 <Icon className="h-5 w-5 text-gold" />
               </div>
               <h3 className="font-serif text-xl text-cream">{e.title}</h3>
