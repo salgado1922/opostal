@@ -39,6 +39,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
+import { FinalStamp } from "@/components/postal/FinalStamp";
 import type { Variants } from "framer-motion";
 import {
   Accordion,
@@ -1447,6 +1448,7 @@ function IstambulPage() {
       <Food />
       <Tips />
       <Checklist />
+      <FinalStamp code="IST" />
       <CustomItineraryCTA city="Istambul" />
       <Footer />
     </main>
