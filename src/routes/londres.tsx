@@ -830,7 +830,7 @@ function FlipDaysGrid() {
 function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
   const [open, setOpen] = useState(false);
   const Icon = stop.icon;
-  const hasExtra = !!stop.tip;
+  const hasExtra = !!(stop.tip || stop.image);
 
   return (
     <motion.div
@@ -845,19 +845,6 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
       </div>
 
       <div className="w-full rounded-2xl border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80">
-        {stop.image && (
-          <div className="mb-4 -mx-6 -mt-5 overflow-hidden">
-            <img
-              src={stop.image}
-              alt={stop.imageAlt ?? stop.title}
-              loading="lazy"
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = FALLBACK_COVER;
-              }}
-              className="h-56 w-full object-cover"
-            />
-          </div>
-        )}
         <button
           type="button"
           onClick={() => hasExtra && setOpen((o) => !o)}
@@ -914,12 +901,27 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
         className="overflow-hidden"
       >
-        <div className="mt-3 rounded-2xl border border-gold/15 bg-twilight/60 p-5">
+        <div
+          className={`mt-3 grid gap-4 rounded-2xl border border-gold/15 bg-twilight/60 p-5 ${
+            stop.tip && stop.image ? "md:grid-cols-2" : "grid-cols-1"
+          }`}
+        >
           {stop.tip && (
             <div className="flex gap-3">
               <Lightbulb className="mt-1 h-4 w-4 flex-shrink-0 text-gold" />
               <p className="text-sm italic text-cream/90">{stop.tip}</p>
             </div>
+          )}
+          {stop.image && (
+            <img
+              src={stop.image}
+              alt={stop.imageAlt ?? stop.title}
+              loading="lazy"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = FALLBACK_COVER;
+              }}
+              className="h-40 w-full rounded-xl object-cover shadow-[0_10px_30px_-12px_rgba(0,0,0,0.7)]"
+            />
           )}
         </div>
       </motion.div>
