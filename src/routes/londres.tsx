@@ -639,8 +639,21 @@ function Hero() {
             Guia · 3 dias + extra
             <span className="h-px w-8 bg-gold/70" />
           </div>
-          <h1 className="font-serif leading-[1.05]">
-            <span className="block text-gradient-gold text-6xl md:text-8xl">Londres</span>
+          <h1 className="font-serif leading-[1.02]">
+            <span
+              className="block font-serif font-semibold"
+              style={{
+                fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
+                backgroundImage:
+                  "linear-gradient(120deg, oklch(0.96 0.02 75) 0%, oklch(0.62 0.20 25) 50%, oklch(0.72 0.11 80) 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+                WebkitTextStroke: "1px rgba(0,0,0,0.35)",
+              }}
+            >
+              Londres
+            </span>
             <span className="mt-6 block font-serif text-xl italic text-cream/85 md:text-2xl">
               Guia de 3 dias a pé, com um dia extra
             </span>
@@ -1799,7 +1812,10 @@ function EssentialInfo() {
               whileHover={{ y: -4 }}
               className="glass rounded-2xl border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.55_0.18_25/0.45)]"
             >
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30">
+              <div
+                className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30"
+                style={{ boxShadow: "0 0 12px oklch(0.62 0.20 25 / 0.45)" }}
+              >
                 <Icon className="h-5 w-5 text-gold" />
               </div>
               <h3 className="font-serif text-xl text-cream">{e.title}</h3>
