@@ -384,7 +384,7 @@ const days: Day[] = [
       "Manhã de palácio otomano, tarde de mesquita imperial e do maior bazar coberto do mundo.",
     accent: "from-teal-400/30 to-rose-500/10",
     icon: Crown,
-    cover: d2Cover,
+    cover: d2S1,
     highlightTip:
       "Topkapi e Grande Bazar fecham em dias diferentes: Topkapi às terças, Grande Bazar aos domingos.",
     howToGet: "Como andar: a pé + elétrico T1.",
@@ -446,7 +446,7 @@ const days: Day[] = [
       "Palácio à beira-rio, mesquita fotogénica e travessia de ferry para o lado asiático. À noite, cruzeiro no Bósforo.",
     accent: "from-sky-400/30 to-violet-500/10",
     icon: Ship,
-    cover: d3Cover,
+    cover: d3S2,
     howToGet: "Como andar: elétrico/autocarro + ferry.",
     highlightTip:
       "Reserva o cruzeiro noturno do Bósforo para o fim do dia, que esgota com antecedência.",
@@ -505,7 +505,7 @@ const days: Day[] = [
       "Fuga de ferry a Büyükada: bicicleta, pinhais, mansões de madeira e peixe à beira-mar.",
     accent: "from-emerald-400/30 to-cyan-400/10",
     icon: Anchor,
-    cover: d4Cover,
+    cover: d4S2,
     howToGet: "Como chegar: ferry público de Eminönü/Kabataş (~1h–1h30).",
     dayTag: "Dia lento, longe do trânsito.",
     dayNote: {
@@ -560,7 +560,7 @@ const days: Day[] = [
       "Bazar das especiarias, Ponte Gálata, Torre de Gálata e İstiklal antes de partir.",
     accent: "from-amber-400/20 to-cyan-500/10",
     icon: Moon,
-    cover: d5Cover,
+    cover: d5S4,
     walkTotal: "A pé hoje: ~30 min, do bazar à Torre de Gálata.",
     howToGet: "Adapta consoante a hora do voo.",
     mapEmbedUrl:
