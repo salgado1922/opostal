@@ -525,51 +525,129 @@ function Overview() {
       title="O que visitar em Florença: três dias, três humores"
       intro="Cada dia tem o seu cenário e a sua cadência. Devagar de manhã, dourado ao fim da tarde."
     >
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-        {days.map((d, i) => {
-          const Icon = d.icon;
-          return (
-            <motion.a
-              key={d.key}
-              href={`#${d.key}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              whileHover={{ y: -6 }}
-              className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card backdrop-blur-md transition-shadow hover:shadow-[0_20px_60px_-20px_oklch(0.82_0.14_78/0.4)]"
+      <FlipDaysGrid />
+    </Section>
+  );
+}
+
+function FlipDaysGrid() {
+  const [flipped, setFlipped] = useState<Record<string, boolean>>({});
+  const toggle = (k: string) => setFlipped((s) => ({ ...s, [k]: !s[k] }));
+
+  return (
+    <ul
+      id="firenze-roteiro-grid"
+      className="m-0 grid list-none gap-5 p-0"
+      style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}
+    >
+      {days.map((d) => {
+        const isFlipped = !!flipped[d.key];
+        return (
+          <li key={d.key} className="firenze-flip-cell" style={{ perspective: 1500 }}>
+            <div
+              role="button"
+              tabIndex={0}
+              aria-label={d.title}
+              onClick={() => toggle(d.key)}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggle(d.key)}
+              className="relative w-full cursor-pointer"
+              style={{
+                aspectRatio: "3 / 4",
+                transformStyle: "preserve-3d",
+                transition: "transform .8s cubic-bezier(.2,.8,.2,1)",
+                transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+              }}
             >
-              <div className="relative h-44 w-full overflow-hidden bg-gradient-to-br from-terracotta/30 via-gold/15 to-twilight">
+              {/* FRONT */}
+              <article
+                className="absolute inset-0 overflow-hidden rounded-2xl border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
+                style={{
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  borderColor: "oklch(0.62 0.17 38 / .25)",
+                }}
+              >
                 {d.cover ? (
                   <img
                     src={d.cover}
                     alt={d.coverAlt ?? d.title}
                     loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = florencaCover.url;
+                    }}
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
                 ) : (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Icon className="h-14 w-14 text-gold/70" />
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-terracotta/30 via-gold/15 to-twilight" />
                 )}
-                <div className={`absolute inset-0 bg-gradient-to-t ${d.accent}`} />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full glass">
-                  <Icon className="h-5 w-5 text-gold" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.2) 48%, transparent)" }} />
+                <span
+                  className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[9.5px] uppercase tracking-[0.18em] backdrop-blur"
+                  style={{
+                    borderColor: "oklch(0.83 0.16 78 / .45)",
+                    background: "oklch(0.12 0.022 45 / .55)",
+                    color: "oklch(0.96 0.02 85)",
+                  }}
+                >
+                  vira →
+                </span>
+                <div className="absolute inset-x-3.5 bottom-3.5">
+                  <div className="text-[10px] uppercase tracking-[0.25em]" style={{ color: "oklch(0.96 0.02 85 / .9)" }}>
+                    {d.label} · {d.date}
+                  </div>
+                  <h3 className="mt-1 font-serif text-2xl font-semibold text-cream" style={{ lineHeight: 1.05 }}>
+                    {d.title}
+                  </h3>
                 </div>
-              </div>
-              <div className="p-6">
-                <div className="text-xs uppercase tracking-[0.25em] text-gold/80">
-                  {d.label} · {d.date}
+              </article>
+              {/* BACK */}
+              <article
+                className="absolute inset-0 overflow-hidden rounded-2xl border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
+                style={{
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  transform: "rotateY(180deg)",
+                  borderColor: "oklch(0.62 0.17 38 / .35)",
+                  background:
+                    "oklch(0.20 0.03 45) repeating-linear-gradient(135deg, oklch(0.62 0.17 38 / .05) 0 2px, transparent 2px 13px)",
+                }}
+              >
+                <div
+                  className="absolute inset-2.5 flex flex-col rounded-xl border border-dashed p-3.5"
+                  style={{ borderColor: "oklch(0.83 0.16 78 / .45)" }}
+                >
+                  <div className="text-[9px] uppercase tracking-[0.3em]" style={{ color: "oklch(0.62 0.17 38)" }}>
+                    {d.label} · resumo
+                  </div>
+                  <h3 className="mt-1.5 font-serif text-xl font-semibold text-cream" style={{ lineHeight: 1.05 }}>
+                    {d.title}
+                  </h3>
+                  <p className="mt-2 font-serif text-[0.92rem] italic text-cream/80" style={{ lineHeight: 1.4 }}>
+                    {d.vibe}
+                  </p>
+                  <dl className="mt-auto grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-1.5 text-[11.5px]">
+                    <dt className="uppercase tracking-[0.12em]" style={{ color: "oklch(0.83 0.16 78 / .9)" }}>Paragens</dt>
+                    <dd className="m-0 text-cream/90">{d.stops.length}</dd>
+                    {d.walkTotal && (<>
+                      <dt className="uppercase tracking-[0.12em]" style={{ color: "oklch(0.83 0.16 78 / .9)" }}>A pé</dt>
+                      <dd className="m-0 text-cream/90">{d.walkTotal.replace(/^A pé hoje:\s*/, "")}</dd>
+                    </>)}
+                  </dl>
+                  <a
+                    href={`#${d.key}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[10px] uppercase tracking-[0.18em] hover:bg-[oklch(0.62_0.17_38_/_.12)]"
+                    style={{ borderColor: "oklch(0.62 0.17 38 / .5)", color: "oklch(0.96 0.02 85)" }}
+                  >
+                    Abrir o dia →
+                  </a>
                 </div>
-                <h3 className="mt-2 font-serif text-2xl text-cream">{d.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{d.vibe}</p>
-              </div>
-            </motion.a>
-          );
-        })}
-      </div>
-    </Section>
+              </article>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 
