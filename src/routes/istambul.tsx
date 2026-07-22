@@ -47,7 +47,6 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import d1Cover from "@/assets/istambul/d1-cover.jpg";
-import istambulCover from "@/assets/cities/istambul-cover.jpg.asset.json";
 import d1S1 from "@/assets/istambul/d1-s1.jpg";
 import d1S2 from "@/assets/istambul/d1-s2.jpg";
 import d1S3 from "@/assets/istambul/d1-s3.jpg";
@@ -650,7 +649,7 @@ function Hero() {
     >
       <motion.div style={{ y }} className="absolute inset-0 -z-10">
         <img
-          src={istambulCover.url}
+          src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=2400&q=80"
           alt="Istambul à hora azul: silhueta do Bósforo com mesquitas e ferries"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ animation: "iznik-kenburns 20s linear infinite alternate" }}
