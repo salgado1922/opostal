@@ -1421,16 +1421,13 @@ function Checklist() {
 
 function Footer() {
   return (
-    <footer className="border-t border-gold/15 px-6 py-16 text-center">
-      <div className="mx-auto max-w-3xl">
-        <ArabesqueDivider className="mb-8" />
-        <p className="font-serif text-3xl text-gradient-gold md:text-4xl">Şerefe, à vossa.</p>
-        <p className="mt-4 text-sm text-muted-foreground">
-          O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
-        </p>
-        <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground/60">Fotos: Unsplash · Wikimedia Commons</p>
-        <DomeSilhouette className="mx-auto mt-10 h-10 w-72 text-gold/40 md:w-96" />
-      </div>
+    <footer className="px-6 pb-10 pt-2 text-center">
+      <p className="mx-auto max-w-3xl font-serif text-xl italic" style={{ color: "oklch(0.77 0.12 205 / .85)" }}>
+        Şerefe, à vossa.
+      </p>
+      <p className="mx-auto mt-1.5 max-w-3xl text-[11px] uppercase tracking-[0.25em] text-cream/30">
+        O Postal · Istambul · MMXXVI
+      </p>
     </footer>
   );
 }
@@ -1443,7 +1440,9 @@ function IstambulPage() {
       id="top"
       className="theme-iznik bg-twilight-radial min-h-screen overflow-x-hidden"
     >
+      <ReadingProgressBar />
       <StickyNav />
+      <IstambulHeroStyles />
       <Hero />
       <ConhecerIstambul />
       <EssentialInfo />
@@ -1457,6 +1456,54 @@ function IstambulPage() {
       <CustomItineraryCTA city="Istambul" />
       <Footer />
     </main>
+  );
+}
+
+function IstambulHeroStyles() {
+  return (
+    <style>{`
+      @keyframes iznik-kenburns { from { transform: scale(1.04); } to { transform: scale(1.14); } }
+      #iznik-roteiro-grid > li:nth-child(1) { grid-column: 1 / span 2; }
+      #iznik-roteiro-grid > li:nth-child(2) { grid-column: 3 / span 2; }
+      #iznik-roteiro-grid > li:nth-child(3) { grid-column: 5 / span 2; }
+      #iznik-roteiro-grid > li:nth-child(4) { grid-column: 2 / span 2; }
+      #iznik-roteiro-grid > li:nth-child(5) { grid-column: 4 / span 2; }
+      @media (max-width: 900px) {
+        #iznik-roteiro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        #iznik-roteiro-grid > li { grid-column: auto !important; }
+      }
+      @media (max-width: 560px) {
+        #iznik-roteiro-grid { grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  );
+}
+
+function ReadingProgressBar() {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop || document.body.scrollTop;
+      const height = h.scrollHeight - h.clientHeight;
+      setPct(height > 0 ? (scrolled / height) * 100 : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div className="fixed inset-x-0 top-0 z-[60] h-[3px] bg-transparent">
+      <div
+        className="h-full transition-[width] duration-100"
+        style={{
+          width: `${pct}%`,
+          background:
+            "linear-gradient(90deg, oklch(0.66 0.13 58), oklch(0.77 0.12 205), oklch(0.86 0.10 200))",
+          boxShadow: "0 0 10px oklch(0.77 0.12 205 / .6)",
+        }}
+      />
+    </div>
   );
 }
 
