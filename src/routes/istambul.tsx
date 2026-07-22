@@ -46,28 +46,23 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
-import d1Cover from "@/assets/istambul/d1-cover.jpg";
 import d1S1 from "@/assets/istambul/d1-s1.jpg";
 import d1S2 from "@/assets/istambul/d1-s2.jpg";
 import d1S3 from "@/assets/istambul/d1-s3.jpg";
 import d1S4 from "@/assets/istambul/d1-s4.jpg";
 import d1S5 from "@/assets/istambul/d1-s5.jpg";
-import d2Cover from "@/assets/istambul/d2-cover.jpg";
 import d2S1 from "@/assets/istambul/d2-s1.jpg";
 import d2S2 from "@/assets/istambul/d2-s2.jpg";
 import d2S3 from "@/assets/istambul/d2-s3.jpg";
 import d2S4 from "@/assets/istambul/d2-s4.jpg";
-import d3Cover from "@/assets/istambul/d3-cover.jpg";
 import d3S1 from "@/assets/istambul/d3-s1.jpg";
 import d3S2 from "@/assets/istambul/d3-s2.jpg";
 import d3S3 from "@/assets/istambul/d3-s3.jpg";
 import d3S4 from "@/assets/istambul/d3-s4.jpg";
-import d4Cover from "@/assets/istambul/d4-cover.jpg";
 import d4S1 from "@/assets/istambul/d4-s1.jpg";
 import d4S2 from "@/assets/istambul/d4-s2.jpg";
 import d4S3 from "@/assets/istambul/d4-s3.jpg";
 import d4S4 from "@/assets/istambul/d4-s4.jpg";
-import d5Cover from "@/assets/istambul/d5-cover.jpg";
 import d5S1 from "@/assets/istambul/d5-s1.jpg";
 import d5S2 from "@/assets/istambul/d5-s2.jpg";
 import d5S3 from "@/assets/istambul/d5-s3.jpg";
@@ -314,7 +309,7 @@ const days: Day[] = [
       "Aterrar com calma entre Bizâncio e o Império Otomano: Hagia Sophia, Mesquita Azul e a cisterna subterrânea.",
     accent: "from-cyan-400/30 to-indigo-500/10",
     icon: Sun,
-    cover: d1Cover,
+    cover: d1S2,
     walkTotal: "A pé hoje: ~20 min",
     dayNote: {
       tone: "amber",
@@ -389,7 +384,7 @@ const days: Day[] = [
       "Manhã de palácio otomano, tarde de mesquita imperial e do maior bazar coberto do mundo.",
     accent: "from-teal-400/30 to-rose-500/10",
     icon: Crown,
-    cover: d2Cover,
+    cover: d2S1,
     highlightTip:
       "Topkapi e Grande Bazar fecham em dias diferentes: Topkapi às terças, Grande Bazar aos domingos.",
     howToGet: "Como andar: a pé + elétrico T1.",
@@ -451,7 +446,7 @@ const days: Day[] = [
       "Palácio à beira-rio, mesquita fotogénica e travessia de ferry para o lado asiático. À noite, cruzeiro no Bósforo.",
     accent: "from-sky-400/30 to-violet-500/10",
     icon: Ship,
-    cover: d3Cover,
+    cover: d3S2,
     howToGet: "Como andar: elétrico/autocarro + ferry.",
     highlightTip:
       "Reserva o cruzeiro noturno do Bósforo para o fim do dia, que esgota com antecedência.",
@@ -510,7 +505,7 @@ const days: Day[] = [
       "Fuga de ferry a Büyükada: bicicleta, pinhais, mansões de madeira e peixe à beira-mar.",
     accent: "from-emerald-400/30 to-cyan-400/10",
     icon: Anchor,
-    cover: d4Cover,
+    cover: d4S2,
     howToGet: "Como chegar: ferry público de Eminönü/Kabataş (~1h–1h30).",
     dayTag: "Dia lento, longe do trânsito.",
     dayNote: {
@@ -565,7 +560,7 @@ const days: Day[] = [
       "Bazar das especiarias, Ponte Gálata, Torre de Gálata e İstiklal antes de partir.",
     accent: "from-amber-400/20 to-cyan-500/10",
     icon: Moon,
-    cover: d5Cover,
+    cover: d5S4,
     walkTotal: "A pé hoje: ~30 min, do bazar à Torre de Gálata.",
     howToGet: "Adapta consoante a hora do voo.",
     mapEmbedUrl:
