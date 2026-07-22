@@ -38,6 +38,8 @@ import {
   PartyPopper,
 } from "lucide-react";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
+import { DashedDivider } from "@/components/postal/DashedDivider";
+import { PostalStamp } from "@/components/postal/PostalStamp";
 import type { Variants } from "framer-motion";
 import {
   Accordion,
@@ -1382,6 +1384,7 @@ function Index() {
       <Food />
       <Tips />
       <Checklist />
+      <FinalStamp />
       <CustomItineraryCTA city="Praga" />
       <Footer />
     </main>
