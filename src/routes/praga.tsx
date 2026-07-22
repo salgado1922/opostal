@@ -46,6 +46,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
+import pragaCover from "@/assets/cities/praga-cover.jpg.asset.json";
 import { AffiliateLink } from "@/components/AffiliateLink";
 import {
   CustomItineraryCTA,
@@ -471,7 +472,7 @@ function Hero() {
     <section ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=2400&q=80"
+          src={pragaCover.url}
           alt="Vista de Praga ao pôr do sol: Ponte Carlos e Castelo"
           className="h-[120%] w-full object-cover"
         />
@@ -1910,7 +1911,7 @@ function CurrencyConverter() {
     >
       <div className="mb-6 flex items-center gap-3">
         <Coins className="h-5 w-5 text-gold" />
-        <h3 className="font-serif text-2xl text-cream">Conversor rápido</h3>
+        <h3 className="font-serif text-2xl text-cream">Conversor de coroas</h3>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_auto_1.1fr] lg:items-center">
