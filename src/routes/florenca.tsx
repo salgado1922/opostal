@@ -1244,16 +1244,10 @@ function Checklist() {
 
 function Footer() {
   return (
-    <footer className="border-t border-gold/15 px-6 py-16 text-center">
-      <div className="mx-auto max-w-3xl">
-        <p className="font-serif text-3xl text-gradient-gold md:text-4xl">Salute, à vossa.</p>
-        <p className="mt-4 text-sm text-muted-foreground">
-          O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
-        </p>
-        <p className="mt-3 text-xs text-muted-foreground/80">
-          Fotos: Unsplash · Wikimedia Commons
-        </p>
-      </div>
+    <footer className="border-t border-gold/10 px-6 py-10 text-center">
+      <p className="text-[11px] uppercase tracking-[0.3em] text-cream/60">
+        O Postal · Florença · MMXXVI
+      </p>
     </footer>
   );
 }
@@ -1263,7 +1257,9 @@ function Footer() {
 function Index() {
   return (
     <main id="top" className="theme-firenze bg-twilight-radial min-h-screen overflow-x-hidden">
+      <ReadingProgressBar />
       <StickyNav />
+      <FirenzeHeroStyles />
       <Hero />
       <ConhecerFlorenca />
       <EssentialInfo />
@@ -1277,6 +1273,48 @@ function Index() {
       <CustomItineraryCTA city="Florença" />
       <Footer />
     </main>
+  );
+}
+
+function FirenzeHeroStyles() {
+  return (
+    <style>{`
+      @keyframes firenze-kenburns { from { transform: scale(1.04); } to { transform: scale(1.14); } }
+      @media (max-width: 900px) {
+        #firenze-roteiro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      }
+      @media (max-width: 560px) {
+        #firenze-roteiro-grid { grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  );
+}
+
+function ReadingProgressBar() {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop || document.body.scrollTop;
+      const height = h.scrollHeight - h.clientHeight;
+      setPct(height > 0 ? (scrolled / height) * 100 : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div className="fixed inset-x-0 top-0 z-[60] h-[3px] bg-transparent">
+      <div
+        className="h-full transition-[width] duration-100"
+        style={{
+          width: `${pct}%`,
+          background:
+            "linear-gradient(90deg, oklch(0.62 0.17 38), oklch(0.83 0.16 78), oklch(0.96 0.02 85))",
+          boxShadow: "0 0 10px oklch(0.62 0.17 38 / .55)",
+        }}
+      />
+    </div>
   );
 }
 
