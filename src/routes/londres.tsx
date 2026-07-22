@@ -600,28 +600,38 @@ const altDay: Day = {
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden">
-      <motion.div style={{ y }} className="absolute inset-0">
-        <div
-          className="h-[120%] w-full bg-cover bg-center"
-          style={{ backgroundImage: `url('${londresCover.url}')` }}
-          role="img"
-          aria-label="Skyline da City de Londres visto do outro lado do Tamisa, à hora dourada"
+    <section
+      id="top"
+      ref={ref}
+      className="relative z-[2] flex min-h-screen items-center overflow-hidden"
+    >
+      <div className="absolute inset-0 -z-10">
+        <img
+          src={londresCover.url}
+          alt="Skyline da City de Londres visto do outro lado do Tamisa, à hora dourada"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ animation: "londres-kenburns 20s linear infinite alternate" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-terracotta/35 via-plum/65 to-twilight/90" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,oklch(0.55_0.18_25/0.20),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_80%,oklch(0.78_0.10_78/0.18),transparent_55%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-twilight/40 to-background" />
-      </motion.div>
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, oklch(0.10 0.03 250/0.55), transparent 30%, oklch(0.10 0.03 250/0.6) 70%, var(--background) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 32%, oklch(0.13 0.035 250 / .75) 100%)",
+          }}
+        />
+      </div>
 
-      <motion.div
-        style={{ opacity }}
-        className="relative z-10 flex h-full flex-col items-center justify-center px-6"
-      >
+      <motion.div style={{ opacity }} className="relative z-10 w-full">
         <div className="pointer-events-none absolute left-6 top-24 hidden md:left-12 md:top-28 md:block">
           <PostmarkCircle city="LONDRES" year="2024" rotate={-14} />
         </div>
@@ -629,40 +639,51 @@ function Hero() {
           <PostmarkCircle city="LONDRES" year="2025" rotate={-6} />
         </div>
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] as const }}
-          className="glass mx-auto w-full max-w-2xl rounded-3xl px-8 py-12 text-center shadow-2xl md:px-14 md:py-16"
+          className="mx-auto w-full max-w-6xl px-6 pb-16 pt-36 text-center md:pt-40"
         >
-          <div className="mb-5 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.4em] text-gold">
+          <div className="mb-4 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-gold">
             <span className="h-px w-8 bg-gold/70" />
             Guia · 3 dias + extra
             <span className="h-px w-8 bg-gold/70" />
           </div>
-          <h1 className="font-serif leading-[1.02]">
-            <span
-              className="block font-serif font-semibold"
-              style={{
-                fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
-                backgroundImage:
-                  "linear-gradient(120deg, oklch(0.96 0.02 75) 0%, oklch(0.62 0.20 25) 50%, oklch(0.72 0.11 80) 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-                WebkitTextStroke: "1px rgba(0,0,0,0.35)",
-              }}
-            >
-              Londres
-            </span>
-            <span className="mt-6 block font-serif text-xl italic text-cream/85 md:text-2xl">
-              Guia de 3 dias a pé, com um dia extra
-            </span>
+          <h1
+            className="mx-auto font-serif font-semibold"
+            style={{
+              margin: 0,
+              lineHeight: 1.02,
+              fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
+              backgroundImage:
+                "linear-gradient(120deg, oklch(0.96 0.02 75), oklch(0.72 0.11 80) 45%, oklch(0.52 0.22 25))",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              WebkitTextStroke: "1px rgba(0,0,0,0.35)",
+            }}
+          >
+            Londres
           </h1>
-          <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
-            Uma cidade para viver sem pressa, quase tudo a pé, com parques pelo meio, mercados, um pub honesto e um dia extra opcional para quem cresceu com Harry Potter.
+          <p className="mx-auto mt-4 max-w-lg font-serif text-lg italic text-cream/85 md:text-xl">
+            Três dias a pé, com parques pelo meio e um extra para os fãs de Harry Potter.
           </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="#dias"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-cream shadow-[0_18px_40px_-18px_oklch(0.52_0.22_25/.7)] transition-transform active:scale-95"
+              style={{ background: "oklch(0.52 0.22 25)" }}
+            >
+              Ver o itinerário <span aria-hidden>↓</span>
+            </a>
+            <span className="font-hand text-lg text-cream/80">
+              toca em cada paragem para ver os detalhes
+            </span>
+          </div>
+          <div className="mt-6">
+            <CustomItineraryHeroLink city="Londres" />
+          </div>
         </motion.div>
-        <CustomItineraryHeroLink city="Londres" />
       </motion.div>
     </section>
   );
@@ -678,21 +699,48 @@ function Overview() {
       title="O que visitar em Londres: três dias e um extra"
       intro="Cada dia tem uma zona, uma cadência e um motivo para acabar tarde. O dia extra é opcional, para fãs de Harry Potter ou para quem quer um quarto dia mais bónus."
     >
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
-        {days.map((d, i) => {
-          const Icon = d.icon;
-          return (
-            <motion.a
-              key={d.key}
-              href={`#${d.key}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              whileHover={{ y: -6 }}
-              className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card backdrop-blur-md transition-shadow hover:shadow-[0_20px_60px_-20px_oklch(0.55_0.18_25/0.45)]"
+      <FlipDaysGrid />
+    </Section>
+  );
+}
+
+function FlipDaysGrid() {
+  const [flipped, setFlipped] = useState<Record<string, boolean>>({});
+  const toggle = (k: string) => setFlipped((s) => ({ ...s, [k]: !s[k] }));
+
+  return (
+    <ul
+      id="londres-roteiro-grid"
+      className="m-0 grid list-none gap-5 p-0"
+      style={{ gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}
+    >
+      {days.map((d) => {
+        const isFlipped = !!flipped[d.key];
+        return (
+          <li key={d.key} className="londres-flip-cell" style={{ perspective: 1500 }}>
+            <div
+              role="button"
+              tabIndex={0}
+              aria-label={d.title}
+              onClick={() => toggle(d.key)}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggle(d.key)}
+              className="relative w-full cursor-pointer"
+              style={{
+                aspectRatio: "3 / 4",
+                transformStyle: "preserve-3d",
+                transition: "transform .8s cubic-bezier(.2,.8,.2,1)",
+                transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+              }}
             >
-              <div className="relative h-44 w-full overflow-hidden bg-gradient-to-br from-terracotta/30 via-gold/15 to-twilight">
+              {/* FRONT */}
+              <article
+                className="absolute inset-0 overflow-hidden rounded-2xl border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
+                style={{
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  borderColor: "oklch(0.52 0.22 25 / .25)",
+                }}
+              >
                 {d.cover ? (
                   <img
                     src={d.cover}
@@ -701,31 +749,79 @@ function Overview() {
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).src = FALLBACK_COVER;
                     }}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
                 ) : (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Icon className="h-14 w-14 text-gold/70" />
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-terracotta/30 via-gold/15 to-twilight" />
                 )}
-                <div className={`absolute inset-0 bg-gradient-to-t ${d.accent}`} />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full glass">
-                  <Icon className="h-5 w-5 text-gold" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.2) 48%, transparent)" }} />
+                <span
+                  className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[9.5px] uppercase tracking-[0.18em] backdrop-blur"
+                  style={{
+                    borderColor: "oklch(0.52 0.22 25 / .45)",
+                    background: "oklch(0.13 0.035 250 / .55)",
+                    color: "oklch(0.90 0.010 235)",
+                  }}
+                >
+                  vira →
+                </span>
+                <div className="absolute inset-x-3.5 bottom-3.5">
+                  <div className="text-[10px] uppercase tracking-[0.25em]" style={{ color: "oklch(0.90 0.010 235 / .9)" }}>
+                    {d.label} · {d.date}
+                  </div>
+                  <h3 className="mt-1 font-serif text-2xl font-semibold text-cream" style={{ lineHeight: 1.05 }}>
+                    {d.title}
+                  </h3>
                 </div>
-              </div>
-              <div className="p-6">
-                <div className="text-xs uppercase tracking-[0.25em] text-gold/80">
-                  {d.label} · {d.date}
+              </article>
+              {/* BACK */}
+              <article
+                className="absolute inset-0 overflow-hidden rounded-2xl border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
+                style={{
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  transform: "rotateY(180deg)",
+                  borderColor: "oklch(0.52 0.22 25 / .35)",
+                  background:
+                    "oklch(0.21 0.045 245) repeating-linear-gradient(135deg, oklch(0.52 0.22 25 / .05) 0 2px, transparent 2px 13px)",
+                }}
+              >
+                <div
+                  className="absolute inset-2.5 flex flex-col rounded-xl border border-dashed p-3.5"
+                  style={{ borderColor: "oklch(0.52 0.22 25 / .4)" }}
+                >
+                  <div className="text-[9px] uppercase tracking-[0.3em]" style={{ color: "oklch(0.52 0.22 25)" }}>
+                    {d.label} · resumo
+                  </div>
+                  <h3 className="mt-1.5 font-serif text-xl font-semibold text-cream" style={{ lineHeight: 1.05 }}>
+                    {d.title}
+                  </h3>
+                  <p className="mt-2 font-serif text-[0.92rem] italic text-cream/80" style={{ lineHeight: 1.4 }}>
+                    {d.vibe}
+                  </p>
+                  <dl className="mt-auto grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-1.5 text-[11.5px]">
+                    <dt className="uppercase tracking-[0.12em]" style={{ color: "oklch(0.52 0.22 25 / .85)" }}>Paragens</dt>
+                    <dd className="m-0 text-cream/90">{d.stops.length}</dd>
+                    {d.walkTotal && (<>
+                      <dt className="uppercase tracking-[0.12em]" style={{ color: "oklch(0.52 0.22 25 / .85)" }}>A pé</dt>
+                      <dd className="m-0 text-cream/90">{d.walkTotal.replace(/^A pé hoje:\s*/, "")}</dd>
+                    </>)}
+                  </dl>
+                  <a
+                    href={`#${d.key}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[10px] uppercase tracking-[0.18em] hover:bg-[oklch(0.52_0.22_25_/_.12)]"
+                    style={{ borderColor: "oklch(0.52 0.22 25 / .5)", color: "oklch(0.90 0.010 235)" }}
+                  >
+                    Abrir o dia →
+                  </a>
                 </div>
-                <h3 className="mt-2 font-serif text-2xl text-cream">{d.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{d.vibe}</p>
-              </div>
-            </motion.a>
-          );
-        })}
-      </div>
-    </Section>
+              </article>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 
@@ -1375,7 +1471,9 @@ function AlternativaSemEstudios() {
 function Index() {
   return (
     <main id="top" className="theme-londres bg-twilight-radial min-h-screen overflow-x-hidden">
+      <ReadingProgressBar />
       <StickyNav />
+      <LondresHeroStyles />
       <Hero />
       <ConhecerLondres />
       <EssentialInfo />
@@ -1390,6 +1488,48 @@ function Index() {
       <CustomItineraryCTA city="Londres" />
       <Footer />
     </main>
+  );
+}
+
+function LondresHeroStyles() {
+  return (
+    <style>{`
+      @keyframes londres-kenburns { from { transform: scale(1.04); } to { transform: scale(1.14); } }
+      @media (max-width: 900px) {
+        #londres-roteiro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      }
+      @media (max-width: 560px) {
+        #londres-roteiro-grid { grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  );
+}
+
+function ReadingProgressBar() {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop || document.body.scrollTop;
+      const height = h.scrollHeight - h.clientHeight;
+      setPct(height > 0 ? (scrolled / height) * 100 : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div className="fixed inset-x-0 top-0 z-[60] h-[3px] bg-transparent">
+      <div
+        className="h-full transition-[width] duration-100"
+        style={{
+          width: `${pct}%`,
+          background:
+            "linear-gradient(90deg, oklch(0.52 0.22 25), oklch(0.70 0.05 80), oklch(0.90 0.010 235))",
+          boxShadow: "0 0 10px oklch(0.52 0.22 25 / .55)",
+        }}
+      />
+    </div>
   );
 }
 
