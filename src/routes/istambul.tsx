@@ -643,64 +643,84 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden">
-      <motion.div style={{ y }} className="absolute inset-0">
+    <section
+      id="top"
+      ref={ref}
+      className="relative z-[2] flex min-h-screen items-center overflow-hidden"
+    >
+      <motion.div style={{ y }} className="absolute inset-0 -z-10">
         <img
           src={istambulCover.url}
           alt="Istambul à hora azul: silhueta do Bósforo com mesquitas e ferries"
-          className="h-[120%] w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ animation: "iznik-kenburns 20s linear infinite alternate" }}
         />
-        {/* indigo/petrol-blue overlay (replaces amber on Praga hero) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-twilight/50 via-twilight/65 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,oklch(0.13_0.05_265/0.75)_100%)]" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, oklch(0.10 0.035 238/0.5), transparent 30%, oklch(0.10 0.035 238/0.55) 70%, oklch(0.16 0.04 238) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 32%, oklch(0.16 0.04 238 / .72) 100%)",
+          }}
+        />
       </motion.div>
 
-      <motion.div
-        style={{ opacity }}
-        className="relative z-10 flex h-full flex-col items-center justify-center px-6"
-      >
-        <div className="pointer-events-none absolute right-6 top-24 hidden md:right-12 md:top-28 md:block">
-          <PostmarkCircle city="ISTAMBUL" year="2025" rotate={-9} />
+      <motion.div style={{ opacity }} className="relative z-10 w-full">
+        <div className="pointer-events-none absolute right-8 top-24 hidden md:right-32 md:top-28 md:block">
+          <PostmarkCircle city="ISTAMBUL" year="2026" rotate={-9} />
         </div>
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] as const }}
-          className="glass mx-auto w-full max-w-2xl rounded-3xl px-8 py-12 text-center shadow-2xl md:px-14 md:py-16"
+          className="mx-auto w-full max-w-6xl px-6 pb-16 pt-36 text-center md:pt-40"
         >
-          <div className="mb-5 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.4em] text-gold">
+          <div className="mb-4 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-gold">
             <span className="h-px w-8 bg-gold/70" />
             Guia · 5 dias
             <span className="h-px w-8 bg-gold/70" />
           </div>
-          <h1 className="font-serif leading-[1.02]">
-            <span
-              className="block font-serif font-semibold"
-              style={{
-                fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
-                backgroundImage:
-                  "linear-gradient(120deg, oklch(0.96 0.015 215), oklch(0.77 0.12 205) 50%, oklch(0.66 0.13 58))",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-                WebkitTextStroke: "1px rgba(0,0,0,0.35)",
-              }}
-            >
-              Istambul
-            </span>
-            <span className="mt-6 block font-serif text-xl italic text-cream/85 md:text-2xl">
-              Guia de 5 dias ao teu ritmo
-            </span>
+          <h1
+            className="mx-auto font-serif font-semibold"
+            style={{
+              margin: 0,
+              lineHeight: 1.02,
+              fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
+              backgroundImage:
+                "linear-gradient(120deg, oklch(0.96 0.015 215), oklch(0.77 0.12 205) 50%, oklch(0.66 0.13 58))",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              WebkitTextStroke: "1px rgba(0,0,0,0.35)",
+            }}
+          >
+            Istambul
           </h1>
-          <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
-            Um guia público para descobrir Istambul sem pressa: duas margens, dois continentes,
-            mil minaretes, e o melhor entre a Europa e a Ásia, para qualquer viajante.
+          <p className="mx-auto mt-4 max-w-lg font-serif text-lg italic text-cream/85 md:text-xl">
+            Cinco dias ao teu ritmo: duas margens, dois continentes, mil minaretes.
           </p>
-          <div className="mt-7 flex justify-center">
-            <EightPointStar className="h-4 w-4 text-gold/80" />
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="#dias"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-twilight shadow-[0_18px_40px_-18px_rgba(200,119,46,.7)] transition-transform active:scale-95"
+              style={{ background: "oklch(0.77 0.12 205)" }}
+            >
+              Ver o itinerário <span aria-hidden>↓</span>
+            </a>
+            <span className="font-hand text-lg text-cream/80">
+              toca em cada paragem para ver os detalhes
+            </span>
+          </div>
+          <div className="mt-6">
+            <CustomItineraryHeroLink city="Istambul" />
           </div>
         </motion.div>
-        <CustomItineraryHeroLink city="Istambul" />
       </motion.div>
     </section>
   );
@@ -716,44 +736,117 @@ function Overview() {
       title="O que visitar em Istambul: cinco dias, cinco humores"
       intro="Cada dia tem o seu cenário e a sua cadência. Devagar de manhã, à beira do Bósforo ao fim da tarde."
     >
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-        {days.map((d, i) => {
-          const Icon = d.icon;
-          return (
-            <motion.a
-              key={d.key}
-              href={`#${d.key}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              whileHover={{ y: -6 }}
-              className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card backdrop-blur-md transition-shadow hover:shadow-[0_20px_60px_-20px_oklch(0.78_0.14_200/0.4)]"
-            >
-              <div className="relative h-44 w-full overflow-hidden">
-                <img
-                  src={d.cover}
-                  alt={d.title}
-                  className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"
-                />
-                <div className={`absolute inset-0 bg-gradient-to-t ${d.accent}`} />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
-                <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full glass">
-                  <Icon className="h-5 w-5 text-gold" />
-                </div>
-              </div>
-              <div className="p-6">
-                <div className="text-xs uppercase tracking-[0.25em] text-gold/80">
-                  {d.label} · {d.date}
-                </div>
-                <h3 className="mt-2 font-serif text-2xl text-cream">{d.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{d.vibe}</p>
-              </div>
-            </motion.a>
-          );
-        })}
-      </div>
+      <FlipDaysGrid />
     </Section>
+  );
+}
+
+function FlipDaysGrid() {
+  const [flipped, setFlipped] = useState<Record<string, boolean>>({});
+  const toggle = (k: string) => setFlipped((s) => ({ ...s, [k]: !s[k] }));
+
+  return (
+    <ul id="iznik-roteiro-grid" className="m-0 grid list-none gap-5 p-0" style={{ gridTemplateColumns: "repeat(6, minmax(0, 1fr))" }}>
+      {days.map((d) => {
+        const isFlipped = !!flipped[d.key];
+        return (
+          <li key={d.key} className="iznik-flip-cell" style={{ perspective: 1500 }}>
+            <div
+              role="button"
+              tabIndex={0}
+              aria-label={d.title}
+              onClick={() => toggle(d.key)}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggle(d.key)}
+              className="relative w-full cursor-pointer"
+              style={{
+                aspectRatio: "3 / 4",
+                transformStyle: "preserve-3d",
+                transition: "transform .8s cubic-bezier(.2,.8,.2,1)",
+                transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+              }}
+            >
+              {/* FRONT */}
+              <article
+                className="absolute inset-0 overflow-hidden rounded-2xl border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
+                style={{
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  borderColor: "oklch(0.77 0.12 205 / .15)",
+                }}
+              >
+                <img src={d.cover} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.2) 48%, transparent)" }} />
+                <span
+                  className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[9.5px] uppercase tracking-[0.18em] backdrop-blur"
+                  style={{
+                    borderColor: "oklch(0.77 0.12 205 / .35)",
+                    background: "oklch(0.16 0.04 238 / .5)",
+                    color: "oklch(0.86 0.10 200)",
+                  }}
+                >
+                  vira →
+                </span>
+                <div className="absolute inset-x-3.5 bottom-3.5">
+                  <div className="text-[10px] uppercase tracking-[0.25em]" style={{ color: "oklch(0.77 0.12 205 / .9)" }}>
+                    {d.label} · {d.date}
+                  </div>
+                  <h3 className="mt-1 font-serif text-2xl font-semibold text-cream" style={{ lineHeight: 1.05 }}>
+                    {d.title}
+                  </h3>
+                </div>
+              </article>
+              {/* BACK */}
+              <article
+                className="absolute inset-0 overflow-hidden rounded-2xl border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
+                style={{
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  transform: "rotateY(180deg)",
+                  borderColor: "oklch(0.77 0.12 205 / .25)",
+                  background:
+                    "oklch(0.20 0.05 242) repeating-linear-gradient(135deg, oklch(0.77 0.12 205 / .045) 0 2px, transparent 2px 13px)",
+                }}
+              >
+                <div
+                  className="absolute inset-2.5 flex flex-col rounded-xl border border-dashed p-3.5"
+                  style={{ borderColor: "oklch(0.77 0.12 205 / .35)" }}
+                >
+                  <div className="text-[9px] uppercase tracking-[0.3em]" style={{ color: "oklch(0.77 0.12 205)" }}>
+                    {d.label} · resumo
+                  </div>
+                  <h3 className="mt-1.5 font-serif text-xl font-semibold text-cream" style={{ lineHeight: 1.05 }}>
+                    {d.title}
+                  </h3>
+                  <p className="mt-2 font-serif text-[0.92rem] italic text-cream/80" style={{ lineHeight: 1.4 }}>
+                    {d.vibe}
+                  </p>
+                  <dl className="mt-auto grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-1.5 text-[11.5px]">
+                    <dt className="uppercase tracking-[0.12em]" style={{ color: "oklch(0.77 0.12 205 / .8)" }}>Paragens</dt>
+                    <dd className="m-0 text-cream/90">{d.stops.length}</dd>
+                    {d.walkTotal && (<>
+                      <dt className="uppercase tracking-[0.12em]" style={{ color: "oklch(0.77 0.12 205 / .8)" }}>A pé</dt>
+                      <dd className="m-0 text-cream/90">{d.walkTotal.replace(/^A pé hoje:\s*/, "")}</dd>
+                    </>)}
+                    {d.howToGet && (<>
+                      <dt className="uppercase tracking-[0.12em]" style={{ color: "oklch(0.77 0.12 205 / .8)" }}>Ir</dt>
+                      <dd className="m-0 text-cream/90">{d.howToGet.replace(/^Como (andar|chegar):\s*/, "")}</dd>
+                    </>)}
+                  </dl>
+                  <a
+                    href={`#${d.key}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[10px] uppercase tracking-[0.18em] hover:bg-[oklch(0.77_0.12_205_/_.1)]"
+                    style={{ borderColor: "oklch(0.77 0.12 205 / .45)", color: "oklch(0.77 0.12 205)" }}
+                  >
+                    Abrir o dia →
+                  </a>
+                </div>
+              </article>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 
@@ -1328,16 +1421,13 @@ function Checklist() {
 
 function Footer() {
   return (
-    <footer className="border-t border-gold/15 px-6 py-16 text-center">
-      <div className="mx-auto max-w-3xl">
-        <ArabesqueDivider className="mb-8" />
-        <p className="font-serif text-3xl text-gradient-gold md:text-4xl">Şerefe, à vossa.</p>
-        <p className="mt-4 text-sm text-muted-foreground">
-          O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
-        </p>
-        <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground/60">Fotos: Unsplash · Wikimedia Commons</p>
-        <DomeSilhouette className="mx-auto mt-10 h-10 w-72 text-gold/40 md:w-96" />
-      </div>
+    <footer className="px-6 pb-10 pt-2 text-center">
+      <p className="mx-auto max-w-3xl font-serif text-xl italic" style={{ color: "oklch(0.77 0.12 205 / .85)" }}>
+        Şerefe, à vossa.
+      </p>
+      <p className="mx-auto mt-1.5 max-w-3xl text-[11px] uppercase tracking-[0.25em] text-cream/30">
+        O Postal · Istambul · MMXXVI
+      </p>
     </footer>
   );
 }
@@ -1350,7 +1440,9 @@ function IstambulPage() {
       id="top"
       className="theme-iznik bg-twilight-radial min-h-screen overflow-x-hidden"
     >
+      <ReadingProgressBar />
       <StickyNav />
+      <IstambulHeroStyles />
       <Hero />
       <ConhecerIstambul />
       <EssentialInfo />
@@ -1364,6 +1456,54 @@ function IstambulPage() {
       <CustomItineraryCTA city="Istambul" />
       <Footer />
     </main>
+  );
+}
+
+function IstambulHeroStyles() {
+  return (
+    <style>{`
+      @keyframes iznik-kenburns { from { transform: scale(1.04); } to { transform: scale(1.14); } }
+      #iznik-roteiro-grid > li:nth-child(1) { grid-column: 1 / span 2; }
+      #iznik-roteiro-grid > li:nth-child(2) { grid-column: 3 / span 2; }
+      #iznik-roteiro-grid > li:nth-child(3) { grid-column: 5 / span 2; }
+      #iznik-roteiro-grid > li:nth-child(4) { grid-column: 2 / span 2; }
+      #iznik-roteiro-grid > li:nth-child(5) { grid-column: 4 / span 2; }
+      @media (max-width: 900px) {
+        #iznik-roteiro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        #iznik-roteiro-grid > li { grid-column: auto !important; }
+      }
+      @media (max-width: 560px) {
+        #iznik-roteiro-grid { grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  );
+}
+
+function ReadingProgressBar() {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop || document.body.scrollTop;
+      const height = h.scrollHeight - h.clientHeight;
+      setPct(height > 0 ? (scrolled / height) * 100 : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div className="fixed inset-x-0 top-0 z-[60] h-[3px] bg-transparent">
+      <div
+        className="h-full transition-[width] duration-100"
+        style={{
+          width: `${pct}%`,
+          background:
+            "linear-gradient(90deg, oklch(0.66 0.13 58), oklch(0.77 0.12 205), oklch(0.86 0.10 200))",
+          boxShadow: "0 0 10px oklch(0.77 0.12 205 / .6)",
+        }}
+      />
+    </div>
   );
 }
 
