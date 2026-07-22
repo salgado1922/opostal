@@ -498,8 +498,21 @@ function Hero() {
             Guia · 4 dias
             <span className="h-px w-8 bg-gold/70" />
           </div>
-          <h1 className="font-serif leading-[1.05]">
-            <span className="block text-gradient-gold text-6xl md:text-8xl">Praga</span>
+          <h1 className="font-serif leading-[1.02]">
+            <span
+              className="block font-serif font-semibold"
+              style={{
+                fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
+                backgroundImage:
+                  "linear-gradient(120deg, oklch(0.96 0.02 75) 0%, oklch(0.82 0.14 78) 45%, oklch(0.62 0.14 38) 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+                WebkitTextStroke: "1px rgba(0,0,0,0.35)",
+              }}
+            >
+              Praga
+            </span>
             <span className="mt-6 block font-serif text-xl italic text-cream/85 md:text-2xl">
               Guia de 4 dias ao teu ritmo
             </span>
