@@ -303,8 +303,8 @@ const days: Day[] = [
     vibe: "Big Ben de manhã, Buckingham com os parques pelo meio, e a tarde em Hyde Park e South Kensington.",
     accent: "from-amber-300/30 to-rose-400/15",
     icon: Crown,
-    cover: COMMONS("Big_Ben_and_Palace_of_Westminster_London_2016_03.jpg"),
-    coverAlt: "Big Ben e o Palácio de Westminster vistos da Ponte de Westminster",
+    cover: COMMONS("Buckingham Palace, London - April 2009.jpg"),
+    coverAlt: "Palácio de Buckingham em Londres",
     walkTotal: "A pé hoje: muito, com os parques pelo meio a servir de pausa.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Westminster+Abbey+London&daddr=Big+Ben+London+to:St+James%27s+Park+London+to:Buckingham+Palace+London+to:Hyde+Park+London+to:Natural+History+Museum+London+to:Harrods+London&dirflg=w",
@@ -397,8 +397,8 @@ const days: Day[] = [
     vibe: "Manhã na City com St Paul's e um miradouro alto, meio-dia no Borough Market e tarde a seguir o Tamisa até Tower Bridge.",
     accent: "from-amber-400/30 to-rose-500/10",
     icon: Church,
-    cover: COMMONS("Tower_Bridge_London_Feb_2006.jpg"),
-    coverAlt: "Tower Bridge sobre o Tamisa em Londres",
+    cover: COMMONS("St Paul's Cathedral Dome from One New Change - Square Crop.jpg"),
+    coverAlt: "Cúpula da Catedral de St Paul's vista de One New Change",
     walkTotal: "A pé hoje: bastante, com o rio a organizar o trajeto.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=St+Paul%27s+Cathedral+London&daddr=Sky+Garden+London+to:Borough+Market+London+to:Tate+Modern+London+to:Millennium+Bridge+London+to:Tower+Bridge+London&dirflg=w",
