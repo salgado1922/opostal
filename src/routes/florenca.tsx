@@ -35,6 +35,7 @@ import {
   Camera,
 } from "lucide-react";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
+import { FinalStamp } from "@/components/postal/FinalStamp";
 import type { Variants } from "framer-motion";
 import {
   Accordion,
@@ -1275,6 +1276,7 @@ function Index() {
       <Food />
       <Tips />
       <Checklist />
+      <FinalStamp code="FLR" />
       <CustomItineraryCTA city="Florença" />
       <Footer />
     </main>
