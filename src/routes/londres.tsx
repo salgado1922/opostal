@@ -211,8 +211,8 @@ const days: Day[] = [
     vibe: "Chegar a Londres pelas luzes do West End, ver o primeiro Trafalgar e acabar a tarde a passear à beira do Tamisa.",
     accent: "from-rose-500/25 to-amber-300/10",
     icon: Sun,
-    cover: COMMONS("London, Piccadilly Circus -- 2016 -- 4866.jpg"),
-    coverAlt: "Piccadilly Circus iluminada ao entardecer em Londres",
+    cover: COMMONS("London, Trafalgar Square -- 2016 -- 4856.jpg"),
+    coverAlt: "Trafalgar Square iluminada ao entardecer em Londres",
     walkTotal: "A pé hoje: bastante, é o dia de descobrir o centro.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Piccadilly+Circus+London&daddr=Leicester+Square+London+to:Trafalgar+Square+London+to:National+Gallery+London+to:Chinatown+London+to:South+Bank+London&dirflg=w",
@@ -303,8 +303,8 @@ const days: Day[] = [
     vibe: "Big Ben de manhã, Buckingham com os parques pelo meio, e a tarde em Hyde Park e South Kensington.",
     accent: "from-amber-300/30 to-rose-400/15",
     icon: Crown,
-    cover: COMMONS("Big_Ben_and_Palace_of_Westminster_London_2016_03.jpg"),
-    coverAlt: "Big Ben e o Palácio de Westminster vistos da Ponte de Westminster",
+    cover: COMMONS("Buckingham Palace, London - April 2009.jpg"),
+    coverAlt: "Palácio de Buckingham em Londres",
     walkTotal: "A pé hoje: muito, com os parques pelo meio a servir de pausa.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Westminster+Abbey+London&daddr=Big+Ben+London+to:St+James%27s+Park+London+to:Buckingham+Palace+London+to:Hyde+Park+London+to:Natural+History+Museum+London+to:Harrods+London&dirflg=w",
@@ -397,8 +397,8 @@ const days: Day[] = [
     vibe: "Manhã na City com St Paul's e um miradouro alto, meio-dia no Borough Market e tarde a seguir o Tamisa até Tower Bridge.",
     accent: "from-amber-400/30 to-rose-500/10",
     icon: Church,
-    cover: COMMONS("Tower_Bridge_London_Feb_2006.jpg"),
-    coverAlt: "Tower Bridge sobre o Tamisa em Londres",
+    cover: COMMONS("St Paul's Cathedral Dome from One New Change - Square Crop.jpg"),
+    coverAlt: "Cúpula da Catedral de St Paul's vista de One New Change",
     walkTotal: "A pé hoje: bastante, com o rio a organizar o trajeto.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=St+Paul%27s+Cathedral+London&daddr=Sky+Garden+London+to:Borough+Market+London+to:Tate+Modern+London+to:Millennium+Bridge+London+to:Tower+Bridge+London&dirflg=w",
@@ -610,8 +610,8 @@ function Hero() {
     >
       <div className="absolute inset-0 -z-10">
         <img
-          src={londresCover.url}
-          alt="Skyline da City de Londres visto do outro lado do Tamisa, à hora dourada"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/Westminster_Bridge_with_shadows_and_Big_Ben.jpg?width=2000"
+          alt="Big Ben e a Ponte de Westminster sobre o Tamisa"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ animation: "londres-kenburns 20s linear infinite alternate" }}
         />

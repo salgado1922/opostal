@@ -200,8 +200,8 @@ const days: Day[] = [
     accent: "from-amber-400/30 to-rose-400/10",
     icon: Sun,
     cover:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Il_Duomo_Florence_Italy.JPG?width=1600",
-    coverAlt: "Cúpula de Brunelleschi e fachada do Duomo de Florença",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Florence_Duomo_from_Piazzale_Michelangelo_04_2024_6980.jpg?width=1600",
+    coverAlt: "Vista de Florença e do Duomo a partir do Piazzale Michelangelo",
     walkTotal: "A pé hoje: pouco, o centro é compacto.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Piazza+del+Duomo+Florence&daddr=Piazza+della+Repubblica+Florence+to:Mercato+Centrale+Florence+to:Galleria+dell%27Accademia+Florence+to:Ponte+Vecchio+Florence&dirflg=w",
@@ -281,8 +281,8 @@ const days: Day[] = [
     accent: "from-amber-300/30 to-violet-500/10",
     icon: Palette,
     cover:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/The_Ponte_Vecchio_%22Old_Bridge%22_and_Arno_River%2C_Florence%2C_Italy.jpg?width=1600",
-    coverAlt: "Ponte Vecchio e rio Arno ao entardecer",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Ponte_Vecchio%2C_Florence%2C_Italy%2C_2023.jpg?width=1600",
+    coverAlt: "Ponte Vecchio sobre o rio Arno em Florença",
     howToGet: "Como andar: tudo a pé, atravessando o Arno.",
     highlightTip:
       "Dica: reservar os Uffizi com slot horário; é dos museus mais concorridos da Europa.",
@@ -360,8 +360,8 @@ const days: Day[] = [
     accent: "from-rose-500/20 to-amber-400/10",
     icon: Church,
     cover:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Basilica_di_Santa_Croce_%2812437%29.jpg?width=1600",
-    coverAlt: "Fachada da Basílica de Santa Croce em Florença",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Santa_Croce_Florence.jpg?width=1600",
+    coverAlt: "Basílica de Santa Croce em Florença",
     walkTotal: "A pé hoje: ~30 min no total.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Duomo+Florence&daddr=Campanile+di+Giotto+Florence+to:Battistero+di+San+Giovanni+Florence+to:Basilica+di+Santa+Croce+Florence+to:Cappelle+Medicee+Florence&dirflg=w",
@@ -439,8 +439,8 @@ function Hero() {
     >
       <div className="absolute inset-0 -z-10">
         <img
-          src={florencaCover.url}
-          alt="Florença ao crepúsculo vista do Piazzale Michelangelo"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/Florence_skyline_at_dusk_%283867485023%29.jpg?width=2000"
+          alt="Skyline de Florença ao entardecer, com a cúpula do Duomo"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ animation: "firenze-kenburns 20s linear infinite alternate" }}
         />
