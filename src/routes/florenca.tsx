@@ -429,66 +429,87 @@ const days: Day[] = [
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden">
-      <motion.div style={{ y }} className="absolute inset-0">
-        <div
-          className="h-[120%] w-full bg-cover bg-center"
-          style={{ backgroundImage: `url('${florencaCover.url}')` }}
-          role="img"
-          aria-label="Florença ao crepúsculo vista do Piazzale Michelangelo"
+    <section
+      id="top"
+      ref={ref}
+      className="relative z-[2] flex min-h-screen items-center overflow-hidden"
+    >
+      <div className="absolute inset-0 -z-10">
+        <img
+          src={florencaCover.url}
+          alt="Florença ao crepúsculo vista do Piazzale Michelangelo"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ animation: "firenze-kenburns 20s linear infinite alternate" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-terracotta/40 via-plum/60 to-twilight/85" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,oklch(0.78_0.13_75/0.30),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_80%,oklch(0.58_0.15_40/0.25),transparent_55%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-twilight/40 to-background" />
-      </motion.div>
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, oklch(0.12 0.022 45/0.55), transparent 30%, oklch(0.12 0.022 45/0.6) 70%, var(--background) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 32%, oklch(0.12 0.022 45 / .75) 100%)",
+          }}
+        />
+      </div>
 
-      <motion.div
-        style={{ opacity }}
-        className="relative z-10 flex h-full flex-col items-center justify-center px-6"
-      >
+      <motion.div style={{ opacity }} className="relative z-10 w-full">
         <div className="pointer-events-none absolute right-6 top-24 hidden md:right-12 md:top-28 md:block">
           <PostmarkCircle city="FLORENÇA" year="2025" rotate={-9} />
         </div>
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] as const }}
-          className="glass mx-auto w-full max-w-2xl rounded-3xl px-8 py-12 text-center shadow-2xl md:px-14 md:py-16"
+          className="mx-auto w-full max-w-6xl px-6 pb-16 pt-36 text-center md:pt-40"
         >
-          <div className="mb-5 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.4em] text-gold">
+          <div className="mb-4 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-gold">
             <span className="h-px w-8 bg-gold/70" />
             Guia · 3 dias
             <span className="h-px w-8 bg-gold/70" />
           </div>
-          <h1 className="font-serif leading-[1.02]">
-            <span
-              className="block font-serif font-semibold"
-              style={{
-                fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
-                backgroundImage:
-                  "linear-gradient(120deg, oklch(0.96 0.02 75) 0%, oklch(0.72 0.15 50) 45%, oklch(0.55 0.14 30) 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-                WebkitTextStroke: "1px rgba(0,0,0,0.35)",
-              }}
-            >
-              Florença
-            </span>
-            <span className="mt-6 block font-serif text-xl italic text-cream/85 md:text-2xl">
-              Guia de 3 dias ao teu ritmo
-            </span>
+          <h1
+            className="mx-auto font-serif font-semibold"
+            style={{
+              margin: 0,
+              lineHeight: 1.02,
+              fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
+              backgroundImage:
+                "linear-gradient(120deg, oklch(0.96 0.02 85), oklch(0.83 0.16 78) 45%, oklch(0.62 0.17 38))",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              WebkitTextStroke: "1px rgba(0,0,0,0.35)",
+            }}
+          >
+            Florença
           </h1>
-          <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
-            Um guia público para descobrir Florença sem pressa: berço do Renascimento, museu a céu aberto, arte a cada esquina, para qualquer viajante.
+          <p className="mx-auto mt-4 max-w-lg font-serif text-lg italic text-cream/85 md:text-xl">
+            Três dias entre o Duomo, os Uffizi e o pôr do sol no Piazzale.
           </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="#overview"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-cream shadow-[0_18px_40px_-18px_oklch(0.62_0.17_38/.7)] transition-transform active:scale-95"
+              style={{ background: "oklch(0.62 0.17 38)" }}
+            >
+              Ver o itinerário <span aria-hidden>↓</span>
+            </a>
+            <span className="font-hand text-lg text-cream/80">
+              toca em cada paragem para ver os detalhes
+            </span>
+          </div>
+          <div className="mt-6">
+            <CustomItineraryHeroLink city="Florença" />
+          </div>
         </motion.div>
-        <CustomItineraryHeroLink city="Florença" />
       </motion.div>
     </section>
   );
