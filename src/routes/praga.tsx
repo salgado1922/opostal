@@ -38,8 +38,7 @@ import {
   PartyPopper,
 } from "lucide-react";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
-import { DashedDivider } from "@/components/postal/DashedDivider";
-import { PostalStamp } from "@/components/postal/PostalStamp";
+import { FinalStamp } from "@/components/postal/FinalStamp";
 import type { Variants } from "framer-motion";
 import {
   Accordion,
