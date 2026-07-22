@@ -223,6 +223,9 @@ const days: Day[] = [
         tip: "O exterior é o espetáculo; guarda o interior para o Dia 3.",
         icon: Church,
         walkTo: "~4 min",
+        image:
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Cathedral_of_Santa_Maria_del_Fiore_%28Florence%29.jpg?width=1600",
+        imageAlt: "Fachada da Catedral de Santa Maria del Fiore em Florença",
       },
       {
         time: "12:15",
