@@ -1,48 +1,57 @@
-# Sincronizar 4 páginas de cidade com os mockups WOW
+# Reconstruir as 4 páginas de cidade a partir dos mockups WOW
 
-## Âmbito (confirmado)
-- Só as 4 rotas: `src/routes/praga.tsx`, `istambul.tsx`, `florenca.tsx`, `londres.tsx`.
-- Substituir imagens de capa pelas novas do zip.
-- Homepage, `/abordagem`, `/roteiro-personalizado` e componentes partilhados **não são tocados**.
+## O problema
+Os `.dc.html` no zip são mockups de design com placeholders (`{{ e.title }}`, `{{ d.title }}`, `{{ day.title }}`) — não contêm os dados reais. Substituir "à letra" apagaria todo o conteúdo útil (itinerários, restaurantes, dicas, links de afiliado, conversor, mapa) que hoje vive nas rotas React.
 
-## O que o zip traz (relevante)
-- 4 mockups HTML "WOW" (um por cidade) — mesma arquitetura das páginas atuais (Hero → Conhecer → Essencial → "N dias, N humores" → Dia a dia → Vídeo/movimento → Comer & beber → Dicas & armadilhas → Reservar).
-- Novas imagens: `city-praga.jpg`, `city-florenca.jpg`, `city-londres.jpg`, `city-barcelona.jpg`, `hub-hero.jpg`, `istambul/home-card.jpg`.
-- `praga.tsx` do zip é idêntico ao atual (só reintroduz `web-share` que já corrigimos) → **ignorar**.
+## Interpretação
+Reescrever a **camada visual** de cada rota (Hero, estrutura de secções, tipografia, paleta, micro-elementos) para bater certo com o mockup correspondente, **mantendo intactos os dados** já existentes (arrays `days`, `restaurants`, `essentials`, `tips`, `phrases`, links Booking/GetYourGuide/Omio, componentes `PostmarkCircle`, `PostalStamp`, `CurrencyConverter`, `CustomItineraryCTA`, mapas embed, vídeos YouTube).
 
-## Plano
+## Âmbito
+- `src/routes/praga.tsx`
+- `src/routes/istambul.tsx`
+- `src/routes/florenca.tsx`
+- `src/routes/londres.tsx`
 
-### 1. Assets (Lovable Assets CDN)
-Registar via `lovable-assets create` a partir de `/mnt/user-uploads/`:
-- `src/assets/cities/praga-cover.jpg.asset.json`
-- `src/assets/cities/florenca-cover.jpg.asset.json`
-- `src/assets/cities/londres-cover.jpg.asset.json`
-- `src/assets/cities/istambul-cover.jpg.asset.json` (a partir de `istambul/home-card.jpg`)
+Não toco em: homepage, `/abordagem`, `/roteiro-personalizado`, `SiteNav`, `SiteFooter`, componentes partilhados, `data/cities.ts`, dados de itinerário.
 
-Trocar a imagem do `<Hero>` (background) em cada uma das 4 rotas para o novo asset. Manter dimensões, overlays, carimbos (`PostmarkCircle`) e selos (`PostalStamp`) intactos.
+## O que muda por página
 
-### 2. Sincronização de copy/estrutura com os mockups
-Para cada cidade, comparo o mockup com a rota atual e aplico **apenas as diferenças textuais e de secção** que vejo no HTML:
+### Paleta por cidade (nos `<h1>` do hero, nos títulos de dia e nos overlays)
+Extraída dos mockups:
+- **Praga** — creme + âmbar quente: `oklch(0.96 0.02 75)` / `oklch(0.82 0.14 78)` / `oklch(0.62 0.14 38)`
+- **Istambul** — off-white azulado + turquesa + ouro: `oklch(0.96 0.015 215)` / `oklch(0.77 0.12 205)` / `oklch(0.66 0.13 58)`
+- **Florença** — creme + terracota + oliva (paleta renascentista já parcialmente presente)
+- **Londres** — creme + vermelho britânico + latão (já parcialmente aplicado; reforçar no hero)
 
-- Títulos de secção (ex.: "Conhecer …", "Essencial para a viagem", "N dias, N humores", "Dia a dia, paragem a paragem", "Vê … em movimento", "Comer e beber em …", "Dicas & armadilhas", "Carimbaste a viagem toda. Agora garante o essencial.") — alinhar exatamente com o mockup.
-- Subtítulos e microcopy dentro dessas secções (labels de ícones 📍/🗣, intro "Cada dia é um postal. **Vira** para o resumo…", etc.).
-- Blocos comparativos com nomes específicos por cidade:
-  - Praga: "Concertos: básico ou de luxo?"
-  - Istambul: "Bósforo: de dia ou à noite?"
-  - Florença: "Cúpula ou Campanário?"
-  - Londres: "Ir ou não aos Harry Potter Studios?"
-- Rodapé de página: harmonizar o CTA final ("Carimbaste a viagem toda…").
+### Hero
+- H1 escala mais dramática: `clamp(3.4rem, 8vw, 6.5rem)` com gradient da cidade.
+- Manter parallax, `PostmarkCircle` e `PostalStamp` como estão hoje.
+- Imagem de fundo: manter as novas capas CDN já registadas neste turno.
 
-**Não** vou reescrever dados factuais (itinerários, preços, links de afiliados, coordenadas de mapas, horários) — mantenho o que já existe. Se um mockup traz uma paragem/tip que não existe hoje, listo-o para tu confirmares em vez de assumir.
+### Secção "Essencial"
+- Cada item ganha uma bolinha luminescente antes do título, na cor primária da cidade: `<span style={{ boxShadow: '0 0 8px <cor>/0.7' }} />`.
 
-### 3. Verificação
+### CTA final
+- Praga e Londres: manter `"Carimbaste a viagem toda. Agora garante o essencial."`
+- Istambul e Florença: alterar para `"O que reservar com antecedência"` (como no mockup).
+
+### Micro-elementos comuns aos mockups
+- Selos `📍`/`🗣`/`💱` antes dos títulos "Onde ficar", "Palavras úteis", "Conversor …" (Praga e Istambul já pediram esta troca).
+- Divisórias tracejadas (`DashedDivider`) já existem — verificar que aparecem entre secções principais.
+
+## O que fica igual (dados/lógica)
+- Arrays de `days`, `stops`, `restaurants`, `tips`, `phrases`, `essentials` — inalterados.
+- Todos os links Booking / GetYourGuide / Omio / mapas — inalterados.
+- Componentes: `CurrencyConverter`, `PremiumGate` (se existir), `CustomItineraryCTA`, `PostmarkCircle`, `PostalStamp`, `StickyNav`, `DashedDivider`.
+- Fontes, `styles.css`, temas globais — inalterados (as cores por cidade entram como Tailwind arbitrary values inline nos componentes de cidade).
+
+## Verificação
 - Build passa.
-- Screenshot Playwright de cada rota (`/praga`, `/istambul`, `/florenca`, `/londres`) em desktop 1280 e mobile 390.
-- Confirmar que capas mudaram e que headings batem certo com os mockups.
+- Playwright screenshots das 4 rotas em desktop 1280 e mobile 390 → comparar lado-a-lado com os mockups WOW.
 
 ## Fora do âmbito
-- Homepage, `/abordagem`, `/roteiro-personalizado`.
-- Componentes partilhados (`SiteNav`, `SiteFooter`, `postal/*`, `AffiliateLink`, `CustomItineraryCTA`).
-- Lógica de dados, itinerários, preços, links de afiliado.
+- Qualquer secção que os mockups mostrem mas cujos dados hoje não existam no repo (não invento paragens, restaurantes ou preços).
+- Reescrita de itinerários.
+- Homepage e outras rotas.
 
-Aprova para eu passar a build mode e aplicar.
+Aprova para eu passar a build e aplicar cidade a cidade.
