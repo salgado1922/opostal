@@ -486,7 +486,7 @@ function Hero() {
               lineHeight: 1.02,
               fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
               backgroundImage:
-                "linear-gradient(120deg, oklch(0.96 0.02 85), oklch(0.83 0.16 78) 45%, oklch(0.62 0.17 38))",
+                "linear-gradient(120deg, oklch(0.94 0.03 82), oklch(0.66 0.145 47) 50%, oklch(0.55 0.17 34))",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               color: "transparent",
