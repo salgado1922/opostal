@@ -211,8 +211,8 @@ const days: Day[] = [
     vibe: "Chegar a Londres pelas luzes do West End, ver o primeiro Trafalgar e acabar a tarde a passear à beira do Tamisa.",
     accent: "from-rose-500/25 to-amber-300/10",
     icon: Sun,
-    cover: COMMONS("London, Piccadilly Circus -- 2016 -- 4866.jpg"),
-    coverAlt: "Piccadilly Circus iluminada ao entardecer em Londres",
+    cover: COMMONS("London, Trafalgar Square -- 2016 -- 4856.jpg"),
+    coverAlt: "Trafalgar Square iluminada ao entardecer em Londres",
     walkTotal: "A pé hoje: bastante, é o dia de descobrir o centro.",
     mapEmbedUrl:
       "https://www.google.com/maps?output=embed&saddr=Piccadilly+Circus+London&daddr=Leicester+Square+London+to:Trafalgar+Square+London+to:National+Gallery+London+to:Chinatown+London+to:South+Bank+London&dirflg=w",
