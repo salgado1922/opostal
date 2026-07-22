@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RoteiroPersonalizadoRouteImport } from './routes/roteiro-personalizado'
 import { Route as PragaRouteImport } from './routes/praga'
+import { Route as ParisRouteImport } from './routes/paris'
 import { Route as LondresRouteImport } from './routes/londres'
 import { Route as IstambulRouteImport } from './routes/istambul'
 import { Route as FlorencaRouteImport } from './routes/florenca'
@@ -31,6 +32,11 @@ const RoteiroPersonalizadoRoute = RoteiroPersonalizadoRouteImport.update({
 const PragaRoute = PragaRouteImport.update({
   id: '/praga',
   path: '/praga',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParisRoute = ParisRouteImport.update({
+  id: '/paris',
+  path: '/paris',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LondresRoute = LondresRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
+  '/paris': typeof ParisRoute
   '/praga': typeof PragaRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
+  '/paris': typeof ParisRoute
   '/praga': typeof PragaRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
+  '/paris': typeof ParisRoute
   '/praga': typeof PragaRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/florenca'
     | '/istambul'
     | '/londres'
+    | '/paris'
     | '/praga'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/florenca'
     | '/istambul'
     | '/londres'
+    | '/paris'
     | '/praga'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/florenca'
     | '/istambul'
     | '/londres'
+    | '/paris'
     | '/praga'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   FlorencaRoute: typeof FlorencaRoute
   IstambulRoute: typeof IstambulRoute
   LondresRoute: typeof LondresRoute
+  ParisRoute: typeof ParisRoute
   PragaRoute: typeof PragaRoute
   RoteiroPersonalizadoRoute: typeof RoteiroPersonalizadoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/praga'
       fullPath: '/praga'
       preLoaderRoute: typeof PragaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/paris': {
+      id: '/paris'
+      path: '/paris'
+      fullPath: '/paris'
+      preLoaderRoute: typeof ParisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/londres': {
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   FlorencaRoute: FlorencaRoute,
   IstambulRoute: IstambulRoute,
   LondresRoute: LondresRoute,
+  ParisRoute: ParisRoute,
   PragaRoute: PragaRoute,
   RoteiroPersonalizadoRoute: RoteiroPersonalizadoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
