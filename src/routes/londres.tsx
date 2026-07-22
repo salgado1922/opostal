@@ -47,6 +47,7 @@ import {
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import londresFallback from "@/assets/city-londres.jpg";
+import londresCover from "@/assets/cities/londres-cover.jpg.asset.json";
 import { AffiliateLink } from "@/components/AffiliateLink";
 import {
   CustomItineraryCTA,
@@ -607,9 +608,7 @@ function Hero() {
       <motion.div style={{ y }} className="absolute inset-0">
         <div
           className="h-[120%] w-full bg-cover bg-center"
-          style={{
-            backgroundImage: `url('${COMMONS("City_of_London_skyline_from_London_City_Hall_-_Oct_2008.jpg", 3200)}')`,
-          }}
+          style={{ backgroundImage: `url('${londresCover.url}')` }}
           role="img"
           aria-label="Skyline da City de Londres visto do outro lado do Tamisa, à hora dourada"
         />

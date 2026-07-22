@@ -47,6 +47,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import d1Cover from "@/assets/istambul/d1-cover.jpg";
+import istambulCover from "@/assets/cities/istambul-cover.jpg.asset.json";
 import d1S1 from "@/assets/istambul/d1-s1.jpg";
 import d1S2 from "@/assets/istambul/d1-s2.jpg";
 import d1S3 from "@/assets/istambul/d1-s3.jpg";
@@ -645,7 +646,7 @@ function Hero() {
     <section ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=2400&q=80"
+          src={istambulCover.url}
           alt="Istambul à hora azul: silhueta do Bósforo com mesquitas e ferries"
           className="h-[120%] w-full object-cover"
         />
@@ -1993,7 +1994,7 @@ function CurrencyConverter() {
     >
       <div className="mb-6 flex items-center gap-3">
         <Coins className="h-5 w-5 text-gold" />
-        <h3 className="font-serif text-2xl text-cream">Conversor rápido</h3>
+        <h3 className="font-serif text-2xl text-cream">Conversor de liras</h3>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_auto_1.1fr] lg:items-center">

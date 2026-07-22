@@ -1,45 +1,48 @@
-## Micro-interações na secção "Como funciona"
+# Sincronizar 4 páginas de cidade com os mockups WOW
 
-Adicionar animações subtis de entrada em viewport e feedback tátil/hover aos 3 passos, mantendo o tom cinemático e sem ruído visual.
+## Âmbito (confirmado)
+- Só as 4 rotas: `src/routes/praga.tsx`, `istambul.tsx`, `florenca.tsx`, `londres.tsx`.
+- Substituir imagens de capa pelas novas do zip.
+- Homepage, `/abordagem`, `/roteiro-personalizado` e componentes partilhados **não são tocados**.
 
-### 1. Entrada em viewport (scroll-reveal)
-- Usar `IntersectionObserver` num pequeno hook local (`useInView`) em `src/routes/index.tsx`, ou aproveitar a animação CSS `fade-in` já disponível.
-- Cada card de passo (01/02/03) recebe:
-  - Estado inicial: `opacity-0 translate-y-4`.
-  - Ao entrar em viewport (threshold ~0.25): transição para `opacity-100 translate-y-0`.
-  - **Stagger**: delay de 0ms / 120ms / 240ms para os 3 cards aparecerem em cascata.
-  - Duração ~500ms, `ease-out`.
-- O círculo dourado do número faz um "pop" leve: `scale-90 → scale-100` com pequeno atraso extra (+80ms após o card correspondente).
-- Respeitar `prefers-reduced-motion`: quando ativo, ignorar transform/opacity e mostrar tudo estável.
+## O que o zip traz (relevante)
+- 4 mockups HTML "WOW" (um por cidade) — mesma arquitetura das páginas atuais (Hero → Conhecer → Essencial → "N dias, N humores" → Dia a dia → Vídeo/movimento → Comer & beber → Dicas & armadilhas → Reservar).
+- Novas imagens: `city-praga.jpg`, `city-florenca.jpg`, `city-londres.jpg`, `city-barcelona.jpg`, `hub-hero.jpg`, `istambul/home-card.jpg`.
+- `praga.tsx` do zip é idêntico ao atual (só reintroduz `web-share` que já corrigimos) → **ignorar**.
 
-### 2. Feedback ao passar o dedo / cursor
-Feedback consistente em desktop (hover) e mobile (touch: `active:`):
-- **Card**:
-  - `hover:-translate-y-1` + `hover:border-gold/40` + subtil `hover:shadow-[0_10px_40px_-12px_rgba(...)]` com tom gold.
-  - `active:scale-[0.99]` para toque no mobile.
-  - `transition-all duration-300 ease-out`.
-- **Círculo do número**:
-  - `group-hover:bg-gold/20` e `group-hover:border-gold/50`.
-  - Micro-rotação de brilho: pseudo-elemento com gradiente radial que faz `opacity 0→1` no hover.
-- **Título do passo**:
-  - `group-hover:text-cream` (do estado atual mais suave para o cream cheio).
+## Plano
 
-Cada card passa a ser `group` para propagar `group-hover`/`group-active` aos filhos.
+### 1. Assets (Lovable Assets CDN)
+Registar via `lovable-assets create` a partir de `/mnt/user-uploads/`:
+- `src/assets/cities/praga-cover.jpg.asset.json`
+- `src/assets/cities/florenca-cover.jpg.asset.json`
+- `src/assets/cities/londres-cover.jpg.asset.json`
+- `src/assets/cities/istambul-cover.jpg.asset.json` (a partir de `istambul/home-card.jpg`)
 
-### 3. Ligação com o `RouteThread`
-- O token pulsante dourado do fio ganha um pequeno realce quando o utilizador faz hover num card: opcionalmente, aumentar `opacity` do path na zona vertical do card via classe (nice-to-have, só se não complicar). Se ficar frágil, salta-se.
+Trocar a imagem do `<Hero>` (background) em cada uma das 4 rotas para o novo asset. Manter dimensões, overlays, carimbos (`PostmarkCircle`) e selos (`PostalStamp`) intactos.
 
-### 4. Verificação
-- Preview em mobile (375px) e desktop:
-  - Confirmar cascata de entrada ao dar scroll até à secção.
-  - Confirmar hover em desktop e `:active` no mobile (Playwright com `page.tap`).
-  - Screenshot antes/depois.
-- Console limpa; sem CLS adicional (transform/opacity não causam layout shift).
-- `prefers-reduced-motion: reduce` desativa transforms.
+### 2. Sincronização de copy/estrutura com os mockups
+Para cada cidade, comparo o mockup com a rota atual e aplico **apenas as diferenças textuais e de secção** que vejo no HTML:
 
-### Ficheiros afetados
-- `src/routes/index.tsx` — só a secção "Como funciona" (marcada por `id="como-funciona"` / equivalente). Sem alterações a componentes partilhados nem a outras secções.
-- Nenhum novo package.
+- Títulos de secção (ex.: "Conhecer …", "Essencial para a viagem", "N dias, N humores", "Dia a dia, paragem a paragem", "Vê … em movimento", "Comer e beber em …", "Dicas & armadilhas", "Carimbaste a viagem toda. Agora garante o essencial.") — alinhar exatamente com o mockup.
+- Subtítulos e microcopy dentro dessas secções (labels de ícones 📍/🗣, intro "Cada dia é um postal. **Vira** para o resumo…", etc.).
+- Blocos comparativos com nomes específicos por cidade:
+  - Praga: "Concertos: básico ou de luxo?"
+  - Istambul: "Bósforo: de dia ou à noite?"
+  - Florença: "Cúpula ou Campanário?"
+  - Londres: "Ir ou não aos Harry Potter Studios?"
+- Rodapé de página: harmonizar o CTA final ("Carimbaste a viagem toda…").
 
-### Fora de âmbito
-- Redesign da secção, novos ícones, alterações ao `RouteThread` global, ou animações noutras secções.
+**Não** vou reescrever dados factuais (itinerários, preços, links de afiliados, coordenadas de mapas, horários) — mantenho o que já existe. Se um mockup traz uma paragem/tip que não existe hoje, listo-o para tu confirmares em vez de assumir.
+
+### 3. Verificação
+- Build passa.
+- Screenshot Playwright de cada rota (`/praga`, `/istambul`, `/florenca`, `/londres`) em desktop 1280 e mobile 390.
+- Confirmar que capas mudaram e que headings batem certo com os mockups.
+
+## Fora do âmbito
+- Homepage, `/abordagem`, `/roteiro-personalizado`.
+- Componentes partilhados (`SiteNav`, `SiteFooter`, `postal/*`, `AffiliateLink`, `CustomItineraryCTA`).
+- Lógica de dados, itinerários, preços, links de afiliado.
+
+Aprova para eu passar a build mode e aplicar.

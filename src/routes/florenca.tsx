@@ -43,6 +43,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
+import florencaCover from "@/assets/cities/florenca-cover.jpg.asset.json";
 import { AffiliateLink } from "@/components/AffiliateLink";
 import {
   CustomItineraryCTA,
@@ -436,10 +437,7 @@ function Hero() {
       <motion.div style={{ y }} className="absolute inset-0">
         <div
           className="h-[120%] w-full bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://commons.wikimedia.org/wiki/Special:FilePath/FlorenceFromPiazzaleMichelangeloTwilight.jpg?width=2400')",
-          }}
+          style={{ backgroundImage: `url('${florencaCover.url}')` }}
           role="img"
           aria-label="Florença ao crepúsculo vista do Piazzale Michelangelo"
         />
