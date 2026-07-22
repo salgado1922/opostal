@@ -86,6 +86,10 @@ const HERO_SLIDES: { src: string; alt: string }[] = [
   { src: istambulImg, alt: "Istambul à hora azul sobre o Bósforo" },
   { src: florencaImg, alt: "Florença com o Duomo e os telhados ao fim da tarde" },
   { src: londresImg, alt: "Londres com o Big Ben e o Tamisa à hora dourada" },
+  {
+    src: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=2400&q=80",
+    alt: "Paris com a Torre Eiffel vista do Trocadéro à luz dourada",
+  },
 ];
 
 function Hero() {

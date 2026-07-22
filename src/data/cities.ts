@@ -80,6 +80,21 @@ export const CITIES: CityMeta[] = [
     coords: { lng: -0.13, lat: 51.51 },
   },
   {
+    slug: "paris",
+    name: "Paris",
+    country: "França",
+    vibe: "A Cidade Luz em 3 dias, mais uma tarde de realeza em Versalhes.",
+    duration: "3 dias + extra",
+    status: "ready",
+    cover:
+      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1400&q=80",
+    to: "/paris",
+    bestSeason: "Abr–Jun / Set–Out",
+    price: "€€€",
+    idealFor: "Clássico eterno",
+    coords: { lng: 2.35, lat: 48.85 },
+  },
+  {
     slug: "barcelona",
     name: "Barcelona",
     country: "Espanha",
@@ -91,20 +106,6 @@ export const CITIES: CityMeta[] = [
     price: "€€",
     idealFor: "Cidade e praia",
     coords: { lng: 2.17, lat: 41.39 },
-  },
-  {
-    slug: "paris",
-    name: "Paris",
-    country: "França",
-    vibe: "Bairros, museus e cafés sem fim.",
-    duration: "Em breve",
-    status: "coming-soon",
-    cover:
-      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1400&q=80",
-    bestSeason: "Abr–Jun / Set–Out",
-    price: "€€€",
-    idealFor: "Clássico eterno",
-    coords: { lng: 2.35, lat: 48.85 },
   },
   {
     slug: "viena",

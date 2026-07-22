@@ -343,3 +343,57 @@ html { scroll-behavior: smooth; }
     radial-gradient(ellipse at 50% 100%, oklch(0.19 0.040 248 / 80%), transparent 60%),
     var(--background);
 }
+
+/* ------------------------------------------------------------------ */
+/* Paris "Haussmann night" theme — scoped overrides for /paris.        */
+/* Cream limestone highlights, deep zinc/night-blue surfaces and a     */
+/* warm Parisian gold for fine details. Re-routes the shared palette   */
+/* tokens so utilities like text-gold, gold-link, text-gradient-gold   */
+/* and bg-twilight-radial automatically take the Paris colours.        */
+/* ------------------------------------------------------------------ */
+.theme-paris {
+  --paris-cream: oklch(0.94 0.02 85);        /* Haussmann limestone */
+  --paris-zinc: oklch(0.34 0.030 250);       /* Paris rooftop zinc */
+  --paris-night: oklch(0.14 0.035 260);      /* deep Seine night blue */
+  --paris-gold: oklch(0.80 0.13 82);         /* warm Parisian gold */
+  --paris-red: oklch(0.60 0.18 30);          /* discreet Bordeaux red */
+
+  --twilight: oklch(0.14 0.035 260);
+  --plum: oklch(0.20 0.045 258);
+  --gold: var(--paris-gold);
+  --gold-soft: oklch(0.88 0.09 82);
+  --terracotta: var(--paris-red);
+  --cream: var(--paris-cream);
+
+  --background: oklch(0.14 0.035 260);
+  --foreground: var(--paris-cream);
+
+  --card: oklch(0.22 0.045 255 / 75%);
+  --card-foreground: var(--paris-cream);
+  --popover: oklch(0.22 0.045 255);
+  --popover-foreground: var(--paris-cream);
+
+  --primary: var(--paris-gold);
+  --primary-foreground: oklch(0.14 0.035 260);
+  --secondary: var(--paris-red);
+  --secondary-foreground: var(--paris-cream);
+
+  --muted: oklch(0.25 0.040 258);
+  --muted-foreground: oklch(0.78 0.025 245);
+  --accent: var(--paris-gold);
+  --accent-foreground: oklch(0.14 0.035 260);
+
+  --border: oklch(0.80 0.13 82 / 20%);
+  --input: oklch(0.80 0.13 82 / 26%);
+  --ring: var(--paris-gold);
+}
+
+/* Parisian-night radial background override for the Paris theme */
+.theme-paris.bg-twilight-radial,
+.theme-paris .bg-twilight-radial {
+  background:
+    radial-gradient(ellipse at 20% 0%, oklch(0.80 0.13 82 / 16%), transparent 55%),
+    radial-gradient(ellipse at 85% 25%, oklch(0.34 0.030 250 / 55%), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, oklch(0.20 0.045 258 / 80%), transparent 60%),
+    var(--background);
+}
