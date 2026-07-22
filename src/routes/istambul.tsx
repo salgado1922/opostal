@@ -47,7 +47,6 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import d1Cover from "@/assets/istambul/d1-cover.jpg";
-import istambulCover from "@/assets/cities/istambul-cover.jpg.asset.json";
 import d1S1 from "@/assets/istambul/d1-s1.jpg";
 import d1S2 from "@/assets/istambul/d1-s2.jpg";
 import d1S3 from "@/assets/istambul/d1-s3.jpg";
