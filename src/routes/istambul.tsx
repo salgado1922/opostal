@@ -643,64 +643,84 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden">
-      <motion.div style={{ y }} className="absolute inset-0">
+    <section
+      id="top"
+      ref={ref}
+      className="relative z-[2] flex min-h-screen items-center overflow-hidden"
+    >
+      <motion.div style={{ y }} className="absolute inset-0 -z-10">
         <img
           src={istambulCover.url}
           alt="Istambul à hora azul: silhueta do Bósforo com mesquitas e ferries"
-          className="h-[120%] w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ animation: "iznik-kenburns 20s linear infinite alternate" }}
         />
-        {/* indigo/petrol-blue overlay (replaces amber on Praga hero) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-twilight/50 via-twilight/65 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,oklch(0.13_0.05_265/0.75)_100%)]" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, oklch(0.10 0.035 238/0.5), transparent 30%, oklch(0.10 0.035 238/0.55) 70%, oklch(0.16 0.04 238) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 32%, oklch(0.16 0.04 238 / .72) 100%)",
+          }}
+        />
       </motion.div>
 
-      <motion.div
-        style={{ opacity }}
-        className="relative z-10 flex h-full flex-col items-center justify-center px-6"
-      >
-        <div className="pointer-events-none absolute right-6 top-24 hidden md:right-12 md:top-28 md:block">
-          <PostmarkCircle city="ISTAMBUL" year="2025" rotate={-9} />
+      <motion.div style={{ opacity }} className="relative z-10 w-full">
+        <div className="pointer-events-none absolute right-8 top-24 hidden md:right-32 md:top-28 md:block">
+          <PostmarkCircle city="ISTAMBUL" year="2026" rotate={-9} />
         </div>
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] as const }}
-          className="glass mx-auto w-full max-w-2xl rounded-3xl px-8 py-12 text-center shadow-2xl md:px-14 md:py-16"
+          className="mx-auto w-full max-w-6xl px-6 pb-16 pt-36 text-center md:pt-40"
         >
-          <div className="mb-5 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.4em] text-gold">
+          <div className="mb-4 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-gold">
             <span className="h-px w-8 bg-gold/70" />
             Guia · 5 dias
             <span className="h-px w-8 bg-gold/70" />
           </div>
-          <h1 className="font-serif leading-[1.02]">
-            <span
-              className="block font-serif font-semibold"
-              style={{
-                fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
-                backgroundImage:
-                  "linear-gradient(120deg, oklch(0.96 0.015 215), oklch(0.77 0.12 205) 50%, oklch(0.66 0.13 58))",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-                WebkitTextStroke: "1px rgba(0,0,0,0.35)",
-              }}
-            >
-              Istambul
-            </span>
-            <span className="mt-6 block font-serif text-xl italic text-cream/85 md:text-2xl">
-              Guia de 5 dias ao teu ritmo
-            </span>
+          <h1
+            className="mx-auto font-serif font-semibold"
+            style={{
+              margin: 0,
+              lineHeight: 1.02,
+              fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
+              backgroundImage:
+                "linear-gradient(120deg, oklch(0.96 0.015 215), oklch(0.77 0.12 205) 50%, oklch(0.66 0.13 58))",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              WebkitTextStroke: "1px rgba(0,0,0,0.35)",
+            }}
+          >
+            Istambul
           </h1>
-          <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
-            Um guia público para descobrir Istambul sem pressa: duas margens, dois continentes,
-            mil minaretes, e o melhor entre a Europa e a Ásia, para qualquer viajante.
+          <p className="mx-auto mt-4 max-w-lg font-serif text-lg italic text-cream/85 md:text-xl">
+            Cinco dias ao teu ritmo: duas margens, dois continentes, mil minaretes.
           </p>
-          <div className="mt-7 flex justify-center">
-            <EightPointStar className="h-4 w-4 text-gold/80" />
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="#dias"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-twilight shadow-[0_18px_40px_-18px_rgba(200,119,46,.7)] transition-transform active:scale-95"
+              style={{ background: "oklch(0.77 0.12 205)" }}
+            >
+              Ver o itinerário <span aria-hidden>↓</span>
+            </a>
+            <span className="font-hand text-lg text-cream/80">
+              toca em cada paragem para ver os detalhes
+            </span>
+          </div>
+          <div className="mt-6">
+            <CustomItineraryHeroLink city="Istambul" />
           </div>
         </motion.div>
-        <CustomItineraryHeroLink city="Istambul" />
       </motion.div>
     </section>
   );
