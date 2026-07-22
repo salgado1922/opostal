@@ -1,57 +1,70 @@
-# Reconstruir as 4 páginas de cidade a partir dos mockups WOW
+# Receita para novos guias de destino
 
-## O problema
-Os `.dc.html` no zip são mockups de design com placeholders (`{{ e.title }}`, `{{ d.title }}`, `{{ day.title }}`) — não contêm os dados reais. Substituir "à letra" apagaria todo o conteúdo útil (itinerários, restaurantes, dicas, links de afiliado, conversor, mapa) que hoje vive nas rotas React.
+Objetivo: sempre que quiseres criar um guia novo, respondes a um formulário estruturado e eu gero a página nova mantendo o estilo WOW (Praga/Londres/Istambul/Florença).
 
-## Interpretação
-Reescrever a **camada visual** de cada rota (Hero, estrutura de secções, tipografia, paleta, micro-elementos) para bater certo com o mockup correspondente, **mantendo intactos os dados** já existentes (arrays `days`, `restaurants`, `essentials`, `tips`, `phrases`, links Booking/GetYourGuide/Omio, componentes `PostmarkCircle`, `PostalStamp`, `CurrencyConverter`, `CustomItineraryCTA`, mapas embed, vídeos YouTube).
+## 1. Documento-receita (Markdown)
 
-## Âmbito
-- `src/routes/praga.tsx`
-- `src/routes/istambul.tsx`
-- `src/routes/florenca.tsx`
-- `src/routes/londres.tsx`
+Criar `docs/nova-cidade-brief.md` — um formulário em Markdown com todas as perguntas necessárias, organizadas por secção. Preenches, colas no chat, e eu gero a página.
 
-Não toco em: homepage, `/abordagem`, `/roteiro-personalizado`, `SiteNav`, `SiteFooter`, componentes partilhados, `data/cities.ts`, dados de itinerário.
+Secções do brief:
 
-## O que muda por página
+**Identidade**
+- Nome da cidade (PT + slug para URL, ex.: `roma`)
+- País e código de 3 letras para o carimbo (ex.: ROM)
+- Anos dos carimbos (1–2 anos, ex.: 2024, 2025)
+- Tagline curta (1 linha, aparece no hero)
+- Parágrafo introdutório (2–3 frases, "Conhecer …")
 
-### Paleta por cidade (nos `<h1>` do hero, nos títulos de dia e nos overlays)
-Extraída dos mockups:
-- **Praga** — creme + âmbar quente: `oklch(0.96 0.02 75)` / `oklch(0.82 0.14 78)` / `oklch(0.62 0.14 38)`
-- **Istambul** — off-white azulado + turquesa + ouro: `oklch(0.96 0.015 215)` / `oklch(0.77 0.12 205)` / `oklch(0.66 0.13 58)`
-- **Florença** — creme + terracota + oliva (paleta renascentista já parcialmente presente)
-- **Londres** — creme + vermelho britânico + latão (já parcialmente aplicado; reforçar no hero)
+**Tema visual**
+- Paleta base (2–3 cores dominantes, ex.: "travertino + ocre + terracota")
+- Tom do gradiente do H1 (claro → escuro)
+- Imagem hero (URL Wikimedia/Unsplash 3200px, paisagem icónica)
+- Imagens de capa por dia (1 URL por dia)
 
-### Hero
-- H1 escala mais dramática: `clamp(3.4rem, 8vw, 6.5rem)` com gradient da cidade.
-- Manter parallax, `PostmarkCircle` e `PostalStamp` como estão hoje.
-- Imagem de fundo: manter as novas capas CDN já registadas neste turno.
+**Prático**
+- Moeda local + taxa aproximada vs EUR (para o conversor)
+- Fuso horário / diferença para Lisboa
+- Ligação aérea sugerida (Ryanair/TAP/etc.)
+- 3–5 dicas rápidas (tomadas, transporte, gorjetas, etc.)
 
-### Secção "Essencial"
-- Cada item ganha uma bolinha luminescente antes do título, na cor primária da cidade: `<span style={{ boxShadow: '0 0 8px <cor>/0.7' }} />`.
+**Itinerário** (repetir por dia)
+- Título do dia + subtítulo
+- Distância a pé aproximada
+- Lista de paragens, cada uma com:
+  - Nome, hora sugerida, duração
+  - Descrição (2–3 frases)
+  - Dica opcional (💡)
+  - Imagem opcional (URL)
+  - Link Google Maps
+  - Transporte até à próxima (opcional)
 
-### CTA final
-- Praga e Londres: manter `"Carimbaste a viagem toda. Agora garante o essencial."`
-- Istambul e Florença: alterar para `"O que reservar com antecedência"` (como no mockup).
+**Comida & extras**
+- 3–6 pratos/sítios obrigatórios
+- Bairros a explorar
+- Alternativa/plano B (opcional, vai para acordeão como em Londres)
 
-### Micro-elementos comuns aos mockups
-- Selos `📍`/`🗣`/`💱` antes dos títulos "Onde ficar", "Palavras úteis", "Conversor …" (Praga e Istambul já pediram esta troca).
-- Divisórias tracejadas (`DashedDivider`) já existem — verificar que aparecem entre secções principais.
+**Afiliados**
+- Link Booking.com da cidade
+- 2–3 experiências GetYourGuide sugeridas
+- Link Omio (comboio/bus) se aplicável
 
-## O que fica igual (dados/lógica)
-- Arrays de `days`, `stops`, `restaurants`, `tips`, `phrases`, `essentials` — inalterados.
-- Todos os links Booking / GetYourGuide / Omio / mapas — inalterados.
-- Componentes: `CurrencyConverter`, `PremiumGate` (se existir), `CustomItineraryCTA`, `PostmarkCircle`, `PostalStamp`, `StickyNav`, `DashedDivider`.
-- Fontes, `styles.css`, temas globais — inalterados (as cores por cidade entram como Tailwind arbitrary values inline nos componentes de cidade).
+## 2. Fluxo de geração
 
-## Verificação
-- Build passa.
-- Playwright screenshots das 4 rotas em desktop 1280 e mobile 390 → comparar lado-a-lado com os mockups WOW.
+Quando colares o brief preenchido, eu:
+1. Crio `src/routes/<slug>.tsx` clonando a estrutura de `praga.tsx` (a mais completa e limpa)
+2. Adiciono a cidade a `src/data/cities.ts` na ordem correta
+3. Adiciono slide ao hero da homepage (`HERO_SLIDES` em `index.tsx`)
+4. Adiciono keyframes `<slug>-kenburns` a `src/styles.css` se necessário
+5. Adiciono tema `.theme-<slug>` se paleta for distinta
+6. Meta tags SEO (title, description, OG, canonical `https://opostal.pt/<slug>`)
+7. `PostmarkCircle` + `PostalStamp` no hero, `FinalStamp` no fim
 
-## Fora do âmbito
-- Qualquer secção que os mockups mostrem mas cujos dados hoje não existam no repo (não invento paragens, restaurantes ou preços).
-- Reescrita de itinerários.
-- Homepage e outras rotas.
+## 3. Entregável desta tarefa
 
-Aprova para eu passar a build e aplicar cidade a cidade.
+Apenas criar `docs/nova-cidade-brief.md` com o formulário pronto a preencher. Não gera nenhuma cidade nova ainda — isso acontece quando devolveres o brief preenchido.
+
+## Detalhes técnicos
+
+- Template-base: `src/routes/praga.tsx` (estrutura de referência: hero Ken Burns, FlipDaysGrid, dias com stops expansíveis, conversor, FinalStamp).
+- Componentes reutilizados sem alteração: `ReadingProgressBar`, `FlipDaysGrid`, `StickyNav`, `CurrencyConverter`, `PostmarkCircle`, `PostalStamp`, `FinalStamp`, `DashedDivider`, `CustomItineraryCTA`.
+- Nenhuma alteração a componentes partilhados nesta tarefa.
