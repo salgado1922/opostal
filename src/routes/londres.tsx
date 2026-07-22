@@ -610,8 +610,8 @@ function Hero() {
     >
       <div className="absolute inset-0 -z-10">
         <img
-          src={londresCover.url}
-          alt="Skyline da City de Londres visto do outro lado do Tamisa, à hora dourada"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/Westminster_Bridge_with_shadows_and_Big_Ben.jpg?width=2000"
+          alt="Big Ben e a Ponte de Westminster sobre o Tamisa"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ animation: "londres-kenburns 20s linear infinite alternate" }}
         />
