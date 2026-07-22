@@ -439,8 +439,8 @@ function Hero() {
     >
       <div className="absolute inset-0 -z-10">
         <img
-          src={florencaCover.url}
-          alt="Florença ao crepúsculo vista do Piazzale Michelangelo"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/Florence_skyline_at_dusk_%283867485023%29.jpg?width=2000"
+          alt="Skyline de Florença ao entardecer, com a cúpula do Duomo"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ animation: "firenze-kenburns 20s linear infinite alternate" }}
         />
