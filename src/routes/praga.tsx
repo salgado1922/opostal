@@ -1383,7 +1383,7 @@ function Index() {
       <Food />
       <Tips />
       <Checklist />
-      <FinalStamp />
+      <FinalStamp code="PRG" />
       <CustomItineraryCTA city="Praga" />
       <Footer />
     </main>
