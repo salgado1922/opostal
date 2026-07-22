@@ -7,6 +7,23 @@ type Props = {
   className?: string;
 };
 
+const ROMAN: [number, string][] = [
+  [1000, "M"], [900, "CM"], [500, "D"], [400, "CD"],
+  [100, "C"], [90, "XC"], [50, "L"], [40, "XL"],
+  [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"],
+];
+
+function toRoman(input: string): string {
+  const n = Number(input);
+  if (!Number.isInteger(n) || n <= 0 || n >= 4000) return input;
+  let num = n;
+  let out = "";
+  for (const [v, s] of ROMAN) {
+    while (num >= v) { out += s; num -= v; }
+  }
+  return out;
+}
+
 /**
  * Carimbo postal circular — duplo círculo tracejado com cidade + ano.
  * Usa o token `--gold` (re-encaminhado por cada tema de cidade), por isso
@@ -18,6 +35,7 @@ export function PostmarkCircle({
   rotate = -8,
   className = "",
 }: Props) {
+  const displayYear = /^\d+$/.test(year) ? toRoman(year) : year;
   return (
     <motion.div
       aria-hidden="true"
@@ -53,7 +71,7 @@ export function PostmarkCircle({
               letterSpacing: "0.3em",
             }}
           >
-            {year}
+            {displayYear}
           </span>
         </div>
       </div>
