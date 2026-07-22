@@ -46,28 +46,23 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
-import d1Cover from "@/assets/istambul/d1-cover.jpg";
 import d1S1 from "@/assets/istambul/d1-s1.jpg";
 import d1S2 from "@/assets/istambul/d1-s2.jpg";
 import d1S3 from "@/assets/istambul/d1-s3.jpg";
 import d1S4 from "@/assets/istambul/d1-s4.jpg";
 import d1S5 from "@/assets/istambul/d1-s5.jpg";
-import d2Cover from "@/assets/istambul/d2-cover.jpg";
 import d2S1 from "@/assets/istambul/d2-s1.jpg";
 import d2S2 from "@/assets/istambul/d2-s2.jpg";
 import d2S3 from "@/assets/istambul/d2-s3.jpg";
 import d2S4 from "@/assets/istambul/d2-s4.jpg";
-import d3Cover from "@/assets/istambul/d3-cover.jpg";
 import d3S1 from "@/assets/istambul/d3-s1.jpg";
 import d3S2 from "@/assets/istambul/d3-s2.jpg";
 import d3S3 from "@/assets/istambul/d3-s3.jpg";
 import d3S4 from "@/assets/istambul/d3-s4.jpg";
-import d4Cover from "@/assets/istambul/d4-cover.jpg";
 import d4S1 from "@/assets/istambul/d4-s1.jpg";
 import d4S2 from "@/assets/istambul/d4-s2.jpg";
 import d4S3 from "@/assets/istambul/d4-s3.jpg";
 import d4S4 from "@/assets/istambul/d4-s4.jpg";
-import d5Cover from "@/assets/istambul/d5-cover.jpg";
 import d5S1 from "@/assets/istambul/d5-s1.jpg";
 import d5S2 from "@/assets/istambul/d5-s2.jpg";
 import d5S3 from "@/assets/istambul/d5-s3.jpg";
@@ -314,7 +309,7 @@ const days: Day[] = [
       "Aterrar com calma entre Bizâncio e o Império Otomano: Hagia Sophia, Mesquita Azul e a cisterna subterrânea.",
     accent: "from-cyan-400/30 to-indigo-500/10",
     icon: Sun,
-    cover: d1Cover,
+    cover: d1S2,
     walkTotal: "A pé hoje: ~20 min",
     dayNote: {
       tone: "amber",
