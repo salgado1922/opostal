@@ -176,6 +176,8 @@ type Stop = {
   link?: string;
   img?: string;
   imgAlt?: string;
+  img2?: string;
+  img2Alt?: string;
   icon: React.ComponentType<{ className?: string }>;
   bookingUrl?: string;
   optional?: boolean;
