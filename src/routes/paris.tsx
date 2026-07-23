@@ -54,7 +54,7 @@ import {
 } from "@/components/CustomItineraryCTA";
 
 const HERO_IMG =
-  "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=2400&q=80";
+  "https://commons.wikimedia.org/wiki/Special:FilePath/Tour_Eiffel_Wikimedia_Commons.jpg?width=2000";
 
 export const Route = createFileRoute("/paris")({
   head: () => ({
@@ -176,6 +176,8 @@ type Stop = {
   link?: string;
   img?: string;
   imgAlt?: string;
+  img2?: string;
+  img2Alt?: string;
   icon: React.ComponentType<{ className?: string }>;
   bookingUrl?: string;
   optional?: boolean;
@@ -206,7 +208,7 @@ const days: Day[] = [
     vibe: "Os grandes ícones, da Torre Eiffel ao Musée d'Orsay.",
     icon: Sun,
     cover:
-      "https://images.unsplash.com/photo-1550340499-a6c60fc8287c?auto=format&fit=crop&w=1600&q=80",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Arc_de_Triomphe,_Paris_21_October_2010.jpg?width=1200",
     walkTotal: "A pé hoje: ~7 km",
     stops: [
       {
@@ -215,8 +217,8 @@ const days: Day[] = [
         desc: "O monumento mais visitado do mundo e o melhor arranque para a viagem. Sobe ao segundo piso ou ao topo para as vistas panorâmicas, ou fica-te pelo Champ de Mars para as fotos clássicas. Compra a subida com antecedência para garantir hora.",
         link: "https://www.google.com/maps/search/?api=1&query=Tour+Eiffel+Paris",
         tip: "Para a foto perfeita, atravessa a Pont d'Iéna até aos Jardins do Trocadéro. É o enquadramento mais icónico da 'dama de ferro'.",
-        img: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Torre Eiffel vista do Trocadéro",
+        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Paris_-_Eiffelturm_und_Marsfeld2.jpg?width=1200",
+        imgAlt: "Torre Eiffel vista do Champ de Mars",
         icon: Landmark,
         bookingUrl: "https://www.getyourguide.com/paris-l16/eiffel-tower-tc379/",
         walkTo: "~25 min a pé, ou 2 paragens de metro até Charles de Gaulle-Étoile",
@@ -255,6 +257,8 @@ const days: Day[] = [
         desc: "A ponte mais bonita de Paris, com os cavalos alados dourados e candeeiros art nouveau. Une os Invalides à zona dos Palais e oferece vistas soberbas sobre o Sena.",
         link: "https://www.google.com/maps/search/?api=1&query=Pont+Alexandre+III+Paris",
         tip: "É um dos melhores sítios da cidade para fotografar ao pôr do sol.",
+        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Paris_Pont_Alexandre_III.jpg?width=1200",
+        imgAlt: "Ponte Alexandre III ao anoitecer",
         icon: Sparkles,
         walkTo: "~8 min a pé",
       },
@@ -273,6 +277,8 @@ const days: Day[] = [
         desc: "Numa antiga estação de comboios da Belle Époque vive a maior coleção de Impressionismo e Pós-Impressionismo do mundo. Monet, Renoir, Degas, Cézanne, Gauguin, Van Gogh e Toulouse-Lautrec, tudo num espaço muito mais navegável do que o Louvre.",
         link: "https://www.google.com/maps/search/?api=1&query=Musee+d%27Orsay+Paris",
         tip: "À quinta-feira fica aberto até tarde (cerca das 21h45), óptimo para uma visita sem multidões. Sobe ao relógio gigante do quinto piso para a foto com a cidade ao fundo.",
+        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Interieur_du_musee_d'Orsay.jpg?width=1200",
+        imgAlt: "Interior do Musée d'Orsay com o relógio e a escultura",
         icon: Palette,
         bookingUrl: "https://www.getyourguide.com/paris-l16/musee-d-orsay-tc463/",
       },
@@ -286,7 +292,7 @@ const days: Day[] = [
     vibe: "Do Louvre à Île de la Cité e ao Quartier Latin.",
     icon: BookOpen,
     cover:
-      "https://images.unsplash.com/photo-1431274172761-fca41d930114?auto=format&fit=crop&w=1600&q=80",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Louvre_Museum_Wikimedia_Commons.jpg?width=1200",
     walkTotal: "A pé hoje: ~5,5 km",
     dayNote: {
       tone: "amber",
@@ -317,7 +323,7 @@ const days: Day[] = [
         desc: "O maior museu de arte do mundo, num palácio real com 800 anos de história. Da Mona Lisa à Vénus de Milo, da Vitória de Samotrácia à Liberdade Guiando o Povo, é impossível ver tudo, por isso escolhe duas ou três alas.",
         link: "https://www.google.com/maps/search/?api=1&query=Musee+du+Louvre+Paris",
         tip: "Compra bilhete com hora marcada e entra pela porta do Carrousel (subterrânea) ou Porte des Lions para fugires à fila da pirâmide.",
-        img: "https://images.unsplash.com/photo-1565099824688-e93eb20fe622?auto=format&fit=crop&w=1200&q=80",
+        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Louvre_Museum_Wikimedia_Commons.jpg?width=1200",
         imgAlt: "Pirâmide do Louvre ao anoitecer",
         icon: Palette,
         bookingUrl: "https://www.getyourguide.com/paris-l16/louvre-tc379/",
@@ -339,6 +345,10 @@ const days: Day[] = [
         desc: "O berço de Paris. Atravessa a Pont Neuf, a ponte de pedra mais antiga da cidade, entra na Sainte-Chapelle para ver os vitrais gigantes do século XIII a arder de cor, e segue para a Notre-Dame, reaberta em dezembro de 2024 depois do incêndio de 2019.",
         link: "https://www.google.com/maps/search/?api=1&query=Cathedrale+Notre-Dame+de+Paris",
         tip: "Notre-Dame com entrada gratuita mas com reserva de horário no site oficial. A Sainte-Chapelle brilha mais em dia de sol.",
+        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Notre-Dame_de_Paris,_4_October_2017.jpg?width=1200",
+        imgAlt: "Fachada ocidental da Notre-Dame de Paris",
+        img2: "https://commons.wikimedia.org/wiki/Special:FilePath/Sainte_Chapelle_Interior_Stained_Glass.jpg?width=1200",
+        img2Alt: "Vitrais da Sainte-Chapelle em Paris",
         icon: Church,
         walkTo: "~12 min a pé para o Quartier Latin",
       },
@@ -370,7 +380,7 @@ const days: Day[] = [
     vibe: "A Paris boémia e a Paris trendy.",
     icon: Moon,
     cover:
-      "https://images.unsplash.com/photo-1524396309943-e03f5249f002?auto=format&fit=crop&w=1600&q=80",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Sacre-coeur-paris.jpg?width=1200",
     walkTotal: "A pé hoje: ~6 km (com um trajeto de metro entre Pigalle e o Marais)",
     stops: [
       {
@@ -388,7 +398,7 @@ const days: Day[] = [
         desc: "De um branco quase ofuscante, a basílica romano-bizantina é o segundo ponto mais alto da cidade e oferece uma das melhores vistas de Paris a partir da escadaria. Podes subir a pé ou apanhar o funicular.",
         link: "https://www.google.com/maps/search/?api=1&query=Basilique+du+Sacre-Coeur+Paris",
         tip: "A subida à cúpula dá vistas ainda melhores e costuma ter pouca fila.",
-        img: "https://images.unsplash.com/photo-1550340499-a6c60fc8287c?auto=format&fit=crop&w=1200&q=80",
+        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Sacre-coeur-paris.jpg?width=1200",
         imgAlt: "Basílica do Sacré-Coeur em Montmartre",
         icon: Church,
         walkTo: "~12 min a pé em descida até Pigalle",
@@ -417,6 +427,8 @@ const days: Day[] = [
         desc: "O bairro mais charmoso e trendy de Paris, com mansões aristocráticas, galerias, boutiques e street art. Passa pela Place des Vosges, a praça mais antiga da cidade, e pelo Marché des Enfants Rouges, o mercado coberto mais antigo, óptimo para petiscar.",
         link: "https://www.google.com/maps/search/?api=1&query=Place+des+Vosges+Paris",
         tip: "É o sítio ideal para terminar o dia com um jantar bem regado a vinho francês, ou com o famoso falafel da Rue des Rosiers.",
+        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Place_des_Vosges_Paris.jpg?width=1200",
+        imgAlt: "Place des Vosges, a praça mais antiga de Paris",
         icon: Utensils,
       },
     ],
@@ -429,7 +441,7 @@ const days: Day[] = [
     vibe: "Um dia de realeza e um regresso tranquilo à cidade.",
     icon: Castle,
     cover:
-      "https://images.unsplash.com/photo-1591994843349-f415893b3a6b?auto=format&fit=crop&w=1600&q=80",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Versailles_Palace.jpg?width=1200",
     walkTotal: "A pé hoje: 5–8 km em Versalhes + 2–3 km à tarde em Paris",
     howToGet: "RER C até Versailles Château Rive Gauche (~10 min do palácio). Precisas de bilhete origem-destino ou Navigo que cubra zonas 1 a 4.",
     dayNote: {
@@ -443,8 +455,8 @@ const days: Day[] = [
         desc: "Residência dos reis de França de 1682 até à Revolução, Património Mundial da UNESCO e um dos palácios mais imponentes do planeta. Segue direto aos Grandes Aposentos e à deslumbrante Galeria dos Espelhos, com os seus 357 espelhos e vistas para os jardins.",
         link: "https://www.google.com/maps/search/?api=1&query=Chateau+de+Versailles",
         tip: "Compra bilhete com hora marcada e chega logo à abertura (à porta pelas 08:30 para o controlo de segurança). A partir das 09:30 a fila dispara.",
-        img: "https://images.unsplash.com/photo-1591994843349-f415893b3a6b?auto=format&fit=crop&w=1200&q=80",
-        imgAlt: "Palácio de Versalhes",
+        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Chateau_Versailles_Galerie_des_Glaces.jpg?width=1200",
+        imgAlt: "Galeria dos Espelhos no Palácio de Versalhes",
         icon: Castle,
         bookingUrl: "https://www.getyourguide.com/versailles-l732/",
       },
@@ -454,6 +466,8 @@ const days: Day[] = [
         desc: "Mais de 800 hectares desenhados por André Le Nôtre, com avenidas simétricas, fontes, estátuas e o Grande Canal. De abril a outubro há, em dias marcados, os espetáculos das Fontes Musicais (Grandes Eaux Musicales), com música barroca e água a dançar.",
         link: "https://www.google.com/maps/search/?api=1&query=Jardins+du+Chateau+de+Versailles",
         tip: "Nos dias de Fontes Musicais os jardins são pagos e enchem mais. Consulta o calendário oficial. Se preferires, salta a propriedade de Trianon para ter tarde livre em Paris.",
+        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Versailles_Garden.jpg?width=1200",
+        imgAlt: "Jardins formais do Palácio de Versalhes",
         icon: Sparkles,
         walkTo: "RER C de regresso a Paris, saída em Saint-Michel Notre-Dame (~40 min)",
       },
@@ -778,13 +792,25 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
               <p className="text-sm italic text-cream/90">{stop.tip}</p>
             </div>
           )}
-          {stop.img && (
-            <img
-              src={stop.img}
-              alt={stop.imgAlt ?? stop.title}
-              className="h-40 w-full rounded-xl object-cover shadow-lg md:w-64"
-              loading="lazy"
-            />
+          {(stop.img || stop.img2) && (
+            <div className="grid gap-3 md:w-64">
+              {stop.img && (
+                <img
+                  src={stop.img}
+                  alt={stop.imgAlt ?? stop.title}
+                  className="h-40 w-full rounded-xl object-cover shadow-lg"
+                  loading="lazy"
+                />
+              )}
+              {stop.img2 && (
+                <img
+                  src={stop.img2}
+                  alt={stop.img2Alt ?? `${stop.title} — 2`}
+                  className="h-40 w-full rounded-xl object-cover shadow-lg"
+                  loading="lazy"
+                />
+              )}
+            </div>
           )}
         </div>
       </motion.div>
