@@ -788,13 +788,25 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
               <p className="text-sm italic text-cream/90">{stop.tip}</p>
             </div>
           )}
-          {stop.img && (
-            <img
-              src={stop.img}
-              alt={stop.imgAlt ?? stop.title}
-              className="h-40 w-full rounded-xl object-cover shadow-lg md:w-64"
-              loading="lazy"
-            />
+          {(stop.img || stop.img2) && (
+            <div className="grid gap-3 md:w-64">
+              {stop.img && (
+                <img
+                  src={stop.img}
+                  alt={stop.imgAlt ?? stop.title}
+                  className="h-40 w-full rounded-xl object-cover shadow-lg"
+                  loading="lazy"
+                />
+              )}
+              {stop.img2 && (
+                <img
+                  src={stop.img2}
+                  alt={stop.img2Alt ?? `${stop.title} — 2`}
+                  className="h-40 w-full rounded-xl object-cover shadow-lg"
+                  loading="lazy"
+                />
+              )}
+            </div>
           )}
         </div>
       </motion.div>
