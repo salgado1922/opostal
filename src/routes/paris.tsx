@@ -930,24 +930,32 @@ function Itineraries() {
 function Food() {
   const restaurants = [
     {
-      name: "Bistrot Paul Bert (11.º)",
-      desc: "Bistrô clássico parisiense. Steak-frites e boeuf bourguignon como devem ser feitos.",
-      link: "https://www.google.com/maps/search/?api=1&query=Bistrot+Paul+Bert+Paris",
+      name: "Bistrô de bairro",
+      desc: "Esplanada de madeira, menu escrito a giz e uma crème brûlée à moda da casa. O bistrô de bairro é a Paris mais autêntica.",
+      link: "https://www.google.com/maps/search/?api=1&query=bistrot+de+quartier+Paris",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Cr%C3%A8me_br%C3%BBl%C3%A9e.jpg?width=1200",
+      imgAlt: "Crème brûlée num bistrô parisiense",
     },
     {
-      name: "Bouillon Pigalle",
-      desc: "Bouillon histórico, clássicos franceses a preços simpáticos. Filas rápidas, ambiente vivo.",
-      link: "https://www.google.com/maps/search/?api=1&query=Bouillon+Pigalle",
+      name: "Boulangerie ao balcão",
+      desc: "Croissant ainda quente, comido de pé ao balcão, com um café expresso. O ritual matinal de Paris.",
+      link: "https://www.google.com/maps/search/?api=1&query=boulangerie+Paris",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Croissant,_cross_section.jpg?width=1200",
+      imgAlt: "Croissant em corte transversal",
     },
     {
-      name: "L'As du Fallafel (Marais)",
-      desc: "O falafel mais famoso de Paris, na Rue des Rosiers. Pega, senta na rua e come.",
-      link: "https://www.google.com/maps/search/?api=1&query=L%27As+du+Fallafel+Paris",
+      name: "Mercado / Rue Montorgueil",
+      desc: "Rua de mercado no 2.º, floristas, peixeiras, queijarias e esplanadas. Perfeita para almoçar ou petiscar entre paragens.",
+      link: "https://www.google.com/maps/search/?api=1&query=Rue+Montorgueil+Paris",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Rue_Montorgueil.jpg?width=1200",
+      imgAlt: "Rua Montorgueil em Paris",
     },
     {
-      name: "Du Pain et des Idées (10.º)",
-      desc: "Uma das melhores boulangeries da cidade. Croissants e pain au chocolat de manhã cedo.",
-      link: "https://www.google.com/maps/search/?api=1&query=Du+Pain+et+des+Idees+Paris",
+      name: "Crêperie (Montparnasse)",
+      desc: "Uma crêpe suzette flamejada ou uma galette salada de trigo sarraceno. Montparnasse guarda algumas das mais tradicionais.",
+      link: "https://www.google.com/maps/search/?api=1&query=creperie+Montparnasse+Paris",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Crepe_suzette.jpg?width=1200",
+      imgAlt: "Crêpe suzette flamejada",
     },
   ];
 
@@ -955,15 +963,38 @@ function Food() {
     {
       name: "Croissant & pain au chocolat",
       desc: "De uma boulangerie de bairro, ao balcão, ainda quente.",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Croissant,_cross_section.jpg?width=1200",
+      imgAlt: "Croissant acabado de fazer",
     },
     {
-      name: "Steak-frites",
+      name: "Jambon-beurre",
+      desc: "O almoço rápido dos parisienses: presunto, manteiga e baguete crocante.",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Jambon-beurre.jpg?width=1200",
+      imgAlt: "Sanduíche jambon-beurre",
+    },
+    {
+      name: "Steak-frites / entrecôte",
       desc: "O clássico do bistrô: bife, batatas caseiras e um copo de tinto.",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Steak_frites.jpg?width=1200",
+      imgAlt: "Steak-frites num prato",
     },
     {
-      name: "Escargots & soupe à l'oignon",
-      desc: "Os clássicos de brasserie que valem sempre a experiência.",
-      icon: Utensils,
+      name: "Crêpe & galette",
+      desc: "Doce com manteiga e açúcar, ou salada com ovo, queijo e presunto.",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Crepe_suzette.jpg?width=1200",
+      imgAlt: "Crêpe suzette",
+    },
+    {
+      name: "Macarons & pâtisserie",
+      desc: "Uma caixa de macarons ou um éclair de uma pâtisserie de bairro.",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Macaron_2.jpg?width=1200",
+      imgAlt: "Macarons coloridos",
+    },
+    {
+      name: "Vinho & queijo",
+      desc: "Termina o dia com uma tábua de queijos e um copo de Bordeaux ou Loire.",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Cheese_platter.jpg?width=1200",
+      imgAlt: "Tábua de queijos franceses",
     },
   ];
 
@@ -972,9 +1003,9 @@ function Food() {
       id="comer"
       eyebrow="À mesa"
       title="Comer e beber em Paris"
-      intro="Bistrôs de bairro, bouillons históricos, uma boulangerie logo de manhã. E vinho ao fim do dia."
+      intro="Bistrôs de bairro, boulangeries de esquina, mercados e crêperias. O que não pode falta na Cidade Luz."
     >
-      <h3 className="mb-6 font-serif text-2xl text-cream">Sítios a testar</h3>
+      <h3 className="mb-6 font-serif text-2xl text-cream">Sítios testados</h3>
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {restaurants.map((r, i) => (
           <motion.a
@@ -987,42 +1018,61 @@ function Food() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.06 }}
             whileHover={{ y: -4 }}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-gold/15 bg-card p-5 transition-all hover:border-gold/40 hover:shadow-[0_20px_50px_-20px_oklch(0.80_0.13_82/0.35)]"
+            className="group flex flex-col overflow-hidden rounded-2xl border border-gold/15 bg-card transition-all hover:border-gold/40 hover:shadow-[0_20px_50px_-20px_oklch(0.80_0.13_82/0.35)]"
           >
-            <div className="flex items-center gap-2 text-gold">
-              <Utensils className="h-4 w-4" />
-              <span className="text-[10px] uppercase tracking-[0.25em]">Restaurante</span>
+            <div className="relative h-44 overflow-hidden">
+              <img
+                src={r.img}
+                alt={r.imgAlt}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             </div>
-            <h4 className="mt-2 font-serif text-xl text-cream group-hover:text-gold transition-colors">
-              {r.name}
-            </h4>
-            <p className="mt-2 flex-1 text-sm text-muted-foreground">{r.desc}</p>
+            <div className="flex flex-1 flex-col p-5">
+              <div className="flex items-center gap-2 text-gold">
+                <Utensils className="h-4 w-4" />
+                <span className="text-[10px] uppercase tracking-[0.25em]">Sítio testado</span>
+              </div>
+              <h4 className="mt-2 font-serif text-xl text-cream group-hover:text-gold transition-colors">
+                {r.name}
+              </h4>
+              <p className="mt-2 flex-1 text-sm text-muted-foreground">{r.desc}</p>
+            </div>
           </motion.a>
         ))}
       </div>
 
       <h3 className="mb-6 mt-16 font-serif text-2xl text-cream">Provar sem falta</h3>
-      <div className="grid gap-5 md:grid-cols-3">
-        {dishes.map((d, i) => {
-          const Icon = d.icon ?? Utensils;
-          return (
-            <motion.div
-              key={d.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="overflow-hidden rounded-2xl border border-gold/15 bg-card p-5"
-            >
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {dishes.map((d, i) => (
+          <motion.div
+            key={d.name}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.08 }}
+            className="overflow-hidden rounded-2xl border border-gold/15 bg-card"
+          >
+            <div className="relative h-40 overflow-hidden">
+              <img
+                src={d.img}
+                alt={d.imgAlt}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            </div>
+            <div className="p-5">
               <div className="flex items-center gap-2 text-gold">
-                <Icon className="h-4 w-4" />
+                <Utensils className="h-4 w-4" />
                 <span className="text-[10px] uppercase tracking-[0.25em]">Sabor local</span>
               </div>
               <h4 className="mt-2 font-serif text-2xl text-cream">{d.name}</h4>
               <p className="mt-2 text-sm text-muted-foreground">{d.desc}</p>
-            </motion.div>
-          );
-        })}
+            </div>
+          </motion.div>
+        ))}
       </div>
     </Section>
   );
