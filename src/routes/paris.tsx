@@ -277,6 +277,8 @@ const days: Day[] = [
         desc: "Numa antiga estação de comboios da Belle Époque vive a maior coleção de Impressionismo e Pós-Impressionismo do mundo. Monet, Renoir, Degas, Cézanne, Gauguin, Van Gogh e Toulouse-Lautrec, tudo num espaço muito mais navegável do que o Louvre.",
         link: "https://www.google.com/maps/search/?api=1&query=Musee+d%27Orsay+Paris",
         tip: "À quinta-feira fica aberto até tarde (cerca das 21h45), óptimo para uma visita sem multidões. Sobe ao relógio gigante do quinto piso para a foto com a cidade ao fundo.",
+        img: "https://commons.wikimedia.org/wiki/Special:FilePath/Interieur_du_musee_d'Orsay.jpg?width=1200",
+        imgAlt: "Interior do Musée d'Orsay com o relógio e a escultura",
         icon: Palette,
         bookingUrl: "https://www.getyourguide.com/paris-l16/musee-d-orsay-tc463/",
       },
