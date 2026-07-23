@@ -345,6 +345,8 @@ const days: Day[] = [
         tip: "Notre-Dame com entrada gratuita mas com reserva de horário no site oficial. A Sainte-Chapelle brilha mais em dia de sol.",
         img: "https://commons.wikimedia.org/wiki/Special:FilePath/Notre-Dame_de_Paris,_4_October_2017.jpg?width=1200",
         imgAlt: "Fachada ocidental da Notre-Dame de Paris",
+        img2: "https://commons.wikimedia.org/wiki/Special:FilePath/Sainte_Chapelle_Interior_Stained_Glass.jpg?width=1200",
+        img2Alt: "Vitrais da Sainte-Chapelle em Paris",
         icon: Church,
         walkTo: "~12 min a pé para o Quartier Latin",
       },
