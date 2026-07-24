@@ -73,14 +73,15 @@ export function OutrosPostais({ currentSlug }: { currentSlug: string }) {
             const slot = slotFor(idx);
             const isCenter = slot === "center";
 
-            const slotClass =
-              slot === "center"
-                ? "translate-x-0 scale-100 opacity-100 z-20"
-                : slot === "left"
-                  ? "-translate-x-[62%] sm:-translate-x-[58%] scale-[0.78] opacity-45 blur-[1px] z-10"
-                  : slot === "right"
-                    ? "translate-x-[62%] sm:translate-x-[58%] scale-[0.78] opacity-45 blur-[1px] z-10"
-                    : "opacity-0 pointer-events-none scale-[0.7] z-0";
+            const offset =
+              slot === "left" ? "-58%" : slot === "right" ? "58%" : "0%";
+            const scale =
+              slot === "center" ? 1 : slot === "hidden" ? 0.7 : 0.78;
+            const opacity =
+              slot === "center" ? 1 : slot === "hidden" ? 0 : 0.45;
+            const zIndex = slot === "center" ? 20 : slot === "hidden" ? 0 : 10;
+            const filter = slot === "left" || slot === "right" ? "blur(1px)" : "none";
+            const pointer = slot === "hidden" ? "none" : "auto";
 
             const handleClick = (e: React.MouseEvent) => {
               if (!isCenter) {
@@ -93,13 +94,16 @@ export function OutrosPostais({ currentSlug }: { currentSlug: string }) {
               <div
                 key={g.slug}
                 aria-hidden={!isCenter}
-                className={`absolute left-1/2 top-1/2 h-full w-[260px] -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ease-out motion-reduce:transition-none sm:w-[320px] md:w-[360px] ${slotClass}`}
-                style={{ transform: `translate(-50%, -50%)` }}
+                className="absolute left-1/2 top-1/2 h-full w-[260px] transition-all duration-500 ease-out motion-reduce:transition-none sm:w-[320px] md:w-[360px]"
+                style={{
+                  transform: `translate(calc(-50% + ${offset}), -50%) scale(${scale})`,
+                  opacity,
+                  zIndex,
+                  filter,
+                  pointerEvents: pointer,
+                }}
               >
-                <div
-                  className={`absolute inset-0 transition-all duration-500 ease-out motion-reduce:transition-none ${slotClass}`}
-                >
-                  <Link
+                <Link
                     to={`/${g.slug}` as string}
                     tabIndex={isCenter ? 0 : -1}
                     onClick={handleClick}
@@ -132,8 +136,7 @@ export function OutrosPostais({ currentSlug }: { currentSlug: string }) {
                         </div>
                       </div>
                     </div>
-                  </Link>
-                </div>
+                </Link>
               </div>
             );
           })}
