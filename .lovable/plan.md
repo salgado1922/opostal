@@ -1,19 +1,29 @@
 ## Objetivo
-Converter o bloco `OutrosPostais` de grelha 4-colunas para um carrossel horizontal com scroll-snap e swipe táctil, mobile-first, sem setas.
+Transformar o bloco "Outros postais" num carrossel coverflow: 1 card central grande e nítido, 2 cards laterais mais pequenos e esbatidos. Setas + swipe, sem auto-play.
 
 ## Alterações
 
-**`src/components/OutrosPostais.tsx`** (único ficheiro tocado)
+Ficheiro único: `src/components/OutrosPostais.tsx`
 
-- Substituir o `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4` por um container flex com scroll horizontal:
-  - `overflow-x-auto snap-x snap-mandatory` no wrapper
-  - `flex gap-5` na lista
-  - Cada card: `snap-start shrink-0 basis-[78%] sm:basis-[46%] lg:basis-[24%]` — em desktop os 4 cabem sem scroll; em mobile mostram-se ~1,2 cards para sugerir arrasto
-  - Padding lateral `px-4 md:px-0` + `scroll-px-4` para o snap alinhar com a margem
-  - `-mx-4 md:mx-0` para permitir o "sangramento" nos limites em mobile
-  - Esconder scrollbar visualmente (`[&::-webkit-scrollbar]:hidden [scrollbar-width:none]`)
-- Manter tipografia, `SmartImage`, hover/scale e ordem dos cards inalterados.
-- Sem setas, sem indicadores, sem JS extra — comportamento nativo.
+1. **State**: `activeIndex` (0..n-1) para o card no centro.
+2. **Layout** (visíveis apenas 3 slots: `prev`, `center`, `next`, com wrap-around):
+   - Container `relative` com altura fixa (~340px mobile, ~420px desktop) e `overflow-hidden`.
+   - Cada card posicionado em `absolute` com `transition-all duration-500 ease-out`:
+     - **Centro**: `translate-x-0 scale-100 opacity-100 z-20`, largura ~320px (mobile) / 420px (desktop).
+     - **Esquerdo**: `-translate-x-[70%] scale-[0.78] opacity-45 blur-[1px] z-10`.
+     - **Direito**: `translate-x-[70%] scale-[0.78] opacity-45 blur-[1px] z-10`.
+     - Outros: `opacity-0 pointer-events-none`.
+3. **Setas**: dois botões redondos (`ChevronLeft`/`ChevronRight` do lucide) sobrepostos nas laterais, estilo discreto (fundo `bg-background/70 backdrop-blur border`), `aria-label` "Anterior"/"Próximo". Ocultos em `sm:` só se necessário — manter em todos os breakpoints.
+4. **Swipe**: handlers `onTouchStart`/`onTouchEnd` (ou `onPointerDown`/`Up`) medem `deltaX`; threshold 40px avança/recua `activeIndex`.
+5. **Clique nos laterais**: clicar num card lateral chama `setActive(index)` (traz para o centro). O card central mantém `Link` para navegar.
+6. **Wrap-around**: `(activeIndex + n) % n` para prev/next.
+7. **Acessibilidade**: `role="region"` + `aria-roledescription="carousel"`; setas com `aria-label`; cards não-centrais com `aria-hidden` e `tabIndex={-1}` para não competirem no tab order.
+8. **Reduce motion**: `motion-reduce:transition-none`.
 
 ## Fora de âmbito
-Não altero cores, imagens, texto, nem outras secções. Não mexo nas páginas de cidade — o componente é partilhado.
+- Sem auto-play, sem indicadores/dots (podem ser adicionados depois se pedires).
+- Sem alterações nas páginas de cidade — só o componente muda.
+
+## Detalhes técnicos
+- Continuar a usar `SmartImage` com `sizes="(min-width: 768px) 420px, 320px"` para os cards.
+- Nenhuma dependência nova; usar apenas Tailwind + lucide-react já instalados.
