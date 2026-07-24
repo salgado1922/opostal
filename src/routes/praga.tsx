@@ -351,8 +351,6 @@ const days: Day[] = [
     transport: {
       title: "Como chegar a Kutná Hora",
       text: "Comboio de Praha hl.n. → Kutná Hora (~55 min)",
-      primaryLabel: "Procurar comboios e autocarros",
-      primaryUrl: "[LINK_OMIO_PRAGA]",
       note: "Dentro de Kutná Hora: da estação hl. n. ao Ossário de Sedlec ~1 km (autocarro ~5 min); de Sedlec ao centro histórico ~2,5 km (autocarro ~10 min).",
       secondaryLabel: "Abrir Sedlec → centro no Google Maps",
       secondaryUrl:
@@ -364,7 +362,6 @@ const days: Day[] = [
         title: "Comboio para Kutná Hora",
         desc: "Saída da Hlavní Nádraží. ~1h de viagem confortável, lugares marcados.",
         icon: Train,
-        bookingUrl: "[LINK_OMIO_PRAGA]",
         walkTo: "~5 min de autocarro (Kutná Hora hl. n. → Sedlec)",
       },
       {
@@ -1904,17 +1901,6 @@ function EssentialInfo() {
               </div>
               <h3 className="font-serif text-xl text-cream">{e.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
-              {e.title === "Transportes" && (
-                <a
-                  href="[LINK_OMIO_PRAGA]"
-                  target="_blank"
-                  rel="sponsored noopener"
-                  className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
-                >
-                  Procurar comboios e autocarros
-                  <ExternalLink className="h-3 w-3 opacity-70" />
-                </a>
-              )}
             </motion.div>
           );
         })}
