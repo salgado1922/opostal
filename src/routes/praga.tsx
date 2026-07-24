@@ -1,3 +1,4 @@
+import { SmartImage } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useId, useEffect } from "react";
@@ -475,9 +476,10 @@ function Hero() {
       className="relative z-[2] flex min-h-screen items-center overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
-        <img
+        <SmartImage
           src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=2400&q=80"
           alt="Praga ao pôr do sol: Ponte Carlos e Castelo"
+          priority
           className="absolute inset-0 h-full w-full object-cover"
           style={{ animation: "praga-kenburns 20s linear infinite alternate" }}
         />
@@ -604,7 +606,7 @@ function FlipDaysGrid() {
                   borderColor: "oklch(0.82 0.14 78 / .15)",
                 }}
               >
-                <img src={d.cover} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+                <SmartImage src={d.cover} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.2) 48%, transparent)" }} />
                 <span
                   className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[9.5px] uppercase tracking-[0.18em] backdrop-blur"
@@ -768,7 +770,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
             </div>
           )}
           {stop.img && (
-            <img
+            <SmartImage
               src={stop.img}
               alt={stop.imgAlt ?? stop.title}
               className="h-40 w-full rounded-xl object-cover shadow-lg md:w-64"
@@ -1164,7 +1166,7 @@ function Food() {
           >
             {r.img && (
               <div className="relative h-40 overflow-hidden">
-                <img
+                <SmartImage
                   src={r.img}
                   alt={r.imgAlt}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -1199,7 +1201,7 @@ function Food() {
               className="overflow-hidden rounded-2xl border border-gold/15 bg-card"
             >
               {d.img && (
-                <img src={d.img} alt={d.imgAlt} className="h-44 w-full object-cover" />
+                <SmartImage src={d.img} alt={d.imgAlt} className="h-44 w-full object-cover" />
               )}
               <div className="p-5">
                 <div className="flex items-center gap-2 text-gold">
@@ -1500,7 +1502,7 @@ function StickyNav() {
           className={`inline-flex items-center gap-2 text-sm tracking-wide text-gold md:text-base hover:text-cream transition-colors ${shadow}`}
         >
           <span aria-hidden>‹</span>
-          <img src={opostalHorizontalTransparent.url} alt="O Postal" className="h-7 w-auto object-contain md:h-9" />
+          <SmartImage src={opostalHorizontalTransparent.url} alt="O Postal" className="h-7 w-auto object-contain md:h-9" />
         </Link>
 
         {/* Desktop */}

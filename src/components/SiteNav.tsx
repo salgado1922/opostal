@@ -1,3 +1,4 @@
+import { SmartImage } from "@/components/SmartImage";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
@@ -37,7 +38,7 @@ export function SiteNav() {
             scrolled ? "" : "[filter:drop-shadow(0_1px_8px_rgba(0,0,0,0.65))]"
           }`}
         >
-          <img
+          <SmartImage
             src={opostalHorizontalTransparent.url}
             alt="O Postal"
             className="h-8 w-auto object-contain md:h-10"
