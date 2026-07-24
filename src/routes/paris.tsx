@@ -53,6 +53,7 @@ import {
   CustomItineraryCTA,
   CustomItineraryHeroLink,
 } from "@/components/CustomItineraryCTA";
+import { OutrosPostais } from "@/components/OutrosPostais";
 
 const HERO_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/Tour_Eiffel_Wikimedia_Commons.jpg?width=2000";
@@ -1820,6 +1821,7 @@ function Index() {
       <Checklist />
       <FinalStamp code="PAR" year="MMXXV" />
       <CustomItineraryCTA city="Paris" />
+      <OutrosPostais currentSlug="paris" />
       <Footer />
     </main>
   );

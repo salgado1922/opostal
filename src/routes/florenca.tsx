@@ -51,6 +51,7 @@ import {
   CustomItineraryCTA,
   CustomItineraryHeroLink,
 } from "@/components/CustomItineraryCTA";
+import { OutrosPostais } from "@/components/OutrosPostais";
 
 export const Route = createFileRoute("/florenca")({
   head: () => ({
@@ -1280,6 +1281,7 @@ function Index() {
       <Checklist />
       <FinalStamp code="FLR" />
       <CustomItineraryCTA city="Florença" />
+      <OutrosPostais currentSlug="florenca" />
       <Footer />
     </main>
   );
