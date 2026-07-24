@@ -1791,7 +1791,7 @@ function EssentialInfo() {
               A pé de tudo, ideal para a primeira visita.
             </p>
             <a
-              href="[LINK_BOOKING_FLORENCA_CENTRO_STORICO]"
+              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DCentro%2BStorico%252C%2BFloren%25C3%25A7a%252C%2BIt%25C3%25A1lia%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=florenca-centro-storico"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
@@ -1806,7 +1806,7 @@ function EssentialInfo() {
               Histórico e animado, com boas trattorias e vida local.
             </p>
             <a
-              href="[LINK_BOOKING_FLORENCA_SANTA_CROCE]"
+              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DSanta%2BCroce%252C%2BFloren%25C3%25A7a%252C%2BIt%25C3%25A1lia%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=florenca-santa-croce"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
@@ -1821,7 +1821,7 @@ function EssentialInfo() {
               Do outro lado do Arno, mais local e charmoso, cheio de artesãos e esplanadas.
             </p>
             <a
-              href="[LINK_BOOKING_FLORENCA_OLTRARNO]"
+              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DOltrarno%252C%2BFloren%25C3%25A7a%252C%2BIt%25C3%25A1lia%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=florenca-oltrarno"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"

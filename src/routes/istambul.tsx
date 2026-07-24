@@ -1988,7 +1988,7 @@ function EssentialInfo() {
               Central e histórico, a pé dos grandes monumentos. Ideal para a 1.ª visita.
             </p>
             <a
-              href="[LINK_BOOKING_ISTAMBUL_SULTANAHMET]"
+              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DSultanahmet%252C%2BIstambul%252C%2BTurquia%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=istambul-sultanahmet"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
@@ -2003,7 +2003,7 @@ function EssentialInfo() {
               Moderno e animado, cafés, rooftops e vida noturna. Bom para quem quer movimento.
             </p>
             <a
-              href="[LINK_BOOKING_ISTAMBUL_BEYOGLU_GALATA]"
+              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DBeyoglu%252C%2BIstambul%252C%2BTurquia%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=istambul-beyoglu-galata"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
@@ -2019,7 +2019,7 @@ function EssentialInfo() {
               autêntico, a um ferry do centro.
             </p>
             <a
-              href="[LINK_BOOKING_ISTAMBUL_KADIKOY]"
+              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DKadikoy%252C%2BIstambul%252C%2BTurquia%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=istambul-kadikoy"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"

@@ -1941,7 +1941,7 @@ function EssentialInfo() {
               Central, a pé de tudo. Ideal para quem quer sair do hotel e estar logo no meio da ação.
             </p>
             <a
-              href="[LINK_BOOKING_PRAGA_STARE_MESTO]"
+              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DStar%25C3%25A9%2BM%25C4%259Bsto%252C%2BPraga%252C%2BRep%25C3%25BAblica%2BCheca%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=praga-stare-mesto"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
@@ -1956,7 +1956,7 @@ function EssentialInfo() {
               Charmosa, junto ao castelo. Ruas tranquilas à noite e vistas postal-perfeitas.
             </p>
             <a
-              href="[LINK_BOOKING_PRAGA_MALA_STRANA]"
+              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DMal%25C3%25A1%2BStrana%252C%2BPraga%252C%2BRep%25C3%25BAblica%2BCheca%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=praga-mala-strana"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
@@ -1971,7 +1971,7 @@ function EssentialInfo() {
               Mais barato e bem servido de metro. Boa relação qualidade-preço sem perder ligação ao centro.
             </p>
             <a
-              href="[LINK_BOOKING_PRAGA_NOVE_MESTO]"
+              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DNov%25C3%25A9%2BM%25C4%259Bsto%252C%2BPraga%252C%2BRep%25C3%25BAblica%2BCheca%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=praga-nove-mesto"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
