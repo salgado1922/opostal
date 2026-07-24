@@ -208,8 +208,8 @@ type Day = {
   transport?: {
     title: string;
     text: string;
-    primaryLabel: string;
-    primaryUrl: string;
+    primaryLabel?: string;
+    primaryUrl?: string;
     note?: string;
     secondaryLabel?: string;
     secondaryUrl?: string;
@@ -351,8 +351,6 @@ const days: Day[] = [
     transport: {
       title: "Como chegar a Kutná Hora",
       text: "Comboio de Praha hl.n. → Kutná Hora (~55 min)",
-      primaryLabel: "Procurar comboios e autocarros",
-      primaryUrl: "[LINK_OMIO_PRAGA]",
       note: "Dentro de Kutná Hora: da estação hl. n. ao Ossário de Sedlec ~1 km (autocarro ~5 min); de Sedlec ao centro histórico ~2,5 km (autocarro ~10 min).",
       secondaryLabel: "Abrir Sedlec → centro no Google Maps",
       secondaryUrl:
@@ -364,7 +362,6 @@ const days: Day[] = [
         title: "Comboio para Kutná Hora",
         desc: "Saída da Hlavní Nádraží. ~1h de viagem confortável, lugares marcados.",
         icon: Train,
-        bookingUrl: "[LINK_OMIO_PRAGA]",
         walkTo: "~5 min de autocarro (Kutná Hora hl. n. → Sedlec)",
       },
       {
@@ -925,18 +922,20 @@ function DayBlock({ day }: { day: Day }) {
               <h4 className="font-serif text-xl text-cream">{day.transport.title}</h4>
             </div>
             <p className="mt-3 text-sm text-cream/85">{day.transport.text}</p>
-            <div className="mt-4">
-              <a
-                href={day.transport.primaryUrl}
-                target="_blank"
-                rel="sponsored noopener"
-                className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2 text-xs font-medium uppercase tracking-[0.2em] text-twilight hover:bg-gold/90"
-              >
-                <Ticket className="h-3.5 w-3.5" />
-                {day.transport.primaryLabel}
-                <ExternalLink className="h-3 w-3 opacity-70" />
-              </a>
-            </div>
+            {day.transport.primaryUrl && day.transport.primaryLabel && (
+              <div className="mt-4">
+                <a
+                  href={day.transport.primaryUrl}
+                  target="_blank"
+                  rel="sponsored noopener"
+                  className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2 text-xs font-medium uppercase tracking-[0.2em] text-twilight hover:bg-gold/90"
+                >
+                  <Ticket className="h-3.5 w-3.5" />
+                  {day.transport.primaryLabel}
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              </div>
+            )}
             {day.transport.note && (
               <p className="mt-5 border-t border-gold/15 pt-4 font-serif text-sm italic text-cream/75">
                 {day.transport.note}
@@ -1904,17 +1903,6 @@ function EssentialInfo() {
               </div>
               <h3 className="font-serif text-xl text-cream">{e.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
-              {e.title === "Transportes" && (
-                <a
-                  href="[LINK_OMIO_PRAGA]"
-                  target="_blank"
-                  rel="sponsored noopener"
-                  className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
-                >
-                  Procurar comboios e autocarros
-                  <ExternalLink className="h-3 w-3 opacity-70" />
-                </a>
-              )}
             </motion.div>
           );
         })}
