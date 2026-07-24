@@ -312,8 +312,7 @@ function PostcardFlip({ city }: { city: CityMeta }) {
       >
         <SmartImage
           src={city.cover}
-          alt=""
-          aria-hidden
+          alt={city.name}
           loading="lazy"
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
