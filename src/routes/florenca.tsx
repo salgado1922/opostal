@@ -446,6 +446,7 @@ function Hero() {
         <SmartImage
           src="https://commons.wikimedia.org/wiki/Special:FilePath/Florence_skyline_at_dusk_%283867485023%29.jpg?width=2000"
           alt="Skyline de Florença ao entardecer, com a cúpula do Duomo"
+          priority
           className="absolute inset-0 h-full w-full object-cover"
           style={{ animation: "firenze-kenburns 20s linear infinite alternate" }}
         />

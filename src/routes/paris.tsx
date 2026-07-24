@@ -519,6 +519,7 @@ function Hero() {
         <SmartImage
           src={HERO_IMG}
           alt="Torre Eiffel vista do Trocadéro à luz dourada"
+          priority
           className="absolute inset-0 h-full w-full object-cover"
           style={{ animation: "paris-kenburns 22s linear infinite alternate" }}
         />

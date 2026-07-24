@@ -103,6 +103,7 @@ function AbordagemPage() {
           alt={IMAGES.heroAlt}
           className="absolute inset-0 -z-20 h-full w-full object-cover"
           loading="eager"
+          priority
         />
         {/* Gradiente escuro para contraste do texto branco */}
         <div

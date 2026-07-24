@@ -479,6 +479,7 @@ function Hero() {
         <SmartImage
           src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=2400&q=80"
           alt="Praga ao pôr do sol: Ponte Carlos e Castelo"
+          priority
           className="absolute inset-0 h-full w-full object-cover"
           style={{ animation: "praga-kenburns 20s linear infinite alternate" }}
         />
