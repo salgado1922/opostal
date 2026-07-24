@@ -1,3 +1,4 @@
+import { SmartImage } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect, useId } from "react";
@@ -610,7 +611,7 @@ function Hero() {
       className="relative z-[2] flex min-h-screen items-center overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
-        <img
+        <SmartImage
           src="https://commons.wikimedia.org/wiki/Special:FilePath/Westminster_Bridge_with_shadows_and_Big_Ben.jpg?width=2000"
           alt="Big Ben e a Ponte de Westminster sobre o Tamisa"
           className="absolute inset-0 h-full w-full object-cover"
@@ -743,7 +744,7 @@ function FlipDaysGrid() {
                 }}
               >
                 {d.cover ? (
-                  <img
+                  <SmartImage
                     src={d.cover}
                     alt={d.coverAlt ?? d.title}
                     loading="lazy"
@@ -914,7 +915,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
             </div>
           )}
           {stop.image && (
-            <img
+            <SmartImage
               src={stop.image}
               alt={stop.imageAlt ?? stop.title}
               loading="lazy"
@@ -1228,7 +1229,7 @@ function Food() {
             className="group flex flex-col overflow-hidden rounded-2xl border border-gold/15 bg-card transition-all hover:border-gold/40 hover:shadow-[0_20px_50px_-20px_oklch(0.55_0.18_25/0.35)]"
           >
             {r.image && (
-              <img
+              <SmartImage
                 src={r.image}
                 alt={r.imageAlt ?? r.name}
                 loading="lazy"
@@ -1606,7 +1607,7 @@ function StickyNav() {
           className={`inline-flex items-center gap-2 text-sm tracking-wide text-gold md:text-base hover:text-cream transition-colors ${shadow}`}
         >
           <span aria-hidden>‹</span>
-          <img
+          <SmartImage
             src={opostalHorizontalTransparent.url}
             alt="O Postal"
             className="h-7 w-auto object-contain md:h-9"

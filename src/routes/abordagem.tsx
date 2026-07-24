@@ -1,3 +1,4 @@
+import { SmartImage } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, MotionConfig } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -97,7 +98,7 @@ function AbordagemPage() {
 
       {/* Hero full-bleed com imagem de fundo */}
       <section className="relative isolate flex min-h-[88vh] items-end overflow-hidden">
-        <img
+        <SmartImage
           src={IMAGES.hero}
           alt={IMAGES.heroAlt}
           className="absolute inset-0 -z-20 h-full w-full object-cover"
@@ -213,7 +214,7 @@ function AbordagemPage() {
                 }`}
               >
                 <figure className="relative overflow-hidden rounded-2xl border border-gold/15 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.7)]">
-                  <img
+                  <SmartImage
                     src={b.image}
                     alt={b.alt}
                     loading="lazy"
@@ -312,7 +313,7 @@ function TopNav() {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
         <Link to="/" aria-label="O Postal" className="ml-1 inline-flex items-center transition hover:opacity-85">
-          <img src={opostalHorizontalTransparent.url} alt="O Postal" className="h-8 w-auto object-contain md:h-10" />
+          <SmartImage src={opostalHorizontalTransparent.url} alt="O Postal" className="h-8 w-auto object-contain md:h-10" />
         </Link>
         <div className="flex items-center gap-6">
           <Link

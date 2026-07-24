@@ -1,3 +1,4 @@
+import { SmartImage } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -126,7 +127,7 @@ function Hero() {
         {HERO_SLIDES.map((slide, i) => {
           const active = i === index;
           return (
-            <img
+            <SmartImage
               key={slide.src}
               src={slide.src}
               alt={i === 0 ? slide.alt : ""}
@@ -309,7 +310,7 @@ function PostcardFlip({ city }: { city: CityMeta }) {
         className="absolute inset-0 overflow-hidden rounded-[18px] border border-gold/15 shadow-[0_12px_44px_-22px_rgba(0,0,0,0.85)]"
         style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", background: "oklch(0.22 0.055 320 / 0.4)" }}
       >
-        <img
+        <SmartImage
           src={city.cover}
           alt=""
           aria-hidden
