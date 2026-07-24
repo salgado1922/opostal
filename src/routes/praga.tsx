@@ -208,8 +208,8 @@ type Day = {
   transport?: {
     title: string;
     text: string;
-    primaryLabel: string;
-    primaryUrl: string;
+    primaryLabel?: string;
+    primaryUrl?: string;
     note?: string;
     secondaryLabel?: string;
     secondaryUrl?: string;
@@ -922,18 +922,20 @@ function DayBlock({ day }: { day: Day }) {
               <h4 className="font-serif text-xl text-cream">{day.transport.title}</h4>
             </div>
             <p className="mt-3 text-sm text-cream/85">{day.transport.text}</p>
-            <div className="mt-4">
-              <a
-                href={day.transport.primaryUrl}
-                target="_blank"
-                rel="sponsored noopener"
-                className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2 text-xs font-medium uppercase tracking-[0.2em] text-twilight hover:bg-gold/90"
-              >
-                <Ticket className="h-3.5 w-3.5" />
-                {day.transport.primaryLabel}
-                <ExternalLink className="h-3 w-3 opacity-70" />
-              </a>
-            </div>
+            {day.transport.primaryUrl && day.transport.primaryLabel && (
+              <div className="mt-4">
+                <a
+                  href={day.transport.primaryUrl}
+                  target="_blank"
+                  rel="sponsored noopener"
+                  className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2 text-xs font-medium uppercase tracking-[0.2em] text-twilight hover:bg-gold/90"
+                >
+                  <Ticket className="h-3.5 w-3.5" />
+                  {day.transport.primaryLabel}
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              </div>
+            )}
             {day.transport.note && (
               <p className="mt-5 border-t border-gold/15 pt-4 font-serif text-sm italic text-cream/75">
                 {day.transport.note}
