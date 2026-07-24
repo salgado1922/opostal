@@ -33,14 +33,16 @@ export function OutrosPostais({ currentSlug }: { currentSlug: string }) {
         </div>
 
         <ul
-          className="grid list-none gap-7 p-0"
-          style={{ gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}
+          className="-mx-6 flex list-none snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-6 px-6 pb-2 md:mx-0 md:px-0 md:scroll-px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {items.map((g) => {
             const city = CITIES.find((c) => c.slug === g.slug);
             const anchor = `${g.cidade} — ${g.subtitulo}`;
             return (
-              <li key={g.slug}>
+              <li
+                key={g.slug}
+                className="shrink-0 basis-[78%] snap-start sm:basis-[46%] lg:basis-[calc((100%-3.75rem)/4)]"
+              >
                 <Link
                   to={`/${g.slug}` as string}
                   className="group relative block overflow-hidden rounded-[18px] border border-gold/15 shadow-[0_12px_44px_-22px_rgba(0,0,0,0.85)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
