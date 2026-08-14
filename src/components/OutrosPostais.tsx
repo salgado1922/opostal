@@ -40,6 +40,22 @@ export function OutrosPostais({ currentSlug }: { currentSlug: string }) {
     if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
   };
 
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      go(-1);
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      go(1);
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      setActive(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      setActive(n - 1);
+    }
+  };
+
   const slotFor = (idx: number): "center" | "left" | "right" | "hidden" => {
     if (idx === active) return "center";
     if (idx === (active - 1 + n) % n) return "left";
@@ -63,10 +79,15 @@ export function OutrosPostais({ currentSlug }: { currentSlug: string }) {
           role="region"
           aria-roledescription="carousel"
           aria-label="Outros postais"
-          className="relative mx-auto h-[380px] w-full select-none sm:h-[440px] md:h-[500px]"
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          className="relative mx-auto h-[380px] w-full select-none rounded-[20px] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-[440px] md:h-[500px]"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
+          <p className="sr-only" aria-live="polite">
+            {`Postal ${active + 1} de ${n}: ${items[active]?.cidade ?? ""}. Use as setas esquerda e direita para navegar.`}
+          </p>
           {items.map((g, idx) => {
             const city = CITIES.find((c) => c.slug === g.slug);
             const anchor = `${g.cidade} — ${g.subtitulo}`;
