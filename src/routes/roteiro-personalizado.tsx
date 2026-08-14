@@ -379,8 +379,9 @@ function RequestForm() {
   })();
 
   useEffect(() => {
-    if (search.destino) {
-      setForm((f) => ({ ...f, destino: search.destino }));
+    const destino = search.destino;
+    if (destino) {
+      setForm((f) => ({ ...f, destino }));
     }
   }, [search.destino]);
 
