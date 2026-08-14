@@ -127,6 +127,11 @@ export function OutrosPostais({ currentSlug }: { currentSlug: string }) {
                 <Link
                     to={`/${g.slug}` as string}
                     tabIndex={isCenter ? 0 : -1}
+                    aria-label={
+                      isCenter
+                        ? `Abrir postal: ${anchor}`
+                        : `Ver postal: ${anchor}`
+                    }
                     onClick={handleClick}
                     className="group relative block h-full w-full overflow-hidden rounded-[18px] border border-gold/15 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.9)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     style={{ background: "oklch(0.22 0.055 320 / 0.4)" }}
