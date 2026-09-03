@@ -14,20 +14,27 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const lastmod = new Date().toISOString().slice(0, 10);
         const entries: SitemapEntry[] = [
-          { path: "/", lastmod, changefreq: "weekly", priority: "1.0" },
-          { path: "/abordagem", lastmod, changefreq: "monthly", priority: "0.8" },
-          { path: "/roteiro-personalizado", lastmod, changefreq: "monthly", priority: "0.8" },
-          { path: "/praga", lastmod, changefreq: "monthly", priority: "0.9" },
-          { path: "/istambul", lastmod, changefreq: "monthly", priority: "0.9" },
-          { path: "/florenca", lastmod, changefreq: "monthly", priority: "0.9" },
-          { path: "/londres", lastmod, changefreq: "monthly", priority: "0.9" },
-          { path: "/paris", lastmod, changefreq: "monthly", priority: "0.9" },
+          { path: "/", changefreq: "weekly", priority: "1.0" },
+          { path: "/abordagem", changefreq: "monthly", priority: "0.8" },
+          { path: "/roteiro-personalizado", changefreq: "monthly", priority: "0.8" },
+          { path: "/praga", changefreq: "monthly", priority: "0.9" },
+          { path: "/istambul", changefreq: "monthly", priority: "0.9" },
+          { path: "/florenca", changefreq: "monthly", priority: "0.9" },
+          { path: "/londres", changefreq: "monthly", priority: "0.9" },
+          { path: "/paris", changefreq: "monthly", priority: "0.9" },
         ];
-        const urls = entries.map(
-          (e) =>
-            `  <url>\n    <loc>${BASE_URL}${e.path}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`,
+        const urls = entries.map((e) =>
+          [
+            `  <url>`,
+            `    <loc>${BASE_URL}${e.path}</loc>`,
+            e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
+            e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
+            e.priority ? `    <priority>${e.priority}</priority>` : null,
+            `  </url>`,
+          ]
+            .filter(Boolean)
+            .join("\n"),
         );
         const xml = [
           `<?xml version="1.0" encoding="UTF-8"?>`,
