@@ -552,17 +552,20 @@ function RouteThread() {
         update();
       });
     };
-    const onResize = () => {
-      build();
-      update();
+    let rebuildTimer: number | null = null;
+    const scheduleRebuild = () => {
+      if (rebuildTimer != null) window.clearTimeout(rebuildTimer);
+      rebuildTimer = window.setTimeout(() => {
+        rebuildTimer = null;
+        build();
+        update();
+      }, 150);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
-    const ro = new ResizeObserver(() => {
-      build();
-      update();
-    });
+    window.addEventListener("resize", scheduleRebuild);
+    const ro = new ResizeObserver(scheduleRebuild);
     ro.observe(document.body);
+
     return () => {
       window.clearTimeout(t1);
       window.clearTimeout(t2);
