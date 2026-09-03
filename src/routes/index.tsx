@@ -488,6 +488,7 @@ function RouteThread() {
   const progRef = useRef<SVGPathElement | null>(null);
   const tokenRef = useRef<SVGGElement | null>(null);
   const totalRef = useRef(0);
+  const maxRef = useRef(0);
   const rafRef = useRef<number | null>(null);
 
   const build = useCallback(() => {
@@ -516,6 +517,7 @@ function RouteThread() {
     prog.setAttribute("d", d);
     const total = prog.getTotalLength();
     totalRef.current = total;
+    maxRef.current = Math.max(0, h - window.innerHeight);
     prog.style.strokeDasharray = String(total);
     prog.style.strokeDashoffset = String(total);
   }, []);
@@ -525,7 +527,7 @@ function RouteThread() {
     const token = tokenRef.current;
     const total = totalRef.current;
     if (!prog || !token || !total) return;
-    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const max = maxRef.current;
     const p = max > 0 ? Math.max(0, Math.min(1, window.scrollY / max)) : 0;
     prog.style.strokeDashoffset = (total * (1 - p)).toFixed(1);
     const pt = prog.getPointAtLength(total * Math.max(0.001, p));
@@ -594,7 +596,6 @@ function RouteThread() {
         strokeWidth={2.5}
         strokeLinecap="round"
         opacity={0.9}
-        style={{ filter: "drop-shadow(0 0 6px oklch(0.82 0.14 78 / 0.6))" }}
       />
       <g ref={tokenRef}>
         <circle
