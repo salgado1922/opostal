@@ -569,12 +569,14 @@ function RouteThread() {
     return () => {
       window.clearTimeout(t1);
       window.clearTimeout(t2);
+      if (rebuildTimer != null) window.clearTimeout(rebuildTimer);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", scheduleRebuild);
       ro.disconnect();
       if (rafRef.current != null) window.cancelAnimationFrame(rafRef.current);
     };
   }, [build, update]);
+
 
   return (
     <svg
