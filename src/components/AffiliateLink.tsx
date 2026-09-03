@@ -19,6 +19,11 @@ export function AffiliateLink({
   label = "Reservar",
   className = "",
 }: AffiliateLinkProps) {
+  // Placeholders ainda sem link real (ex.: "[LINK_GETYOURGUIDE_...]") não devem
+  // renderizar um botão que leva a lado nenhum.
+  const isPlaceholder = !href || href.trim().startsWith("[") || !/^https?:\/\//i.test(href.trim());
+  if (isPlaceholder) return null;
+
   return (
     <a
       href={href}
