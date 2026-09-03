@@ -613,6 +613,7 @@ function Hero() {
     >
       <div className="absolute inset-0 -z-10">
         <SmartImage
+          sizes="100vw"
           src="https://commons.wikimedia.org/wiki/Special:FilePath/Westminster_Bridge_with_shadows_and_Big_Ben.jpg?width=2000"
           alt="Big Ben e a Ponte de Westminster sobre o Tamisa"
           priority
@@ -747,6 +748,7 @@ function FlipDaysGrid() {
               >
                 {d.cover ? (
                   <SmartImage
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                     src={d.cover}
                     alt={d.coverAlt ?? d.title}
                     loading="lazy"
@@ -918,6 +920,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
           )}
           {stop.image && (
             <SmartImage
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
               src={stop.image}
               alt={stop.imageAlt ?? stop.title}
               loading="lazy"
@@ -1232,6 +1235,7 @@ function Food() {
           >
             {r.image && (
               <SmartImage
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                 src={r.image}
                 alt={r.imageAlt ?? r.name}
                 loading="lazy"

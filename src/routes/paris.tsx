@@ -518,6 +518,7 @@ function Hero() {
     >
       <div className="absolute inset-0 -z-10">
         <SmartImage
+          sizes="100vw"
           src={HERO_IMG}
           alt="Torre Eiffel vista do Trocadéro à luz dourada"
           priority
@@ -646,7 +647,8 @@ function FlipDaysGrid() {
                   borderColor: "oklch(0.80 0.13 82 / .15)",
                 }}
               >
-                <SmartImage src={d.cover} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+                <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px" src={d.cover} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.2) 48%, transparent)" }} />
                 <span
                   className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[9.5px] uppercase tracking-[0.18em] backdrop-blur"
@@ -799,6 +801,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
             <div className="grid gap-3 md:w-64">
               {stop.img && (
                 <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                   src={stop.img}
                   alt={stop.imgAlt ?? stop.title}
                   className="h-40 w-full rounded-xl object-cover shadow-lg"
@@ -807,6 +810,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
               )}
               {stop.img2 && (
                 <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                   src={stop.img2}
                   alt={stop.img2Alt ?? `${stop.title} — 2`}
                   className="h-40 w-full rounded-xl object-cover shadow-lg"
@@ -1025,6 +1029,7 @@ function Food() {
           >
             <div className="relative h-44 overflow-hidden">
               <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                 src={r.img}
                 alt={r.imgAlt}
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -1059,6 +1064,7 @@ function Food() {
           >
             <div className="relative h-40 overflow-hidden">
               <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                 src={d.img}
                 alt={d.imgAlt}
                 className="h-full w-full object-cover"

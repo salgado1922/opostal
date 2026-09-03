@@ -128,6 +128,7 @@ function Hero() {
           const active = i === index;
           return (
             <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
               key={slide.src}
               src={slide.src}
               alt={i === 0 ? slide.alt : ""}
@@ -311,6 +312,7 @@ function PostcardFlip({ city }: { city: CityMeta }) {
         style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", background: "oklch(0.22 0.055 320 / 0.4)" }}
       >
         <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
           src={city.cover}
           alt={city.name}
           loading="lazy"

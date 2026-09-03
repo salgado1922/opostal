@@ -99,6 +99,7 @@ function AbordagemPage() {
       {/* Hero full-bleed com imagem de fundo */}
       <section className="relative isolate flex min-h-[88vh] items-end overflow-hidden">
         <SmartImage
+          sizes="100vw"
           src={IMAGES.hero}
           alt={IMAGES.heroAlt}
           className="absolute inset-0 -z-20 h-full w-full object-cover"
@@ -216,6 +217,7 @@ function AbordagemPage() {
               >
                 <figure className="relative overflow-hidden rounded-2xl border border-gold/15 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.7)]">
                   <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                     src={b.image}
                     alt={b.alt}
                     loading="lazy"
