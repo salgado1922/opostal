@@ -61,13 +61,13 @@ const HERO_IMG =
 export const Route = createFileRoute("/paris")({
   head: () => ({
     meta: [
-      { title: "Guia de Paris, 3 dias + Versalhes · O Postal" },
+      { title: "O que visitar em Paris: roteiro de 3 dias | O Postal" },
       {
         name: "description",
         content:
           "Roteiro de 3 dias em Paris com dia extra em Versalhes: Torre Eiffel, Louvre, Notre-Dame, Montmartre, joias escondidas e onde comer na Cidade Luz.",
       },
-      { property: "og:title", content: "Guia de Paris, 3 dias + Versalhes · O Postal" },
+      { property: "og:title", content: "O que visitar em Paris: roteiro de 3 dias | O Postal" },
       {
         property: "og:description",
         content:
@@ -77,7 +77,7 @@ export const Route = createFileRoute("/paris")({
       { property: "og:url", content: "https://opostal.pt/paris" },
       { property: "og:image", content: HERO_IMG },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Guia de Paris, 3 dias + Versalhes · O Postal" },
+      { name: "twitter:title", content: "O que visitar em Paris: roteiro de 3 dias | O Postal" },
       {
         name: "twitter:description",
         content:
@@ -92,8 +92,8 @@ export const Route = createFileRoute("/paris")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "TravelGuide",
-          headline: "Guia de Paris, 3 dias + Versalhes",
-          name: "Guia de Paris, 3 dias + Versalhes",
+          headline: "O que visitar em Paris: 3 dias + Versalhes",
+          name: "O que visitar em Paris: 3 dias + Versalhes",
           url: "https://opostal.pt/paris",
           image: HERO_IMG,
           description:

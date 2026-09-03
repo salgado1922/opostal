@@ -14,7 +14,7 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const lastmod = "2026-06-29";
+        const lastmod = new Date().toISOString().slice(0, 10);
         const entries: SitemapEntry[] = [
           { path: "/", lastmod, changefreq: "weekly", priority: "1.0" },
           { path: "/abordagem", lastmod, changefreq: "monthly", priority: "0.8" },
@@ -23,6 +23,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/istambul", lastmod, changefreq: "monthly", priority: "0.9" },
           { path: "/florenca", lastmod, changefreq: "monthly", priority: "0.9" },
           { path: "/londres", lastmod, changefreq: "monthly", priority: "0.9" },
+          { path: "/paris", lastmod, changefreq: "monthly", priority: "0.9" },
         ];
         const urls = entries.map(
           (e) =>
