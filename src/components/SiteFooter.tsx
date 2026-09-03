@@ -78,7 +78,9 @@ export function SiteFooter() {
               label="O Postal no YouTube"
               icon={<Youtube className="h-4 w-4" />}
             />
+            <ContactDialog />
           </div>
+
         </div>
         <p className="text-[11px] uppercase tracking-[0.2em] text-cream/35">
           Fotos: Unsplash · Wikimedia Commons
