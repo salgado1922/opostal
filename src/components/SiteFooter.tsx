@@ -1,4 +1,6 @@
 import { Youtube } from "lucide-react";
+import { ContactDialog } from "@/components/ContactDialog";
+
 
 const LINKS = [
   { href: "/#cidades", label: "Roteiros gratuitos" },
