@@ -1,29 +1,31 @@
-## Objetivo
-Transformar o bloco "Outros postais" num carrossel coverflow: 1 card central grande e nítido, 2 cards laterais mais pequenos e esbatidos. Setas + swipe, sem auto-play.
+# Carrossel TikTok — Istambul (7 slides)
 
-## Alterações
+Sim, faço mais do que mexer no site: gero também material visual para redes sociais. Este trabalho é 100% fora do site — não altero nenhuma página.
 
-Ficheiro único: `src/components/OutrosPostais.tsx`
+## O que vou entregar
 
-1. **State**: `activeIndex` (0..n-1) para o card no centro.
-2. **Layout** (visíveis apenas 3 slots: `prev`, `center`, `next`, com wrap-around):
-   - Container `relative` com altura fixa (~340px mobile, ~420px desktop) e `overflow-hidden`.
-   - Cada card posicionado em `absolute` com `transition-all duration-500 ease-out`:
-     - **Centro**: `translate-x-0 scale-100 opacity-100 z-20`, largura ~320px (mobile) / 420px (desktop).
-     - **Esquerdo**: `-translate-x-[70%] scale-[0.78] opacity-45 blur-[1px] z-10`.
-     - **Direito**: `translate-x-[70%] scale-[0.78] opacity-45 blur-[1px] z-10`.
-     - Outros: `opacity-0 pointer-events-none`.
-3. **Setas**: dois botões redondos (`ChevronLeft`/`ChevronRight` do lucide) sobrepostos nas laterais, estilo discreto (fundo `bg-background/70 backdrop-blur border`), `aria-label` "Anterior"/"Próximo". Ocultos em `sm:` só se necessário — manter em todos os breakpoints.
-4. **Swipe**: handlers `onTouchStart`/`onTouchEnd` (ou `onPointerDown`/`Up`) medem `deltaX`; threshold 40px avança/recua `activeIndex`.
-5. **Clique nos laterais**: clicar num card lateral chama `setActive(index)` (traz para o centro). O card central mantém `Link` para navegar.
-6. **Wrap-around**: `(activeIndex + n) % n` para prev/next.
-7. **Acessibilidade**: `role="region"` + `aria-roledescription="carousel"`; setas com `aria-label`; cards não-centrais com `aria-hidden` e `tabIndex={-1}` para não competirem no tab order.
-8. **Reduce motion**: `motion-reduce:transition-none`.
+7 imagens verticais 1080x1920 (formato TikTok/Reels), prontas a carregar como carrossel, usando as fotos reais do guia de Istambul que já existem no projeto.
 
-## Fora de âmbito
-- Sem auto-play, sem indicadores/dots (podem ser adicionados depois se pedires).
-- Sem alterações nas páginas de cidade — só o componente muda.
+Cada slide: foto a full-bleed, escurecimento suave em baixo para leitura, título curto grande + uma linha de apoio, número do slide, e a marca "O Postal" discreta no canto — no mesmo registo visual do site (dourado discreto, serif nos títulos).
 
-## Detalhes técnicos
-- Continuar a usar `SmartImage` com `sizes="(min-width: 768px) 420px, 320px"` para os cards.
-- Nenhuma dependência nova; usar apenas Tailwind + lucide-react já instalados.
+## Sequência dos slides
+
+1. Capa — "Istambul em 5 dias" + gancho ("o roteiro que eu faria outra vez")
+2. Dia 1 — Sultanahmet: Santa Sofia + Mesquita Azul
+3. Dia 2 — Topkapi e a Cisterna da Basílica
+4. Dia 3 — Bazar das Especiarias e Grande Bazar
+5. Dia 4 — travessia do Bósforo / lado asiático
+6. Dia 5 — Balat, Gálata e o pôr do sol
+7. CTA — "Guia completo grátis em opostal.pt"
+
+Os textos exatos saem do conteúdo real do guia de Istambul (paragens e dicas já escritas), para não inventar informação.
+
+## Notas técnicas
+
+- Script Python (Pillow) em `/tmp`, a compor as imagens a partir de `src/assets/istambul/*.jpg` (crop inteligente para 9:16, sem esticar).
+- Tipografia: serif para títulos + sans para apoio, coerente com o site.
+- Saída: `/mnt/documents/tiktok-istambul/slide-1.png` … `slide-7.png`, mais um ZIP para descarregar de uma vez.
+- Nenhum ficheiro do site (`src/`, rotas, estilos) é alterado.
+- Entrego também a legenda sugerida + hashtags em PT para o post.
+
+Se depois quiseres, faço o mesmo molde para Paris, Londres, Praga e Florença — o script fica reutilizável.
