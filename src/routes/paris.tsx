@@ -1313,7 +1313,7 @@ function Checklist() {
         </ul>
         <div className="mt-6 flex flex-wrap gap-3">
           <AffiliateLink
-            href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fcity%2Ffr%2Fparis.pt-pt.html&sid=paris-cidade"
+            href="https://www.kqzyfj.com/click-101800647-15734352?sid=paris-cidade&url=https%3A%2F%2Fwww.booking.com%2Fcity%2Ffr%2Fparis.pt-pt.html"
             label="Ver hotéis em Paris"
           />
           <AffiliateLink
@@ -1542,7 +1542,7 @@ function EssentialInfo() {
               Central, charmoso, cheio de restaurantes e vida de bairro. A pé de tudo.
             </p>
             <a
-              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DLe%2BMarais%252C%2BParis%252C%2BFran%25C3%25A7a%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=paris-le-marais"
+              href="https://www.kqzyfj.com/click-101800647-15734352?sid=paris-le-marais&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DLe%2BMarais%252C%2BParis%252C%2BFran%25C3%25A7a%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
@@ -1557,7 +1557,7 @@ function EssentialInfo() {
               Rive Gauche clássica, cafés históricos, junto a Notre-Dame e ao Luxemburgo.
             </p>
             <a
-              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DSaint-Germain-des-Pr%25C3%25A9s%252C%2BParis%252C%2BFran%25C3%25A7a%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=paris-saint-germain"
+              href="https://www.kqzyfj.com/click-101800647-15734352?sid=paris-saint-germain&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DSaint-Germain-des-Pr%25C3%25A9s%252C%2BParis%252C%2BFran%25C3%25A7a%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
@@ -1572,7 +1572,7 @@ function EssentialInfo() {
               Bairro boémio, vistas soberbas, ruelas em declive. Um pouco fora do centro.
             </p>
             <a
-              href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DMontmartre%252C%2BParis%252C%2BFran%25C3%25A7a%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=paris-montmartre"
+              href="https://www.kqzyfj.com/click-101800647-15734352?sid=paris-montmartre&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DMontmartre%252C%2BParis%252C%2BFran%25C3%25A7a%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
