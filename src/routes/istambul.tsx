@@ -647,6 +647,7 @@ function Hero() {
     >
       <motion.div style={{ y }} className="absolute inset-0 -z-10">
         <SmartImage
+          sizes="100vw"
           src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=2400&q=80"
           alt="Istambul à hora azul: silhueta do Bósforo com mesquitas e ferries"
           priority
@@ -772,7 +773,8 @@ function FlipDaysGrid() {
                   borderColor: "oklch(0.77 0.12 205 / .15)",
                 }}
               >
-                <SmartImage src={d.cover} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+                <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px" src={d.cover} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.2) 48%, transparent)" }} />
                 <span
                   className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[9.5px] uppercase tracking-[0.18em] backdrop-blur"
@@ -933,6 +935,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
           )}
           {stop.img && (
             <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
               src={stop.img}
               alt={stop.imgAlt ?? stop.title}
               className="h-40 w-full rounded-xl object-cover shadow-lg md:w-64"
@@ -1262,7 +1265,8 @@ function Food() {
             transition={{ duration: 0.5, delay: i * 0.08 }}
             className="overflow-hidden rounded-2xl border border-gold/15 bg-card"
           >
-            {d.img && <SmartImage src={d.img} alt={d.imgAlt} className="h-44 w-full object-cover" loading="lazy" />}
+            {d.img && <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px" src={d.img} alt={d.imgAlt} className="h-44 w-full object-cover" loading="lazy" />}
             <div className="p-5">
               <div className="flex items-center gap-2 text-gold">
                 <Utensils className="h-4 w-4" />

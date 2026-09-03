@@ -445,6 +445,7 @@ function Hero() {
     >
       <div className="absolute inset-0 -z-10">
         <SmartImage
+          sizes="100vw"
           src="https://commons.wikimedia.org/wiki/Special:FilePath/Florence_skyline_at_dusk_%283867485023%29.jpg?width=2000"
           alt="Skyline de Florença ao entardecer, com a cúpula do Duomo"
           priority
@@ -747,6 +748,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
           )}
           {stop.image && (
             <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
               src={stop.image}
               alt={stop.imageAlt ?? stop.title}
               loading="lazy"
@@ -1059,6 +1061,7 @@ function Food() {
           >
             {r.image && (
               <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                 src={r.image}
                 alt={r.imageAlt ?? r.name}
                 loading="lazy"
@@ -1094,6 +1097,7 @@ function Food() {
             >
               {d.image && (
                 <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                   src={d.image}
                   alt={d.imageAlt ?? d.name}
                   loading="lazy"

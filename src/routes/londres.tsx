@@ -613,6 +613,7 @@ function Hero() {
     >
       <div className="absolute inset-0 -z-10">
         <SmartImage
+          sizes="100vw"
           src="https://commons.wikimedia.org/wiki/Special:FilePath/Westminster_Bridge_with_shadows_and_Big_Ben.jpg?width=2000"
           alt="Big Ben e a Ponte de Westminster sobre o Tamisa"
           priority
