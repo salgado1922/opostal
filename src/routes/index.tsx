@@ -98,37 +98,62 @@ function Hero() {
   const [index, setIndex] = useState(0);
   const postmarkRef = useRef<HTMLDivElement | null>(null);
 
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [visible, setVisible] = useState(true);
+
   useEffect(() => {
-    if (reduce) return;
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { rootMargin: "80px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reduce || !visible) return;
     const id = window.setInterval(() => {
       setIndex((i) => (i + 1) % HERO_SLIDES.length);
     }, 5500);
     return () => window.clearInterval(id);
-  }, [reduce]);
+  }, [reduce, visible]);
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || !visible) return;
+    let raf: number | null = null;
     const onScroll = () => {
-      const y = window.scrollY;
-      const el = postmarkRef.current;
-      if (el) el.style.transform = `translateY(${y * 0.18}px) rotate(${-y * 0.01 - 10}deg)`;
+      if (raf != null) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = null;
+        const y = window.scrollY;
+        const el = postmarkRef.current;
+        if (el) el.style.transform = `translateY(${y * 0.18}px) rotate(${-y * 0.01 - 10}deg)`;
+      });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [reduce]);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf != null) window.cancelAnimationFrame(raf);
+    };
+  }, [reduce, visible]);
 
   const goToCidades = () => {
     document.getElementById("cidades")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <section className="relative z-[2] flex min-h-screen items-end overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative z-[2] flex min-h-screen items-end overflow-hidden"
+    >
       <div className="absolute inset-0 -z-10">
         {HERO_SLIDES.map((slide, i) => {
           const active = i === index;
           return (
             <SmartImage
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
+          sizes="100vw"
               key={slide.src}
               src={slide.src}
               alt={i === 0 ? slide.alt : ""}
@@ -141,11 +166,15 @@ function Hero() {
               className="absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-in-out"
               style={{
                 opacity: active ? 1 : 0,
-                animation: reduce ? undefined : "kenburns 16s linear infinite alternate",
+                animation:
+                  reduce || !active || !visible
+                    ? undefined
+                    : "kenburns 16s linear infinite alternate",
               }}
             />
           );
         })}
+
         <div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.10_0.03_290/0.55)_0%,transparent_28%,transparent_45%,oklch(0.10_0.03_290/0.78)_80%,oklch(0.16_0.035_290)_100%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_70%,oklch(0.62_0.14_38/0.18),transparent_55%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top_right,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.05)_60%)]" />
@@ -459,6 +488,7 @@ function RouteThread() {
   const progRef = useRef<SVGPathElement | null>(null);
   const tokenRef = useRef<SVGGElement | null>(null);
   const totalRef = useRef(0);
+  const maxRef = useRef(0);
   const rafRef = useRef<number | null>(null);
 
   const build = useCallback(() => {
@@ -487,6 +517,7 @@ function RouteThread() {
     prog.setAttribute("d", d);
     const total = prog.getTotalLength();
     totalRef.current = total;
+    maxRef.current = Math.max(0, h - window.innerHeight);
     prog.style.strokeDasharray = String(total);
     prog.style.strokeDashoffset = String(total);
   }, []);
@@ -496,7 +527,7 @@ function RouteThread() {
     const token = tokenRef.current;
     const total = totalRef.current;
     if (!prog || !token || !total) return;
-    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const max = maxRef.current;
     const p = max > 0 ? Math.max(0, Math.min(1, window.scrollY / max)) : 0;
     prog.style.strokeDashoffset = (total * (1 - p)).toFixed(1);
     const pt = prog.getPointAtLength(total * Math.max(0.001, p));
@@ -521,26 +552,31 @@ function RouteThread() {
         update();
       });
     };
-    const onResize = () => {
-      build();
-      update();
+    let rebuildTimer: number | null = null;
+    const scheduleRebuild = () => {
+      if (rebuildTimer != null) window.clearTimeout(rebuildTimer);
+      rebuildTimer = window.setTimeout(() => {
+        rebuildTimer = null;
+        build();
+        update();
+      }, 150);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
-    const ro = new ResizeObserver(() => {
-      build();
-      update();
-    });
+    window.addEventListener("resize", scheduleRebuild);
+    const ro = new ResizeObserver(scheduleRebuild);
     ro.observe(document.body);
+
     return () => {
       window.clearTimeout(t1);
       window.clearTimeout(t2);
+      if (rebuildTimer != null) window.clearTimeout(rebuildTimer);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", scheduleRebuild);
       ro.disconnect();
       if (rafRef.current != null) window.cancelAnimationFrame(rafRef.current);
     };
   }, [build, update]);
+
 
   return (
     <svg
@@ -565,7 +601,6 @@ function RouteThread() {
         strokeWidth={2.5}
         strokeLinecap="round"
         opacity={0.9}
-        style={{ filter: "drop-shadow(0 0 6px oklch(0.82 0.14 78 / 0.6))" }}
       />
       <g ref={tokenRef}>
         <circle
