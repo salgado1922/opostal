@@ -40,6 +40,7 @@ import {
 } from "lucide-react";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
+import { SiteFooter } from "@/components/SiteFooter";
 import type { Variants } from "framer-motion";
 import {
   Accordion,
@@ -1829,6 +1830,7 @@ function Index() {
       <CustomItineraryCTA city="Paris" />
       <OutrosPostais currentSlug="paris" />
       <Footer />
+      <SiteFooter />
     </main>
   );
 }

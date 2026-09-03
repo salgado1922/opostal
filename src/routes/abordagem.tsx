@@ -1,4 +1,5 @@
 import { SmartImage } from "@/components/SmartImage";
+import { SiteFooter } from "@/components/SiteFooter";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, MotionConfig } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -296,13 +297,7 @@ function AbordagemPage() {
         </motion.div>
       </section>
 
-      <footer className="border-t border-gold/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl text-center">
-          <p className="text-xs text-cream/55">
-            O Postal. Guias editoriais de cidades europeias, feitos com calma e partilhados com gosto.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
     </MotionConfig>
   );
