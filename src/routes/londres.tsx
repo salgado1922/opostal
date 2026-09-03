@@ -748,6 +748,7 @@ function FlipDaysGrid() {
               >
                 {d.cover ? (
                   <SmartImage
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                     src={d.cover}
                     alt={d.coverAlt ?? d.title}
                     loading="lazy"
@@ -919,6 +920,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
           )}
           {stop.image && (
             <SmartImage
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
               src={stop.image}
               alt={stop.imageAlt ?? stop.title}
               loading="lazy"
@@ -1233,6 +1235,7 @@ function Food() {
           >
             {r.image && (
               <SmartImage
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                 src={r.image}
                 alt={r.imageAlt ?? r.name}
                 loading="lazy"

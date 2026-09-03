@@ -577,6 +577,7 @@ function FlipDaysGrid() {
               >
                 {d.cover ? (
                   <SmartImage
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
                     src={d.cover}
                     alt={d.coverAlt ?? d.title}
                     loading="lazy"
