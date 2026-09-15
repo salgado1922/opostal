@@ -388,6 +388,7 @@ function RequestForm() {
 
   useEffect(() => {
     const destino = search.destino;
+    console.log("[dbg] effect ran, destino=", JSON.stringify(destino));
     if (destino) {
       setForm((f) => ({ ...f, destino }));
     }
