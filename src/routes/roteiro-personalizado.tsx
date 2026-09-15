@@ -893,3 +893,144 @@ function ClosingCTA() {
     </section>
   );
 }
+
+// ============ Exemplo de um dia (Istanbul) ============
+
+const EXAMPLE_STOPS: { time: string; name: string; desc: string; cost: string }[] = [
+  {
+    time: "08:30",
+    name: "Pequeno-almoço em Sultanahmet",
+    desc: "Simit quente com çay, na esquina antes de a cidade acordar para os turistas.",
+    cost: "4 €",
+  },
+  {
+    time: "09:30",
+    name: "Basílica de Santa Sofia",
+    desc: "Chega-se na abertura para ver a cúpula e os mosaicos antes das filas crescerem.",
+    cost: "25 €",
+  },
+  {
+    time: "11:30",
+    name: "Mesquita Azul",
+    desc: "Dois minutos a pé, com o vestuário certo e a visita fora dos horários de oração.",
+    cost: "Grátis",
+  },
+  {
+    time: "12:30",
+    name: "Almoço num lokanta local",
+    desc: "Pratos do dia escolhidos atrás do balcão, onde os locais almoçam.",
+    cost: "12 €",
+  },
+  {
+    time: "14:00",
+    name: "Cisterna Basílica",
+    desc: "O palácio subterrâneo com as colunas e a cabeça de Medusa, bem fresco no calor.",
+    cost: "24 €",
+  },
+  {
+    time: "15:30",
+    name: "Grande Bazar e çay",
+    desc: "Um percurso pelos quarteirões menos óbvios, com tempo para regatear com calma.",
+    cost: "5 €",
+  },
+  {
+    time: "18:00",
+    name: "Ferry pelo Bósforo",
+    desc: "O ferry dos locais até Kadıköy, com o pôr do sol sobre as mesquitas à direita.",
+    cost: "1 €",
+  },
+  {
+    time: "20:00",
+    name: "Jantar kebab em Beyoğlu",
+    desc: "Uma casa testada no terreno, longe das armadilhas da Ístiklal.",
+    cost: "15 €",
+  },
+];
+
+function ExampleDay() {
+  const total = 86;
+  return (
+    <section className="relative px-6 py-16 md:py-24">
+      <div className="mx-auto max-w-5xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="mb-10"
+        >
+          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Exemplo real</p>
+          <h2 className="font-serif text-3xl text-cream md:text-4xl">
+            Um dia de Istambul, como chega no teu roteiro
+          </h2>
+          <p className="mt-4 max-w-2xl text-cream/80 leading-relaxed">
+            É exatamente este o formato que recebes: horário a horário, com contexto e custos
+            estimados. No teu roteiro, tudo é ajustado às tuas datas, ritmo, orçamento e interesses.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="rounded-2xl border border-gold/15 bg-plum/40 p-6 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.85)] md:p-8"
+        >
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-gold/10 pb-5">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-gold/80">Dia 1 · Istambul</p>
+              <h3 className="mt-1 font-serif text-xl text-cream md:text-2xl">
+                O clássico de Sultanahmet, sem filas nem pressa
+              </h3>
+            </div>
+            <span className="inline-flex items-center rounded-full border border-gold/30 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-gold/85">
+              A pé + ferry
+            </span>
+          </div>
+
+          <ol className="space-y-0">
+            {EXAMPLE_STOPS.map((s, i) => (
+              <li key={s.time} className="relative flex gap-4 md:gap-6">
+                <div className="flex flex-col items-center">
+                  <span className="w-14 shrink-0 pt-1 text-right font-serif text-sm text-gold md:w-16 md:text-base">
+                    {s.time}
+                  </span>
+                  <div className="relative flex w-6 shrink-0 justify-center">
+                    <span className="mt-2.5 h-2.5 w-2.5 rounded-full border border-gold/60 bg-gold/30" />
+                    {i < EXAMPLE_STOPS.length - 1 && (
+                      <span className="absolute top-5 h-[calc(100%+1.4rem)] w-px bg-gradient-to-b from-gold/40 to-gold/10" />
+                    )}
+                  </div>
+                </div>
+                <div className="flex-1 pb-6 pt-0.5">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <h4 className="font-serif text-base text-cream md:text-lg">{s.name}</h4>
+                    <span className="text-sm text-gold/90">{s.cost}</span>
+                  </div>
+                  <p className="mt-1 text-sm text-cream/70 leading-relaxed">{s.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-gold/15 pt-5">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-gold/80">
+                Custo do dia (por pessoa)
+              </p>
+              <p className="mt-1 text-xs text-cream/55">
+                Valores aproximados de 2026, sem alojamento nem voos. No teu roteiro, cada custo é
+                calibrado ao teu orçamento.
+              </p>
+            </div>
+            <p className="font-serif text-3xl text-gradient-gold">≈ {total} €</p>
+          </div>
+        </motion.div>
+
+        <p className="mt-6 text-center text-sm text-cream/60">
+          E é só um dia — imagina três, quatro ou cinco, desenhados para ti.
+        </p>
+      </div>
+    </section>
+  );
+}
