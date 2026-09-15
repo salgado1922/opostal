@@ -110,7 +110,7 @@ export const Route = createFileRoute("/istambul")({
         content:
           "O que visitar em Istambul em 5 dias: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
       },
-      { name: "twitter:image", content: SHARE_IMG }` },
+      { name: "twitter:image", content: SHARE_IMG },
     ],
     links: [{ rel: "canonical", href: "https://opostal.pt/istambul" }],
     scripts: [

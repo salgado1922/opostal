@@ -85,7 +85,7 @@ export const Route = createFileRoute("/londres")({
         content:
           "Londres em 3 dias, ao teu ritmo: West End, Westminster, City e Borough Market, com um dia extra opcional para os Harry Potter Studios.",
       },
-      { name: "twitter:image", content: SHARE_IMG }` },
+      { name: "twitter:image", content: SHARE_IMG },
     ],
     links: [{ rel: "canonical", href: "https://opostal.pt/londres" }],
     scripts: [

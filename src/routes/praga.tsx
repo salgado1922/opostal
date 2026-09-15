@@ -88,7 +88,7 @@ export const Route = createFileRoute("/praga")({
         content:
           "O que visitar em Praga em 4 dias: cidade velha, castelo, Kutná Hora e Vyšehrad.",
       },
-      { name: "twitter:image", content: SHARE_IMG }` },
+      { name: "twitter:image", content: SHARE_IMG },
     ],
     links: [{ rel: "canonical", href: "https://opostal.pt/praga" }],
     scripts: [

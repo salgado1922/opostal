@@ -81,7 +81,7 @@ export const Route = createFileRoute("/florenca")({
         content:
           "O que visitar em Florença em 3 dias: Duomo, Uffizi, Ponte Vecchio, Oltrarno e Piazzale Michelangelo.",
       },
-      { name: "twitter:image", content: SHARE_IMG }` },
+      { name: "twitter:image", content: SHARE_IMG },
     ],
     links: [{ rel: "canonical", href: "https://opostal.pt/florenca" }],
     scripts: [
