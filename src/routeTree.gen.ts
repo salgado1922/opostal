@@ -16,8 +16,11 @@ import { Route as ParisRouteImport } from './routes/paris'
 import { Route as LondresRouteImport } from './routes/londres'
 import { Route as IstambulRouteImport } from './routes/istambul'
 import { Route as FlorencaRouteImport } from './routes/florenca'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AbordagemRouteImport } from './routes/abordagem'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -54,9 +57,18 @@ const FlorencaRoute = FlorencaRouteImport.update({
   path: '/florenca',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AbordagemRoute = AbordagemRouteImport.update({
   id: '/abordagem',
   path: '/abordagem',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -64,10 +76,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/abordagem': typeof AbordagemRoute
+  '/auth': typeof AuthRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
@@ -75,10 +93,12 @@ export interface FileRoutesByFullPath {
   '/praga': typeof PragaRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/abordagem': typeof AbordagemRoute
+  '/auth': typeof AuthRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
@@ -86,11 +106,14 @@ export interface FileRoutesByTo {
   '/praga': typeof PragaRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/abordagem': typeof AbordagemRoute
+  '/auth': typeof AuthRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
@@ -98,12 +121,14 @@ export interface FileRoutesById {
   '/praga': typeof PragaRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/abordagem'
+    | '/auth'
     | '/florenca'
     | '/istambul'
     | '/londres'
@@ -111,10 +136,12 @@ export interface FileRouteTypes {
     | '/praga'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
+    | '/admin'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/abordagem'
+    | '/auth'
     | '/florenca'
     | '/istambul'
     | '/londres'
@@ -122,10 +149,13 @@ export interface FileRouteTypes {
     | '/praga'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/abordagem'
+    | '/auth'
     | '/florenca'
     | '/istambul'
     | '/londres'
@@ -133,11 +163,14 @@ export interface FileRouteTypes {
     | '/praga'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
+    | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AbordagemRoute: typeof AbordagemRoute
+  AuthRoute: typeof AuthRoute
   FlorencaRoute: typeof FlorencaRoute
   IstambulRoute: typeof IstambulRoute
   LondresRoute: typeof LondresRoute
@@ -198,11 +231,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FlorencaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/abordagem': {
       id: '/abordagem'
       path: '/abordagem'
       fullPath: '/abordagem'
       preLoaderRoute: typeof AbordagemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -212,12 +259,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AbordagemRoute: AbordagemRoute,
+  AuthRoute: AuthRoute,
   FlorencaRoute: FlorencaRoute,
   IstambulRoute: IstambulRoute,
   LondresRoute: LondresRoute,

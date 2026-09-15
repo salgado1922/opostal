@@ -38,6 +38,60 @@ export type Database = {
         }
         Relationships: []
       }
+      itinerary_requests: {
+        Row: {
+          alojamento: string | null
+          created_at: string
+          datas: string | null
+          destino: string | null
+          dias: string | null
+          email: string
+          id: string
+          interesses: string | null
+          nome: string | null
+          observacoes: string | null
+          orcamento: string | null
+          partida: string | null
+          pessoas: string | null
+          restricoes: string | null
+          ritmo: string | null
+        }
+        Insert: {
+          alojamento?: string | null
+          created_at?: string
+          datas?: string | null
+          destino?: string | null
+          dias?: string | null
+          email: string
+          id?: string
+          interesses?: string | null
+          nome?: string | null
+          observacoes?: string | null
+          orcamento?: string | null
+          partida?: string | null
+          pessoas?: string | null
+          restricoes?: string | null
+          ritmo?: string | null
+        }
+        Update: {
+          alojamento?: string | null
+          created_at?: string
+          datas?: string | null
+          destino?: string | null
+          dias?: string | null
+          email?: string
+          id?: string
+          interesses?: string | null
+          nome?: string | null
+          observacoes?: string | null
+          orcamento?: string | null
+          partida?: string | null
+          pessoas?: string | null
+          restricoes?: string | null
+          ritmo?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -107,6 +161,24 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -125,10 +197,17 @@ export type Database = {
           claimed: boolean
         }[]
       }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       redeem_credit_for_guide: { Args: { _slug: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -255,6 +334,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const

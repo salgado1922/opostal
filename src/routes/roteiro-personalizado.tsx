@@ -13,6 +13,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
+import { submitItineraryRequest } from "@/lib/requests.functions";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import {
   Accordion,
@@ -259,6 +260,7 @@ function HowItWorks() {
 }
 
 type FormState = {
+  nome: string;
   destino: string;
   datas: string;
   dias: string;
@@ -274,6 +276,7 @@ type FormState = {
 };
 
 const EMPTY_FORM: FormState = {
+  nome: "",
   destino: "",
   datas: "",
   dias: "",
@@ -327,6 +330,7 @@ const FIELD_IDS: Record<RequiredKey, string> = {
 };
 
 const MAX_LENGTHS = {
+  nome: 120,
   destino: 120,
   dias: 3,
   pessoas: 3,
@@ -338,6 +342,7 @@ const MAX_LENGTHS = {
 } as const;
 
 const LENGTH_LABELS: Record<keyof typeof MAX_LENGTHS, string> = {
+  nome: "Nome",
   destino: "Destino",
   dias: "Número de dias",
   pessoas: "Número de pessoas",
@@ -506,10 +511,30 @@ function RequestForm() {
     setInvalidKeys(new Set());
     setStatus("submitting");
     try {
+      const payload = {
+        nome: form.nome.trim(),
+        destino: form.destino.trim(),
+        datas: form.datas.trim(),
+        dias: form.dias.trim(),
+        pessoas: form.pessoas.trim(),
+        orcamento: form.orcamento.trim(),
+        ritmo: form.ritmo.trim(),
+        interesses: form.interesses.trim(),
+        restricoes: form.restricoes.trim(),
+        alojamento: form.alojamento.trim(),
+        partida: form.partida.trim(),
+        observacoes: form.observacoes.trim(),
+        email: form.email.trim(),
+      };
+      // Save to the admin panel in parallel; a failure here never blocks the requester.
+      submitItineraryRequest({ data: payload }).catch((e) =>
+        console.error("itinerary_request save failed", e),
+      );
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
+          Nome: form.nome.trim(),
           Destino: form.destino.trim(),
           "Datas da viagem": form.datas.trim(),
           "Número de dias": form.dias.trim(),
@@ -719,7 +744,11 @@ function RequestForm() {
                 <textarea id="f-obs" rows={3} maxLength={MAX_LENGTHS.observacoes} className={`${inputCls} mt-2`} value={form.observacoes} onChange={(e) => set("observacoes", e.target.value)} />
                 <p className={`${helpCls} text-right`}>{form.observacoes.length}/{MAX_LENGTHS.observacoes}</p>
               </div>
-              <div className="md:col-span-2">
+              <div>
+                <label htmlFor="f-nome" className={labelCls}>O teu nome <span className="normal-case tracking-normal text-cream/40">(opcional)</span></label>
+                <input id="f-nome" maxLength={MAX_LENGTHS.nome} className={`${inputCls} mt-2`} value={form.nome} onChange={(e) => set("nome", e.target.value)} />
+              </div>
+              <div>
                 <label htmlFor="f-email" className={labelCls}>O teu email</label>
                 <input id="f-email" type="email" required maxLength={MAX_LENGTHS.email} className={`${inputCls} ${fieldCls("email")} mt-2`} value={form.email} onChange={(e) => set("email", e.target.value)} />
                 <p className={helpCls}>É para aqui que respondo ao teu pedido.</p>
