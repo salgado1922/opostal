@@ -56,7 +56,6 @@ import {
   CustomItineraryHeroLink,
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
-import { PrintItineraryButton } from "@/components/PrintItinerary";
 
 const SHARE_IMG =
   "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1200&h=630&q=80";

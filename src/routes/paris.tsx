@@ -55,7 +55,6 @@ import {
   CustomItineraryHeroLink,
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
-import { PrintItineraryButton } from "@/components/PrintItinerary";
 
 const HERO_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/Tour_Eiffel_Wikimedia_Commons.jpg?width=2000";

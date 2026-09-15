@@ -57,7 +57,6 @@ import {
   CustomItineraryHeroLink,
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
-import { PrintItineraryButton } from "@/components/PrintItinerary";
 
 const SHARE_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/Westminster_Bridge_with_shadows_and_Big_Ben.jpg?width=1200";
