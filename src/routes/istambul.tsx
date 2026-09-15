@@ -79,6 +79,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
+const SHARE_IMG =
+  "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&h=630&q=80";
+
 export const Route = createFileRoute("/istambul")({
   head: () => ({
     meta: [
@@ -98,7 +101,7 @@ export const Route = createFileRoute("/istambul")({
       { property: "og:url", content: "https://opostal.pt/istambul" },
       {
         property: "og:image",
-        content: `https://opostal.pt${opostalHorizontalTransparent.url}`,
+        content: SHARE_IMG,
       },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "O que visitar em Istambul: roteiro de 5 dias | O Postal" },
@@ -107,7 +110,7 @@ export const Route = createFileRoute("/istambul")({
         content:
           "O que visitar em Istambul em 5 dias: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
       },
-      { name: "twitter:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
+      { name: "twitter:image", content: SHARE_IMG },
     ],
     links: [{ rel: "canonical", href: "https://opostal.pt/istambul" }],
     scripts: [
@@ -119,7 +122,7 @@ export const Route = createFileRoute("/istambul")({
           headline: "O que visitar em Istambul: roteiro de 5 dias",
           name: "O que visitar em Istambul: roteiro de 5 dias",
           url: "https://opostal.pt/istambul",
-          image: `https://opostal.pt${opostalHorizontalTransparent.url}`,
+          image: SHARE_IMG,
           description:
             "O que visitar em Istambul em 5 dias: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
           author: { "@type": "Person", name: "O Postal" },

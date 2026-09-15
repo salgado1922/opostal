@@ -1,9 +1,19 @@
 # O Postal
 
-> Guias de viagem editoriais em português europeu, testados pelo autor, cidade a cidade.
+> Guias de viagem editoriais em português europeu, testados pelo autor, cidade a cidade. Guias gratuitos e serviço pago de roteiro personalizado.
 
 ## Pages
 
-- [Início](/): Apresentação do projeto e cidades disponíveis.
-- [Praga](/praga): Guia público de 4 dias em Praga: itinerário, dicas, restaurantes e conversor de moeda.
-- [Istambul](/istambul): Guia público de 5 dias em Istambul: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.
+- [Início](/): Apresentação do projeto e cidades com guia disponível.
+- [Praga](/praga): Guia gratuito de 4 dias em Praga: cidade velha, castelo, Kutná Hora, Vyšehrad, comida e conversor de coroas.
+- [Istambul](/istambul): Guia gratuito de 5 dias em Istambul: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.
+- [Londres](/londres): Guia gratuito de 3 dias em Londres a pé, com dia extra opcional para os estúdios de Harry Potter.
+- [Florença](/florenca): Guia gratuito de 3 dias em Florença: Duomo, Uffizi, Ponte Vecchio, Oltrarno e Piazzale Michelangelo.
+- [Paris](/paris): Guia gratuito de 3 dias em Paris mais dia extra em Versalhes, com sítios para comer testados.
+- [A nossa abordagem](/abordagem): Como os roteiros são pensados e testados.
+- [Roteiro personalizado](/roteiro-personalizado): Serviço pago de roteiro feito à medida do destino e das datas de viagem.
+
+## Notes
+
+- Idioma: português europeu.
+- Alguns links de reservas e experiências são de afiliado, sempre identificados.
