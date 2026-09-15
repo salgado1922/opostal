@@ -1455,7 +1455,6 @@ function IstambulPage() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PrintItineraryButton city="Istambul" subtitle="Roteiro a pé entre continentes." days={days} />
       <GuideVideo />
       <Bosforo />
       <Food />

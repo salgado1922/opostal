@@ -1824,7 +1824,6 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PrintItineraryButton city="Paris" subtitle="Roteiro de 3 dias + Versalhes." days={days} />
       <HiddenGems />
       <Food />
       <RainyPlan />

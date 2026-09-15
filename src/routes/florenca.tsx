@@ -1283,7 +1283,6 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PrintItineraryButton city="Florença" subtitle="Roteiro a pé pelo Renascimento." days={days} />
       <GuideVideo />
       <Duomo />
       <Food />

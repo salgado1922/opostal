@@ -1390,7 +1390,6 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PrintItineraryButton city="Praga" subtitle="Roteiro de 4 dias a pé, sem turistadas." days={days} />
       <GuideVideo />
       <Concerts />
       <Food />
