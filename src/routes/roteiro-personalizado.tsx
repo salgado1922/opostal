@@ -76,7 +76,9 @@ function RoteiroPersonalizadoPage() {
       <ExampleDay />
       <RequestForm />
       <Faq />
+      <NewGuidesSignup />
       <ClosingCTA />
+
       <SiteFooter />
     </main>
   );
