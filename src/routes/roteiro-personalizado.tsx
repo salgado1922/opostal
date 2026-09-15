@@ -76,7 +76,9 @@ function RoteiroPersonalizadoPage() {
       <ExampleDay />
       <RequestForm />
       <Faq />
+      <NewGuidesSignup />
       <ClosingCTA />
+
       <SiteFooter />
     </main>
   );
@@ -1030,6 +1032,88 @@ function ExampleDay() {
         <p className="mt-6 text-center text-sm text-cream/60">
           E é só um dia — imagina três, quatro ou cinco, desenhados para ti.
         </p>
+      </div>
+    </section>
+  );
+}
+// ============ Avisos de novos guias ============
+
+function NewGuidesSignup() {
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const parsed = emailSchema.safeParse(email);
+    if (!parsed.success) {
+      setState("error");
+      return;
+    }
+    setState("sending");
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          _subject: "Novo subscritor · avisos de novos guias",
+          Tipo: "Subscrição de novos guias",
+          Email: parsed.data,
+        }),
+      });
+      if (!res.ok) throw new Error("failed");
+      setState("done");
+      setEmail("");
+    } catch {
+      setState("error");
+    }
+  }
+
+  return (
+    <section className="relative px-6 pb-8">
+      <div className="mx-auto max-w-3xl border-t border-gold/10 pt-10 text-center">
+        <p className="text-[10px] uppercase tracking-[0.28em] text-gold/70">Novos postais</p>
+        <p className="mx-auto mt-3 max-w-xl text-sm text-cream/70 leading-relaxed">
+          Deixa o teu email e aviso-te quando sair um novo guia de cidade. Sem spam, só isso.
+        </p>
+        {state === "done" ? (
+          <p className="mt-6 text-sm text-gold/90">
+            Obrigado — ficas a saber assim que o próximo guia sair.
+          </p>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="mx-auto mt-6 flex w-full max-w-md flex-col gap-3 sm:flex-row"
+          >
+            <label htmlFor="novos-guias-email" className="sr-only">
+              O teu email
+            </label>
+            <input
+              id="novos-guias-email"
+              type="email"
+              required
+              maxLength={MAX_LENGTHS.email}
+              placeholder="o.teu@email.pt"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (state === "error") setState("idle");
+              }}
+              className="flex-1 rounded-full border border-gold/20 bg-plum/40 px-5 py-3 text-sm text-cream placeholder:text-cream/35 outline-none transition-colors focus:border-gold/50"
+            />
+            <button
+              type="submit"
+              disabled={state === "sending"}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-gold/40 px-6 py-3 text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08] disabled:opacity-50"
+            >
+              {state === "sending" ? "A enviar…" : "Avisar-me"}
+            </button>
+          </form>
+        )}
+        {state === "error" && (
+          <p className="mt-3 text-xs text-cream/60">
+            Não foi possível enviar. Confirma o email ou escreve para contacto@opostal.pt.
+          </p>
+        )}
       </div>
     </section>
   );
