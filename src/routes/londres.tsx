@@ -58,6 +58,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
+const SHARE_IMG =
+  "https://commons.wikimedia.org/wiki/Special:FilePath/Westminster_Bridge_with_shadows_and_Big_Ben.jpg?width=1200";
+
 export const Route = createFileRoute("/londres")({
   head: () => ({
     meta: [
@@ -75,15 +78,14 @@ export const Route = createFileRoute("/londres")({
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "https://opostal.pt/londres" },
-      { property: "og:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
-      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: SHARE_IMG },
       { name: "twitter:title", content: "O que visitar em Londres: roteiro de 3 dias a pé | O Postal" },
       {
         name: "twitter:description",
         content:
           "Londres em 3 dias, ao teu ritmo: West End, Westminster, City e Borough Market, com um dia extra opcional para os Harry Potter Studios.",
       },
-      { name: "twitter:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
+      { name: "twitter:image", content: SHARE_IMG }` },
     ],
     links: [{ rel: "canonical", href: "https://opostal.pt/londres" }],
     scripts: [
@@ -95,7 +97,7 @@ export const Route = createFileRoute("/londres")({
           headline: "O que visitar em Londres: roteiro de 3 dias a pé",
           name: "O que visitar em Londres: roteiro de 3 dias a pé",
           url: "https://opostal.pt/londres",
-          image: `https://opostal.pt${opostalHorizontalTransparent.url}`,
+          image: SHARE_IMG,
           description:
             "O que visitar em Londres em 3 dias sem pressa, quase tudo a pé, com um dia extra opcional para Madame Tussauds e os Warner Bros. Studios de Harry Potter.",
           author: { "@type": "Person", name: "O Postal" },

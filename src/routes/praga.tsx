@@ -57,6 +57,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
+const SHARE_IMG =
+  "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1200&h=630&q=80";
+
 export const Route = createFileRoute("/praga")({
   head: () => ({
     meta: [
@@ -76,7 +79,7 @@ export const Route = createFileRoute("/praga")({
       { property: "og:url", content: "https://opostal.pt/praga" },
       {
         property: "og:image",
-        content: `https://opostal.pt${opostalHorizontalTransparent.url}`,
+        content: SHARE_IMG,
       },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "O que visitar em Praga: roteiro de 4 dias a pé | O Postal" },
@@ -85,7 +88,7 @@ export const Route = createFileRoute("/praga")({
         content:
           "O que visitar em Praga em 4 dias: cidade velha, castelo, Kutná Hora e Vyšehrad.",
       },
-      { name: "twitter:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
+      { name: "twitter:image", content: SHARE_IMG }` },
     ],
     links: [{ rel: "canonical", href: "https://opostal.pt/praga" }],
     scripts: [
@@ -97,7 +100,7 @@ export const Route = createFileRoute("/praga")({
           headline: "O que visitar em Praga: roteiro de 4 dias a pé",
           name: "O que visitar em Praga: roteiro de 4 dias a pé",
           url: "https://opostal.pt/praga",
-          image: `https://opostal.pt${opostalHorizontalTransparent.url}`,
+          image: SHARE_IMG,
           description:
             "O que visitar em Praga em 4 dias, a pé e sem turistadas: cidade velha, castelo, Kutná Hora e Vyšehrad. Dicas, comida e o que reservar.",
           author: { "@type": "Person", name: "O Postal" },

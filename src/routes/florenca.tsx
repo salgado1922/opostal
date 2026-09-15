@@ -54,6 +54,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
+const SHARE_IMG =
+  "https://commons.wikimedia.org/wiki/Special:FilePath/Florence_skyline_at_dusk_%283867485023%29.jpg?width=1200";
+
 export const Route = createFileRoute("/florenca")({
   head: () => ({
     meta: [
@@ -71,15 +74,14 @@ export const Route = createFileRoute("/florenca")({
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "https://opostal.pt/florenca" },
-      { property: "og:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
-      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: SHARE_IMG },
       { name: "twitter:title", content: "O que visitar em Florença: roteiro de 3 dias | O Postal" },
       {
         name: "twitter:description",
         content:
           "O que visitar em Florença em 3 dias: Duomo, Uffizi, Ponte Vecchio, Oltrarno e Piazzale Michelangelo.",
       },
-      { name: "twitter:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
+      { name: "twitter:image", content: SHARE_IMG }` },
     ],
     links: [{ rel: "canonical", href: "https://opostal.pt/florenca" }],
     scripts: [
@@ -91,7 +93,7 @@ export const Route = createFileRoute("/florenca")({
           headline: "O que visitar em Florença: roteiro de 3 dias",
           name: "O que visitar em Florença: roteiro de 3 dias",
           url: "https://opostal.pt/florenca",
-          image: `https://opostal.pt${opostalHorizontalTransparent.url}`,
+          image: SHARE_IMG,
           description:
             "O que visitar em Florença em 3 dias, ao teu ritmo: Duomo, Uffizi, Accademia, Ponte Vecchio, Oltrarno e Piazzale Michelangelo.",
           author: { "@type": "Person", name: "O Postal" },

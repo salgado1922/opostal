@@ -59,6 +59,9 @@ import { OutrosPostais } from "@/components/OutrosPostais";
 const HERO_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/Tour_Eiffel_Wikimedia_Commons.jpg?width=2000";
 
+const SHARE_IMG =
+  "https://commons.wikimedia.org/wiki/Special:FilePath/Tour_Eiffel_Wikimedia_Commons.jpg?width=1200";
+
 export const Route = createFileRoute("/paris")({
   head: () => ({
     meta: [
@@ -76,15 +79,14 @@ export const Route = createFileRoute("/paris")({
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "https://opostal.pt/paris" },
-      { property: "og:image", content: HERO_IMG },
-      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: SHARE_IMG },
       { name: "twitter:title", content: "O que visitar em Paris: roteiro de 3 dias | O Postal" },
       {
         name: "twitter:description",
         content:
           "Roteiro de 3 dias em Paris com dia extra em Versalhes: Torre Eiffel, Louvre, Notre-Dame e Montmartre.",
       },
-      { name: "twitter:image", content: HERO_IMG },
+      { name: "twitter:image", content: SHARE_IMG },
     ],
     links: [{ rel: "canonical", href: "https://opostal.pt/paris" }],
     scripts: [
@@ -96,7 +98,7 @@ export const Route = createFileRoute("/paris")({
           headline: "O que visitar em Paris: 3 dias + Versalhes",
           name: "O que visitar em Paris: 3 dias + Versalhes",
           url: "https://opostal.pt/paris",
-          image: HERO_IMG,
+          image: SHARE_IMG,
           description:
             "Roteiro de 3 dias em Paris com dia extra em Versalhes: Torre Eiffel, Louvre, Notre-Dame, Montmartre, joias escondidas e onde comer.",
           author: { "@type": "Person", name: "O Postal" },
