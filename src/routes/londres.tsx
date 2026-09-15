@@ -1493,7 +1493,11 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PrintItineraryButton city="Londres" subtitle="Roteiro a pé pela cidade, dia a dia." days={days} />
+      <PrintItineraryButton
+        city="Londres"
+        subtitle="Roteiro a pé pela cidade, dia a dia."
+        days={[...days, altDay]}
+      />
       <AlternativaSemEstudios />
       <GuideVideo />
       <HarryPotterVs />
