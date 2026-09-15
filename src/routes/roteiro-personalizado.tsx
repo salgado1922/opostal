@@ -365,11 +365,7 @@ function focusField(id: string) {
 
 function RequestForm() {
   const search = Route.useSearch();
-  const [form, setFormRaw] = useState<FormState>(EMPTY_FORM);
-  const setForm: typeof setFormRaw = (up) => {
-    console.log("[dbg] setForm called");
-    setFormRaw(up);
-  };
+  const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [missingFields, setMissingFields] = useState<RequiredKey[]>([]);
   const [invalidMessages, setInvalidMessages] = useState<string[]>([]);
@@ -392,14 +388,12 @@ function RequestForm() {
 
   useEffect(() => {
     const destino = search.destino;
-    console.log("[dbg] effect ran, destino=", JSON.stringify(destino));
     if (destino) {
       setForm((f) => ({ ...f, destino }));
     }
   }, [search.destino]);
 
   const set = <K extends keyof FormState>(k: K, v: FormState[K]) => {
-    console.log("[dbg] set", k, JSON.stringify(v));
     setForm((f) => ({ ...f, [k]: v }));
     if (typeof v === "string" && v.trim()) {
       setMissingFields((prev) => prev.filter((key) => key !== (k as unknown as RequiredKey)));
