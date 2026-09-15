@@ -61,7 +61,6 @@ export function PrintItineraryButton({ city, subtitle, days }: Props) {
         createPortal(
           <div className="print-sheet" aria-hidden>
             <header className="print-sheet-head">
-              <p className="print-sheet-brand">O Postal · opostal.pt</p>
               <h1>Roteiro de {city}</h1>
               {subtitle && <p className="print-sheet-sub">{subtitle}</p>}
             </header>
@@ -100,11 +99,6 @@ export function PrintItineraryButton({ city, subtitle, days }: Props) {
                 </ol>
               </section>
             ))}
-
-            <footer className="print-sheet-foot">
-              Guia gratuito de O Postal — opostal.pt. Horários e preços podem mudar;
-              confirma antes de ir.
-            </footer>
           </div>,
           document.body,
         )}
