@@ -53,7 +53,6 @@ import {
   CustomItineraryHeroLink,
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
-import { PrintItineraryButton } from "@/components/PrintItinerary";
 
 const SHARE_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/Florence_skyline_at_dusk_%283867485023%29.jpg?width=1200";
@@ -1283,7 +1282,6 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
-      <PrintItineraryButton city="Florença" subtitle="Roteiro a pé pelo Renascimento." days={days} />
       <GuideVideo />
       <Duomo />
       <Food />
