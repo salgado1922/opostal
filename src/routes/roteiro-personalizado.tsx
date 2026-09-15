@@ -73,6 +73,7 @@ function RoteiroPersonalizadoPage() {
       <Comparison />
       <DifferenceNote />
       <HowItWorks />
+      <ExampleDay />
       <RequestForm />
       <Faq />
       <ClosingCTA />
