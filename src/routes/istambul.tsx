@@ -78,6 +78,7 @@ import {
   CustomItineraryHeroLink,
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
+import { PrintItineraryButton } from "@/components/PrintItinerary";
 
 const SHARE_IMG =
   "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&h=630&q=80";
@@ -1454,6 +1455,7 @@ function IstambulPage() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
+      <PrintItineraryButton city="Istambul" subtitle="Roteiro a pé entre continentes." days={days} />
       <GuideVideo />
       <Bosforo />
       <Food />

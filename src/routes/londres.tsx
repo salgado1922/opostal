@@ -57,6 +57,7 @@ import {
   CustomItineraryHeroLink,
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
+import { PrintItineraryButton } from "@/components/PrintItinerary";
 
 const SHARE_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/Westminster_Bridge_with_shadows_and_Big_Ben.jpg?width=1200";
@@ -1492,6 +1493,11 @@ function Index() {
       <EssentialInfo />
       <Overview />
       <Itineraries />
+      <PrintItineraryButton
+        city="Londres"
+        subtitle="Roteiro a pé pela cidade, dia a dia."
+        days={[...days, altDay]}
+      />
       <AlternativaSemEstudios />
       <GuideVideo />
       <HarryPotterVs />
