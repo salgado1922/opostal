@@ -492,14 +492,14 @@ function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, oklch(0.12 0.022 45/0.55), transparent 30%, oklch(0.12 0.022 45/0.6) 70%, var(--background) 100%)",
+              "linear-gradient(180deg, color-mix(in oklab, var(--city-deep) 62%, transparent), transparent 30%, color-mix(in oklab, var(--city-deep) 68%, transparent) 70%, var(--background) 100%)",
           }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 32%, oklch(0.12 0.022 45 / .75) 100%)",
+              "radial-gradient(ellipse at center, transparent 32%, color-mix(in oklab, var(--city-deep) 80%, transparent) 100%)",
           }}
         />
       </div>
@@ -526,7 +526,7 @@ function Hero() {
               lineHeight: 1.02,
               fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
               backgroundImage:
-                "linear-gradient(120deg, oklch(0.94 0.03 82), oklch(0.66 0.145 47) 50%, oklch(0.55 0.17 34))",
+                "linear-gradient(120deg, var(--city-title-a), var(--city-title-b) 52%, var(--city-title-c))",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               color: "transparent",
@@ -541,8 +541,8 @@ function Hero() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <a
               href="#overview"
-              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-cream shadow-[0_18px_40px_-18px_oklch(0.62_0.17_38/.7)] transition-transform active:scale-95"
-              style={{ background: "oklch(0.62 0.17 38)" }}
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-cream transition-transform active:scale-95"
+              style={{ background: "var(--city-action)", boxShadow: "var(--city-soft-shadow)" }}
             >
               Ver o itinerário <span aria-hidden>↓</span>
             </a>
@@ -628,7 +628,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
       transition={{ duration: 0.6 }}
       className="relative pl-16 md:pl-20"
     >
-      <div className="absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 bg-twilight shadow-[0_0_0_4px_oklch(0.16_0.035_290),0_0_30px_oklch(0.82_0.14_78/0.25)] md:left-5">
+      <div className="absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 bg-twilight shadow-[var(--city-marker-shadow)] md:left-5">
         <Icon className="h-4 w-4 text-gold" />
       </div>
 
@@ -1370,7 +1370,7 @@ function EssentialInfo() {
             >
               <div
                 className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30"
-                style={{ boxShadow: "0 0 12px oklch(0.62 0.16 40 / 0.45)" }}
+                style={{ boxShadow: "0 0 12px color-mix(in oklab, var(--city-action) 45%, transparent)" }}
               >
                 <Icon className="h-5 w-5 text-gold" />
               </div>
@@ -1656,8 +1656,8 @@ function ReadingProgressBar() {
         style={{
           width: `${pct}%`,
           background:
-            "linear-gradient(90deg, oklch(0.62 0.17 38), oklch(0.83 0.16 78), oklch(0.96 0.02 85))",
-          boxShadow: "0 0 10px oklch(0.62 0.17 38 / .55)",
+            "linear-gradient(90deg, var(--city-action), oklch(0.83 0.16 78), var(--city-light))",
+          boxShadow: "0 0 10px color-mix(in oklab, var(--city-action) 55%, transparent)",
         }}
       />
     </div>

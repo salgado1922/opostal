@@ -508,14 +508,14 @@ function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, oklch(0.12 0.022 45/0.55), transparent 30%, oklch(0.12 0.022 45/0.6) 70%, var(--background) 100%)",
+              "linear-gradient(180deg, color-mix(in oklab, var(--city-deep) 62%, transparent), transparent 30%, color-mix(in oklab, var(--city-deep) 68%, transparent) 70%, var(--background) 100%)",
           }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 32%, oklch(0.12 0.022 45 / .75) 100%)",
+              "radial-gradient(ellipse at center, transparent 32%, color-mix(in oklab, var(--city-deep) 80%, transparent) 100%)",
           }}
         />
       </div>
@@ -542,7 +542,7 @@ function Hero() {
               lineHeight: 1.02,
               fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
               backgroundImage:
-                "linear-gradient(120deg, oklch(0.94 0.03 82), oklch(0.66 0.145 47) 50%, oklch(0.55 0.17 34))",
+                "linear-gradient(120deg, var(--city-title-a), var(--city-title-b) 52%, var(--city-title-c))",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               color: "transparent",
@@ -557,8 +557,8 @@ function Hero() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <a
               href="#overview"
-              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-cream shadow-[0_18px_40px_-18px_oklch(0.62_0.17_38/.7)] transition-transform active:scale-95"
-              style={{ background: "oklch(0.62 0.17 38)" }}
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-cream transition-transform active:scale-95"
+              style={{ background: "var(--city-action)", boxShadow: "var(--city-soft-shadow)" }}
             >
               Ver o itinerário <span aria-hidden>↓</span>
             </a>
@@ -624,7 +624,7 @@ function FlipDaysGrid() {
                 style={{
                   backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
-                  borderColor: "oklch(0.62 0.17 38 / .25)",
+                  borderColor: "color-mix(in oklab, var(--city-action) 25%, transparent)",
                 }}
               >
                 {d.cover ? (
@@ -642,15 +642,15 @@ function FlipDaysGrid() {
                 <span
                   className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[9.5px] uppercase tracking-[0.18em] backdrop-blur"
                   style={{
-                    borderColor: "oklch(0.83 0.16 78 / .45)",
-                    background: "oklch(0.12 0.022 45 / .55)",
-                    color: "oklch(0.96 0.02 85)",
+                    borderColor: "color-mix(in oklab, var(--city-highlight) 45%, transparent)",
+                    background: "color-mix(in oklab, var(--city-deep) 62%, transparent)",
+                    color: "var(--city-light)",
                   }}
                 >
                   vira →
                 </span>
                 <div className="absolute inset-x-3.5 bottom-3.5">
-                  <div className="text-[10px] uppercase tracking-[0.25em]" style={{ color: "oklch(0.96 0.02 85 / .9)" }}>
+                  <div className="text-[10px] uppercase tracking-[0.25em]" style={{ color: "color-mix(in oklab, var(--city-light) 90%, transparent)" }}>
                     {d.label} · {d.date}
                   </div>
                   <h3 className="mt-1 font-serif text-2xl font-semibold text-cream" style={{ lineHeight: 1.05 }}>
@@ -665,16 +665,16 @@ function FlipDaysGrid() {
                   backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
                   transform: "rotateY(180deg)",
-                  borderColor: "oklch(0.62 0.17 38 / .35)",
+                  borderColor: "color-mix(in oklab, var(--city-action) 35%, transparent)",
                   background:
-                    "oklch(0.20 0.03 45) repeating-linear-gradient(135deg, oklch(0.62 0.17 38 / .05) 0 2px, transparent 2px 13px)",
+                    "var(--city-card-back) repeating-linear-gradient(135deg, color-mix(in oklab, var(--city-highlight) 7%, transparent) 0 2px, transparent 2px 13px)",
                 }}
               >
                 <div
                   className="absolute inset-2.5 flex flex-col rounded-xl border border-dashed p-3.5"
-                  style={{ borderColor: "oklch(0.83 0.16 78 / .45)" }}
+                  style={{ borderColor: "color-mix(in oklab, var(--city-highlight) 45%, transparent)" }}
                 >
-                  <div className="text-[9px] uppercase tracking-[0.3em]" style={{ color: "oklch(0.62 0.17 38)" }}>
+                  <div className="text-[9px] uppercase tracking-[0.3em]" style={{ color: "var(--city-action)" }}>
                     {d.label} · resumo
                   </div>
                   <h3 className="mt-1.5 font-serif text-xl font-semibold text-cream" style={{ lineHeight: 1.05 }}>
@@ -684,18 +684,18 @@ function FlipDaysGrid() {
                     {d.vibe}
                   </p>
                   <dl className="mt-auto grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-1.5 text-[11.5px]">
-                    <dt className="uppercase tracking-[0.12em]" style={{ color: "oklch(0.83 0.16 78 / .9)" }}>Paragens</dt>
+                    <dt className="uppercase tracking-[0.12em]" style={{ color: "color-mix(in oklab, var(--city-highlight) 90%, transparent)" }}>Paragens</dt>
                     <dd className="m-0 text-cream/90">{d.stops.length}</dd>
                     {d.walkTotal && (<>
-                      <dt className="uppercase tracking-[0.12em]" style={{ color: "oklch(0.83 0.16 78 / .9)" }}>A pé</dt>
+                      <dt className="uppercase tracking-[0.12em]" style={{ color: "color-mix(in oklab, var(--city-highlight) 90%, transparent)" }}>A pé</dt>
                       <dd className="m-0 text-cream/90">{d.walkTotal.replace(/^A pé hoje:\s*/, "")}</dd>
                     </>)}
                   </dl>
                   <a
                     href={`#${d.key}`}
                     onClick={(e) => e.stopPropagation()}
-                    className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[10px] uppercase tracking-[0.18em] hover:bg-[oklch(0.62_0.17_38_/_.12)]"
-                    style={{ borderColor: "oklch(0.62 0.17 38 / .5)", color: "oklch(0.96 0.02 85)" }}
+                    className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[10px] uppercase tracking-[0.18em] hover:bg-accent/15"
+                    style={{ borderColor: "color-mix(in oklab, var(--city-action) 50%, transparent)", color: "var(--city-light)" }}
                   >
                     Abrir o dia →
                   </a>
@@ -724,7 +724,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
       transition={{ duration: 0.6 }}
       className="relative pl-16 md:pl-20"
     >
-      <div className="absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 bg-twilight shadow-[0_0_0_4px_oklch(0.16_0.035_290),0_0_30px_oklch(0.82_0.14_78/0.25)] md:left-5">
+      <div className="absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 bg-twilight shadow-[var(--city-marker-shadow)] md:left-5">
         <Icon className="h-4 w-4 text-gold" />
       </div>
 
@@ -1438,7 +1438,7 @@ function EssentialInfo() {
             >
               <div
                 className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30"
-                style={{ boxShadow: "0 0 12px oklch(0.62 0.16 40 / 0.45)" }}
+                style={{ boxShadow: "0 0 12px color-mix(in oklab, var(--city-action) 45%, transparent)" }}
               >
                 <Icon className="h-5 w-5 text-gold" />
               </div>
@@ -1474,8 +1474,8 @@ function ReadingProgressBar() {
         style={{
           width: `${pct}%`,
           background:
-            "linear-gradient(90deg, oklch(0.62 0.17 38), oklch(0.83 0.16 78), oklch(0.96 0.02 85))",
-          boxShadow: "0 0 10px oklch(0.62 0.17 38 / .55)",
+            "linear-gradient(90deg, var(--city-action), oklch(0.83 0.16 78), var(--city-light))",
+          boxShadow: "0 0 10px color-mix(in oklab, var(--city-action) 55%, transparent)",
         }}
       />
     </div>
