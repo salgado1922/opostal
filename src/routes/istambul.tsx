@@ -2007,7 +2007,7 @@ function EssentialInfo() {
               href="https://www.kqzyfj.com/click-101800647-15734352?sid=istambul-sultanahmet&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DSultanahmet%252C%2BIstambul%252C%2BTurquia%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
-              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+              className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold lg:min-h-0 lg:py-0"
             >
               Ver alojamentos em Sultanahmet
               <ExternalLink className="h-3 w-3 opacity-70" />
@@ -2022,7 +2022,7 @@ function EssentialInfo() {
               href="https://www.kqzyfj.com/click-101800647-15734352?sid=istambul-beyoglu-galata&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DBeyoglu%252C%2BIstambul%252C%2BTurquia%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
-              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+              className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold lg:min-h-0 lg:py-0"
             >
               Ver alojamentos em Beyoğlu / Galata
               <ExternalLink className="h-3 w-3 opacity-70" />
@@ -2038,7 +2038,7 @@ function EssentialInfo() {
               href="https://www.kqzyfj.com/click-101800647-15734352?sid=istambul-kadikoy&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DKadikoy%252C%2BIstambul%252C%2BTurquia%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
-              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+              className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold lg:min-h-0 lg:py-0"
             >
               Ver alojamentos em Kadıköy
               <ExternalLink className="h-3 w-3 opacity-70" />
