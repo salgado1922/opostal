@@ -1402,21 +1402,21 @@ function EssentialInfo() {
             <p className="mt-2 text-sm text-muted-foreground">
               Central e animado, com os melhores ruin bars a poucos passos.
             </p>
-            <AffiliateLink href="" />
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DErzs%25C3%25A9betv%25C3%25A1ros%252C%2BBudapeste%252C%2BHungria%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=budapeste-erzsebetvaros" label="Ver alojamentos no Bairro Judaico" />
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Centro de Pest (V. Kerület)</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               A pé de tudo: Basílica, Danúbio, Parlamento e as principais praças.
             </p>
-            <AffiliateLink href="" />
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DBelv%25C3%25A1ros%252C%2BBudapeste%252C%2BHungria%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=budapeste-belvaros" label="Ver alojamentos no centro de Pest" />
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Buda (Várnegyed / Víziváros)</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Mais tranquilo e verde, com vistas espetaculares, aos pés do castelo.
             </p>
-            <AffiliateLink href="" />
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DV%25C3%25A1rnegyed%252C%2BBudapeste%252C%2BHungria%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=budapeste-varnegyed" label="Ver alojamentos em Buda" />
           </li>
         </ul>
       </motion.div>

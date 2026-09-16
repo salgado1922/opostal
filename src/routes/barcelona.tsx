@@ -1469,21 +1469,21 @@ function EssentialInfo() {
             <p className="mt-2 text-sm text-muted-foreground">
               Central, elegante e rodeado de modernismo. A pé ou de metro para quase tudo.
             </p>
-            <AffiliateLink href="" label="Ver alojamentos no Eixample" />
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DEixample%252C%2BBarcelona%252C%2BEspanha%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=barcelona-eixample" label="Ver alojamentos no Eixample" />
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Barri Gòtic / Born</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               O coração histórico, ruas estreitas e vida noturna, a pé de tudo no centro.
             </p>
-            <AffiliateLink href="" label="Ver alojamentos no Gòtic/Born" />
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DBarri%2BG%25C3%25B2tic%252C%2BBarcelona%252C%2BEspanha%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=barcelona-barri-gotic" label="Ver alojamentos no Gòtic/Born" />
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Barceloneta</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Junto à praia e ao mar, com ambiente descontraído de bairro de pescadores.
             </p>
-            <AffiliateLink href="" label="Ver alojamentos na Barceloneta" />
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DBarceloneta%252C%2BBarcelona%252C%2BEspanha%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=barcelona-barceloneta" label="Ver alojamentos na Barceloneta" />
           </li>
         </ul>
       </motion.div>
