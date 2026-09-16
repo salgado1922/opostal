@@ -8,13 +8,13 @@ import { ExternalLink } from "lucide-react";
  */
 export function CustomItineraryCTA({ city }: { city: string }) {
   return (
-    <section className="px-6 pb-20 md:pb-28">
+    <section className="px-5 pb-12 md:px-6 md:pb-28">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.7 }}
-        className="glass mx-auto max-w-3xl rounded-2xl border border-gold/20 px-8 py-10 text-center"
+        className="glass mx-auto max-w-3xl rounded-2xl border border-gold/20 px-5 py-8 text-center md:px-8 md:py-10"
       >
         <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">
           À tua medida

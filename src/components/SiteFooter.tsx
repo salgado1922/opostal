@@ -60,7 +60,7 @@ export function SiteFooter({
   photoCredit = "Unsplash · Wikimedia Commons",
 }: SiteFooterProps = {}) {
   return (
-    <footer className="relative border-t border-gold/10 px-6 py-12 md:py-14">
+    <footer className="relative border-t border-gold/10 px-5 py-9 md:px-6 md:py-14">
       <div className="mx-auto flex max-w-5xl flex-col gap-6 text-center sm:text-left">
         {city && (
           <div className="flex flex-col items-center gap-2 border-b border-gold/10 pb-7 text-center">

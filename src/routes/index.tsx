@@ -275,7 +275,7 @@ const CITY_MESSAGES: Record<string, string> = {
 
 function CityGrid() {
   return (
-    <section id="cidades" className="relative z-[2] px-6 py-24 md:py-32">
+    <section id="cidades" className="relative z-[2] px-5 py-14 md:px-6 md:py-32">
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 max-w-2xl">
           <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Catálogo</p>
@@ -670,7 +670,7 @@ function HowItWorks() {
   }, [reduce]);
 
   return (
-    <section id="como-funciona" className="relative z-[2] px-6 py-20 md:py-28">
+    <section id="como-funciona" className="relative z-[2] px-5 py-12 md:px-6 md:py-28">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 max-w-2xl">
           <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Como funciona</p>
@@ -684,7 +684,7 @@ function HowItWorks() {
 
         <ol
           ref={listRef}
-          className="grid list-none gap-8 p-0 md:gap-10"
+          className="grid list-none gap-5 p-0 md:gap-10"
           style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}
         >
           {STEPS.map((s, i) => {
