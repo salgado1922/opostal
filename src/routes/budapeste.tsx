@@ -1185,14 +1185,6 @@ function ConhecerBudapeste() {
         variants={fadeUp}
         className="mx-auto max-w-3xl"
       >
-        <div className="mb-8 overflow-hidden rounded-2xl border border-gold/20 shadow-[0_30px_80px_-40px_oklch(0.83_0.16_78/0.5)]">
-          <SmartImage
-            src="https://commons.wikimedia.org/wiki/Special:FilePath/Danube_and_Hungarian_Parliament_Building_by_night.jpg?width=1600"
-            alt="Danúbio e Parlamento Húngaro à noite"
-            loading="lazy"
-            className="h-56 w-full object-cover md:h-72"
-          />
-        </div>
         <Accordion type="multiple" className="flex flex-col gap-4">
           <AccordionItem value="overview" className={itemCls}>
             <AccordionTrigger className={triggerCls}>
