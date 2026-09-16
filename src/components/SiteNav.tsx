@@ -41,8 +41,10 @@ export function SiteNav() {
           <SmartImage
             src={opostalHorizontalTransparent.url}
             alt="O Postal"
+            priority
             className="h-8 w-auto object-contain md:h-10"
           />
+
         </Link>
 
         <div className="hidden items-center gap-7 md:flex">
