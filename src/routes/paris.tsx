@@ -1714,7 +1714,14 @@ function StickyNav() {
         </ul>
       </div>
 
-      <div className="md:hidden -mt-px overflow-x-auto border-t border-gold/10 bg-background/75 backdrop-blur-xl [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div
+        className={`md:hidden -mt-px overflow-x-auto border-t transition-opacity duration-300 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
+          scrolled
+            ? "border-gold/10 bg-background/75 backdrop-blur-xl opacity-100"
+            : "pointer-events-none border-transparent opacity-0"
+        }`}
+        aria-hidden={!scrolled}
+      >
         <ul className="flex w-max items-center gap-1.5 px-4 py-2">
           {navLinks.map((l) => {
             const isActive = active === l.id;
