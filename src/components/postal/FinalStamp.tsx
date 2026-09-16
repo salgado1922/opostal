@@ -12,7 +12,7 @@ type Props = {
  */
 export function FinalStamp({ code, year = "MMXXVI" }: Props) {
   return (
-    <section aria-hidden="true" className="mx-auto flex max-w-3xl flex-col items-center gap-8 px-4 py-16">
+    <section aria-hidden="true" className="mx-auto flex max-w-3xl flex-col items-center gap-5 px-4 py-10 md:gap-8 md:py-16">
       <DashedDivider withStamp className="w-full" />
       <PostalStamp code={code} label="O Postal" value={year} rotate={-8} />
     </section>

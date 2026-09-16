@@ -28,7 +28,6 @@ import {
   Ticket,
   ExternalLink,
   Footprints,
-  Menu,
   Info,
   Calendar,
   CloudSun,
@@ -130,14 +129,14 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="relative scroll-mt-24 px-6 py-24 md:px-12 md:py-32">
+    <section id={id} className="relative scroll-mt-20 px-5 py-12 md:scroll-mt-24 md:px-12 md:py-32">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUp}
-          className="mb-14 max-w-3xl"
+          className="mb-8 max-w-3xl md:mb-14"
         >
           {eyebrow && (
             <div className="mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-gold">
@@ -1713,19 +1712,28 @@ function StickyNav() {
             );
           })}
         </ul>
+      </div>
 
-        <button
-          type="button"
-          aria-label="Alternar menu"
-          aria-expanded={open}
-          aria-controls="mobile-nav-panel-paris"
-          onClick={() => setOpen((v) => !v)}
-          className={`md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full text-gold transition-colors ${
-            scrolled ? "border border-gold/30" : "border border-gold/40 bg-black/20 backdrop-blur-sm"
-          }`}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+      <div className="md:hidden -mt-px overflow-x-auto border-t border-gold/10 bg-background/75 backdrop-blur-xl [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <ul className="flex w-max items-center gap-1.5 px-4 py-2">
+          {navLinks.map((l) => {
+            const isActive = active === l.id;
+            return (
+              <li key={l.id}>
+                <a
+                  href={`#${l.id}`}
+                  className={`inline-block rounded-full border px-3 py-1.5 text-[0.62rem] uppercase tracking-[0.16em] transition-colors ${
+                    isActive
+                      ? "border-gold/50 bg-gold/[0.10] text-gold"
+                      : "border-gold/15 text-cream/70"
+                  }`}
+                >
+                  {l.label}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
 
       {open && (
