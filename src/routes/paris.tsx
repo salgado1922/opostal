@@ -1831,8 +1831,7 @@ function Index() {
       <FinalStamp code="PAR" year="MMXXV" />
       <CustomItineraryCTA city="Paris" />
       <OutrosPostais currentSlug="paris" />
-      <Footer />
-      <SiteFooter />
+      <SiteFooter city="Paris" year="MMXXV" farewell="À bientôt, Paris." />
     </main>
   );
 }

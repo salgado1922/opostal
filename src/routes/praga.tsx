@@ -1397,8 +1397,7 @@ function Index() {
       <FinalStamp code="PRG" />
       <CustomItineraryCTA city="Praga" />
       <OutrosPostais currentSlug="praga" />
-      <Footer />
-      <SiteFooter />
+      <SiteFooter city="Praga" farewell="Na zdraví, à vossa." />
     </main>
   );
 }

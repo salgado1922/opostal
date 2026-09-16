@@ -1622,8 +1622,7 @@ function Index() {
       <FinalStamp code="BUD" year="2026" />
       <CustomItineraryCTA city="Budapeste" />
       <OutrosPostais currentSlug="budapeste" />
-      <Footer />
-      <SiteFooter />
+      <SiteFooter city="Budapeste" farewell="Viszlát, Budapest!" />
     </main>
   );
 }

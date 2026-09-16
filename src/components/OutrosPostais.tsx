@@ -77,7 +77,7 @@ export function OutrosPostais({ currentSlug }: { currentSlug: string }) {
   };
 
   return (
-    <section className="relative z-[2] px-6 pb-24 md:pb-32">
+    <section className="relative z-[2] px-6 pb-16 md:pb-20">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 max-w-2xl">
           <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">

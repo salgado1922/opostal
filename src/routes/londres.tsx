@@ -1501,8 +1501,7 @@ function Index() {
       <FinalStamp code="LDN" />
       <CustomItineraryCTA city="Londres" />
       <OutrosPostais currentSlug="londres" />
-      <Footer />
-      <SiteFooter />
+      <SiteFooter city="Londres" farewell="Mind the gap, e boa viagem." photoCredit="Wikimedia Commons" />
     </main>
   );
 }

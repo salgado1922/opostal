@@ -1290,8 +1290,7 @@ function Index() {
       <FinalStamp code="FLR" />
       <CustomItineraryCTA city="Florença" />
       <OutrosPostais currentSlug="florenca" />
-      <Footer />
-      <SiteFooter />
+      <SiteFooter city="Florença" />
     </main>
   );
 }

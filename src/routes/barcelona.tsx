@@ -1511,8 +1511,7 @@ function Index() {
       <FinalStamp code="BCN" />
       <CustomItineraryCTA city="Barcelona" />
       <OutrosPostais currentSlug="barcelona" />
-      <Footer />
-      <SiteFooter />
+      <SiteFooter city="Barcelona" farewell="Adéu, Barcelona!" />
     </main>
   );
 }
