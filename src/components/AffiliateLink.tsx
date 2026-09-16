@@ -29,7 +29,7 @@ export function AffiliateLink({
       href={href}
       target="_blank"
       rel="sponsored noopener"
-      className={`inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)] ${className}`}
+      className={`inline-flex min-h-11 items-center gap-2 rounded-full border border-gold/40 md:min-h-0 bg-gold/15 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold/25 hover:shadow-[0_10px_30px_-10px_oklch(0.82_0.14_78/0.6)] ${className}`}
     >
       <Ticket className="h-3.5 w-3.5" />
       {label}
