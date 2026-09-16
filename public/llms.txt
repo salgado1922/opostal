@@ -10,6 +10,10 @@
 - [Londres](/londres): Guia gratuito de 3 dias em Londres a pé, com dia extra opcional para os estúdios de Harry Potter.
 - [Florença](/florenca): Guia gratuito de 3 dias em Florença: Duomo, Uffizi, Ponte Vecchio, Oltrarno e Piazzale Michelangelo.
 - [Paris](/paris): Guia gratuito de 3 dias em Paris mais dia extra em Versalhes, com sítios para comer testados.
+- [Barcelona](/barcelona): Guia gratuito de 3 dias em Barcelona: Sagrada Família, Gaudí, Bairro Gótico, Montjuïc e Barceloneta.
+- [Viena](/viena): Guia gratuito de 3 dias em Viena: Hofburg, Belvedere, Schönbrunn, cafés históricos e Naschmarkt.
+- [Lisboa](/lisboa): Guia gratuito de 3 dias em Lisboa: Baixa, Alfama, Castelo, miradouros e Belém.
+- [Budapeste](/budapeste): Guia gratuito de 3 dias em Budapeste: Parlamento, Castelo de Buda, bairro judaico e termas.
 - [A nossa abordagem](/abordagem): Como os roteiros são pensados e testados.
 - [Roteiro personalizado](/roteiro-personalizado): Serviço pago de roteiro feito à medida do destino e das datas de viagem.
 
