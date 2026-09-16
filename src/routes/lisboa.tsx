@@ -1264,14 +1264,6 @@ function ConhecerLisboa() {
         variants={fadeUp}
         className="mx-auto max-w-3xl"
       >
-        <div className="mb-8 overflow-hidden rounded-2xl border border-gold/20 shadow-[0_30px_80px_-40px_oklch(0.83_0.16_78/0.5)]">
-          <SmartImage
-            src="https://commons.wikimedia.org/wiki/Special:FilePath/Lisboa%2C_Miradouro_das_Portas_do_Sol%2C_vista.jpg?width=1600"
-            alt="Vista sobre Alfama e o rio Tejo, a partir do Miradouro das Portas do Sol"
-            loading="lazy"
-            className="h-56 w-full object-cover md:h-72"
-          />
-        </div>
         <Accordion type="multiple" className="flex flex-col gap-4">
           <AccordionItem value="overview" className={itemCls}>
             <AccordionTrigger className={triggerCls}>

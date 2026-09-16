@@ -1531,14 +1531,6 @@ function ConhecerViena() {
         variants={fadeUp}
         className="mx-auto max-w-3xl"
       >
-        <div className="mb-8 overflow-hidden rounded-2xl border border-gold/20 shadow-[0_30px_80px_-40px_oklch(0.83_0.16_78/0.5)]">
-          <SmartImage
-            src="https://commons.wikimedia.org/wiki/Special:FilePath/Wien%2C%20Hofburg%20--%202018%20--%203187.jpg?width=1600"
-            alt="Fachada da Hofburg em Viena"
-            loading="lazy"
-            className="h-56 w-full object-cover md:h-72"
-          />
-        </div>
         <Accordion type="multiple" className="flex flex-col gap-4">
           <AccordionItem value="overview" className={itemCls}>
             <AccordionTrigger className={triggerCls}>
