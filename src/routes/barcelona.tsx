@@ -362,7 +362,7 @@ const days: Day[] = [
         hoursNote: "FECHA À SEGUNDA",
         walkTo: "~5 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Museu_Picasso_Barcelona-_queues.jpg?width=1400",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Carrer_Montcada2-Barcelona(Catalonia).jpg?width=1400",
         imageAlt: "Pátio do Museu Picasso em Barcelona",
       },
       {
@@ -393,7 +393,7 @@ const days: Day[] = [
     accent: "from-rose-500/20 to-amber-400/10",
     icon: Waves,
     cover:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/MNAC%2C_Barcelona%2C_December_2014_%2802%29.jpg?width=1400",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Barcelona_-_Museu_Nacional_d%27Art_de_Catalunya_02_2017-12-27.jpg?width=1400",
     coverAlt: "Museu Nacional d'Art de Catalunya em Montjuïc",
     walkTotal: "A pé hoje: ~7 km, com um trajeto de metro ou autocarro até Montjuïc.",
     mapEmbedUrl:
@@ -411,7 +411,7 @@ const days: Day[] = [
         hours: "Ter–Sáb aprox. 10h–18h, Dom até às 15h (fecha à segunda)",
         walkTo: "~10 min a descer",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/MNAC%2C_Barcelona%2C_December_2014_%2802%29.jpg?width=1400",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Barcelona_-_Museu_Nacional_d%27Art_de_Catalunya_02_2017-12-27.jpg?width=1400",
         imageAlt: "Fachada do MNAC em Montjuïc",
       },
       {
@@ -423,7 +423,7 @@ const days: Day[] = [
         icon: Sparkles,
         walkTo: "metro ou autocarro até à Barceloneta",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Magic_Fountain_Barcelona.jpg?width=1400",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Barcelona_133.JPG?width=1400",
         imageAlt: "Font Màgica de Montjuïc iluminada à noite",
       },
       {
@@ -442,7 +442,7 @@ const days: Day[] = [
         icon: Waves,
         walkTo: "~20 min a pé pelo passeio marítimo",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Promenade_and_beach%2C_Platja_de_la_Barceloneta%2C_Barcelona%2C_2015.jpg?width=1400",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_view_of_the_Promenade_and_Somorrostro_Beach_in_Barcelona_(51225533277).jpg?width=1400",
         imageAlt: "Praia da Barceloneta com o passeio marítimo",
       },
       {
