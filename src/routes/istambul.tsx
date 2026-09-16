@@ -1462,8 +1462,7 @@ function IstambulPage() {
       <FinalStamp code="IST" />
       <CustomItineraryCTA city="Istambul" />
       <OutrosPostais currentSlug="istambul" />
-      <Footer />
-      <SiteFooter />
+      <SiteFooter city="Istambul" farewell="Şerefe, à vossa." />
     </main>
   );
 }

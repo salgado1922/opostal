@@ -1269,8 +1269,7 @@ function Index() {
       <FinalStamp code="VIE" />
       <CustomItineraryCTA city="Viena" />
       <OutrosPostais currentSlug="viena" />
-      <Footer />
-      <SiteFooter />
+      <SiteFooter city="Viena" farewell="Auf Wiedersehen, Wien — bis zum nächsten Walzer." />
     </main>
   );
 }

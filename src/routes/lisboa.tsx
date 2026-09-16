@@ -1662,8 +1662,7 @@ function Index() {
       <Farewell />
       <CustomItineraryCTA city="Lisboa" />
       <OutrosPostais currentSlug="lisboa" />
-      <Footer />
-      <SiteFooter />
+      <SiteFooter city="Lisboa" />
     </main>
   );
 }

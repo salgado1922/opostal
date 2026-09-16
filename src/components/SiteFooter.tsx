@@ -46,10 +46,34 @@ function SocialLink({
   );
 }
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  city?: string;
+  year?: string;
+  farewell?: string;
+  photoCredit?: string;
+};
+
+export function SiteFooter({
+  city,
+  year = "MMXXVI",
+  farewell,
+  photoCredit = "Unsplash · Wikimedia Commons",
+}: SiteFooterProps = {}) {
   return (
-    <footer className="border-t border-gold/10 px-6 py-12">
+    <footer className="relative border-t border-gold/10 px-6 py-12 md:py-14">
       <div className="mx-auto flex max-w-5xl flex-col gap-6 text-center sm:text-left">
+        {city && (
+          <div className="flex flex-col items-center gap-2 border-b border-gold/10 pb-7 text-center">
+            {farewell && (
+              <p className="font-serif text-xl italic text-gold/85 md:text-2xl">
+                {farewell}
+              </p>
+            )}
+            <p className="text-[11px] uppercase tracking-[0.3em] text-cream/50">
+              O Postal · {city} · {year}
+            </p>
+          </div>
+        )}
         <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 sm:justify-start">
           {LINKS.map((l) => (
             <li key={l.href}>
@@ -85,7 +109,7 @@ export function SiteFooter() {
 
         </div>
         <p className="text-[11px] uppercase tracking-[0.2em] text-cream/35">
-          Fotos: Unsplash · Wikimedia Commons
+          Fotos: {photoCredit}
         </p>
       </div>
     </footer>
