@@ -1447,6 +1447,45 @@ function EssentialInfo() {
           );
         })}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+      >
+        <div className="mb-5 flex items-center gap-3">
+          <MapPin className="h-5 w-5 text-gold" />
+          <h3 className="font-serif text-2xl text-cream">Onde ficar</h3>
+        </div>
+        <p className="mb-5 text-sm text-muted-foreground">
+          Três zonas a considerar; qualquer uma funciona muito bem para um guia de 3 dias.
+        </p>
+        <ul className="grid gap-4 md:grid-cols-3">
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Baixa / Chiado</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              O centro pombalino, plano e a pé de quase tudo. Ideal para a primeira visita.
+            </p>
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DBaixa%252C%2BLisboa%252C%2BPortugal%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=lisboa-baixa" label="Ver alojamentos na Baixa" />
+          </li>
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Alfama</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              O bairro mais antigo e carismático, entre miradouros, becos e fado à noite.
+            </p>
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DAlfama%252C%2BLisboa%252C%2BPortugal%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=lisboa-alfama" label="Ver alojamentos em Alfama" />
+          </li>
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Bairro Alto / Príncipe Real</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Vida noturna, lojas e restaurantes, a dois passos do Chiado e dos miradouros.
+            </p>
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DBairro%2BAlto%252C%2BLisboa%252C%2BPortugal%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=lisboa-bairro-alto" label="Ver alojamentos no Bairro Alto" />
+          </li>
+        </ul>
+      </motion.div>
     </Section>
   );
 }
