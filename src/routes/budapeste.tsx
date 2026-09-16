@@ -57,7 +57,7 @@ import {
 import { OutrosPostais } from "@/components/OutrosPostais";
 
 const SHARE_IMG =
-  "https://commons.wikimedia.org/wiki/Special:FilePath/Budapest_Evening_Panorama_from_Gellert_Hill.jpg?width=1200";
+  "https://commons.wikimedia.org/wiki/Special:FilePath/20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg?width=1200";
 
 export const Route = createFileRoute("/budapeste")({
   head: () => ({
@@ -354,7 +354,7 @@ const days: Day[] = [
         link: "https://pt.wikipedia.org/wiki/Monte_Gell%C3%A9rt",
         icon: Sun,
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/View_from_the_Gellert_Hill_2014_01.jpg?width=1400",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg?width=1400",
         imageAlt: "Vista panorâmica de Budapeste a partir do Monte Gellért",
       },
     ],
@@ -368,7 +368,7 @@ const days: Day[] = [
     accent: "from-rose-500/20 to-amber-400/10",
     icon: Moon,
     cover:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/HUN-2015-Budapest-Heroes%E2%80%99_Square.jpg?width=1600",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Heroes%27_Square_23_BG.jpg?width=1600",
     coverAlt: "Praça dos Heróis em Budapeste",
     walkTotal: "A pé hoje: ~25 min, mais o metro na Avenida Andrássy.",
     mapEmbedUrl:
@@ -384,7 +384,7 @@ const days: Day[] = [
         icon: Landmark,
         walkTo: "~5 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/HUN-2015-Budapest-Heroes%E2%80%99_Square.jpg?width=1400",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Heroes%27_Square_23_BG.jpg?width=1400",
         imageAlt: "Coluna do Milénio e estátuas na Praça dos Heróis",
       },
       {
@@ -481,7 +481,7 @@ function Hero() {
       <div className="absolute inset-0 -z-10">
         <SmartImage
           sizes="100vw"
-          src="https://commons.wikimedia.org/wiki/Special:FilePath/Budapest_Evening_Panorama_from_Gellert_Hill.jpg?width=2400"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg?width=2400"
           alt="Panorama de Budapeste ao anoitecer, visto do Monte Gellért"
           priority
           className="absolute inset-0 h-full w-full object-cover"

@@ -225,7 +225,7 @@ const days: Day[] = [
         icon: Waves,
         walkTo: "~4 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Cais_das_Colunas._Pra%C3%A7a_do_Com%C3%A9rcio%2C_Lisbon%2C_Portugal.jpg?width=1400",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Cais_das_Colunas_during_the_COVID-19_lockdown%2C_Pra%C3%A7a_do_Com%C3%A9rcio%2C_Lisbon%2C_Portugal_julesvernex2-4.jpg?width=1400",
         imageAlt: "Cais das Colunas na Praça do Comércio, em Lisboa",
       },
       {
@@ -251,7 +251,7 @@ const days: Day[] = [
         hours: "Diário, aprox. 7:30–23:00 (2026)",
         walkTo: "~8 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Elevador_de_Santa_Justa%2C_Lisboa%2C_Portugal%2C_2022-07-24%2C_DD_09.jpg?width=1400",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Elevador_de_Santa_Justa%2C_Lisboa%2C_Portugal%2C_2022-07-24%2C_DD_06.jpg?width=1400",
         imageAlt: "Elevador de Santa Justa em Lisboa",
       },
       {
@@ -370,7 +370,7 @@ const days: Day[] = [
         icon: Sun,
         walkTo: "~15 min a subir",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Miradouro_da_Senhora_do_Monte_%2838530147244%29.jpg?width=1400",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/%2B_Abends_mit_dem_Tuck-Tuck_durch_Lissabon._07.jpg?width=1400",
         imageAlt: "Pôr do sol visto do Miradouro da Senhora do Monte, em Lisboa",
       },
     ],

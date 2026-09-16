@@ -261,7 +261,7 @@ const days: Day[] = [
         hours: "Diário ~9:00–17:30 (valores aprox. 2026)",
         walkTo: "~10 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Wien%2C%20Hofburg%20--%202018%20--%203187.jpg?width=1600",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Austria_Vienna_2022-60.jpg?width=1600",
         imageAlt: "Fachada da Hofburg em Viena",
       },
       {
@@ -385,7 +385,7 @@ const days: Day[] = [
     accent: "from-rose-500/20 to-amber-400/10",
     icon: FerrisWheel,
     cover:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Schoenbrunn%20Palace%20as%20seen%20from%20Neptune%20Fountain%2C%20September%202016.jpg?width=1600",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Partie_centrale_fa%C3%A7ade_ch%C3%A2teau_Sch%C3%B6nbrunn_c%C3%B4t%C3%A9_Jardins_lumi%C3%A8re_soir_hiver.jpg?width=1600",
     coverAlt: "Palácio de Schönbrunn visto da Fonte de Neptuno",
     walkTotal: "A pé hoje: ~25 min no total, mais transporte público.",
     mapEmbedUrl:
@@ -404,7 +404,7 @@ const days: Day[] = [
         hours: "Diário ~8:00–17:30 (valores aprox. 2026)",
         walkTo: "~5 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Schoenbrunn%20Palace%20as%20seen%20from%20Neptune%20Fountain%2C%20September%202016.jpg?width=1600",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Partie_centrale_fa%C3%A7ade_ch%C3%A2teau_Sch%C3%B6nbrunn_c%C3%B4t%C3%A9_Jardins_lumi%C3%A8re_soir_hiver.jpg?width=1600",
         imageAlt: "Palácio de Schönbrunn visto da Fonte de Neptuno",
       },
       {
