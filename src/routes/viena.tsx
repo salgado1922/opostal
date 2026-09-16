@@ -1748,21 +1748,21 @@ function EssentialInfo() {
             <p className="mt-2 text-sm text-muted-foreground">
               A pé de tudo, ideal para a primeira visita.
             </p>
-            <AffiliateLink href="" />
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DInnere%2BStadt%252C%2BViena%252C%2B%25C3%2581ustria%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=viena-innere-stadt" label="Ver alojamentos no centro" />
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Naschmarkt / Mariahilf</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Animado, bom para compras e vida noturna, perto do centro.
             </p>
-            <AffiliateLink href="" />
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DMariahilf%252C%2BViena%252C%2B%25C3%2581ustria%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=viena-mariahilf" label="Ver alojamentos em Mariahilf" />
           </li>
           <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Landstraße (Belvedere)</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Mais calmo e elegante, junto ao Belvedere.
             </p>
-            <AffiliateLink href="" />
+            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DLandstra%25C3%259Fe%252C%2BViena%252C%2B%25C3%2581ustria%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=viena-landstrasse" label="Ver alojamentos em Landstraße" />
           </li>
         </ul>
       </motion.div>
