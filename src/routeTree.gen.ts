@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VienaRouteImport } from './routes/viena'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RoteiroPersonalizadoRouteImport } from './routes/roteiro-personalizado'
 import { Route as PragaRouteImport } from './routes/praga'
@@ -23,6 +24,11 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
+const VienaRoute = VienaRouteImport.update({
+  id: '/viena',
+  path: '/viena',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -100,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/praga': typeof PragaRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/viena': typeof VienaRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/praga': typeof PragaRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/viena': typeof VienaRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesById {
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/praga': typeof PragaRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/viena': typeof VienaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
@@ -146,6 +155,7 @@ export interface FileRouteTypes {
     | '/praga'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
+    | '/viena'
     | '/admin'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -160,6 +170,7 @@ export interface FileRouteTypes {
     | '/praga'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
+    | '/viena'
     | '/admin'
   id:
     | '__root__'
@@ -175,6 +186,7 @@ export interface FileRouteTypes {
     | '/praga'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
+    | '/viena'
     | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
 }
@@ -191,10 +203,18 @@ export interface RootRouteChildren {
   PragaRoute: typeof PragaRoute
   RoteiroPersonalizadoRoute: typeof RoteiroPersonalizadoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VienaRoute: typeof VienaRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/viena': {
+      id: '/viena'
+      path: '/viena'
+      fullPath: '/viena'
+      preLoaderRoute: typeof VienaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -313,6 +333,7 @@ const rootRouteChildren: RootRouteChildren = {
   PragaRoute: PragaRoute,
   RoteiroPersonalizadoRoute: RoteiroPersonalizadoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VienaRoute: VienaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

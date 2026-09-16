@@ -22,6 +22,7 @@ import {
   Plug,
   Phone,
   HandCoins,
+  Languages,
   ExternalLink,
   Footprints,
   Menu,
@@ -32,8 +33,9 @@ import {
   TrainFront,
   Palette,
   Camera,
-  Waves,
-  TreePine,
+  Coffee,
+  Music,
+  FerrisWheel,
 } from "lucide-react";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
@@ -53,51 +55,48 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
-const HERO_IMG =
-  "https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_01.jpg?width=2400";
-
 const SHARE_IMG =
-  "https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_01.jpg?width=1200";
+  "https://commons.wikimedia.org/wiki/Special:FilePath/20180109%20Vienna%20State%20Opera%20at%20blue%20hour%20850%209387.jpg?width=1200";
 
-export const Route = createFileRoute("/barcelona")({
+export const Route = createFileRoute("/viena")({
   head: () => ({
     meta: [
-      { title: "O que visitar em Barcelona: roteiro de 3 dias | O Postal" },
+      { title: "O que visitar em Viena: roteiro de 3 dias | O Postal" },
       {
         name: "description",
         content:
-          "O que visitar em Barcelona em 3 dias: Sagrada Família, Passeig de Gràcia, Park Güell, Barri Gòtic, La Boqueria, Montjuïc e Barceloneta. Dicas, comida e o que reservar.",
+          "O que visitar em Viena em 3 dias, ao teu ritmo: Stephansdom, Hofburg, Belvedere, Schönbrunn, Prater e os cafés históricos. Dicas, comida e o que reservar.",
       },
-      { property: "og:title", content: "O que visitar em Barcelona: roteiro de 3 dias | O Postal" },
+      { property: "og:title", content: "O que visitar em Viena: roteiro de 3 dias | O Postal" },
       {
         property: "og:description",
         content:
-          "O que visitar em Barcelona em 3 dias: Sagrada Família, Park Güell, Barri Gòtic, La Boqueria, Montjuïc e Barceloneta. Dicas, comida e o que reservar.",
+          "O que visitar em Viena em 3 dias, ao teu ritmo: Stephansdom, Hofburg, Belvedere, Schönbrunn, Prater e os cafés históricos. Dicas, comida e o que reservar.",
       },
       { property: "og:type", content: "article" },
-      { property: "og:url", content: "https://opostal.pt/barcelona" },
+      { property: "og:url", content: "https://opostal.pt/viena" },
       { property: "og:image", content: SHARE_IMG },
-      { name: "twitter:title", content: "O que visitar em Barcelona: roteiro de 3 dias | O Postal" },
+      { name: "twitter:title", content: "O que visitar em Viena: roteiro de 3 dias | O Postal" },
       {
         name: "twitter:description",
         content:
-          "O que visitar em Barcelona em 3 dias: Sagrada Família, Park Güell, Barri Gòtic, La Boqueria, Montjuïc e Barceloneta.",
+          "O que visitar em Viena em 3 dias: Stephansdom, Hofburg, Belvedere, Schönbrunn e Prater.",
       },
       { name: "twitter:image", content: SHARE_IMG },
     ],
-    links: [{ rel: "canonical", href: "https://opostal.pt/barcelona" }],
+    links: [{ rel: "canonical", href: "https://opostal.pt/viena" }],
     scripts: [
       {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "TravelGuide",
-          headline: "O que visitar em Barcelona: roteiro de 3 dias",
-          name: "O que visitar em Barcelona: roteiro de 3 dias",
-          url: "https://opostal.pt/barcelona",
+          headline: "O que visitar em Viena: roteiro de 3 dias",
+          name: "O que visitar em Viena: roteiro de 3 dias",
+          url: "https://opostal.pt/viena",
           image: SHARE_IMG,
           description:
-            "O que visitar em Barcelona em 3 dias: Sagrada Família, Passeig de Gràcia, Park Güell, Barri Gòtic, La Boqueria, Montjuïc e Barceloneta.",
+            "O que visitar em Viena em 3 dias, ao teu ritmo: Stephansdom, Hofburg, Belvedere, Schönbrunn e Prater.",
           author: { "@type": "Person", name: "O Postal" },
         }),
       },
@@ -202,265 +201,256 @@ const days: Day[] = [
   {
     key: "d1",
     label: "Dia 1",
-    date: "Modernisme & Passeig de Gràcia",
-    title: "Sagrada Família & Passeig de Gràcia",
-    vibe: "A obra-prima de Gaudí pela manhã, a avenida das casas modernistas à tarde e o pôr do sol no Park Güell.",
+    date: "Centro Imperial",
+    title: "Centro Imperial",
+    vibe: "Do Stephansdom às ruas elegantes do Graben, a Hofburg, os Habsburgo e um café histórico ao fim da tarde.",
     accent: "from-amber-400/30 to-rose-400/10",
-    icon: Sun,
+    icon: Church,
     cover:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_01.jpg?width=1400",
-    coverAlt: "Torres da Sagrada Família em Barcelona",
-    walkTotal: "A pé hoje: ~6 km, mais um trajeto de metro até ao Park Güell.",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Wien%20-%20Stephansdom%20(1).JPG?width=1600",
+    coverAlt: "A Catedral de Santo Estêvão em Viena",
+    walkTotal: "A pé hoje: pouco, o centro histórico é compacto.",
     mapEmbedUrl:
-      "https://www.google.com/maps?output=embed&saddr=Sagrada+Familia+Barcelona&daddr=Passeig+de+Gracia+Barcelona+to:Casa+Batllo+Barcelona+to:La+Pedrera+Barcelona+to:Park+Guell+Barcelona&dirflg=w",
+      "https://www.google.com/maps?output=embed&saddr=Stephansdom+Vienna&daddr=Graben+Vienna+to:Kohlmarkt+Vienna+to:Hofburg+Vienna+to:Albertina+Vienna+to:Vienna+State+Opera&dirflg=w",
     mapLinkUrl:
-      "https://www.google.com/maps/dir/Sagrada+Familia+Barcelona/Passeig+de+Gracia+Barcelona/Casa+Batllo+Barcelona/La+Pedrera+Barcelona/Park+Guell+Barcelona/data=!4m2!4m1!3e2",
+      "https://www.google.com/maps/dir/Stephansdom+Vienna/Graben+Vienna/Kohlmarkt+Vienna/Hofburg+Vienna/Albertina+Vienna/Vienna+State+Opera/data=!4m2!4m1!3e2",
     stops: [
       {
-        time: "09:00",
-        title: "Sagrada Família",
-        desc: "A obra-prima inacabada de Antoni Gaudí, em construção desde 1882. As fachadas do Nascimento e da Paixão contam a história de Cristo em pedra, e o interior é uma floresta de colunas com uma luz filtrada por vitrais que muda ao longo do dia.",
-        link: "https://www.google.com/maps/search/?api=1&query=Sagrada+Familia+Barcelona",
-        tip: "Reserva com semanas de antecedência e escolhe a hora da manhã: a luz entra pelos vitrais azuis e verdes do lado nascente.",
+        time: "10:00",
+        title: "Check-in & primeiro café",
+        desc: "Deixar malas e arrancar devagar, com uma Melange na primeira esquina.",
+        icon: Coffee,
+        walkTo: "~10 min",
+      },
+      {
+        time: "10:30",
+        title: "Stephansdom (Catedral de Santo Estêvão)",
+        desc: "O coração de Viena, com o telhado de telhas coloridas e a torre sul (Steffl). Subir os 343 degraus para uma vista sobre a cidade.",
+        link: "https://pt.wikipedia.org/wiki/Catedral_de_Santo_Estev%C3%A3o_(Viena)",
+        tip: "Valores aproximados de 2026: entrada na nave é gratuita, subida à torre e catacumbas pagas em separado.",
         icon: Church,
-        bookingUrl: "",
-        hours: "Diário, aprox. 9h–18h/20h consoante a época",
-        walkTo: "~25 min a pé, ou metro L2/L3/L5 até Diagonal",
-        image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_01.jpg?width=1400",
-        imageAlt: "Interior da Sagrada Família com as colunas em forma de árvore",
-      },
-      {
-        time: "11:30",
-        title: "Passeig de Gràcia",
-        desc: "A grande avenida modernista de Barcelona, com as lojas de luxo e, sobretudo, as fachadas de Gaudí, Puig i Cadafalch e Domènech i Montaner lado a lado no chamado 'Quarteirão da Discórdia'.",
-        link: "https://www.google.com/maps/search/?api=1&query=Passeig+de+Gracia+Barcelona",
-        icon: Sparkles,
+        bookingUrl: "[LINK_GETYOURGUIDE_VIENA_STEPHANSDOM]",
+        hours: "Diário ~9:00–22:30 (nave)",
         walkTo: "~2 min",
-      },
-      {
-        time: "11:45",
-        title: "Casa Batlló",
-        desc: "A fachada ondulante coberta de mosaicos de vidro, com a cobertura em forma de dragão. Uma das obras mais fotografadas de Gaudí, por fora já vale a paragem.",
-        link: "https://www.google.com/maps/search/?api=1&query=Casa+Batllo+Barcelona",
-        tip: "O bilhete é caro; se o orçamento for limitado, admira a fachada e guarda o interior para uma próxima viagem.",
-        icon: Castle,
-        bookingUrl: "",
-        hours: "Diário, aprox. 9h–20h",
-        walkTo: "~5 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Casa_Batll%C3%B3%2C_Barcelona_57.jpg?width=1400",
-        imageAlt: "Fachada da Casa Batlló em Barcelona",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Wien%20-%20Stephansdom%20(1).JPG?width=1600",
+        imageAlt: "Fachada e torre da Catedral de Santo Estêvão em Viena",
       },
       {
-        time: "12:30",
-        title: "La Pedrera (Casa Milà)",
-        desc: "A fachada em pedra ondulada, sem uma única linha reta, e a cobertura com as chaminés-guerreiro que inspiraram Star Wars. Outra obra-prima de Gaudí, poucos metros acima na mesma avenida.",
-        link: "https://www.google.com/maps/search/?api=1&query=La+Pedrera+Casa+Mila+Barcelona",
-        icon: Castle,
-        bookingUrl: "",
-        hours: "Diário, aprox. 9h–20h30",
-        walkTo: "~5 min",
-        image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Casa_Mil%C3%A0%2C_general_view.jpg?width=1400",
-        imageAlt: "Fachada ondulada de La Pedrera (Casa Milà)",
+        time: "12:00",
+        title: "Graben & Kohlmarkt",
+        desc: "As duas ruas mais elegantes do centro, com a Coluna da Peste (Pestsäule), montras de luxo e a padaria imperial Demel ao fundo, junto à Hofburg.",
+        link: "https://pt.wikipedia.org/wiki/Graben_(Viena)",
+        icon: Sparkles,
+        walkTo: "~6 min",
       },
       {
-        time: "13:30",
-        title: "Almoço num bistrô perto do Passeig de Gràcia",
-        desc: "Aproveitar o 'menú del día' (menu de almoço, valores aproximados de 2026 entre 15€ e 20€ com bebida) numa das ruas laterais, mais barato do que a avenida principal.",
+        time: "13:00",
+        title: "Almoço perto da Hofburg",
+        desc: "Um Wiener Schnitzel ou uma sopa Tafelspitz num Gasthaus tradicional das redondezas.",
         icon: Utensils,
-        walkTo: "metro L3/L4 até Lesseps ou autocarro até ao Park Güell",
+        walkTo: "~5 min",
       },
       {
-        time: "16:00",
-        title: "Park Güell",
-        desc: "O parque público desenhado por Gaudí, com o banco-mosaico ondulado, a sala hipóstila de colunas inclinadas e as vistas sobre toda a cidade até ao mar. A zona monumental tem entrada paga; o resto do parque é livre.",
-        link: "https://www.google.com/maps/search/?api=1&query=Park+Guell+Barcelona",
-        tip: "Reservar hora de entrada na zona monumentada com antecedência; é um dos bilhetes que mais esgota em Barcelona.",
-        icon: TreePine,
-        bookingUrl: "",
-        hours: "Diário, aprox. 9h30–19h30",
-        walkTo: "",
+        time: "14:30",
+        title: "Hofburg & Museu Sisi",
+        desc: "O antigo palácio de inverno dos Habsburgo. O Museu Sisi conta a vida da imperatriz Isabel da Áustria; os Apartamentos Imperiais e a coleção de Pratas completam o bilhete combinado.",
+        link: "https://pt.wikipedia.org/wiki/Hofburg",
+        tip: "Reservar o bilhete combinado Sisi Ticket online para evitar filas.",
+        icon: Crown,
+        bookingUrl: "[LINK_GETYOURGUIDE_VIENA_HOFBURG_SISI]",
+        hours: "Diário ~9:00–17:30 (valores aprox. 2026)",
+        walkTo: "~10 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Park_G%C3%BCell_02.jpg?width=1400",
-        imageAlt: "Banco de mosaico ondulado no Park Güell",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Wien%2C%20Hofburg%20--%202018%20--%203187.jpg?width=1600",
+        imageAlt: "Fachada da Hofburg em Viena",
+      },
+      {
+        time: "17:00",
+        title: "Albertina",
+        desc: "Museu com uma das maiores coleções de gravuras e desenhos do mundo, incluindo Dürer, e obras impressionistas e modernas.",
+        link: "https://pt.wikipedia.org/wiki/Albertina",
+        icon: Palette,
+        bookingUrl: "[LINK_GETYOURGUIDE_VIENA_ALBERTINA]",
+        hours: "Diário ~10:00–18:00 (valores aprox. 2026)",
+        walkTo: "~5 min",
+      },
+      {
+        time: "18:30",
+        title: "Ópera Estatal (Wiener Staatsoper)",
+        desc: "Ver a fachada neorrenascentista, sobretudo à hora azul, com as luzes já acesas. Vale a pena um tour guiado ao interior, ou um bilhete de última hora em pé, se houver espetáculo.",
+        link: "https://pt.wikipedia.org/wiki/%C3%93pera_Estatal_de_Viena",
+        icon: Music,
+        bookingUrl: "[LINK_GETYOURGUIDE_VIENA_STAATSOPER]",
+        walkTo: "~3 min",
+        image:
+          "https://commons.wikimedia.org/wiki/Special:FilePath/20180109%20Vienna%20State%20Opera%20at%20blue%20hour%20850%209387.jpg?width=1600",
+        imageAlt: "Ópera Estatal de Viena à hora azul",
+      },
+      {
+        time: "19:30",
+        title: "Café histórico",
+        desc: "Fechar o dia num Kaffeehaus centenário: Café Central (o mais fotogénico), Hawelka (boémio) ou Sperl (o mais autêntico). Uma Sachertorte é obrigatória.",
+        icon: Coffee,
       },
     ],
   },
   {
     key: "d2",
     label: "Dia 2",
-    date: "Barri Gòtic & Born",
-    title: "Gòtic, Born e La Boqueria",
-    vibe: "Ruas medievais estreitas, o mercado mais famoso da cidade e a arte de Picasso escondida no Born.",
+    date: "Naschmarkt & Belvedere",
+    title: "Naschmarkt & Belvedere",
+    vibe: "Manhã de mercado, tarde de Klimt no Belvedere e final no bairro dos museus.",
     accent: "from-amber-300/30 to-violet-500/10",
     icon: Palette,
     cover:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Main_facade_of_Barcelona_Cathedral_-_2013.JPG?width=1400",
-    coverAlt: "Catedral de Barcelona no Barri Gòtic",
-    howToGet: "Como andar: tudo a pé, o centro histórico é compacto.",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Wien%2C%20Naschmarkt%20--%202018%20--%203109.jpg?width=1600",
+    coverAlt: "Bancas do Naschmarkt em Viena",
+    howToGet: "Como andar: metro/tram para o Belvedere, resto a pé.",
     highlightTip:
-      "Dica: a Catedral tem uma janela gratuita ao final da tarde (verificar horário no local); o Museu Picasso costuma ter tarde gratuita ao domingo, mas confirma sempre antes.",
+      "Dica: reservar o Belvedere Superior com hora marcada; é onde está O Beijo de Klimt.",
     mapEmbedUrl:
-      "https://www.google.com/maps?output=embed&saddr=La+Rambla+Barcelona&daddr=Mercat+de+la+Boqueria+Barcelona+to:Barcelona+Cathedral+to:Museu+Picasso+Barcelona+to:Santa+Maria+del+Mar+Barcelona&dirflg=w",
+      "https://www.google.com/maps?output=embed&saddr=Naschmarkt+Vienna&daddr=Karlskirche+Vienna+to:Belvedere+Palace+Vienna+to:MuseumsQuartier+Vienna+to:Kunsthistorisches+Museum+Vienna&dirflg=w",
     mapLinkUrl:
-      "https://www.google.com/maps/dir/La+Rambla+Barcelona/Mercat+de+la+Boqueria+Barcelona/Barcelona+Cathedral/Museu+Picasso+Barcelona/Santa+Maria+del+Mar+Barcelona/data=!4m2!4m1!3e2",
+      "https://www.google.com/maps/dir/Naschmarkt+Vienna/Karlskirche+Vienna/Belvedere+Palace+Vienna/MuseumsQuartier+Vienna/Kunsthistorisches+Museum+Vienna/data=!4m2!4m1!3e2",
     stops: [
       {
-        time: "09:00",
-        title: "La Rambla",
-        desc: "A avenida arborizada mais famosa de Barcelona, entre a Plaça de Catalunya e o porto. Andar cedo, antes das multidões, para sentir o ambiente sem o aperto.",
-        link: "https://www.google.com/maps/search/?api=1&query=La+Rambla+Barcelona",
-        tip: "Atenção aos carteiristas, é a zona mais concorrida da cidade.",
-        icon: Sparkles,
-        walkTo: "~5 min",
-        image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/La_Boqueria%2C_Barcelona.jpg?width=1400",
-        imageAlt: "La Rambla em Barcelona",
-      },
-      {
         time: "09:30",
-        title: "Mercat de la Boqueria",
-        desc: "O mercado municipal mais conhecido da cidade, com bancas de fruta cortada, presunto ibérico, marisco fresco e pequenos balcões de tapas. Ótimo para um pequeno-almoço tardio ou um copo de sumo natural.",
-        link: "https://www.google.com/maps/search/?api=1&query=Mercat+de+la+Boqueria+Barcelona",
-        tip: "As bancas mais perto da entrada da Rambla são mais caras; entra até ao fundo do mercado.",
+        title: "Naschmarkt",
+        desc: "O mercado mais famoso de Viena, com bancas de especiarias, queijos, azeitonas, e o mercado de pulgas aos sábados.",
+        link: "https://pt.wikipedia.org/wiki/Naschmarkt",
         icon: Utensils,
         walkTo: "~10 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/La_Boqueria%2C_Barcelona.jpg?width=1400",
-        imageAlt: "Bancas de fruta e produtos frescos no Mercat de la Boqueria",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Wien%2C%20Naschmarkt%20--%202018%20--%203109.jpg?width=1600",
+        imageAlt: "Bancas do Naschmarkt em Viena",
       },
       {
         time: "11:00",
-        title: "Catedral de Barcelona (Barri Gòtic)",
-        desc: "A catedral gótica do bairro mais antigo da cidade, com um claustro tranquilo onde vivem treze gansos brancos, um por cada ano de vida de Santa Eulália. À volta, um labirinto de ruas medievais estreitas.",
-        link: "https://www.google.com/maps/search/?api=1&query=Barcelona+Cathedral",
+        title: "Karlskirche",
+        desc: "Uma das igrejas barrocas mais bonitas da Europa, com uma cúpula verde e colunas inspiradas na Coluna de Trajano. Subir de elevador junto à cúpula, muito perto do teto pintado.",
+        link: "https://pt.wikipedia.org/wiki/Karlskirche",
         icon: Church,
-        bookingUrl: "",
-        hours: "Diário, aprox. 9h30–18h30 (fora dos horários de missa)",
+        bookingUrl: "[LINK_GETYOURGUIDE_VIENA_KARLSKIRCHE]",
+        hours: "Diário ~9:00–18:00 (valores aprox. 2026)",
         walkTo: "~15 min",
-        image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Main_facade_of_Barcelona_Cathedral_-_2013.JPG?width=1400",
-        imageAlt: "Fachada da Catedral de Barcelona",
       },
       {
         time: "13:00",
-        title: "Almoço no Born",
-        desc: "Descer até ao bairro do Born para um almoço de tapas ou de menú del día numa das ruelas à volta do mercat.",
+        title: "Almoço perto do Belvedere",
+        desc: "Um Würstelstand ou um café tranquilo antes do museu.",
         icon: Utensils,
         walkTo: "~10 min",
       },
       {
         time: "14:30",
-        title: "Museu Picasso",
-        desc: "Instalado em cinco palácios medievais, guarda a maior coleção do mundo dedicada aos primeiros anos de Picasso, incluindo a série completa de 'Las Meninas' que reinterpreta Velázquez.",
-        link: "https://www.google.com/maps/search/?api=1&query=Museu+Picasso+Barcelona",
-        tip: "Comprar bilhete online com hora marcada; a fila à porta pode ser longa.",
+        title: "Palácio Belvedere (Superior)",
+        desc: "O palácio barroco do Príncipe Eugénio, hoje museu com a maior coleção de obras de Gustav Klimt, incluindo 'O Beijo'. Os jardins entre o Belvedere Superior e Inferior são deslumbrantes.",
+        link: "https://pt.wikipedia.org/wiki/Pal%C3%A1cio_Belvedere",
+        tip: "Reservar hora marcada online; a fila para ver 'O Beijo' pode ser longa.",
+        icon: Crown,
+        bookingUrl: "[LINK_GETYOURGUIDE_VIENA_BELVEDERE]",
+        hours: "Diário ~9:00–18:00 (valores aprox. 2026)",
+        walkTo: "~25 min ou tram",
+      },
+      {
+        time: "17:00",
+        title: "MuseumsQuartier",
+        desc: "Um dos maiores complexos de arte do mundo, com o Leopold Museum (Schiele) e o mumok, além de pátios cheios de vida e esplanadas.",
+        link: "https://pt.wikipedia.org/wiki/MuseumsQuartier",
+        icon: Sparkles,
+        walkTo: "~15 min ou metro",
+      },
+      {
+        time: "18:30",
+        title: "Kunsthistorisches Museum (a cúpula)",
+        desc: "Mesmo sem entrar, vale a pena ver o átrio e a cúpula pintada pelo exterior à hora de fecho, ou reservar para o dia seguinte.",
+        link: "https://pt.wikipedia.org/wiki/Kunsthistorisches_Museum",
         icon: Palette,
-        bookingUrl: "",
-        hours: "Ter–Dom, aprox. 10h–19h (fecha à segunda)",
+        bookingUrl: "[LINK_GETYOURGUIDE_VIENA_KUNSTHISTORISCHES]",
+        hours: "Ter–Dom ~10:00–18:00 (valores aprox. 2026)",
         hoursNote: "FECHA À SEGUNDA",
         walkTo: "~5 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Museu_Picasso_Barcelona-_queues.jpg?width=1400",
-        imageAlt: "Pátio do Museu Picasso em Barcelona",
-      },
-      {
-        time: "16:30",
-        title: "Basílica de Santa Maria del Mar",
-        desc: "A igreja gótica catalã mais pura da cidade, erguida pelo povo do bairro no século XIV, com um interior amplo e austero que impressiona pela verticalidade das colunas.",
-        link: "https://www.google.com/maps/search/?api=1&query=Santa+Maria+del+Mar+Barcelona",
-        icon: Church,
-        walkTo: "~5 min",
-        image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Santa_Maria_del_Mar_Barcelona_September_2026-1.jpg?width=1400",
-        imageAlt: "Interior gótico da Basílica de Santa Maria del Mar",
-      },
-      {
-        time: "18:00",
-        title: "Vermut na Barceloneta ou no Born",
-        desc: "Fechar a tarde com a tradição catalã do vermut, servido com azeitonas e umas patatas bravas, numa esplanada do bairro.",
-        icon: Wine,
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Kunsthistorisches%20Museum%2C%20Wien-2397.jpg?width=1600",
+        imageAlt: "Átrio e cúpula do Kunsthistorisches Museum em Viena",
       },
     ],
   },
   {
     key: "d3",
     label: "Dia 3",
-    date: "Montjuïc & Mar",
-    title: "Montjuïc, Barceloneta e Gràcia",
-    vibe: "Vistas da colina de Montjuïc, praia e passeio pelo porto, e a noite tranquila do bairro de Gràcia.",
+    date: "Schönbrunn & Prater",
+    title: "Schönbrunn & Prater",
+    vibe: "O palácio de verão dos Habsburgo de manhã, a roda gigante do Prater à tarde e um Heuriger em Grinzing ao fim do dia.",
     accent: "from-rose-500/20 to-amber-400/10",
-    icon: Waves,
+    icon: FerrisWheel,
     cover:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/MNAC%2C_Barcelona%2C_December_2014_%2802%29.jpg?width=1400",
-    coverAlt: "Museu Nacional d'Art de Catalunya em Montjuïc",
-    walkTotal: "A pé hoje: ~7 km, com um trajeto de metro ou autocarro até Montjuïc.",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Schoenbrunn%20Palace%20as%20seen%20from%20Neptune%20Fountain%2C%20September%202016.jpg?width=1600",
+    coverAlt: "Palácio de Schönbrunn visto da Fonte de Neptuno",
+    walkTotal: "A pé hoje: ~25 min no total, mais transporte público.",
     mapEmbedUrl:
-      "https://www.google.com/maps?output=embed&saddr=Placa+Espanya+Barcelona&daddr=MNAC+Barcelona+to:Font+Magica+Montjuic+to:Barceloneta+Beach+Barcelona+to:Parc+de+la+Ciutadella+Barcelona&dirflg=w",
+      "https://www.google.com/maps?output=embed&saddr=Schloss+Schoenbrunn+Vienna&daddr=Gloriette+Schoenbrunn+Vienna+to:Prater+Vienna+to:Riesenrad+Vienna+to:Donaukanal+Vienna+to:Grinzing+Vienna&dirflg=w",
     mapLinkUrl:
-      "https://www.google.com/maps/dir/Placa+Espanya+Barcelona/MNAC+Barcelona/Font+Magica+Montjuic/Barceloneta+Beach+Barcelona/Parc+de+la+Ciutadella+Barcelona/data=!4m2!4m1!3e2",
+      "https://www.google.com/maps/dir/Schloss+Schoenbrunn+Vienna/Gloriette+Schoenbrunn+Vienna/Prater+Vienna/Riesenrad+Vienna/Donaukanal+Vienna/Grinzing+Vienna/data=!4m2!4m1!3e2",
     stops: [
       {
-        time: "09:30",
-        title: "Museu Nacional d'Art de Catalunya (MNAC)",
-        desc: "No alto de Montjuïc, num palácio monumental construído para a Exposição de 1929, guarda a maior coleção de arte românica do mundo e um terraço com uma das melhores vistas de Barcelona.",
-        link: "https://www.google.com/maps/search/?api=1&query=MNAC+Barcelona",
-        icon: Palette,
-        bookingUrl: "",
-        hours: "Ter–Sáb aprox. 10h–18h, Dom até às 15h (fecha à segunda)",
-        walkTo: "~10 min a descer",
+        time: "09:00",
+        title: "Palácio de Schönbrunn",
+        desc: "O palácio de verão dos Habsburgo, com 1441 divisões. O bilhete 'Grand Tour' inclui os aposentos de Maria Teresa e de Francisco José e Sisi.",
+        link: "https://pt.wikipedia.org/wiki/Pal%C3%A1cio_de_Sch%C3%B6nbrunn",
+        tip: "Reservar hora marcada com antecedência; é a atração mais visitada da Áustria.",
+        icon: Crown,
+        bookingUrl: "[LINK_GETYOURGUIDE_VIENA_SCHONBRUNN]",
+        hours: "Diário ~8:00–17:30 (valores aprox. 2026)",
+        walkTo: "~5 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/MNAC%2C_Barcelona%2C_December_2014_%2802%29.jpg?width=1400",
-        imageAlt: "Fachada do MNAC em Montjuïc",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Schoenbrunn%20Palace%20as%20seen%20from%20Neptune%20Fountain%2C%20September%202016.jpg?width=1600",
+        imageAlt: "Palácio de Schönbrunn visto da Fonte de Neptuno",
       },
       {
-        time: "11:30",
-        title: "Jardins e Font Màgica de Montjuïc",
-        desc: "Os jardins da colina, com o Poble Espanyol e o Castell de Montjuïc como opções extra para quem tiver tempo. A Font Màgica, com o seu espetáculo de água, luz e música, funciona apenas ao final da tarde/noite.",
-        link: "https://www.google.com/maps/search/?api=1&query=Font+Magica+Montjuic+Barcelona",
-        tip: "Se quiseres ver o espetáculo da fonte, é preciso voltar aqui já de noite; confirma os dias e horas de funcionamento antes.",
-        icon: Sparkles,
-        walkTo: "metro ou autocarro até à Barceloneta",
-        image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Magic_Fountain_Barcelona.jpg?width=1400",
-        imageAlt: "Font Màgica de Montjuïc iluminada à noite",
+        time: "11:00",
+        title: "Jardins & Gloriette",
+        desc: "Subir pelos jardins até à Gloriette, o pavilhão no alto da colina, com a melhor vista sobre o palácio e Viena ao fundo.",
+        link: "https://pt.wikipedia.org/wiki/Gloriette_(Sch%C3%B6nbrunn)",
+        icon: Sun,
+        walkTo: "~15 min a subir",
       },
       {
-        time: "13:30",
-        title: "Almoço na Barceloneta",
-        desc: "O antigo bairro de pescadores, hoje cheio de marisqueiras. Provar uma paella ou um arroz de marisco perto do porto, ou petiscar bombas (bolinhos de batata recheados) numa taverna local.",
-        link: "https://www.google.com/maps/search/?api=1&query=Barceloneta+Barcelona",
+        time: "13:00",
+        title: "Almoço rápido",
+        desc: "Um Würstelstand ou café perto do palácio antes de seguir para o Prater.",
         icon: Utensils,
-        walkTo: "~5 min até à praia",
+        walkTo: "metro/tram",
       },
       {
-        time: "15:00",
-        title: "Praia da Barceloneta",
-        desc: "A praia urbana mais conhecida da cidade, com o passeio marítimo, os beach bars (xiringuitos) e vista sobre o W Barcelona (Hotel Vela).",
-        link: "https://www.google.com/maps/search/?api=1&query=Barceloneta+Beach+Barcelona",
-        icon: Waves,
-        walkTo: "~20 min a pé pelo passeio marítimo",
+        time: "14:30",
+        title: "Prater & Riesenrad",
+        desc: "O grande parque da cidade e a icónica roda gigante Riesenrad, de 1897, com cabines de madeira e vista sobre Viena.",
+        link: "https://pt.wikipedia.org/wiki/Prater",
+        icon: FerrisWheel,
+        bookingUrl: "[LINK_GETYOURGUIDE_VIENA_RIESENRAD]",
+        hours: "Diário, horário sazonal (valores aprox. 2026)",
+        walkTo: "~10 min",
         image:
-          "https://commons.wikimedia.org/wiki/Special:FilePath/Promenade_and_beach%2C_Platja_de_la_Barceloneta%2C_Barcelona%2C_2015.jpg?width=1400",
-        imageAlt: "Praia da Barceloneta com o passeio marítimo",
+          "https://commons.wikimedia.org/wiki/Special:FilePath/Wien%2C%20Prater%2C%20Riesenrad%20--%202018%20--%203165.jpg?width=1600",
+        imageAlt: "Roda gigante Riesenrad no Prater, em Viena",
       },
       {
         time: "16:30",
-        title: "Parc de la Ciutadella",
-        desc: "O grande parque verde da cidade, com a cascada monumental (com participação inicial de Gaudí), lagoa para passeios de barco e o edifício do Parlamento da Catalunha.",
-        link: "https://www.google.com/maps/search/?api=1&query=Parc+de+la+Ciutadella+Barcelona",
-        icon: TreePine,
-        walkTo: "metro ou taxi até Gràcia",
+        title: "Donaukanal",
+        desc: "Um passeio junto ao canal do Danúbio, com arte urbana, esplanadas e um ambiente bem mais descontraído do que o centro histórico.",
+        link: "https://pt.wikipedia.org/wiki/Canal_do_Dan%C3%BAbio",
+        icon: Sparkles,
+        walkTo: "~10 min",
       },
       {
         time: "19:00",
-        title: "Bairro de Gràcia",
-        desc: "Um antigo município independente incorporado por Barcelona, com praças pequenas e sombreadas, lojas independentes e um ambiente de bairro genuíno, longe do turismo do centro. Bom sítio para jantar tapas fora do circuito principal.",
-        link: "https://www.google.com/maps/search/?api=1&query=Gracia+Barcelona",
-        tip: "A Plaça del Sol e a Plaça de la Vila de Gràcia enchem-se de gente local ao fim da tarde; ótimo para sentir o ritmo real da cidade.",
-        icon: Sparkles,
+        title: "Heuriger em Grinzing",
+        desc: "Fechar a viagem numa taberna de vinho tradicional nos arredores verdes de Grinzing, com vinho novo da casa e pratos frios ao buffet.",
+        link: "https://pt.wikipedia.org/wiki/Heuriger",
+        icon: Wine,
+        walkTo: "tram/táxi",
       },
     ],
   },
@@ -482,31 +472,31 @@ function Hero() {
       <div className="absolute inset-0 -z-10">
         <SmartImage
           sizes="100vw"
-          src={HERO_IMG}
-          alt="Torres da Sagrada Família ao entardecer, em Barcelona"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/20180109%20Vienna%20State%20Opera%20at%20blue%20hour%20850%209387.jpg?width=2400"
+          alt="Ópera Estatal de Viena à hora azul"
           priority
           className="absolute inset-0 h-full w-full object-cover"
-          style={{ animation: "bcn-kenburns 20s linear infinite alternate" }}
+          style={{ animation: "wien-kenburns 20s linear infinite alternate" }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, oklch(0.12 0.022 45/0.55), transparent 30%, oklch(0.12 0.022 45/0.6) 70%, var(--background) 100%)",
+              "linear-gradient(180deg, oklch(0.12 0.03 260/0.55), transparent 30%, oklch(0.12 0.03 260/0.6) 70%, var(--background) 100%)",
           }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 32%, oklch(0.12 0.022 45 / .75) 100%)",
+              "radial-gradient(ellipse at center, transparent 32%, oklch(0.12 0.03 260 / .75) 100%)",
           }}
         />
       </div>
 
       <motion.div style={{ opacity }} className="relative z-10 w-full">
         <div className="pointer-events-none absolute right-6 top-24 hidden md:right-12 md:top-28 md:block">
-          <PostmarkCircle city="BARCELONA" year="2025" rotate={-9} />
+          <PostmarkCircle city="VIENA" year="2026" rotate={-9} />
         </div>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -533,10 +523,10 @@ function Hero() {
               WebkitTextStroke: "1px rgba(0,0,0,0.35)",
             }}
           >
-            Barcelona
+            Viena
           </h1>
           <p className="mx-auto mt-4 max-w-lg font-serif text-lg italic text-cream/85 md:text-xl">
-            Três dias entre Gaudí, o Barri Gòtic e o Mediterrâneo.
+            Três dias entre a Hofburg, o Belvedere e a Roda Gigante do Prater.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <a
@@ -551,7 +541,7 @@ function Hero() {
             </span>
           </div>
           <div className="mt-6">
-            <CustomItineraryHeroLink city="Barcelona" />
+            <CustomItineraryHeroLink city="Viena" />
           </div>
         </motion.div>
       </motion.div>
@@ -566,8 +556,8 @@ function Overview() {
     <Section
       id="overview"
       eyebrow="O Roteiro"
-      title="O que visitar em Barcelona: três dias, três humores"
-      intro="Cada dia tem o seu cenário e a sua cadência. Modernisme de manhã, ruas medievais ao meio-dia, mar ao fim da tarde."
+      title="O que visitar em Viena: três dias, três humores"
+      intro="Cada dia tem o seu cenário e a sua cadência. Imperial de manhã, artístico à tarde, dourado ao fim do dia."
     >
       <FlipDaysGrid />
     </Section>
@@ -580,14 +570,14 @@ function FlipDaysGrid() {
 
   return (
     <ul
-      id="bcn-roteiro-grid"
+      id="wien-roteiro-grid"
       className="m-0 grid list-none gap-5 p-0"
       style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}
     >
       {days.map((d) => {
         const isFlipped = !!flipped[d.key];
         return (
-          <li key={d.key} className="bcn-flip-cell" style={{ perspective: 1500 }}>
+          <li key={d.key} className="wien-flip-cell" style={{ perspective: 1500 }}>
             <div
               role="button"
               tabIndex={0}
@@ -927,56 +917,57 @@ function Itineraries() {
 function Food() {
   const restaurants: Array<{ name: string; desc: string; link: string; image?: string; imageAlt?: string }> = [
     {
-      name: "La Boqueria (bancas de tapas)",
-      desc: "El Quim de la Boqueria e Bar Pinotxo são referências dentro do mercado para um pequeno-almoço ou almoço rápido de tapas.",
-      link: "https://www.google.com/maps/search/?api=1&query=Mercat+de+la+Boqueria+Barcelona",
+      name: "Figlmüller (Wollzeile / Bäckerstraße)",
+      desc: "A casa mais famosa do Wiener Schnitzel em Viena, maior do que o prato. Há sempre fila, mas anda depressa.",
+      link: "https://www.figlmueller.at/",
+    },
+    {
+      name: "Café Central",
+      desc: "O café mais fotogénico de Viena, com tetos abobadados e uma história ligada a Freud e Trotsky. Ideal para uma Sachertorte à tarde.",
+      link: "https://www.cafecentral.wien/",
+    },
+    {
+      name: "Café Hawelka",
+      desc: "Kaffeehaus boémio e pequeno, quase inalterado desde os anos 1930s, frequentado por artistas.",
+      link: "https://www.google.com/search?q=Cafe+Hawelka+Vienna",
+    },
+    {
+      name: "Naschmarkt (bancas variadas)",
+      desc: "Perfeito para um almoço informal, entre queijos, azeitonas, kebabs e pastelaria turca.",
+      link: "https://pt.wikipedia.org/wiki/Naschmarkt",
       image:
-        "https://commons.wikimedia.org/wiki/Special:FilePath/La_Boqueria%2C_Barcelona.jpg?width=1400",
-      imageAlt: "Bancas de tapas dentro do Mercat de la Boqueria",
-    },
-    {
-      name: "Taverna do Born ou da Barceloneta",
-      desc: "Qualquer taverna local com esplanada para o ritual do vermut com patatas bravas ao fim da tarde.",
-      link: "https://www.google.com/maps/search/?api=1&query=vermuteria+Barcelona",
-    },
-    {
-      name: "Marisqueira na Barceloneta",
-      desc: "Paella ou fideuà (massa curta com marisco) junto ao porto, o clássico almoço de domingo dos barceloneses.",
-      link: "https://www.google.com/maps/search/?api=1&query=paella+Barceloneta+Barcelona",
-    },
-    {
-      name: "Xocolateria no centro",
-      desc: "Xurros amb xocolata bem quentes, ideais para a manhã ou depois do jantar.",
-      link: "https://www.google.com/maps/search/?api=1&query=xurros+Barcelona",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Wien%2C%20Naschmarkt%20--%202018%20--%203109.jpg?width=1600",
+      imageAlt: "Bancas do Naschmarkt em Viena",
     },
   ];
 
   const dishes: Array<{ name: string; desc: string; icon?: React.ComponentType<{ className?: string }>; image?: string; imageAlt?: string }> = [
     {
-      name: "Pa amb tomàquet",
-      desc: "Pão torrado esfregado com tomate maduro, alho e azeite, a base de quase todas as refeições catalãs.",
-    },
-    {
-      name: "Tapas variadas",
-      desc: "Patatas bravas, croquetas, pimientos de padrón e pulpo a la gallega, para partilhar à mesa.",
+      name: "Wiener Schnitzel",
+      desc: "O escalope panado de vitela, frito em manteiga clarificada, servido com batata e limão. O prato símbolo de Viena.",
       icon: Utensils,
     },
     {
-      name: "Vermut",
-      desc: "O aperitivo de fim de tarde por excelência em Barcelona, servido com gelo e uma azeitona.",
+      name: "Sachertorte",
+      desc: "O bolo de chocolate com compota de damasco, criado em 1832. Provar no Hotel Sacher ou num café histórico.",
+    },
+    {
+      name: "Apfelstrudel",
+      desc: "O strudel de maçã em massa finíssima, geralmente servido morno com natas ou baunilha.",
+    },
+    {
+      name: "Würstelstand",
+      desc: "As bancas de rua com salsichas austríacas (Käsekrainer, Bratwurst), clássico do fast food vienense.",
+    },
+    {
+      name: "Kaffeehäuser",
+      desc: "A cultura de café centenária de Viena, Património Cultural Imaterial da UNESCO: Central, Hawelka, Sperl.",
+      icon: Coffee,
+    },
+    {
+      name: "Heuriger",
+      desc: "As tabernas de vinho novo nos arredores verdes (Grinzing, Nussdorf), com buffet frio e ambiente de aldeia.",
       icon: Wine,
-    },
-    {
-      name: "Xurros amb xocolata",
-      desc: "Churros crocantes para mergulhar em chocolate quente e espesso.",
-    },
-    {
-      name: "Bombas de la Barceloneta",
-      desc: "Bolinhos de puré de batata recheados de carne, panados e fritos, servidos com maionese e molho picante. Criados no bairro de pescadores.",
-    },
-    {
-      name: "Paella / Fideuà",
-      desc: "Arroz ou massa curta com marisco, mais um prato valenciano do que catalão, mas onipresente na costa junto ao mar.",
     },
   ];
 
@@ -984,10 +975,10 @@ function Food() {
     <Section
       id="comer"
       eyebrow="À mesa"
-      title="Comer e beber em Barcelona"
-      intro="Sabores para provar sem falta, sítios de referência, e uma nota sobre onde evitar armadilhas de turista."
+      title="Comer e beber em Viena"
+      intro="Sítios testados, sabores para provar sem falta, e uma caixa de armadilhas à mesa."
     >
-      <h3 className="mb-6 font-serif text-2xl text-cream">Sítios de referência</h3>
+      <h3 className="mb-6 font-serif text-2xl text-cream">Restaurantes e cafés testados</h3>
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {restaurants.map((r, i) => (
           <motion.a
@@ -1014,7 +1005,7 @@ function Food() {
             <div className="flex flex-1 flex-col p-5">
               <div className="flex items-center gap-2 text-gold">
                 <Utensils className="h-4 w-4" />
-                <span className="text-[10px] uppercase tracking-[0.25em]">Sítio recomendado</span>
+                <span className="text-[10px] uppercase tracking-[0.25em]">Sítio testado</span>
               </div>
               <h4 className="mt-2 font-serif text-xl text-cream group-hover:text-gold transition-colors">
                 {r.name}
@@ -1071,12 +1062,59 @@ function Food() {
         <div>
           <div className="font-serif text-lg text-cream">Atenção: armadilhas à mesa</div>
           <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
-            <li>Fugir dos restaurantes com fotos e menus em várias línguas na própria La Rambla: caros e pouco autênticos.</li>
-            <li>Confirmar sempre o preço da paella e do marisco antes de pedir; muitas vezes é cobrado ao peso ou por pessoa.</li>
-            <li>O "pan" (pão) na mesa costuma ter custo à parte, ainda que pequeno; não é engano.</li>
+            <li>Fugir dos restaurantes mesmo junto ao Stephansdom: turísticos e caros. Andar poucos minutos para fora.</li>
+            <li>A "Sachertorte original" só existe no Hotel Sacher; nos cafés é uma versão à moda da casa, igualmente boa.</li>
+            <li>O serviço de mesa (Trinkgeld) não está incluído; deixar cerca de 10% é habitual, entregue diretamente ao pagar.</li>
           </ul>
         </div>
       </motion.div>
+    </Section>
+  );
+}
+
+// ----------------------- BAIRROS -----------------------
+
+function Bairros() {
+  const bairros = [
+    {
+      name: "Innere Stadt (Centro Histórico)",
+      desc: "O coração imperial, Património Mundial da UNESCO: Stephansdom, Hofburg, Graben. Caro mas central.",
+    },
+    {
+      name: "Naschmarkt / Mariahilf",
+      desc: "Zona vibrante e jovem, boas compras na Mariahilfer Straße e o mercado mais famoso da cidade.",
+    },
+    {
+      name: "Landstraße (Belvedere)",
+      desc: "Bairro elegante junto ao Belvedere, mais calmo, bom para alojamento.",
+    },
+    {
+      name: "Grinzing & Döbling",
+      desc: "Nos arredores verdes das colinas de vinha, o coração da tradição dos Heuriger.",
+    },
+  ];
+  return (
+    <Section
+      id="bairros"
+      eyebrow="Onde andar"
+      title="Bairros de Viena"
+      intro="Uma cidade grande mas organizada em anéis: quanto mais perto do centro, mais imperial; quanto mais longe, mais verde."
+    >
+      <div className="grid gap-5 md:grid-cols-2">
+        {bairros.map((b, i) => (
+          <motion.div
+            key={b.name}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.06 }}
+            className="rounded-2xl border border-gold/15 bg-card p-6"
+          >
+            <h4 className="font-serif text-xl text-cream">{b.name}</h4>
+            <p className="mt-2 text-sm text-muted-foreground">{b.desc}</p>
+          </motion.div>
+        ))}
+      </div>
     </Section>
   );
 }
@@ -1085,18 +1123,18 @@ function Food() {
 
 function Tips() {
   const doIt = [
-    "Reservar Sagrada Família e Park Güell com semanas de antecedência; esgotam.",
-    "Andar a pé pelo Barri Gòtic e pelo Born, são bairros feitos para se perder sem pressa.",
-    "Ir cedo à Boqueria e à Rambla, antes dos grupos de turismo.",
-    "Usar o metro para Montjuïc e para o Park Güell, poupa pernas.",
-    "Vigiar a carteira em zonas concorridas: La Rambla, o metro e a praia.",
+    "Reservar Schönbrunn, Belvedere e o Sisi Ticket com semanas de antecedência.",
+    "Usar os transportes públicos (metro, tram): eficientes, limpos e pontuais.",
+    "Provar um café histórico com calma, sem pressa: faz parte da experiência.",
+    "Andar a pé pelo centro histórico: é pequeno e todo pedonal.",
+    "Verificar concertos e óperas de última hora (bilhetes em pé baratos na Staatsoper).",
   ];
   const dont = [
-    "Aparecer sem bilhete na Sagrada Família ou no Park Güell.",
-    "Aceitar 'roses' ou pulseiras oferecidas na rua; costumam pedir dinheiro depois.",
-    "Confiar em jogos de cartas ou apostas de rua perto de zonas turísticas: são burlas.",
-    "Deixar telemóvel ou carteira visíveis em esplanadas na Barceloneta ou na Rambla.",
-    "Nadar fora das zonas vigiadas da praia.",
+    "Aparecer sem reserva em Schönbrunn e no Belvedere; esgotam em época alta.",
+    "Confundir o Café Sacher (com a torta original) com as imitações que servem 'Sachertorte'.",
+    "Ignorar o passe de transportes se ficares mais de 2-3 dias; compensa.",
+    "Restaurantes mesmo colados ao Stephansdom.",
+    "Esquecer um casaco quente fora do verão; o vento do Danúbio é frio.",
   ];
 
   return (
@@ -1161,12 +1199,12 @@ function Tips() {
 
 function Checklist() {
   const items = [
-    "Sagrada Família (hora marcada, esgota semanas antes)",
-    "Zona monumental do Park Güell (hora marcada)",
-    "Casa Batlló e/ou La Pedrera, se quiseres entrar",
-    "Museu Picasso (bilhete online)",
-    "Mesa de jantar num bairro fora do circuito turístico (Gràcia, Born)",
-    "Opcional: excursão de 1 dia a Montserrat ou à Costa Brava",
+    "Sisi Ticket (Hofburg + Schönbrunn + Museu de Mobiliário)",
+    "Schönbrunn com hora marcada (Grand Tour)",
+    "Belvedere Superior, para ver 'O Beijo' de Klimt",
+    "Bilhete de última hora ou tour da Staatsoper",
+    "Mesa no Figlmüller ou noutro Gasthaus popular",
+    "Opcional: passe de transportes públicos para 2-3 dias",
   ];
 
   return (
@@ -1201,294 +1239,13 @@ function Checklist() {
 function Footer() {
   return (
     <footer className="border-t border-gold/10 px-6 py-10 text-center">
-      <p className="mb-3 font-serif text-lg italic text-gold/85">Adéu, Barcelona!</p>
       <p className="text-[11px] uppercase tracking-[0.3em] text-cream/60">
-        O Postal · Barcelona · MMXXVI
+        O Postal · Viena · MMXXVI
+      </p>
+      <p className="mt-3 font-serif italic text-cream/70">
+        Auf Wiedersehen, Wien — bis zum nächsten Walzer.
       </p>
     </footer>
-  );
-}
-
-// ----------------------- CONHECER BARCELONA -----------------------
-
-const climaMeses: Array<[string, string, string, string]> = [
-  ["Jan", "13", "5", "média"],
-  ["Fev", "14", "6", "média"],
-  ["Mar", "16", "8", "média"],
-  ["Abr", "18", "10", "alta"],
-  ["Mai", "21", "13", "média"],
-  ["Jun", "25", "17", "baixa"],
-  ["Jul", "28", "20", "baixa"],
-  ["Ago", "29", "21", "baixa"],
-  ["Set", "26", "18", "média"],
-  ["Out", "22", "14", "alta"],
-  ["Nov", "17", "9", "média"],
-  ["Dez", "14", "6", "média"],
-];
-
-const eventos: Array<{ nome: string; quando: string; desc: string }> = [
-  {
-    nome: "Festes de Santa Eulàlia",
-    quando: "fevereiro",
-    desc: "Festa de inverno da padroeira da cidade, com gigantes, castells (torres humanas) e fogo-de-artifício.",
-  },
-  {
-    nome: "Festes de Sant Jordi",
-    quando: "23 de abril",
-    desc: "O dia do livro e da rosa na Catalunha; as ruas enchem-se de bancas de livros e flores.",
-  },
-  {
-    nome: "Festes de la Mercè",
-    quando: "final de setembro",
-    desc: "A maior festa da cidade, com correfocs (corridas de fogo), castells e concertos gratuitos por toda Barcelona.",
-  },
-];
-
-function ConhecerBarcelona() {
-  const itemCls = "glass rounded-2xl border border-gold/15 px-5 sm:px-6 overflow-hidden";
-  const triggerCls = "py-5 font-serif text-lg sm:text-xl text-cream hover:no-underline gap-3";
-  const iconCls =
-    "flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30 text-gold";
-
-  return (
-    <Section
-      id="conhecer"
-      eyebrow="Contexto"
-      title="Conhecer Barcelona"
-      intro="Contexto rápido antes de partir; abre só o que te interessar."
-    >
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        variants={fadeUp}
-        className="mx-auto max-w-3xl"
-      >
-        <div className="mb-8 overflow-hidden rounded-2xl border border-gold/20 shadow-[0_30px_80px_-40px_oklch(0.83_0.16_78/0.5)]">
-          <SmartImage
-            src="https://commons.wikimedia.org/wiki/Special:FilePath/Barcelona%2C_View_from_Bunkers_del_Carmel.jpg?width=1600"
-            alt="Vista panorâmica de Barcelona a partir dos Bunkers del Carmel"
-            loading="lazy"
-            className="h-56 w-full object-cover md:h-72"
-          />
-        </div>
-        <Accordion type="multiple" className="flex flex-col gap-4">
-          <AccordionItem value="overview" className={itemCls}>
-            <AccordionTrigger className={triggerCls}>
-              <span className="flex items-center gap-3">
-                <span className={iconCls}>
-                  <Info className="h-4 w-4" />
-                </span>
-                Barcelona em 2 minutos
-              </span>
-            </AccordionTrigger>
-            <AccordionContent className="pb-6 text-sm leading-relaxed text-cream/90 space-y-3">
-              <p>Capital da Catalunha, entre a serra de Collserola e o Mediterrâneo.</p>
-              <p>A cidade de Gaudí e do Modernisme, mas também de dois mil anos de história romana e medieval no Barri Gòtic.</p>
-              <p>
-                Compacta o suficiente para se explorar quase toda a pé, com um bom metro para os extremos como Montjuïc ou o Park Güell.
-              </p>
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="quando" className={itemCls}>
-            <AccordionTrigger className={triggerCls}>
-              <span className="flex items-center gap-3">
-                <span className={iconCls}>
-                  <Calendar className="h-4 w-4" />
-                </span>
-                Quando ir
-              </span>
-            </AccordionTrigger>
-            <AccordionContent className="pb-6 text-sm leading-relaxed text-cream/90 space-y-3">
-              <p>
-                <span className="text-gold">Primavera (abr–mai) e outono (set–out):</span> temperaturas agradáveis e menos calor húmido.
-              </p>
-              <p>
-                <span className="text-gold">Evitar agosto:</span> muito calor e muita gente, embora seja quando o mar está mais quente.
-              </p>
-              <p className="font-serif italic text-gold/90 pt-2">Equilíbrio ideal: maio ou setembro/outubro.</p>
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="clima" className={itemCls}>
-            <AccordionTrigger className={triggerCls}>
-              <span className="flex items-center gap-3">
-                <span className={iconCls}>
-                  <CloudSun className="h-4 w-4" />
-                </span>
-                Clima mês a mês
-              </span>
-            </AccordionTrigger>
-            <AccordionContent className="pb-6">
-              <div className="overflow-x-auto rounded-xl border border-gold/15">
-                <table className="w-full text-sm">
-                  <thead className="bg-gold/10 text-gold">
-                    <tr>
-                      <th className="px-3 py-2 text-left font-medium">Mês</th>
-                      <th className="px-3 py-2 text-right font-medium">Máx (°C)</th>
-                      <th className="px-3 py-2 text-right font-medium">Mín (°C)</th>
-                      <th className="px-3 py-2 text-left font-medium">Chuva</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {climaMeses.map(([mes, max, min, chuva]) => (
-                      <tr key={mes} className="border-t border-gold/10 text-cream/90">
-                        <td className="px-3 py-2 font-serif">{mes}</td>
-                        <td className="px-3 py-2 text-right tabular-nums">{max}</td>
-                        <td className="px-3 py-2 text-right tabular-nums">{min}</td>
-                        <td className="px-3 py-2 text-muted-foreground">{chuva}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <p className="mt-3 font-serif italic text-gold/90 text-sm">
-                Médias aproximadas (confirmar); verões quentes e secos, invernos suaves.
-              </p>
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="eventos" className={itemCls}>
-            <AccordionTrigger className={triggerCls}>
-              <span className="flex items-center gap-3">
-                <span className={iconCls}>
-                  <PartyPopper className="h-4 w-4" />
-                </span>
-                Festas & eventos
-              </span>
-            </AccordionTrigger>
-            <AccordionContent className="pb-6">
-              <ul className="space-y-4">
-                {eventos.map((e) => (
-                  <li key={e.nome} className="text-sm leading-relaxed">
-                    <div className="flex flex-wrap items-baseline gap-x-2">
-                      <span className="font-serif text-base text-cream">{e.nome}</span>
-                      <span className="text-xs text-gold/90">({e.quando})</span>
-                    </div>
-                    <p className="text-cream/80">{e.desc}</p>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-5 font-serif italic text-gold/90 text-sm">
-                Confirma as datas exatas de cada edição no site oficial.
-              </p>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </motion.div>
-    </Section>
-  );
-}
-
-// ----------------------- ESSENTIAL INFO -----------------------
-
-const essentials = [
-  {
-    icon: Clock,
-    title: "Fuso horário",
-    body: "CET (UTC+1). Barcelona está 1 hora à frente de Lisboa.",
-  },
-  {
-    icon: Coins,
-    title: "Moeda",
-    body: "Euro. A mesma de Portugal, sem conversões nem surpresas de câmbio.",
-  },
-  {
-    icon: Plug,
-    title: "Tomadas",
-    body: "Tipo C e F, 230 V / 50 Hz. As fichas portuguesas encaixam sem adaptador.",
-  },
-  {
-    icon: Phone,
-    title: "Emergência",
-    body: "112 (geral europeu). Levar o Cartão Europeu de Seguro de Doença.",
-  },
-  {
-    icon: TrainFront,
-    title: "Como chegar e circular",
-    body: "Do Aeroporto El Prat, o Aerobús ou a linha de comboio R2 Nord chegam ao centro em ~35 min. Depois, o metro cobre quase toda a cidade.",
-  },
-  {
-    icon: HandCoins,
-    title: "Gorjetas",
-    body: "Não é obrigatória; arredondar a conta ou deixar 5-10% em restaurantes chega perfeitamente bem.",
-  },
-];
-
-function EssentialInfo() {
-  return (
-    <Section
-      id="essencial"
-      eyebrow="Antes de partir"
-      title="Essencial para a viagem"
-      intro="O básico para chegar leve: fuso, dinheiro, transporte e como circular na cidade."
-    >
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {essentials.map((e, i) => {
-          const Icon = e.icon;
-          return (
-            <motion.div
-              key={e.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.55, delay: i * 0.06 }}
-              whileHover={{ y: -4 }}
-              className="glass rounded-2xl border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)]"
-            >
-              <div
-                className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30"
-                style={{ boxShadow: "0 0 12px oklch(0.62 0.16 40 / 0.45)" }}
-              >
-                <Icon className="h-5 w-5 text-gold" />
-              </div>
-              <h3 className="font-serif text-xl text-cream">{e.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
-      >
-        <div className="mb-5 flex items-center gap-3">
-          <MapPin className="h-5 w-5 text-gold" />
-          <h3 className="font-serif text-2xl text-cream">Onde ficar</h3>
-        </div>
-        <p className="mb-5 text-sm text-muted-foreground">
-          Três bairros a considerar; qualquer um funciona muito bem para um guia de 3 dias.
-        </p>
-        <ul className="grid gap-4 md:grid-cols-3">
-          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
-            <h4 className="font-serif text-lg text-gold">Eixample / Passeig de Gràcia</h4>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Central, elegante e rodeado de modernismo. A pé ou de metro para quase tudo.
-            </p>
-            <AffiliateLink href="" label="Ver alojamentos no Eixample" />
-          </li>
-          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
-            <h4 className="font-serif text-lg text-gold">Barri Gòtic / Born</h4>
-            <p className="mt-2 text-sm text-muted-foreground">
-              O coração histórico, ruas estreitas e vida noturna, a pé de tudo no centro.
-            </p>
-            <AffiliateLink href="" label="Ver alojamentos no Gòtic/Born" />
-          </li>
-          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
-            <h4 className="font-serif text-lg text-gold">Barceloneta</h4>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Junto à praia e ao mar, com ambiente descontraído de bairro de pescadores.
-            </p>
-            <AffiliateLink href="" label="Ver alojamentos na Barceloneta" />
-          </li>
-        </ul>
-      </motion.div>
-    </Section>
   );
 }
 
@@ -1496,36 +1253,37 @@ function EssentialInfo() {
 
 function Index() {
   return (
-    <main id="top" className="theme-barcelona bg-twilight-radial min-h-screen overflow-x-hidden">
+    <main id="top" className="theme-viena bg-twilight-radial min-h-screen overflow-x-hidden">
       <ReadingProgressBar />
       <StickyNav />
-      <BarcelonaHeroStyles />
+      <WienHeroStyles />
       <Hero />
-      <ConhecerBarcelona />
+      <ConhecerViena />
       <EssentialInfo />
       <Overview />
       <Itineraries />
       <Food />
+      <Bairros />
       <Tips />
       <Checklist />
-      <FinalStamp code="BCN" />
-      <CustomItineraryCTA city="Barcelona" />
-      <OutrosPostais currentSlug="barcelona" />
+      <FinalStamp code="VIE" />
+      <CustomItineraryCTA city="Viena" />
+      <OutrosPostais currentSlug="viena" />
       <Footer />
       <SiteFooter />
     </main>
   );
 }
 
-function BarcelonaHeroStyles() {
+function WienHeroStyles() {
   return (
     <style>{`
-      @keyframes bcn-kenburns { from { transform: scale(1.04); } to { transform: scale(1.14); } }
+      @keyframes wien-kenburns { from { transform: scale(1.04); } to { transform: scale(1.14); } }
       @media (max-width: 900px) {
-        #bcn-roteiro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        #wien-roteiro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
       }
       @media (max-width: 560px) {
-        #bcn-roteiro-grid { grid-template-columns: 1fr !important; }
+        #wien-roteiro-grid { grid-template-columns: 1fr !important; }
       }
     `}</style>
   );
@@ -1566,6 +1324,7 @@ const navLinks = [
   { id: "d2", label: "Dia 2" },
   { id: "d3", label: "Dia 3" },
   { id: "comer", label: "Comer" },
+  { id: "bairros", label: "Bairros" },
   { id: "dicas", label: "Dicas" },
   { id: "checklist", label: "Reservas" },
 ];
@@ -1649,7 +1408,7 @@ function StickyNav() {
                   {l.label}
                   {isActive && (
                     <motion.span
-                      layoutId="nav-underline-barcelona"
+                      layoutId="nav-underline-viena"
                       className="absolute inset-x-3 -bottom-0.5 h-px bg-gold"
                     />
                   )}
@@ -1663,7 +1422,7 @@ function StickyNav() {
           type="button"
           aria-label="Alternar menu"
           aria-expanded={open}
-          aria-controls="mobile-nav-panel-barcelona"
+          aria-controls="mobile-nav-panel"
           onClick={() => setOpen((v) => !v)}
           className={`md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full text-gold transition-colors ${
             scrolled ? "border border-gold/30" : "border border-gold/40 bg-black/20 backdrop-blur-sm"
@@ -1675,7 +1434,7 @@ function StickyNav() {
 
       {open && (
         <div
-          id="mobile-nav-panel-barcelona"
+          id="mobile-nav-panel"
           className="md:hidden border-t border-gold/15 bg-background/95 backdrop-blur-xl"
         >
           <ul className="mx-auto flex max-w-6xl flex-col px-4 py-2">
@@ -1699,5 +1458,323 @@ function StickyNav() {
         </div>
       )}
     </nav>
+  );
+}
+
+// ----------------------- CONHECER VIENA -----------------------
+
+const climaMeses: Array<[string, string, string, string]> = [
+  ["Jan", "3", "-2", "baixa"],
+  ["Fev", "5", "-1", "baixa"],
+  ["Mar", "10", "2", "média"],
+  ["Abr", "16", "6", "média"],
+  ["Mai", "21", "11", "alta"],
+  ["Jun", "24", "14", "alta"],
+  ["Jul", "26", "16", "alta"],
+  ["Ago", "26", "16", "alta"],
+  ["Set", "21", "12", "média"],
+  ["Out", "14", "7", "média"],
+  ["Nov", "8", "3", "média"],
+  ["Dez", "4", "-1", "baixa"],
+];
+
+const eventos: Array<{ nome: string; quando: string; desc: string }> = [
+  {
+    nome: "Mercados de Natal (Christkindlmarkt)",
+    quando: "final de novembro a dezembro",
+    desc: "Mercados de Natal por toda a cidade, com destaque para o da Rathausplatz, com vinho quente e artesanato.",
+  },
+  {
+    nome: "Baile da Ópera (Wiener Opernball)",
+    quando: "fevereiro",
+    desc: "O mais famoso baile de Viena, na Staatsoper, símbolo da tradição valsante da cidade.",
+  },
+  {
+    nome: "Donauinselfest",
+    quando: "verão (jun)",
+    desc: "Um dos maiores festivais gratuitos da Europa, na Ilha do Danúbio, com concertos ao ar livre.",
+  },
+];
+
+function ConhecerViena() {
+  const itemCls = "glass rounded-2xl border border-gold/15 px-5 sm:px-6 overflow-hidden";
+  const triggerCls = "py-5 font-serif text-lg sm:text-xl text-cream hover:no-underline gap-3";
+  const iconCls =
+    "flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30 text-gold";
+
+  return (
+    <Section
+      id="conhecer"
+      eyebrow="Contexto"
+      title="Conhecer Viena"
+      intro="Contexto rápido antes de partir; abre só o que te interessar."
+    >
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={fadeUp}
+        className="mx-auto max-w-3xl"
+      >
+        <div className="mb-8 overflow-hidden rounded-2xl border border-gold/20 shadow-[0_30px_80px_-40px_oklch(0.83_0.16_78/0.5)]">
+          <SmartImage
+            src="https://commons.wikimedia.org/wiki/Special:FilePath/Wien%2C%20Hofburg%20--%202018%20--%203187.jpg?width=1600"
+            alt="Fachada da Hofburg em Viena"
+            loading="lazy"
+            className="h-56 w-full object-cover md:h-72"
+          />
+        </div>
+        <Accordion type="multiple" className="flex flex-col gap-4">
+          <AccordionItem value="overview" className={itemCls}>
+            <AccordionTrigger className={triggerCls}>
+              <span className="flex items-center gap-3">
+                <span className={iconCls}>
+                  <Info className="h-4 w-4" />
+                </span>
+                Viena em 2 minutos
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="pb-6 text-sm leading-relaxed text-cream/90 space-y-3">
+              <p>Capital da Áustria e antiga sede do Império Austro-Húngaro dos Habsburgo.</p>
+              <p>
+                Cidade da música clássica (Mozart, Beethoven, Strauss), do café e da arte de Klimt e Schiele.
+              </p>
+              <p>
+                Centro histórico compacto e pedonal, classificado Património Mundial pela UNESCO.
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="quando" className={itemCls}>
+            <AccordionTrigger className={triggerCls}>
+              <span className="flex items-center gap-3">
+                <span className={iconCls}>
+                  <Calendar className="h-4 w-4" />
+                </span>
+                Quando ir
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="pb-6 text-sm leading-relaxed text-cream/90 space-y-3">
+              <p>
+                <span className="text-gold">Primavera (abr–mai) e outono (set–out):</span> clima ameno e menos multidões.
+              </p>
+              <p>
+                <span className="text-gold">Dezembro:</span> mágico pelos mercados de Natal, mas frio.
+              </p>
+              <p className="font-serif italic text-gold/90 pt-2">Equilíbrio ideal: maio ou setembro.</p>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="clima" className={itemCls}>
+            <AccordionTrigger className={triggerCls}>
+              <span className="flex items-center gap-3">
+                <span className={iconCls}>
+                  <CloudSun className="h-4 w-4" />
+                </span>
+                Clima mês a mês
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="pb-6">
+              <div className="overflow-x-auto rounded-xl border border-gold/15">
+                <table className="w-full text-sm">
+                  <thead className="bg-gold/10 text-gold">
+                    <tr>
+                      <th className="px-3 py-2 text-left font-medium">Mês</th>
+                      <th className="px-3 py-2 text-right font-medium">Máx (°C)</th>
+                      <th className="px-3 py-2 text-right font-medium">Mín (°C)</th>
+                      <th className="px-3 py-2 text-left font-medium">Chuva</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {climaMeses.map(([mes, max, min, chuva]) => (
+                      <tr key={mes} className="border-t border-gold/10 text-cream/90">
+                        <td className="px-3 py-2 font-serif">{mes}</td>
+                        <td className="px-3 py-2 text-right tabular-nums">{max}</td>
+                        <td className="px-3 py-2 text-right tabular-nums">{min}</td>
+                        <td className="px-3 py-2 text-muted-foreground">{chuva}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-3 font-serif italic text-gold/90 text-sm">
+                Médias aproximadas (confirmar); invernos frios e por vezes com neve, verões amenos.
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="eventos" className={itemCls}>
+            <AccordionTrigger className={triggerCls}>
+              <span className="flex items-center gap-3">
+                <span className={iconCls}>
+                  <PartyPopper className="h-4 w-4" />
+                </span>
+                Festas & eventos
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="pb-6">
+              <ul className="space-y-4">
+                {eventos.map((e) => (
+                  <li key={e.nome} className="text-sm leading-relaxed">
+                    <div className="flex flex-wrap items-baseline gap-x-2">
+                      <span className="font-serif text-base text-cream">{e.nome}</span>
+                      <span className="text-xs text-gold/90">({e.quando})</span>
+                    </div>
+                    <p className="text-cream/80">{e.desc}</p>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-5 font-serif italic text-gold/90 text-sm">
+                Confirma as datas exatas de cada edição no site oficial.
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </motion.div>
+    </Section>
+  );
+}
+
+// ----------------------- ESSENTIAL INFO -----------------------
+
+const essentials = [
+  {
+    icon: Clock,
+    title: "Fuso horário",
+    body: "CET (UTC+1). Viena está 1 hora à frente de Lisboa.",
+  },
+  {
+    icon: Coins,
+    title: "Moeda",
+    body: "Euro (EUR). A mesma de Portugal, sem conversões nem surpresas de câmbio: a Áustria é membro da Eurozona.",
+  },
+  {
+    icon: Plug,
+    title: "Tomadas",
+    body: "Tipo F, 230 V / 50 Hz. As fichas portuguesas encaixam sem adaptador.",
+  },
+  {
+    icon: Phone,
+    title: "Emergência",
+    body: "112 (geral europeu). Levar o Cartão Europeu de Seguro de Doença.",
+  },
+  {
+    icon: TrainFront,
+    title: "Como chegar",
+    body: "Do Aeroporto de Viena-Schwechat, o comboio City Airport Train (CAT) ou o S-Bahn (S7) chegam ao centro em cerca de 20-25 minutos. Comboios internacionais chegam à Wien Hauptbahnhof.",
+  },
+  {
+    icon: HandCoins,
+    title: "Gorjetas",
+    body: "Não é obrigatória, mas é habitual arredondar ou deixar cerca de 10% ao pagar diretamente ao empregado.",
+  },
+];
+
+const phrases = [
+  ["Olá", "Grüß Gott / Hallo"],
+  ["Obrigado", "Danke (schön)"],
+  ["Por favor", "Bitte"],
+  ["Sim / Não", "Ja / Nein"],
+  ["Quanto custa?", "Wie viel kostet das?"],
+  ["Saúde (brinde)", "Prost / Zum Wohl"],
+];
+
+function EssentialInfo() {
+  return (
+    <Section
+      id="essencial"
+      eyebrow="Antes de partir"
+      title="Essencial para a viagem"
+      intro="O básico para chegar leve: fuso, dinheiro, transporte e um punhado de palavras em alemão para abrir portas (e sorrisos)."
+    >
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {essentials.map((e, i) => {
+          const Icon = e.icon;
+          return (
+            <motion.div
+              key={e.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.55, delay: i * 0.06 }}
+              whileHover={{ y: -4 }}
+              className="glass rounded-2xl border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)]"
+            >
+              <div
+                className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30"
+                style={{ boxShadow: "0 0 12px oklch(0.62 0.16 40 / 0.45)" }}
+              >
+                <Icon className="h-5 w-5 text-gold" />
+              </div>
+              <h3 className="font-serif text-xl text-cream">{e.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+      >
+        <div className="mb-5 flex items-center gap-3">
+          <MapPin className="h-5 w-5 text-gold" />
+          <h3 className="font-serif text-2xl text-cream">Onde ficar</h3>
+        </div>
+        <p className="mb-5 text-sm text-muted-foreground">
+          Três zonas a considerar; qualquer uma funciona muito bem para um guia de 3 dias.
+        </p>
+        <ul className="grid gap-4 md:grid-cols-3">
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Innere Stadt (Centro)</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              A pé de tudo, ideal para a primeira visita.
+            </p>
+            <AffiliateLink href="" />
+          </li>
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Naschmarkt / Mariahilf</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Animado, bom para compras e vida noturna, perto do centro.
+            </p>
+            <AffiliateLink href="" />
+          </li>
+          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+            <h4 className="font-serif text-lg text-gold">Landstraße (Belvedere)</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Mais calmo e elegante, junto ao Belvedere.
+            </p>
+            <AffiliateLink href="" />
+          </li>
+        </ul>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+      >
+        <div className="mb-5 flex items-center gap-3">
+          <Languages className="h-5 w-5 text-gold" />
+          <h3 className="font-serif text-2xl text-cream">Palavras úteis</h3>
+        </div>
+        <ul className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+          {phrases.map(([pt, de]) => (
+            <li
+              key={pt}
+              className="flex items-baseline justify-between gap-3 border-b border-gold/10 pb-2"
+            >
+              <span className="text-sm text-muted-foreground">{pt}</span>
+              <span className="font-serif text-lg italic text-gold">{de}</span>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
+    </Section>
   );
 }
