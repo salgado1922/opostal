@@ -404,11 +404,22 @@ html { scroll-behavior: smooth; }
 /* Mediterranean azure surfaces, Gaudí terracotta and mosaic ochre.    */
 /* ------------------------------------------------------------------ */
 .theme-barcelona {
-  --bcn-azure: oklch(0.55 0.13 225);        /* Mediterranean azure */
-  --bcn-terracotta: oklch(0.63 0.17 42);    /* Gaudí terracotta */
-  --bcn-ochre: oklch(0.83 0.15 82);         /* trencadís mosaic ochre */
+  --bcn-azure: oklch(0.67 0.14 218);        /* Mediterranean azure */
+  --bcn-terracotta: oklch(0.68 0.19 34);    /* Gaudí coral */
+  --bcn-ochre: oklch(0.88 0.17 92);         /* trencadís yellow */
   --bcn-sand: oklch(0.95 0.02 80);          /* sandstone cream */
-  --bcn-night: oklch(0.13 0.030 250);       /* Mediterranean night */
+  --bcn-night: oklch(0.14 0.055 225);       /* Mediterranean night */
+
+  --city-deep: oklch(0.11 0.055 225);
+  --city-action: var(--bcn-terracotta);
+  --city-highlight: var(--bcn-ochre);
+  --city-light: var(--bcn-sand);
+  --city-card-back: oklch(0.20 0.07 225);
+  --city-title-a: oklch(0.97 0.035 91);
+  --city-title-b: var(--bcn-ochre);
+  --city-title-c: var(--bcn-terracotta);
+  --city-marker-shadow: 0 0 0 4px var(--bcn-night), 0 0 30px color-mix(in oklab, var(--bcn-azure) 40%, transparent);
+  --city-soft-shadow: 0 20px 60px -30px color-mix(in oklab, var(--bcn-terracotta) 55%, transparent);
 
   --twilight: var(--bcn-night);
   --plum: oklch(0.19 0.040 245);
@@ -443,9 +454,9 @@ html { scroll-behavior: smooth; }
 .theme-barcelona.bg-twilight-radial,
 .theme-barcelona .bg-twilight-radial {
   background:
-    radial-gradient(ellipse at 20% 0%, oklch(0.83 0.15 82 / 20%), transparent 55%),
-    radial-gradient(ellipse at 85% 22%, oklch(0.55 0.13 225 / 30%), transparent 55%),
-    radial-gradient(ellipse at 50% 100%, oklch(0.19 0.040 245 / 80%), transparent 60%),
+    radial-gradient(ellipse at 16% 0%, color-mix(in oklab, var(--bcn-terracotta) 28%, transparent), transparent 48%),
+    radial-gradient(ellipse at 88% 24%, color-mix(in oklab, var(--bcn-azure) 42%, transparent), transparent 52%),
+    radial-gradient(ellipse at 50% 100%, color-mix(in oklab, var(--bcn-ochre) 12%, transparent), transparent 58%),
     var(--background);
 }
 
@@ -454,11 +465,22 @@ html { scroll-behavior: smooth; }
 /* Schönbrunn imperial yellow, opera burgundy, deep charcoal-green.    */
 /* ------------------------------------------------------------------ */
 .theme-viena {
-  --vie-imperial: oklch(0.84 0.14 88);      /* Schönbrunn imperial yellow */
-  --vie-burgundy: oklch(0.48 0.16 20);      /* opera burgundy */
-  --vie-forest: oklch(0.32 0.045 155);      /* Vienna Woods green */
+  --vie-imperial: oklch(0.86 0.11 92);      /* Schönbrunn imperial yellow */
+  --vie-burgundy: oklch(0.48 0.17 18);      /* opera burgundy */
+  --vie-forest: oklch(0.38 0.075 158);      /* Vienna Woods green */
   --vie-porcelain: oklch(0.96 0.015 90);    /* porcelain cream */
-  --vie-night: oklch(0.13 0.022 160);       /* imperial night */
+  --vie-night: oklch(0.145 0.035 158);      /* imperial green-black */
+
+  --city-deep: oklch(0.105 0.03 158);
+  --city-action: var(--vie-burgundy);
+  --city-highlight: var(--vie-imperial);
+  --city-light: var(--vie-porcelain);
+  --city-card-back: oklch(0.19 0.052 158);
+  --city-title-a: var(--vie-porcelain);
+  --city-title-b: var(--vie-imperial);
+  --city-title-c: oklch(0.71 0.12 72);
+  --city-marker-shadow: 0 0 0 4px var(--vie-night), 0 0 30px color-mix(in oklab, var(--vie-imperial) 28%, transparent);
+  --city-soft-shadow: 0 20px 60px -30px color-mix(in oklab, var(--vie-burgundy) 55%, transparent);
 
   --twilight: var(--vie-night);
   --plum: oklch(0.19 0.030 160);
@@ -493,28 +515,39 @@ html { scroll-behavior: smooth; }
 .theme-viena.bg-twilight-radial,
 .theme-viena .bg-twilight-radial {
   background:
-    radial-gradient(ellipse at 20% 0%, oklch(0.84 0.14 88 / 18%), transparent 55%),
-    radial-gradient(ellipse at 85% 22%, oklch(0.48 0.16 20 / 22%), transparent 55%),
-    radial-gradient(ellipse at 50% 100%, oklch(0.19 0.030 160 / 82%), transparent 60%),
+    radial-gradient(ellipse at 18% 0%, color-mix(in oklab, var(--vie-forest) 38%, transparent), transparent 50%),
+    radial-gradient(ellipse at 88% 24%, color-mix(in oklab, var(--vie-burgundy) 30%, transparent), transparent 52%),
+    radial-gradient(ellipse at 50% 100%, color-mix(in oklab, var(--vie-imperial) 10%, transparent), transparent 60%),
     var(--background);
 }
 
 /* ------------------------------------------------------------------ */
-/* Lisboa "Azulejo & Telha" theme — scoped overrides for /lisboa.      */
-/* Azulejo blue surfaces, rooftop terracotta, warm Tejo light.         */
+/* Lisboa "Azulejo & Elétrico" theme — scoped overrides for /lisboa.  */
+/* Cobalt tile surfaces, whitewashed lime and tram yellow.              */
 /* ------------------------------------------------------------------ */
 .theme-lisboa {
-  --lis-azulejo: oklch(0.52 0.13 250);      /* azulejo blue */
-  --lis-telha: oklch(0.62 0.16 45);         /* rooftop terracotta */
-  --lis-sol: oklch(0.86 0.13 90);           /* Tejo afternoon light */
-  --lis-cal: oklch(0.96 0.015 85);          /* whitewashed lime */
-  --lis-night: oklch(0.13 0.030 262);       /* Tejo night blue */
+  --lis-azulejo: oklch(0.58 0.20 252);      /* azulejo cobalt */
+  --lis-telha: oklch(0.68 0.17 38);         /* rooftop terracotta */
+  --lis-sol: oklch(0.90 0.17 98);           /* elétrico yellow */
+  --lis-cal: oklch(0.97 0.012 92);          /* whitewashed lime */
+  --lis-night: oklch(0.145 0.07 254);       /* Atlantic cobalt */
+
+  --city-deep: oklch(0.10 0.065 254);
+  --city-action: var(--lis-azulejo);
+  --city-highlight: var(--lis-sol);
+  --city-light: var(--lis-cal);
+  --city-card-back: oklch(0.20 0.10 254);
+  --city-title-a: var(--lis-cal);
+  --city-title-b: oklch(0.82 0.12 245);
+  --city-title-c: var(--lis-sol);
+  --city-marker-shadow: 0 0 0 4px var(--lis-night), 0 0 30px color-mix(in oklab, var(--lis-azulejo) 48%, transparent);
+  --city-soft-shadow: 0 20px 60px -30px color-mix(in oklab, var(--lis-azulejo) 62%, transparent);
 
   --twilight: var(--lis-night);
   --plum: oklch(0.19 0.040 258);
-  --gold: var(--lis-sol);
-  --gold-soft: oklch(0.91 0.09 90);
-  --terracotta: var(--lis-telha);
+  --gold: var(--lis-azulejo);
+  --gold-soft: oklch(0.82 0.105 245);
+  --terracotta: var(--lis-sol);
   --cream: var(--lis-cal);
 
   --background: var(--lis-night);
@@ -525,28 +558,29 @@ html { scroll-behavior: smooth; }
   --popover: oklch(0.21 0.042 258);
   --popover-foreground: var(--lis-cal);
 
-  --primary: var(--lis-sol);
-  --primary-foreground: var(--lis-night);
-  --secondary: var(--lis-telha);
+  --primary: var(--lis-azulejo);
+  --primary-foreground: var(--lis-cal);
+  --secondary: var(--lis-sol);
   --secondary-foreground: var(--lis-cal);
 
   --muted: oklch(0.24 0.040 258);
   --muted-foreground: oklch(0.81 0.025 85);
-  --accent: var(--lis-azulejo);
-  --accent-foreground: var(--lis-cal);
+  --accent: var(--lis-sol);
+  --accent-foreground: var(--lis-night);
 
-  --border: oklch(0.86 0.13 90 / 22%);
-  --input: oklch(0.86 0.13 90 / 26%);
-  --ring: var(--lis-sol);
+  --border: oklch(0.70 0.15 250 / 30%);
+  --input: oklch(0.70 0.15 250 / 34%);
+  --ring: var(--lis-azulejo);
 }
 
 .theme-lisboa.bg-twilight-radial,
 .theme-lisboa .bg-twilight-radial {
   background:
-    radial-gradient(ellipse at 20% 0%, oklch(0.86 0.13 90 / 20%), transparent 55%),
-    radial-gradient(ellipse at 85% 22%, oklch(0.52 0.13 250 / 30%), transparent 55%),
-    radial-gradient(ellipse at 50% 100%, oklch(0.19 0.040 258 / 82%), transparent 60%),
+    radial-gradient(ellipse at 12% 0%, color-mix(in oklab, var(--lis-sol) 22%, transparent), transparent 46%),
+    radial-gradient(ellipse at 88% 20%, color-mix(in oklab, var(--lis-azulejo) 52%, transparent), transparent 54%),
+    linear-gradient(135deg, transparent 0 49.5%, color-mix(in oklab, var(--lis-cal) 3%, transparent) 50% 50.5%, transparent 51%),
     var(--background);
+  background-size: auto, auto, 36px 36px, auto;
 }
 
 /* ------------------------------------------------------------------ */
@@ -554,16 +588,27 @@ html { scroll-behavior: smooth; }
 /* Danube blue-green surfaces, thermal brass, paprika red accent.      */
 /* ------------------------------------------------------------------ */
 .theme-budapeste {
-  --bud-danube: oklch(0.45 0.075 210);      /* Danube blue-green */
-  --bud-brass: oklch(0.82 0.12 84);         /* thermal-bath brass */
-  --bud-paprika: oklch(0.55 0.20 30);       /* paprika red */
+  --bud-danube: oklch(0.69 0.105 184);      /* thermal mint */
+  --bud-brass: oklch(0.72 0.12 62);         /* aged copper */
+  --bud-paprika: oklch(0.57 0.21 24);       /* paprika red */
   --bud-stone: oklch(0.95 0.015 85);        /* Parliament limestone */
-  --bud-night: oklch(0.13 0.028 232);       /* Danube night */
+  --bud-night: oklch(0.12 0.025 310);       /* Danube charcoal-plum */
+
+  --city-deep: oklch(0.09 0.025 310);
+  --city-action: var(--bud-paprika);
+  --city-highlight: var(--bud-danube);
+  --city-light: var(--bud-stone);
+  --city-card-back: oklch(0.18 0.042 310);
+  --city-title-a: var(--bud-stone);
+  --city-title-b: var(--bud-brass);
+  --city-title-c: var(--bud-danube);
+  --city-marker-shadow: 0 0 0 4px var(--bud-night), 0 0 30px color-mix(in oklab, var(--bud-danube) 42%, transparent);
+  --city-soft-shadow: 0 20px 60px -30px color-mix(in oklab, var(--bud-paprika) 52%, transparent);
 
   --twilight: var(--bud-night);
   --plum: oklch(0.19 0.035 225);
-  --gold: var(--bud-brass);
-  --gold-soft: oklch(0.90 0.09 86);
+  --gold: var(--bud-danube);
+  --gold-soft: oklch(0.84 0.075 178);
   --terracotta: var(--bud-paprika);
   --cream: var(--bud-stone);
 
@@ -575,26 +620,26 @@ html { scroll-behavior: smooth; }
   --popover: oklch(0.21 0.040 225);
   --popover-foreground: var(--bud-stone);
 
-  --primary: var(--bud-brass);
+  --primary: var(--bud-danube);
   --primary-foreground: var(--bud-night);
   --secondary: var(--bud-paprika);
   --secondary-foreground: var(--bud-stone);
 
   --muted: oklch(0.24 0.035 225);
   --muted-foreground: oklch(0.81 0.020 85);
-  --accent: var(--bud-danube);
+  --accent: var(--bud-paprika);
   --accent-foreground: var(--bud-stone);
 
-  --border: oklch(0.82 0.12 84 / 22%);
-  --input: oklch(0.82 0.12 84 / 26%);
-  --ring: var(--bud-brass);
+  --border: oklch(0.69 0.105 184 / 26%);
+  --input: oklch(0.69 0.105 184 / 30%);
+  --ring: var(--bud-danube);
 }
 
 .theme-budapeste.bg-twilight-radial,
 .theme-budapeste .bg-twilight-radial {
   background:
-    radial-gradient(ellipse at 20% 0%, oklch(0.82 0.12 84 / 18%), transparent 55%),
-    radial-gradient(ellipse at 85% 22%, oklch(0.45 0.075 210 / 34%), transparent 55%),
-    radial-gradient(ellipse at 50% 100%, oklch(0.19 0.035 225 / 82%), transparent 60%),
+    radial-gradient(ellipse at 18% 0%, color-mix(in oklab, var(--bud-paprika) 30%, transparent), transparent 50%),
+    radial-gradient(ellipse at 88% 22%, color-mix(in oklab, var(--bud-danube) 32%, transparent), transparent 52%),
+    radial-gradient(ellipse at 50% 100%, color-mix(in oklab, var(--bud-brass) 14%, transparent), transparent 60%),
     var(--background);
 }
