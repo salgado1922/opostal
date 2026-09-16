@@ -398,3 +398,203 @@ html { scroll-behavior: smooth; }
     var(--background);
 }
 
+
+/* ------------------------------------------------------------------ */
+/* Barcelona "Trencadís" theme — scoped overrides for /barcelona.      */
+/* Mediterranean azure surfaces, Gaudí terracotta and mosaic ochre.    */
+/* ------------------------------------------------------------------ */
+.theme-barcelona {
+  --bcn-azure: oklch(0.55 0.13 225);        /* Mediterranean azure */
+  --bcn-terracotta: oklch(0.63 0.17 42);    /* Gaudí terracotta */
+  --bcn-ochre: oklch(0.83 0.15 82);         /* trencadís mosaic ochre */
+  --bcn-sand: oklch(0.95 0.02 80);          /* sandstone cream */
+  --bcn-night: oklch(0.13 0.030 250);       /* Mediterranean night */
+
+  --twilight: var(--bcn-night);
+  --plum: oklch(0.19 0.040 245);
+  --gold: var(--bcn-ochre);
+  --gold-soft: oklch(0.89 0.11 84);
+  --terracotta: var(--bcn-terracotta);
+  --cream: var(--bcn-sand);
+
+  --background: var(--bcn-night);
+  --foreground: var(--bcn-sand);
+
+  --card: oklch(0.21 0.045 245 / 74%);
+  --card-foreground: var(--bcn-sand);
+  --popover: oklch(0.21 0.045 245);
+  --popover-foreground: var(--bcn-sand);
+
+  --primary: var(--bcn-ochre);
+  --primary-foreground: var(--bcn-night);
+  --secondary: var(--bcn-terracotta);
+  --secondary-foreground: var(--bcn-sand);
+
+  --muted: oklch(0.24 0.040 245);
+  --muted-foreground: oklch(0.80 0.025 80);
+  --accent: var(--bcn-azure);
+  --accent-foreground: var(--bcn-sand);
+
+  --border: oklch(0.83 0.15 82 / 22%);
+  --input: oklch(0.83 0.15 82 / 26%);
+  --ring: var(--bcn-ochre);
+}
+
+.theme-barcelona.bg-twilight-radial,
+.theme-barcelona .bg-twilight-radial {
+  background:
+    radial-gradient(ellipse at 20% 0%, oklch(0.83 0.15 82 / 20%), transparent 55%),
+    radial-gradient(ellipse at 85% 22%, oklch(0.55 0.13 225 / 30%), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, oklch(0.19 0.040 245 / 80%), transparent 60%),
+    var(--background);
+}
+
+/* ------------------------------------------------------------------ */
+/* Viena "Kaiserlich" theme — scoped overrides for /viena.             */
+/* Schönbrunn imperial yellow, opera burgundy, deep charcoal-green.    */
+/* ------------------------------------------------------------------ */
+.theme-viena {
+  --vie-imperial: oklch(0.84 0.14 88);      /* Schönbrunn imperial yellow */
+  --vie-burgundy: oklch(0.48 0.16 20);      /* opera burgundy */
+  --vie-forest: oklch(0.32 0.045 155);      /* Vienna Woods green */
+  --vie-porcelain: oklch(0.96 0.015 90);    /* porcelain cream */
+  --vie-night: oklch(0.13 0.022 160);       /* imperial night */
+
+  --twilight: var(--vie-night);
+  --plum: oklch(0.19 0.030 160);
+  --gold: var(--vie-imperial);
+  --gold-soft: oklch(0.91 0.10 90);
+  --terracotta: var(--vie-burgundy);
+  --cream: var(--vie-porcelain);
+
+  --background: var(--vie-night);
+  --foreground: var(--vie-porcelain);
+
+  --card: oklch(0.20 0.030 160 / 74%);
+  --card-foreground: var(--vie-porcelain);
+  --popover: oklch(0.20 0.030 160);
+  --popover-foreground: var(--vie-porcelain);
+
+  --primary: var(--vie-imperial);
+  --primary-foreground: var(--vie-night);
+  --secondary: var(--vie-burgundy);
+  --secondary-foreground: var(--vie-porcelain);
+
+  --muted: oklch(0.24 0.030 158);
+  --muted-foreground: oklch(0.82 0.020 90);
+  --accent: var(--vie-burgundy);
+  --accent-foreground: var(--vie-porcelain);
+
+  --border: oklch(0.84 0.14 88 / 22%);
+  --input: oklch(0.84 0.14 88 / 26%);
+  --ring: var(--vie-imperial);
+}
+
+.theme-viena.bg-twilight-radial,
+.theme-viena .bg-twilight-radial {
+  background:
+    radial-gradient(ellipse at 20% 0%, oklch(0.84 0.14 88 / 18%), transparent 55%),
+    radial-gradient(ellipse at 85% 22%, oklch(0.48 0.16 20 / 22%), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, oklch(0.19 0.030 160 / 82%), transparent 60%),
+    var(--background);
+}
+
+/* ------------------------------------------------------------------ */
+/* Lisboa "Azulejo & Telha" theme — scoped overrides for /lisboa.      */
+/* Azulejo blue surfaces, rooftop terracotta, warm Tejo light.         */
+/* ------------------------------------------------------------------ */
+.theme-lisboa {
+  --lis-azulejo: oklch(0.52 0.13 250);      /* azulejo blue */
+  --lis-telha: oklch(0.62 0.16 45);         /* rooftop terracotta */
+  --lis-sol: oklch(0.86 0.13 90);           /* Tejo afternoon light */
+  --lis-cal: oklch(0.96 0.015 85);          /* whitewashed lime */
+  --lis-night: oklch(0.13 0.030 262);       /* Tejo night blue */
+
+  --twilight: var(--lis-night);
+  --plum: oklch(0.19 0.040 258);
+  --gold: var(--lis-sol);
+  --gold-soft: oklch(0.91 0.09 90);
+  --terracotta: var(--lis-telha);
+  --cream: var(--lis-cal);
+
+  --background: var(--lis-night);
+  --foreground: var(--lis-cal);
+
+  --card: oklch(0.21 0.042 258 / 74%);
+  --card-foreground: var(--lis-cal);
+  --popover: oklch(0.21 0.042 258);
+  --popover-foreground: var(--lis-cal);
+
+  --primary: var(--lis-sol);
+  --primary-foreground: var(--lis-night);
+  --secondary: var(--lis-telha);
+  --secondary-foreground: var(--lis-cal);
+
+  --muted: oklch(0.24 0.040 258);
+  --muted-foreground: oklch(0.81 0.025 85);
+  --accent: var(--lis-azulejo);
+  --accent-foreground: var(--lis-cal);
+
+  --border: oklch(0.86 0.13 90 / 22%);
+  --input: oklch(0.86 0.13 90 / 26%);
+  --ring: var(--lis-sol);
+}
+
+.theme-lisboa.bg-twilight-radial,
+.theme-lisboa .bg-twilight-radial {
+  background:
+    radial-gradient(ellipse at 20% 0%, oklch(0.86 0.13 90 / 20%), transparent 55%),
+    radial-gradient(ellipse at 85% 22%, oklch(0.52 0.13 250 / 30%), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, oklch(0.19 0.040 258 / 82%), transparent 60%),
+    var(--background);
+}
+
+/* ------------------------------------------------------------------ */
+/* Budapeste "Danúbio & Termas" theme — overrides for /budapeste.      */
+/* Danube blue-green surfaces, thermal brass, paprika red accent.      */
+/* ------------------------------------------------------------------ */
+.theme-budapeste {
+  --bud-danube: oklch(0.45 0.075 210);      /* Danube blue-green */
+  --bud-brass: oklch(0.82 0.12 84);         /* thermal-bath brass */
+  --bud-paprika: oklch(0.55 0.20 30);       /* paprika red */
+  --bud-stone: oklch(0.95 0.015 85);        /* Parliament limestone */
+  --bud-night: oklch(0.13 0.028 232);       /* Danube night */
+
+  --twilight: var(--bud-night);
+  --plum: oklch(0.19 0.035 225);
+  --gold: var(--bud-brass);
+  --gold-soft: oklch(0.90 0.09 86);
+  --terracotta: var(--bud-paprika);
+  --cream: var(--bud-stone);
+
+  --background: var(--bud-night);
+  --foreground: var(--bud-stone);
+
+  --card: oklch(0.21 0.040 225 / 74%);
+  --card-foreground: var(--bud-stone);
+  --popover: oklch(0.21 0.040 225);
+  --popover-foreground: var(--bud-stone);
+
+  --primary: var(--bud-brass);
+  --primary-foreground: var(--bud-night);
+  --secondary: var(--bud-paprika);
+  --secondary-foreground: var(--bud-stone);
+
+  --muted: oklch(0.24 0.035 225);
+  --muted-foreground: oklch(0.81 0.020 85);
+  --accent: var(--bud-danube);
+  --accent-foreground: var(--bud-stone);
+
+  --border: oklch(0.82 0.12 84 / 22%);
+  --input: oklch(0.82 0.12 84 / 26%);
+  --ring: var(--bud-brass);
+}
+
+.theme-budapeste.bg-twilight-radial,
+.theme-budapeste .bg-twilight-radial {
+  background:
+    radial-gradient(ellipse at 20% 0%, oklch(0.82 0.12 84 / 18%), transparent 55%),
+    radial-gradient(ellipse at 85% 22%, oklch(0.45 0.075 210 / 34%), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, oklch(0.19 0.035 225 / 82%), transparent 60%),
+    var(--background);
+}

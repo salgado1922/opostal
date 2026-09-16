@@ -5,7 +5,16 @@ import { useCallback, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type Guide = {
-  slug: "florenca" | "praga" | "londres" | "paris" | "istambul";
+  slug:
+    | "florenca"
+    | "praga"
+    | "londres"
+    | "paris"
+    | "istambul"
+    | "barcelona"
+    | "viena"
+    | "lisboa"
+    | "budapeste";
   cidade: string;
   subtitulo: string;
 };
@@ -17,6 +26,10 @@ const GUIDES: Guide[] = [
   { slug: "londres", cidade: "Londres", subtitulo: "roteiro de 3 dias a pé" },
   { slug: "paris", cidade: "Paris", subtitulo: "3 dias + Versalhes" },
   { slug: "istambul", cidade: "Istambul", subtitulo: "roteiro de 5 dias" },
+  { slug: "barcelona", cidade: "Barcelona", subtitulo: "roteiro de 3 dias" },
+  { slug: "viena", cidade: "Viena", subtitulo: "roteiro de 3 dias" },
+  { slug: "lisboa", cidade: "Lisboa", subtitulo: "roteiro de 3 dias" },
+  { slug: "budapeste", cidade: "Budapeste", subtitulo: "roteiro de 3 dias" },
 ];
 
 export function OutrosPostais({ currentSlug }: { currentSlug: string }) {

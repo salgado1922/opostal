@@ -266,11 +266,11 @@ const CITY_MESSAGES: Record<string, string> = {
   istambul: "Atravessei a pé de um continente ao outro. Cheira a especiarias, a chá e a maresia. Vem ver.",
   florenca: "O Duomo abriu-se entre os telhados como se fosse a primeira vez. O Renascimento ainda mora aqui.",
   londres: "Chuva miudinha, museus de graça e um chá a ferver. Saiu mais barato do que toda a gente jura.",
-  barcelona: "Ainda a percorrer cada esquina do Gaudí, com tempo. Este postal está quase pronto para ti.",
+  barcelona: "Subi ao Park Güell antes do calor e desci até ao mar. Gaudí faz mais sentido a pé.",
   paris: "Ainda a passear pelos bairros e a escolher os cafés certos. Não tarda mando-te postal.",
-  viena: "A ouvir valsa nos cafés imperiais. O postal está em escrita.",
-  lisboa: "Por casa, mas a redescobri-la rua a rua. Postal quase pronto.",
-  budapeste: "Entre termas e o Danúbio. Em breve ponho tudo em postal.",
+  viena: "Bolo e café à hora certa, valsa no fundo e um palácio a cada esquina. Traz sapatos calmos.",
+  lisboa: "Perdi-me de propósito em Alfama e acabei num miradouro só nosso. Vou levar-te lá.",
+  budapeste: "Terminei o dia nas termas com o Parlamento aceso do outro lado do Danúbio. Inesquecível.",
 };
 
 function CityGrid() {
