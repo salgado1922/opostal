@@ -1,4 +1,4 @@
-import { SmartImage } from "@/components/SmartImage";
+import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect, useId } from "react";
@@ -60,6 +60,9 @@ import { OutrosPostais } from "@/components/OutrosPostais";
 const SHARE_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/Westminster_Bridge_with_shadows_and_Big_Ben.jpg?width=1200";
 
+const HERO_IMG =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Westminster_Bridge_with_shadows_and_Big_Ben.jpg/1920px-Westminster_Bridge_with_shadows_and_Big_Ben.jpg";
+
 export const Route = createFileRoute("/londres")({
   head: () => ({
     meta: [
@@ -86,7 +89,10 @@ export const Route = createFileRoute("/londres")({
       },
       { name: "twitter:image", content: SHARE_IMG },
     ],
-    links: [{ rel: "canonical", href: "https://opostal.pt/londres" }],
+    links: [
+      { rel: "canonical", href: "https://opostal.pt/londres" },
+      heroPreloadLink(HERO_IMG),
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -616,7 +622,7 @@ function Hero() {
       <div className="absolute inset-0 -z-10">
         <SmartImage
           sizes="100vw"
-          src="https://commons.wikimedia.org/wiki/Special:FilePath/Westminster_Bridge_with_shadows_and_Big_Ben.jpg?width=2000"
+          src={HERO_IMG}
           alt="Big Ben e a Ponte de Westminster sobre o Tamisa"
           priority
           className="absolute inset-0 h-full w-full object-cover"

@@ -1,4 +1,4 @@
-import { SmartImage } from "@/components/SmartImage";
+import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
@@ -57,6 +57,9 @@ import { OutrosPostais } from "@/components/OutrosPostais";
 const SHARE_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/20180109%20Vienna%20State%20Opera%20at%20blue%20hour%20850%209387.jpg?width=1200";
 
+const HERO_IMG =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/20180109_Vienna_State_Opera_at_blue_hour_850_9387.jpg/1920px-20180109_Vienna_State_Opera_at_blue_hour_850_9387.jpg";
+
 export const Route = createFileRoute("/viena")({
   head: () => ({
     meta: [
@@ -83,7 +86,10 @@ export const Route = createFileRoute("/viena")({
       },
       { name: "twitter:image", content: SHARE_IMG },
     ],
-    links: [{ rel: "canonical", href: "https://opostal.pt/viena" }],
+    links: [
+      { rel: "canonical", href: "https://opostal.pt/viena" },
+      heroPreloadLink(HERO_IMG),
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -471,7 +477,7 @@ function Hero() {
       <div className="absolute inset-0 -z-10">
         <SmartImage
           sizes="100vw"
-          src="https://commons.wikimedia.org/wiki/Special:FilePath/20180109%20Vienna%20State%20Opera%20at%20blue%20hour%20850%209387.jpg?width=2400"
+          src={HERO_IMG}
           alt="Ópera Estatal de Viena à hora azul"
           priority
           className="absolute inset-0 h-full w-full object-cover"

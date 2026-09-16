@@ -1,4 +1,4 @@
-import { SmartImage } from "@/components/SmartImage";
+import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useId, useEffect } from "react";
@@ -59,6 +59,9 @@ import { OutrosPostais } from "@/components/OutrosPostais";
 const SHARE_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg?width=1200";
 
+const HERO_IMG =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg/1920px-20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg";
+
 export const Route = createFileRoute("/budapeste")({
   head: () => ({
     meta: [
@@ -86,7 +89,10 @@ export const Route = createFileRoute("/budapeste")({
       },
       { name: "twitter:image", content: SHARE_IMG },
     ],
-    links: [{ rel: "canonical", href: "https://opostal.pt/budapeste" }],
+    links: [
+      { rel: "canonical", href: "https://opostal.pt/budapeste" },
+      heroPreloadLink(HERO_IMG),
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -481,7 +487,7 @@ function Hero() {
       <div className="absolute inset-0 -z-10">
         <SmartImage
           sizes="100vw"
-          src="https://commons.wikimedia.org/wiki/Special:FilePath/20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg?width=2400"
+          src={HERO_IMG}
           alt="Panorama de Budapeste ao anoitecer, visto do Monte Gellért"
           priority
           className="absolute inset-0 h-full w-full object-cover"

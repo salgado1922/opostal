@@ -1,4 +1,4 @@
-import { SmartImage } from "@/components/SmartImage";
+import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
@@ -53,7 +53,7 @@ import {
 import { OutrosPostais } from "@/components/OutrosPostais";
 
 const HERO_IMG =
-  "https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_01.jpg?width=2400";
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Sagrada_Familia_01.jpg/1920px-Sagrada_Familia_01.jpg";
 
 const SHARE_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_01.jpg?width=1200";
@@ -84,7 +84,10 @@ export const Route = createFileRoute("/barcelona")({
       },
       { name: "twitter:image", content: SHARE_IMG },
     ],
-    links: [{ rel: "canonical", href: "https://opostal.pt/barcelona" }],
+    links: [
+      { rel: "canonical", href: "https://opostal.pt/barcelona" },
+      heroPreloadLink(HERO_IMG),
+    ],
     scripts: [
       {
         type: "application/ld+json",

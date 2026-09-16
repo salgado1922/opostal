@@ -1,4 +1,4 @@
-import { SmartImage } from "@/components/SmartImage";
+import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
@@ -56,6 +56,9 @@ import { OutrosPostais } from "@/components/OutrosPostais";
 const SHARE_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/Florence_skyline_at_dusk_%283867485023%29.jpg?width=1200";
 
+const HERO_IMG =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Florence_skyline_at_dusk_%283867485023%29.jpg/1280px-Florence_skyline_at_dusk_%283867485023%29.jpg";
+
 export const Route = createFileRoute("/florenca")({
   head: () => ({
     meta: [
@@ -82,7 +85,10 @@ export const Route = createFileRoute("/florenca")({
       },
       { name: "twitter:image", content: SHARE_IMG },
     ],
-    links: [{ rel: "canonical", href: "https://opostal.pt/florenca" }],
+    links: [
+      { rel: "canonical", href: "https://opostal.pt/florenca" },
+      heroPreloadLink(HERO_IMG),
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -448,7 +454,7 @@ function Hero() {
       <div className="absolute inset-0 -z-10">
         <SmartImage
           sizes="100vw"
-          src="https://commons.wikimedia.org/wiki/Special:FilePath/Florence_skyline_at_dusk_%283867485023%29.jpg?width=2000"
+          src={HERO_IMG}
           alt="Skyline de Florença ao entardecer, com a cúpula do Duomo"
           priority
           className="absolute inset-0 h-full w-full object-cover"
