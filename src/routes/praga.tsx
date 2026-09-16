@@ -1,4 +1,4 @@
-import { SmartImage } from "@/components/SmartImage";
+import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useId, useEffect } from "react";
@@ -59,6 +59,9 @@ import { OutrosPostais } from "@/components/OutrosPostais";
 const SHARE_IMG =
   "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1200&h=630&q=80";
 
+const HERO_IMG =
+  "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=2400&q=80";
+
 export const Route = createFileRoute("/praga")({
   head: () => ({
     meta: [
@@ -89,7 +92,10 @@ export const Route = createFileRoute("/praga")({
       },
       { name: "twitter:image", content: SHARE_IMG },
     ],
-    links: [{ rel: "canonical", href: "https://opostal.pt/praga" }],
+    links: [
+      { rel: "canonical", href: "https://opostal.pt/praga" },
+      heroPreloadLink(HERO_IMG),
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -479,7 +485,7 @@ function Hero() {
       <div className="absolute inset-0 -z-10">
         <SmartImage
           sizes="100vw"
-          src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=2400&q=80"
+          src={HERO_IMG}
           alt="Praga ao pôr do sol: Ponte Carlos e Castelo"
           priority
           className="absolute inset-0 h-full w-full object-cover"
