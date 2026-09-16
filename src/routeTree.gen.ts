@@ -16,6 +16,7 @@ import { Route as ParisRouteImport } from './routes/paris'
 import { Route as LondresRouteImport } from './routes/londres'
 import { Route as IstambulRouteImport } from './routes/istambul'
 import { Route as FlorencaRouteImport } from './routes/florenca'
+import { Route as BarcelonaRouteImport } from './routes/barcelona'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AbordagemRouteImport } from './routes/abordagem'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -57,6 +58,11 @@ const FlorencaRoute = FlorencaRouteImport.update({
   path: '/florenca',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BarcelonaRoute = BarcelonaRouteImport.update({
+  id: '/barcelona',
+  path: '/barcelona',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/abordagem': typeof AbordagemRoute
   '/auth': typeof AuthRoute
+  '/barcelona': typeof BarcelonaRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/abordagem': typeof AbordagemRoute
   '/auth': typeof AuthRoute
+  '/barcelona': typeof BarcelonaRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
@@ -114,6 +122,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/abordagem': typeof AbordagemRoute
   '/auth': typeof AuthRoute
+  '/barcelona': typeof BarcelonaRoute
   '/florenca': typeof FlorencaRoute
   '/istambul': typeof IstambulRoute
   '/londres': typeof LondresRoute
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/'
     | '/abordagem'
     | '/auth'
+    | '/barcelona'
     | '/florenca'
     | '/istambul'
     | '/londres'
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/'
     | '/abordagem'
     | '/auth'
+    | '/barcelona'
     | '/florenca'
     | '/istambul'
     | '/londres'
@@ -156,6 +167,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/abordagem'
     | '/auth'
+    | '/barcelona'
     | '/florenca'
     | '/istambul'
     | '/londres'
@@ -171,6 +183,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AbordagemRoute: typeof AbordagemRoute
   AuthRoute: typeof AuthRoute
+  BarcelonaRoute: typeof BarcelonaRoute
   FlorencaRoute: typeof FlorencaRoute
   IstambulRoute: typeof IstambulRoute
   LondresRoute: typeof LondresRoute
@@ -231,6 +244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FlorencaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/barcelona': {
+      id: '/barcelona'
+      path: '/barcelona'
+      fullPath: '/barcelona'
+      preLoaderRoute: typeof BarcelonaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -285,6 +305,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AbordagemRoute: AbordagemRoute,
   AuthRoute: AuthRoute,
+  BarcelonaRoute: BarcelonaRoute,
   FlorencaRoute: FlorencaRoute,
   IstambulRoute: IstambulRoute,
   LondresRoute: LondresRoute,
