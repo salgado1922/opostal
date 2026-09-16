@@ -1959,7 +1959,7 @@ function EssentialInfo() {
               href="https://www.kqzyfj.com/click-101800647-15734352?sid=praga-stare-mesto&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DStar%25C3%25A9%2BM%25C4%259Bsto%252C%2BPraga%252C%2BRep%25C3%25BAblica%2BCheca%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
-              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+              className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold md:min-h-0 md:py-0"
             >
               Ver alojamentos em Cidade Velha
               <ExternalLink className="h-3 w-3 opacity-70" />
@@ -1974,7 +1974,7 @@ function EssentialInfo() {
               href="https://www.kqzyfj.com/click-101800647-15734352?sid=praga-mala-strana&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DMal%25C3%25A1%2BStrana%252C%2BPraga%252C%2BRep%25C3%25BAblica%2BCheca%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
-              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+              className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold md:min-h-0 md:py-0"
             >
               Ver alojamentos em Malá Strana
               <ExternalLink className="h-3 w-3 opacity-70" />
@@ -1989,7 +1989,7 @@ function EssentialInfo() {
               href="https://www.kqzyfj.com/click-101800647-15734352?sid=praga-nove-mesto&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DNov%25C3%25A9%2BM%25C4%259Bsto%252C%2BPraga%252C%2BRep%25C3%25BAblica%2BCheca%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
-              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+              className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold md:min-h-0 md:py-0"
             >
               Ver alojamentos em Nové Město
               <ExternalLink className="h-3 w-3 opacity-70" />

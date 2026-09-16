@@ -2019,7 +2019,7 @@ function EssentialInfo() {
               href="https://www.kqzyfj.com/click-101800647-15734352?sid=londres-covent-garden-soho&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DSoho%252C%2BLondres%252C%2BReino%2BUnido%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
-              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+              className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold md:min-h-0 md:py-0"
             >
               Ver alojamentos em Covent Garden / Soho
               <ExternalLink className="h-3 w-3 opacity-70" />
@@ -2034,7 +2034,7 @@ function EssentialInfo() {
               href="https://www.kqzyfj.com/click-101800647-15734352?sid=londres-south-bank&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DSouth%2BBank%252C%2BLondres%252C%2BReino%2BUnido%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
-              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+              className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold md:min-h-0 md:py-0"
             >
               Ver alojamentos em South Bank / London Bridge
               <ExternalLink className="h-3 w-3 opacity-70" />
@@ -2049,7 +2049,7 @@ function EssentialInfo() {
               href="https://www.kqzyfj.com/click-101800647-15734352?sid=londres-kensington&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DKensington%252C%2BLondres%252C%2BReino%2BUnido%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
               target="_blank"
               rel="sponsored noopener"
-              className="mt-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold"
+              className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold md:min-h-0 md:py-0"
             >
               Ver alojamentos em Kensington / South Kensington
               <ExternalLink className="h-3 w-3 opacity-70" />
