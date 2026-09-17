@@ -60,6 +60,12 @@ function AdminPage() {
             </p>
           </div>
           <div className="flex items-center gap-3">
+            <Link
+              to="/guias"
+              className="inline-flex items-center gap-2 rounded-md border border-gold/40 bg-gold/10 px-3 py-2 text-xs text-cream transition-colors hover:bg-gold/20 focus:outline-none focus:ring-2 focus:ring-gold/50"
+            >
+              Guias
+            </Link>
             <button
               type="button"
               onClick={() => refetch()}

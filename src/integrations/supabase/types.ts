@@ -38,6 +38,63 @@ export type Database = {
         }
         Relationships: []
       }
+      guides: {
+        Row: {
+          city: string
+          content: Json
+          country: string
+          created_at: string
+          duration: string
+          hero_alt: string
+          hero_url: string
+          id: string
+          intro: string
+          published_at: string | null
+          seo_description: string
+          seo_title: string
+          slug: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          city?: string
+          content?: Json
+          country?: string
+          created_at?: string
+          duration?: string
+          hero_alt?: string
+          hero_url?: string
+          id?: string
+          intro?: string
+          published_at?: string | null
+          seo_description?: string
+          seo_title?: string
+          slug: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          city?: string
+          content?: Json
+          country?: string
+          created_at?: string
+          duration?: string
+          hero_alt?: string
+          hero_url?: string
+          id?: string
+          intro?: string
+          published_at?: string | null
+          seo_description?: string
+          seo_title?: string
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       itinerary_requests: {
         Row: {
           alojamento: string | null
