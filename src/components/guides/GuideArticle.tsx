@@ -58,7 +58,7 @@ export function GuideArticle({ guide, preview = false }: { guide: GuidePreviewGu
   const placeName = guide.city || guide.title || "Novo guia";
 
   return (
-    <main className={cn("bg-twilight-radial min-h-screen", preview && "text-left")}>
+    <div className={cn("bg-twilight-radial min-h-screen", preview && "text-left")}>
       <header className="relative flex min-h-[62vh] items-end overflow-hidden md:min-h-[78vh]">
         {guide.hero_url && (
           <SmartImage
@@ -266,6 +266,6 @@ export function GuideArticle({ guide, preview = false }: { guide: GuidePreviewGu
       </div>
 
       <SiteFooter city={placeName} farewell={c.farewell || undefined} />
-    </main>
+    </div>
   );
 }
