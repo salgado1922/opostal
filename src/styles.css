@@ -176,6 +176,42 @@ html { scroll-behavior: smooth; }
 }
 @utility animate-scroll-cue { animation: scroll-cue 2.2s ease-in-out infinite; }
 
+/* Keep both postcard faces on separate GPU layers. This prevents mobile
+   Safari from briefly painting the mirrored face during the turn. */
+.postcard-perspective {
+  perspective: 1600px;
+  -webkit-perspective: 1600px;
+}
+
+.postcard-flip {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform .85s cubic-bezier(.2, .8, .2, 1);
+  will-change: transform;
+}
+
+.postcard-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  isolation: isolate;
+}
+
+.postcard-front {
+  transform: rotateY(0deg) translateZ(1px);
+}
+
+.postcard-back {
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .postcard-flip {
+    transition-duration: .01ms;
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /* İznik & Bósforo theme — scoped overrides for the /istambul page    */
 /* Re-maps the existing palette tokens so utilities like text-gold,   */

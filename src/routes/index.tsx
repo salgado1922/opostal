@@ -296,7 +296,7 @@ function CityGrid() {
           style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}
         >
           {CITIES.map((city) => (
-            <li key={city.slug} style={{ perspective: "1600px" }}>
+            <li key={city.slug} className="postcard-perspective">
               <PostcardFlip city={city} />
             </li>
           ))}
@@ -327,18 +327,16 @@ function PostcardFlip({ city }: { city: CityMeta }) {
           setFlipped((f) => !f);
         }
       }}
-      className="relative w-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-[18px]"
+      className="postcard-flip relative w-full cursor-pointer rounded-[18px] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       style={{
         aspectRatio: "4 / 5",
-        transformStyle: "preserve-3d",
-        transition: "transform .85s cubic-bezier(.2,.8,.2,1)",
         transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
       }}
     >
       {/* FRONT */}
       <article
-        className="absolute inset-0 overflow-hidden rounded-[18px] border border-gold/15 shadow-[0_12px_44px_-22px_rgba(0,0,0,0.85)]"
-        style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", background: "oklch(0.22 0.055 320 / 0.4)" }}
+        className="postcard-face postcard-front absolute inset-0 overflow-hidden rounded-[18px] border border-gold/15 shadow-[0_12px_44px_-22px_rgba(0,0,0,0.85)]"
+        style={{ background: "oklch(0.22 0.055 320 / 0.4)" }}
       >
         <SmartImage
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
@@ -404,11 +402,8 @@ function PostcardFlip({ city }: { city: CityMeta }) {
 
       {/* BACK */}
       <article
-        className="absolute inset-0 overflow-hidden rounded-[18px] border border-gold/25 shadow-[0_12px_44px_-22px_rgba(0,0,0,0.85)]"
+        className="postcard-face postcard-back absolute inset-0 overflow-hidden rounded-[18px] border border-gold/25 shadow-[0_12px_44px_-22px_rgba(0,0,0,0.85)]"
         style={{
-          backfaceVisibility: "hidden",
-          WebkitBackfaceVisibility: "hidden",
-          transform: "rotateY(180deg)",
           background:
             "oklch(0.20 0.05 318)",
           backgroundImage:
