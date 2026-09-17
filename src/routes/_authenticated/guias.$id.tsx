@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Loader2, Save, Send } from "lucide-react";
+import { Eye, Loader2, Save, Send } from "lucide-react";
 import {
   AddButton,
   Area,
@@ -11,6 +11,7 @@ import {
   RepeatBlock,
   Text,
 } from "@/components/admin/GuideFields";
+import { GuideArticle } from "@/components/guides/GuideArticle";
 import { getGuideAdmin, saveGuide } from "@/lib/guides.functions";
 import {
   emptyContent,
@@ -125,7 +126,7 @@ function GuideEditor() {
 
   return (
     <main className="bg-twilight-radial min-h-screen px-5 py-10 md:px-6 md:py-14">
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="mb-2 text-[11px] uppercase tracking-[0.3em] text-gold/80">
@@ -138,16 +139,26 @@ function GuideEditor() {
               <p className="mt-2 text-sm text-cream/55">opostal.pt/guia/{draft.slug}</p>
             )}
           </div>
-          <Link
-            to="/guias"
-            className="text-xs text-cream/50 underline-offset-4 hover:text-cream/80 hover:underline"
-          >
-            ← Todos os guias
-          </Link>
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href="#previsualizacao"
+              className="inline-flex items-center gap-2 rounded-md border border-gold/25 px-3 py-2 text-xs text-cream/65 transition-colors hover:bg-gold/10 hover:text-cream"
+            >
+              <Eye className="h-4 w-4" />
+              Pré-visualização
+            </a>
+            <Link
+              to="/guias"
+              className="text-xs text-cream/50 underline-offset-4 hover:text-cream/80 hover:underline"
+            >
+              ← Todos os guias
+            </Link>
+          </div>
         </div>
 
-        <div className="mt-8 grid gap-6">
-          <Panel title="Essencial">
+        <div className="mt-8 grid gap-8 xl:grid-cols-[minmax(0,0.95fr)_minmax(380px,1.05fr)] xl:items-start">
+          <div className="grid gap-6">
+            <Panel title="Essencial">
             <Text
               label="Cidade"
               value={draft.city}
@@ -184,9 +195,9 @@ function GuideEditor() {
               rows={5}
               placeholder="Duas ou três frases sobre a cidade e o que o roteiro faz."
             />
-          </Panel>
+            </Panel>
 
-          <Panel title="Google" description="O que aparece nos resultados de pesquisa e nas partilhas.">
+            <Panel title="Google" description="O que aparece nos resultados de pesquisa e nas partilhas.">
             <Text label="Título para o Google" value={draft.seo_title} onChange={(v) => set("seo_title", v)} />
             <Area
               label="Descrição para o Google"
@@ -194,9 +205,9 @@ function GuideEditor() {
               onChange={(v) => set("seo_description", v)}
               rows={3}
             />
-          </Panel>
+            </Panel>
 
-          <Panel title="Contexto" description="Blocos que abrem e fecham: quando ir, clima, como chegar…">
+            <Panel title="Contexto" description="Blocos que abrem e fecham: quando ir, clima, como chegar…">
             {c.context.map((n, i) => (
               <RepeatBlock
                 key={i}
@@ -223,9 +234,9 @@ function GuideEditor() {
               label="Bloco de contexto"
               onClick={() => setContent("context", [...c.context, { title: "", desc: "" }])}
             />
-          </Panel>
+            </Panel>
 
-          <Panel title="Dias e paragens">
+            <Panel title="Dias e paragens">
             {c.days.map((day, di) => (
               <RepeatBlock
                 key={di}
@@ -350,9 +361,9 @@ function GuideEditor() {
                 ])
               }
             />
-          </Panel>
+            </Panel>
 
-          <Panel title="Comer">
+            <Panel title="Comer">
             {c.eat.map((e, i) => {
               const patch = (field: string, v: string) =>
                 setContent("eat", c.eat.map((o, x) => (x === i ? { ...o, [field]: v } : o)));
@@ -380,9 +391,9 @@ function GuideEditor() {
                 ])
               }
             />
-          </Panel>
+            </Panel>
 
-          <Panel title="Onde ficar" description="Zonas da cidade, com o teu link do Booking.">
+            <Panel title="Onde ficar" description="Zonas da cidade, com o teu link do Booking.">
             {c.stay.map((s, i) => {
               const patch = (field: string, v: string) =>
                 setContent("stay", c.stay.map((o, x) => (x === i ? { ...o, [field]: v } : o)));
@@ -406,9 +417,9 @@ function GuideEditor() {
               label="Zona"
               onClick={() => setContent("stay", [...c.stay, { zone: "", desc: "", bookingUrl: "" }])}
             />
-          </Panel>
+            </Panel>
 
-          <Panel title="Extras">
+            <Panel title="Extras">
             <p className="text-[11px] uppercase tracking-[0.2em] text-cream/50">Se chover</p>
             {c.rainy.map((n, i) => (
               <RepeatBlock
@@ -475,7 +486,20 @@ function GuideEditor() {
               onChange={(v) => setContent("farewell", v)}
               hint="Fica no fim do guia, na língua da cidade."
             />
-          </Panel>
+            </Panel>
+          </div>
+
+          <aside id="previsualizacao" className="xl:sticky xl:top-6">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+              <p className="text-[11px] uppercase tracking-[0.25em] text-gold/80">
+                Pré-visualização
+              </p>
+              <p className="text-xs text-cream/45">Atualiza enquanto escreves</p>
+            </div>
+            <div className="overflow-hidden rounded-2xl border border-gold/20 bg-background shadow-2xl shadow-background/50 xl:max-h-[calc(100vh-7rem)] xl:overflow-y-auto">
+              <GuideArticle guide={draft} preview />
+            </div>
+          </aside>
         </div>
 
         {error && <p className="mt-6 text-sm text-red-400">{error}</p>}
