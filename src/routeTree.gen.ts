@@ -24,7 +24,11 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AbordagemRouteImport } from './routes/abordagem'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GuiaSlugRouteImport } from './routes/guia.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedGuiasIndexRouteImport } from './routes/_authenticated/guias.index'
+import { Route as AuthenticatedGuiasIdRouteImport } from './routes/_authenticated/guias.$id'
+import { Route as ApiPublicGuideImageSplatRouteImport } from './routes/api/public/guide-image/$'
 
 const VienaRoute = VienaRouteImport.update({
   id: '/viena',
@@ -100,11 +104,32 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuiaSlugRoute = GuiaSlugRouteImport.update({
+  id: '/guia/$slug',
+  path: '/guia/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedGuiasIndexRoute = AuthenticatedGuiasIndexRouteImport.update({
+  id: '/guias/',
+  path: '/guias/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedGuiasIdRoute = AuthenticatedGuiasIdRouteImport.update({
+  id: '/guias/$id',
+  path: '/guias/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ApiPublicGuideImageSplatRoute =
+  ApiPublicGuideImageSplatRouteImport.update({
+    id: '/api/public/guide-image/$',
+    path: '/api/public/guide-image/$',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -122,6 +147,10 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/guia/$slug': typeof GuiaSlugRoute
+  '/guias/$id': typeof AuthenticatedGuiasIdRoute
+  '/guias/': typeof AuthenticatedGuiasIndexRoute
+  '/api/public/guide-image/$': typeof ApiPublicGuideImageSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -139,6 +168,10 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/guia/$slug': typeof GuiaSlugRoute
+  '/guias/$id': typeof AuthenticatedGuiasIdRoute
+  '/guias': typeof AuthenticatedGuiasIndexRoute
+  '/api/public/guide-image/$': typeof ApiPublicGuideImageSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -158,6 +191,10 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/guia/$slug': typeof GuiaSlugRoute
+  '/_authenticated/guias/$id': typeof AuthenticatedGuiasIdRoute
+  '/_authenticated/guias/': typeof AuthenticatedGuiasIndexRoute
+  '/api/public/guide-image/$': typeof ApiPublicGuideImageSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -177,6 +214,10 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/viena'
     | '/admin'
+    | '/guia/$slug'
+    | '/guias/$id'
+    | '/guias/'
+    | '/api/public/guide-image/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -194,6 +235,10 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/viena'
     | '/admin'
+    | '/guia/$slug'
+    | '/guias/$id'
+    | '/guias'
+    | '/api/public/guide-image/$'
   id:
     | '__root__'
     | '/'
@@ -212,6 +257,10 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/viena'
     | '/_authenticated/admin'
+    | '/guia/$slug'
+    | '/_authenticated/guias/$id'
+    | '/_authenticated/guias/'
+    | '/api/public/guide-image/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -230,6 +279,8 @@ export interface RootRouteChildren {
   RoteiroPersonalizadoRoute: typeof RoteiroPersonalizadoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VienaRoute: typeof VienaRoute
+  GuiaSlugRoute: typeof GuiaSlugRoute
+  ApiPublicGuideImageSplatRoute: typeof ApiPublicGuideImageSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -339,6 +390,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guia/$slug': {
+      id: '/guia/$slug'
+      path: '/guia/$slug'
+      fullPath: '/guia/$slug'
+      preLoaderRoute: typeof GuiaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -346,15 +404,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/guias/': {
+      id: '/_authenticated/guias/'
+      path: '/guias'
+      fullPath: '/guias/'
+      preLoaderRoute: typeof AuthenticatedGuiasIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/guias/$id': {
+      id: '/_authenticated/guias/$id'
+      path: '/guias/$id'
+      fullPath: '/guias/$id'
+      preLoaderRoute: typeof AuthenticatedGuiasIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/guide-image/$': {
+      id: '/api/public/guide-image/$'
+      path: '/api/public/guide-image/$'
+      fullPath: '/api/public/guide-image/$'
+      preLoaderRoute: typeof ApiPublicGuideImageSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedGuiasIdRoute: typeof AuthenticatedGuiasIdRoute
+  AuthenticatedGuiasIndexRoute: typeof AuthenticatedGuiasIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedGuiasIdRoute: AuthenticatedGuiasIdRoute,
+  AuthenticatedGuiasIndexRoute: AuthenticatedGuiasIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -376,6 +459,8 @@ const rootRouteChildren: RootRouteChildren = {
   RoteiroPersonalizadoRoute: RoteiroPersonalizadoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VienaRoute: VienaRoute,
+  GuiaSlugRoute: GuiaSlugRoute,
+  ApiPublicGuideImageSplatRoute: ApiPublicGuideImageSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
