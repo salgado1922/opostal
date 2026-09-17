@@ -274,6 +274,8 @@ const CITY_MESSAGES: Record<string, string> = {
 };
 
 function CityGrid() {
+  // Só um postal pode estar virado de cada vez.
+  const [flippedSlug, setFlippedSlug] = useState<string | null>(null);
   return (
     <section id="cidades" className="relative z-[2] px-5 py-14 md:px-6 md:py-32">
       <div className="mx-auto max-w-6xl">
@@ -297,7 +299,13 @@ function CityGrid() {
         >
           {CITIES.map((city) => (
             <li key={city.slug} className="postcard-perspective">
-              <PostcardFlip city={city} />
+              <PostcardFlip
+                city={city}
+                flipped={flippedSlug === city.slug}
+                onToggle={() =>
+                  setFlippedSlug((cur) => (cur === city.slug ? null : city.slug))
+                }
+              />
             </li>
           ))}
         </ul>
@@ -306,8 +314,15 @@ function CityGrid() {
   );
 }
 
-function PostcardFlip({ city }: { city: CityMeta }) {
-  const [flipped, setFlipped] = useState(false);
+function PostcardFlip({
+  city,
+  flipped,
+  onToggle,
+}: {
+  city: CityMeta;
+  flipped: boolean;
+  onToggle: () => void;
+}) {
   const ready = city.status === "ready";
   const code = CITY_STAMP_CODES[city.slug] ?? city.slug.slice(0, 3).toUpperCase();
   const message = CITY_MESSAGES[city.slug] ?? "Postal em preparação. Em breve mando-te notícias.";
@@ -316,7 +331,7 @@ function PostcardFlip({ city }: { city: CityMeta }) {
 
   return (
     <div
-      onClick={() => setFlipped((f) => !f)}
+      onClick={onToggle}
       role="button"
       tabIndex={0}
       aria-pressed={flipped}
@@ -324,7 +339,7 @@ function PostcardFlip({ city }: { city: CityMeta }) {
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          setFlipped((f) => !f);
+          onToggle();
         }
       }}
       className="postcard-flip relative w-full cursor-pointer rounded-[18px] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
