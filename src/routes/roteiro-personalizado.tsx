@@ -3,7 +3,7 @@ import { zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowRight, CalendarIcon } from "lucide-react";
+import { ArrowRight, CalendarIcon, Check, FileText, Map, MessageCircle, RefreshCw, Wallet, X } from "lucide-react";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
 import type { DateRange } from "react-day-picker";
@@ -75,6 +75,8 @@ function RoteiroPersonalizadoPage() {
       <DifferenceNote />
       <HowItWorks />
       <ExampleDay />
+      <WhatYouGet />
+      <FreeVsPaid />
       <RequestForm />
       <Faq />
       <NewGuidesSignup />
@@ -1065,6 +1067,206 @@ function ExampleDay() {
     </section>
   );
 }
+// ============ O que recebes ============
+
+const DELIVERABLES: { icon: typeof Map; title: string; desc: string }[] = [
+  {
+    icon: FileText,
+    title: "Documento completo, dia a dia",
+    desc: "Um roteiro organizado horário a horário, com contexto de cada paragem, custos estimados e alternativas se algo correr diferente.",
+  },
+  {
+    icon: Map,
+    title: "Mapa com tudo marcado",
+    desc: "Todas as paragens, restaurantes e atalhos marcados num mapa que abres no telemóvel e segues sem pensar.",
+  },
+  {
+    icon: Wallet,
+    title: "Orçamento realista",
+    desc: "Quanto vais gastar por dia, por pessoa, calibrado ao orçamento que me deste — sem surpresas à chegada.",
+  },
+  {
+    icon: MessageCircle,
+    title: "Respostas às tuas dúvidas",
+    desc: "Depois de receberes o roteiro, podes perguntar o que quiseres sobre a viagem. Respondo pessoalmente.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Uma revisão antes de partir",
+    desc: "Se as datas, o voo ou os planos mudarem, ajusto o roteiro uma vez antes da viagem, sem custo extra.",
+  },
+];
+
+function WhatYouGet() {
+  return (
+    <section className="relative px-6 py-16 md:py-24">
+      <div className="mx-auto max-w-5xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="mb-10 max-w-2xl"
+        >
+          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">O que recebes</p>
+          <h2 className="font-serif text-3xl text-cream md:text-4xl">
+            Não é um PDF genérico. É a viagem resolvida.
+          </h2>
+          <p className="mt-4 text-cream/80 leading-relaxed">
+            O objetivo é simples: aterrares e não teres de pensar em mais nada. Cada roteiro
+            inclui:
+          </p>
+        </motion.div>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {DELIVERABLES.map((d, i) => (
+            <motion.div
+              key={d.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: i * 0.06 }}
+              className="rounded-2xl border border-gold/10 bg-plum/25 p-6 transition-colors hover:border-gold/25"
+            >
+              <d.icon className="h-5 w-5 text-gold" />
+              <h3 className="mt-4 font-serif text-lg text-cream">{d.title}</h3>
+              <p className="mt-2 text-sm text-cream/70 leading-relaxed">{d.desc}</p>
+            </motion.div>
+          ))}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: DELIVERABLES.length * 0.06 }}
+            className="flex flex-col justify-center rounded-2xl border border-gold/25 bg-gold/[0.06] p-6"
+          >
+            <p className="font-serif text-lg text-cream leading-snug">
+              Tudo pensado para as tuas datas, o teu ritmo e o teu orçamento.
+            </p>
+            <button
+              type="button"
+              onClick={scrollToForm}
+              className="mt-4 inline-flex w-fit items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:text-gold-soft"
+            >
+              Pedir o meu
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============ Gratuito vs Personalizado ============
+
+const VS_ROWS: { label: string; free: string | false; paid: string }[] = [
+  {
+    label: "Itinerário dia a dia",
+    free: "O mesmo para toda a gente",
+    paid: "Desenhado para as tuas datas e o teu ritmo",
+  },
+  {
+    label: "Horários e ordem das visitas",
+    free: "Sugestão geral",
+    paid: "Horário a horário, com margens realistas",
+  },
+  {
+    label: "Custos estimados",
+    free: "Valores gerais",
+    paid: "Calibrados ao teu orçamento, por dia e por pessoa",
+  },
+  {
+    label: "Mapa com tudo marcado",
+    free: false,
+    paid: "Incluído, pronto a abrir no telemóvel",
+  },
+  {
+    label: "Restaurantes ao teu gosto",
+    free: "Sugestões fixas",
+    paid: "Escolhidos pelos teus interesses e restrições",
+  },
+  {
+    label: "Dúvidas respondidas",
+    free: false,
+    paid: "Respondo pessoalmente depois de receberes o roteiro",
+  },
+  {
+    label: "Revisão antes da viagem",
+    free: false,
+    paid: "Uma revisão incluída, sem custo extra",
+  },
+];
+
+function FreeVsPaid() {
+  return (
+    <section className="relative px-6 py-16 md:py-24">
+      <div className="mx-auto max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="mb-10 text-center"
+        >
+          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">
+            Gratuito vs Personalizado
+          </p>
+          <h2 className="font-serif text-3xl text-cream md:text-4xl">
+            O que muda quando passas para o roteiro pago
+          </h2>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="overflow-hidden rounded-2xl border border-gold/15 bg-plum/40 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.85)]"
+        >
+          <div className="grid grid-cols-[1.1fr_1fr_1.2fr] border-b border-gold/15 bg-gold/[0.05] px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-gold/85 md:px-6">
+            <span />
+            <span>Guia gratuito</span>
+            <span className="text-gold">Roteiro personalizado</span>
+          </div>
+          {VS_ROWS.map((r) => (
+            <div
+              key={r.label}
+              className="grid grid-cols-[1.1fr_1fr_1.2fr] items-start gap-x-3 border-b border-gold/10 px-4 py-4 last:border-b-0 md:px-6"
+            >
+              <p className="text-sm font-medium text-cream">{r.label}</p>
+              <p className="flex items-start gap-1.5 text-xs text-cream/55 leading-relaxed md:text-sm">
+                {r.free === false ? (
+                  <>
+                    <X className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cream/35" />
+                    <span className="text-cream/40">Não incluído</span>
+                  </>
+                ) : (
+                  r.free
+                )}
+              </p>
+              <p className="flex items-start gap-1.5 text-xs text-cream/85 leading-relaxed md:text-sm">
+                <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold" />
+                {r.paid}
+              </p>
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="mx-auto mt-8 max-w-2xl text-center text-sm text-cream/65 leading-relaxed"
+        >
+          Por 24,90 € — menos do que um jantar para dois na maioria destas cidades — poupas
+          horas de pesquisa e evitas os erros que estragam um dia de viagem.
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
 // ============ Avisos de novos guias ============
 
 function NewGuidesSignup() {
