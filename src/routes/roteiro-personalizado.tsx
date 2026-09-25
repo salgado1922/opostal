@@ -3,7 +3,7 @@ import { zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowRight, CalendarIcon } from "lucide-react";
+import { ArrowRight, CalendarIcon, Check, FileText, Map, MessageCircle, RefreshCw, Wallet, X } from "lucide-react";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
 import type { DateRange } from "react-day-picker";
@@ -75,6 +75,8 @@ function RoteiroPersonalizadoPage() {
       <DifferenceNote />
       <HowItWorks />
       <ExampleDay />
+      <WhatYouGet />
+      <FreeVsPaid />
       <RequestForm />
       <Faq />
       <NewGuidesSignup />
