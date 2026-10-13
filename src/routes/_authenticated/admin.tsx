@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex, nofollow" },
       { title: "Pedidos de roteiro | O Postal" },
       { name: "robots", content: "noindex, nofollow" },
     ],
