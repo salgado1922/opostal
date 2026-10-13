@@ -14,6 +14,7 @@ import type { GuideRow } from "@/lib/guides-schema";
 export const Route = createFileRoute("/_authenticated/guias/")({
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex, nofollow" },
       { title: "Guias | O Postal" },
       { name: "robots", content: "noindex, nofollow" },
     ],

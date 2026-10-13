@@ -24,6 +24,7 @@ import {
 export const Route = createFileRoute("/_authenticated/guias/$id")({
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex, nofollow" },
       { title: "Escrever guia | O Postal" },
       { name: "robots", content: "noindex, nofollow" },
     ],
