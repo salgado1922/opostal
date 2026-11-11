@@ -35,8 +35,7 @@ import {
   Palette,
   Landmark,
   BookOpen,
-  Umbrella,
-} from "lucide-react";
+  Umbrella, TrainFront } from "lucide-react";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -186,8 +185,11 @@ type Stop = {
   link?: string;
   img?: string;
   imgAlt?: string;
+  img2?: string;
+  img2Alt?: string;
   image?: string;
   imageAlt?: string;
+  optional?: boolean;
   icon: React.ComponentType<{ className?: string }>;
   bookingUrl?: string;
   affiliate?: boolean;
@@ -202,12 +204,26 @@ type Day = {
   date: string;
   title: string;
   vibe: string;
+  accent?: string;
   icon: React.ComponentType<{ className?: string }>;
-  cover: string;
+  cover?: string;
+  coverAlt?: string;
   stops: Stop[];
   highlightTip?: string;
   walkTotal?: string;
   howToGet?: string;
+  mapEmbedUrl?: string;
+  mapLinkUrl?: string;
+  dayTag?: string;
+  transport?: {
+    title: string;
+    text: string;
+    primaryLabel?: string;
+    primaryUrl?: string;
+    note?: string;
+    secondaryLabel?: string;
+    secondaryUrl?: string;
+  };
   dayNote?: { tone: "amber"; text: string };
 };
 
@@ -617,7 +633,7 @@ function FlipDaysGrid() {
       className="m-0 grid list-none gap-5 p-0"
       style={{ gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}
     >
-      {days.map((d) => {
+      {days.filter((d) => d.cover).map((d) => {
         const isFlipped = !!flipped[d.key];
         return (
           <li key={d.key} className="paris-flip-cell" style={{ perspective: 1500 }}>
@@ -644,7 +660,7 @@ function FlipDaysGrid() {
                 }}
               >
                 <SmartImage
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px" src={d.cover} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px" src={d.cover!} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.2) 48%, transparent)" }} />
                 <span
                   className="absolute right-3 top-3 inline-flex items-center gap-1 text-[9.5px] uppercase tracking-[0.18em] px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
@@ -726,7 +742,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
   const Icon = stop.icon;
   const stopImg = stop.img ?? stop.image;
   const stopImgAlt = stop.imgAlt ?? stop.imageAlt;
-  const hasExtra = !!(stop.tip || stopImg);
+  const hasExtra = !!(stop.tip || stopImg || stop.img2);
 
   return (
     <motion.div
@@ -751,6 +767,11 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
             <span className="font-serif text-2xl italic text-gold md:text-3xl">{stop.time}</span>
             <h4 className="font-serif text-2xl text-cream md:text-3xl">
               {stop.link ? <GoldLink href={stop.link}>{stop.title}</GoldLink> : stop.title}
+              {stop.optional && (
+                <span className="ml-3 align-middle font-sans text-[10px] uppercase tracking-[0.25em] text-gold/80">
+                  opcional
+                </span>
+              )}
             </h4>
           </div>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -806,14 +827,27 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
               <p className="font-serif text-base italic leading-relaxed text-cream/90">{stop.tip}</p>
             </div>
           )}
-          {stopImg && (
-            <SmartImage
+          {(stopImg || stop.img2) && (
+            <div className="flex flex-col gap-3">
+              {stopImg && (
+                <SmartImage
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
-              src={stopImg}
-              alt={stopImgAlt ?? stop.title}
-              className="h-44 w-full rounded-[2px] object-cover md:w-72"
-              loading="lazy"
-            />
+                  src={stopImg}
+                  alt={stopImgAlt ?? stop.title}
+                  className="h-44 w-full rounded-[2px] object-cover md:w-72"
+                  loading="lazy"
+                />
+              )}
+              {stop.img2 && (
+                <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
+                  src={stop.img2}
+                  alt={stop.img2Alt ?? stop.title}
+                  className="h-44 w-full rounded-[2px] object-cover md:w-72"
+                  loading="lazy"
+                />
+              )}
+            </div>
           )}
         </div>
       </motion.div>
@@ -843,9 +877,12 @@ function DayBlock({ day }: { day: Day }) {
         >
           {num}
         </span>
-        <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-gold">
+        <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-gold">
           <Icon className="h-4 w-4" />
           {day.label} · {day.date}
+          {day.dayTag && (
+            <span className="font-serif normal-case italic tracking-normal text-gold/70">— {day.dayTag}</span>
+          )}
         </div>
         <h3 className="mt-4 max-w-2xl font-serif text-4xl leading-[1.05] text-cream md:text-6xl">
           {day.title}

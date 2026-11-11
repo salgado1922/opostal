@@ -214,15 +214,17 @@ type Day = {
   date: string;
   title: string;
   vibe: string;
-  accent: string;
+  accent?: string;
   icon: React.ComponentType<{ className?: string }>;
-  cover: string;
+  cover?: string;
+  coverAlt?: string;
   stops: Stop[];
   highlightTip?: string;
   walkTotal?: string;
   howToGet?: string;
   mapEmbedUrl?: string;
   mapLinkUrl?: string;
+  dayTag?: string;
   transport?: {
     title: string;
     text: string;
@@ -581,7 +583,7 @@ function FlipDaysGrid() {
       className="m-0 grid list-none gap-5 p-0"
       style={{ gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}
     >
-      {days.map((d) => {
+      {days.filter((d) => d.cover).map((d) => {
         const isFlipped = !!flipped[d.key];
         return (
           <li key={d.key} className="praga-flip-cell" style={{ perspective: 1500 }}>
@@ -609,7 +611,7 @@ function FlipDaysGrid() {
                 }}
               >
                 <SmartImage
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px" src={d.cover} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px" src={d.cover!} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.2) 48%, transparent)" }} />
                 <span
                   className="absolute right-3 top-3 inline-flex items-center gap-1 text-[9.5px] uppercase tracking-[0.18em] px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
@@ -827,9 +829,12 @@ function DayBlock({ day }: { day: Day }) {
         >
           {num}
         </span>
-        <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-gold">
+        <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-gold">
           <Icon className="h-4 w-4" />
           {day.label} · {day.date}
+          {day.dayTag && (
+            <span className="font-serif normal-case italic tracking-normal text-gold/70">— {day.dayTag}</span>
+          )}
         </div>
         <h3 className="mt-4 max-w-2xl font-serif text-4xl leading-[1.05] text-cream md:text-6xl">
           {day.title}

@@ -36,8 +36,7 @@ import {
   Landmark,
   Waves,
   Camera,
-  ShoppingBag,
-} from "lucide-react";
+  ShoppingBag, Ticket } from "lucide-react";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -192,8 +191,11 @@ type Stop = {
   link?: string;
   img?: string;
   imgAlt?: string;
+  img2?: string;
+  img2Alt?: string;
   image?: string;
   imageAlt?: string;
+  optional?: boolean;
   icon: React.ComponentType<{ className?: string }>;
   bookingUrl?: string;
   affiliate?: boolean;
@@ -208,16 +210,27 @@ type Day = {
   date: string;
   title: string;
   vibe: string;
-  accent: string;
+  accent?: string;
   icon: React.ComponentType<{ className?: string }>;
-  cover: string;
+  cover?: string;
   coverAlt?: string;
   stops: Stop[];
+  highlightTip?: string;
   walkTotal?: string;
   howToGet?: string;
   mapEmbedUrl?: string;
   mapLinkUrl?: string;
-  highlightTip?: string;
+  dayTag?: string;
+  transport?: {
+    title: string;
+    text: string;
+    primaryLabel?: string;
+    primaryUrl?: string;
+    note?: string;
+    secondaryLabel?: string;
+    secondaryUrl?: string;
+  };
+  dayNote?: { tone: "amber"; text: string };
 };
 
 const days: Day[] = [
@@ -567,7 +580,7 @@ function Overview() {
       intro="Um dia em Pest, um dia em Buda, e um último dia entre a grande avenida, as termas e a noite."
     >
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-        {days.map((d) => {
+        {days.filter((d) => d.cover).map((d) => {
           const Icon = d.icon;
           return (
             <motion.a
@@ -583,7 +596,7 @@ function Overview() {
             >
               <SmartImage
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 400px"
-                src={d.cover}
+                src={d.cover!}
                 alt={d.coverAlt ?? d.title}
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -617,7 +630,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
   const Icon = stop.icon;
   const stopImg = stop.img ?? stop.image;
   const stopImgAlt = stop.imgAlt ?? stop.imageAlt;
-  const hasExtra = !!(stop.tip || stopImg);
+  const hasExtra = !!(stop.tip || stopImg || stop.img2);
 
   return (
     <motion.div
@@ -642,6 +655,11 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
             <span className="font-serif text-2xl italic text-gold md:text-3xl">{stop.time}</span>
             <h4 className="font-serif text-2xl text-cream md:text-3xl">
               {stop.link ? <GoldLink href={stop.link}>{stop.title}</GoldLink> : stop.title}
+              {stop.optional && (
+                <span className="ml-3 align-middle font-sans text-[10px] uppercase tracking-[0.25em] text-gold/80">
+                  opcional
+                </span>
+              )}
             </h4>
           </div>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -697,14 +715,27 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
               <p className="font-serif text-base italic leading-relaxed text-cream/90">{stop.tip}</p>
             </div>
           )}
-          {stopImg && (
-            <SmartImage
+          {(stopImg || stop.img2) && (
+            <div className="flex flex-col gap-3">
+              {stopImg && (
+                <SmartImage
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
-              src={stopImg}
-              alt={stopImgAlt ?? stop.title}
-              className="h-44 w-full rounded-[2px] object-cover md:w-72"
-              loading="lazy"
-            />
+                  src={stopImg}
+                  alt={stopImgAlt ?? stop.title}
+                  className="h-44 w-full rounded-[2px] object-cover md:w-72"
+                  loading="lazy"
+                />
+              )}
+              {stop.img2 && (
+                <SmartImage
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
+                  src={stop.img2}
+                  alt={stop.img2Alt ?? stop.title}
+                  className="h-44 w-full rounded-[2px] object-cover md:w-72"
+                  loading="lazy"
+                />
+              )}
+            </div>
           )}
         </div>
       </motion.div>
@@ -734,9 +765,12 @@ function DayBlock({ day }: { day: Day }) {
         >
           {num}
         </span>
-        <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-gold">
+        <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-gold">
           <Icon className="h-4 w-4" />
           {day.label} · {day.date}
+          {day.dayTag && (
+            <span className="font-serif normal-case italic tracking-normal text-gold/70">— {day.dayTag}</span>
+          )}
         </div>
         <h3 className="mt-4 max-w-2xl font-serif text-4xl leading-[1.05] text-cream md:text-6xl">
           {day.title}
