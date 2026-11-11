@@ -1,6 +1,19 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
-import { Check, Footprints, MapPin, Share2, X } from "lucide-react";
+import { Camera, Check, Footprints, MapPin, Share2, X } from "lucide-react";
+import {
+  PASSPORT_EVENT,
+  compressPhoto,
+  coordsFor,
+  distanceM,
+  getPosition,
+  isNear,
+  migrateLegacy,
+  readPassport,
+  rewardFor,
+  writePassport,
+  type Passport,
+} from "@/lib/passport";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 
 /* ------------------------------------------------------------------ *
@@ -39,39 +52,23 @@ type Props = {
 
 type Stamped = Record<string, string[]>;
 
-const keyFor = (slug: string) => `opostal:rua:${slug}`;
-
-function readStamped(slug: string): Stamped {
-  try {
-    const raw = window.localStorage.getItem(keyFor(slug));
-    if (!raw) return {};
-    const parsed = JSON.parse(raw) as unknown;
-    if (!parsed || typeof parsed !== "object") return {};
-    const out: Stamped = {};
-    for (const [k, v] of Object.entries(parsed as Record<string, unknown>)) {
-      if (Array.isArray(v)) out[k] = v.filter((x): x is string => typeof x === "string");
-    }
-    return out;
-  } catch {
-    return {};
-  }
-}
-
-function writeStamped(slug: string, value: Stamped) {
-  try {
-    window.localStorage.setItem(keyFor(slug), JSON.stringify(value));
-  } catch {
-    /* modo privado: o progresso simplesmente não fica guardado */
-  }
-}
-
 export function StreetMode({ city, slug, days }: Props) {
   const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [armed, setArmed] = useState(false);
   const [dayKey, setDayKey] = useState(days[0]?.key ?? "");
   const [idx, setIdx] = useState(0);
-  const [stamped, setStamped] = useState<Stamped>({});
+  const [passport, setPassport] = useState<Passport>({});
+  const [checking, setChecking] = useState(false);
+  const [notice, setNotice] = useState<{ text: string; offerFree?: boolean } | null>(null);
+  const photoRef = useRef<HTMLInputElement | null>(null);
+  const totalStops = useMemo(() => days.reduce((n, d) => n + d.stops.length, 0), [days]);
+  const cityStamps = passport[slug]?.stamps ?? {};
+  const stamped: Stamped = useMemo(() => {
+    const out: Stamped = {};
+    for (const d of days) out[d.key] = d.stops.map((s) => s.title).filter((t) => cityStamps[t]);
+    return out;
+  }, [days, cityStamps]);
   const [card, setCard] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -107,13 +104,27 @@ export function StreetMode({ city, slug, days }: Props) {
   }, []);
 
   useEffect(() => {
-    setStamped(readStamped(slug));
-  }, [slug]);
+    migrateLegacy(slug, city, totalStops);
+    const sync = () => setPassport(readPassport());
+    sync();
+    window.addEventListener(PASSPORT_EVENT, sync);
+    window.addEventListener("storage", sync);
+    return () => {
+      window.removeEventListener(PASSPORT_EVENT, sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, [slug, city, totalStops]);
 
-  useEffect(() => {
-    if (!open) return;
-    writeStamped(slug, stamped);
-  }, [open, slug, stamped]);
+  const saveStamps = (mut: (stamps: Passport[string]["stamps"]) => void) => {
+    const p = readPassport();
+    const c = p[slug] ?? { name: city, total: totalStops, stamps: {} };
+    c.name = city;
+    c.total = totalStops;
+    mut(c.stamps);
+    p[slug] = c;
+    if (!writePassport(p)) setNotice({ text: "O telemóvel está sem espaço para guardar mais." });
+    setPassport(p);
+  };
 
   /* Bloqueia o scroll da página enquanto o modo de rua está aberto. */
   useEffect(() => {
@@ -134,6 +145,7 @@ export function StreetMode({ city, slug, days }: Props) {
 
   const next = useCallback(() => {
     setCopied(false);
+    setNotice(null);
     setIdx((i) => {
       if (i < stops.length - 1) return i + 1;
       setCard(true);
@@ -143,6 +155,7 @@ export function StreetMode({ city, slug, days }: Props) {
 
   const prev = useCallback(() => {
     setCopied(false);
+    setNotice(null);
     setCard(false);
     setIdx((i) => Math.max(0, i - 1));
   }, []);
@@ -200,24 +213,67 @@ export function StreetMode({ city, slug, days }: Props) {
     setCopied(false);
   };
 
-  const toggleStamp = () => {
+  const stampNow = (verified: boolean) => {
     if (!stop || !day) return;
-    setStamped((current) => {
-      const list = current[day.key] ?? [];
-      const has = list.includes(stop.title);
-      return {
-        ...current,
-        [day.key]: has ? list.filter((t) => t !== stop.title) : [...list, stop.title],
-      };
+    saveStamps((st) => {
+      st[stop.title] = { at: new Date().toISOString(), verified, day: day.key };
     });
+  };
+
+  const toggleStamp = async () => {
+    if (!stop || !day || checking) return;
+    setNotice(null);
+    if (isStamped) {
+      saveStamps((st) => {
+        delete st[stop.title];
+      });
+      return;
+    }
+    const target = coordsFor(slug, stop.title);
+    if (!target) {
+      stampNow(false);
+      return;
+    }
+    setChecking(true);
+    try {
+      const pos = await getPosition();
+      const d = distanceM([pos.coords.latitude, pos.coords.longitude], target);
+      if (isNear(d, pos.coords.accuracy)) {
+        stampNow(true);
+        setNotice({ text: "Confirmado no local. Carimbo verdadeiro." });
+      } else {
+        const far = d > 2000 ? `${(d / 1000).toFixed(1).replace(".", ",")} km` : `${Math.round(d)} m`;
+        setNotice({ text: `Ainda estás a ${far} daqui. Aproxima-te para um carimbo confirmado.`, offerFree: true });
+      }
+    } catch {
+      setNotice({ text: "Não consegui saber onde estás. Autoriza a localização ou carimba sem confirmação.", offerFree: true });
+    } finally {
+      setChecking(false);
+    }
+  };
+
+  const addPhoto = async (file?: File) => {
+    if (!file || !stop) return;
+    try {
+      const photo = await compressPhoto(file);
+      saveStamps((st) => {
+        if (st[stop.title]) st[stop.title].photo = photo;
+      });
+    } catch {
+      setNotice({ text: "Não consegui ler esta fotografia." });
+    }
   };
 
   const resetDay = () => {
     if (!day) return;
-    setStamped((current) => ({ ...current, [day.key]: [] }));
+    saveStamps((st) => {
+      for (const s of day.stops) delete st[s.title];
+    });
     setIdx(0);
     setCard(false);
   };
+
+  const reward = passport[slug] ? rewardFor(slug, passport[slug]) : null;
 
   const shareText = useMemo(
     () => `${city} — ${day?.label ?? ""} · ${done.length} de ${stops.length} paragens carimbadas`,
@@ -364,6 +420,21 @@ export function StreetMode({ city, slug, days }: Props) {
                   {copied && (
                     <p className="text-sm text-gold/90">Ligação copiada.</p>
                   )}
+                  {reward && (
+                    <div className="border-y border-gold/25 py-4">
+                      <p className="text-[11px] uppercase tracking-[0.3em] text-gold/80">Cidade completa</p>
+                      <p className="mt-2 font-serif text-2xl text-gold">{reward}</p>
+                      <p className="mt-1 text-sm text-cream/70">
+                        10% no roteiro personalizado da próxima viagem. Indica o código no pedido.
+                      </p>
+                    </div>
+                  )}
+                  <a
+                    href="/passaporte"
+                    className="min-h-[44px] py-2 font-serif text-lg italic text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                  >
+                    Ver o passaporte
+                  </a>
                   <button
                     type="button"
                     onClick={resetDay}
@@ -451,6 +522,7 @@ export function StreetMode({ city, slug, days }: Props) {
                   type="button"
                   onClick={toggleStamp}
                   aria-pressed={isStamped}
+                  aria-busy={checking}
                   className={`mt-7 inline-flex min-h-[52px] items-center gap-3 border px-5 py-3 font-serif text-lg italic transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 ${
                     isStamped
                       ? "border-gold/70 bg-gold/10 text-gold"
@@ -465,7 +537,7 @@ export function StreetMode({ city, slug, days }: Props) {
                       >
                         <Check className="h-3.5 w-3.5" />
                       </span>
-                      Carimbado
+                      {cityStamps[stop.title]?.verified ? "Carimbado no local" : "Carimbado"}
                     </>
                   ) : (
                     <>
@@ -473,10 +545,65 @@ export function StreetMode({ city, slug, days }: Props) {
                         aria-hidden
                         className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-dashed border-gold/40"
                       />
-                      Carimbei aqui
+                      {checking ? "A confirmar onde estás…" : "Carimbar aqui"}
                     </>
                   )}
                 </button>
+
+                {!isStamped && !notice && coordsFor(slug, stop.title) && (
+                  <p className="mt-2 text-sm text-cream/55">
+                    Confirmamos pela localização que estás mesmo aqui.
+                  </p>
+                )}
+
+                {notice && (
+                  <div className="mt-3 text-sm text-cream/80" role="status">
+                    <p>{notice.text}</p>
+                    {notice.offerFree && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          stampNow(false);
+                          setNotice(null);
+                        }}
+                        className="mt-2 min-h-[44px] text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                      >
+                        Carimbar sem confirmação
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {isStamped && (
+                  <div className="mt-5 flex items-center gap-4">
+                    {cityStamps[stop.title]?.photo && (
+                      <img
+                        src={cityStamps[stop.title]?.photo}
+                        alt={`A tua fotografia em ${stop.title}`}
+                        className="h-20 w-20 rotate-[-3deg] border-4 border-cream object-cover shadow-md"
+                      />
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => photoRef.current?.click()}
+                      className="inline-flex min-h-[44px] items-center gap-2 text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                    >
+                      <Camera className="h-4 w-4" aria-hidden />
+                      {cityStamps[stop.title]?.photo ? "Trocar fotografia" : "Juntar fotografia"}
+                    </button>
+                    <input
+                      ref={photoRef}
+                      type="file"
+                      accept="image/*"
+                      capture="environment"
+                      className="hidden"
+                      onChange={(e) => {
+                        void addPhoto(e.target.files?.[0]);
+                        e.target.value = "";
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             ) : null}
           </div>

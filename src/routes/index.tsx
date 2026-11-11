@@ -582,7 +582,7 @@ const STEPS: { title: string; body: string }[] = [
   { title: "Escolhes a cidade.", body: "Viras o postal e abres o roteiro. Não pedimos email nem conta." },
   { title: "Levas o roteiro no bolso.", body: "Dias, horários e mapa. Os horários são sugestões — atrasa-te à vontade." },
   { title: "Vais aos sítios que valem.", body: "Só escrevemos sobre o que comemos e caminhámos. Ninguém nos paga para pôr lá nada." },
-  { title: "Na rua, ligas o modo de rua.", body: "Uma paragem de cada vez, letra grande, e um carimbo para cada visita." },
+  { title: "Na rua, ligas o modo de rua.", body: "Uma paragem de cada vez, letra grande, e um carimbo no teu passaporte por cada sítio onde estiveste." },
 ];
 
 function HowItWorks() {

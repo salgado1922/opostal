@@ -7,6 +7,7 @@ const LINKS = [
   { href: "/roteiro-personalizado", label: "Roteiro personalizado" },
   { href: "/#como-funciona", label: "Como funciona" },
   { href: "/#sobre", label: "Sobre" },
+  { href: "/passaporte", label: "Passaporte" },
   { href: "mailto:contacto@opostal.pt", label: "Contacto" },
 ];
 
