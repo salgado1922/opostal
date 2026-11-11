@@ -281,52 +281,7 @@ function CityGrid() {
         desliza → 
       </p>
 
-      <CityIndex />
     </section>
-  );
-}
-
-function CityIndex() {
-  return (
-    <nav aria-label="Índice das cidades" className="mx-auto mt-14 max-w-6xl px-6 md:mt-24">
-      <div className="mb-2 flex items-baseline justify-between gap-4">
-        <h3 className="font-serif text-2xl italic text-cream md:text-3xl">Índice</h3>
-        <span className="text-[11px] uppercase tracking-[0.3em] text-gold/80">vai direto ao roteiro</span>
-      </div>
-      <ol className="list-none border-t border-gold/25 p-0 md:grid md:grid-cols-2 md:gap-x-12">
-        {CITIES.map((city, i) => {
-          const ready = city.status === "ready" && city.to;
-          const inner = (
-            <>
-              <span className="w-8 shrink-0 font-serif text-lg italic text-gold">{String(i + 1).padStart(2, "0")}</span>
-              <span className="min-w-0 flex-1">
-                <span className="block truncate font-serif text-2xl leading-tight text-cream">{city.name}</span>
-                <span className="block truncate text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-                  {city.country} · {city.duration}
-                </span>
-              </span>
-              <span aria-hidden className="shrink-0 text-xl text-gold transition-transform group-hover:translate-x-1">
-                {ready ? "→" : "·"}
-              </span>
-            </>
-          );
-          return (
-            <li key={city.slug} className="border-b border-gold/15">
-              {ready ? (
-                <Link
-                  to={city.to!}
-                  className="group flex min-h-[64px] items-center gap-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-                >
-                  {inner}
-                </Link>
-              ) : (
-                <div className="flex min-h-[64px] items-center gap-4 py-3 opacity-50">{inner}</div>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-    </nav>
   );
 }
 
