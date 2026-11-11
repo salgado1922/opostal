@@ -697,3 +697,26 @@ html { scroll-behavior: smooth; }
     display: none;
   }
 }
+
+/* ===== Mobile-first comfort layer (only < 768px; desktop untouched) ===== */
+@media (max-width: 767px) {
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
+  /* Legibility outdoors: lift micro text to a readable minimum */
+  .text-\[9px\], .text-\[10px\], .text-\[0\.6rem\], .text-\[0\.62rem\], .text-\[0\.65rem\] { font-size: 11.5px !important; }
+  .text-\[11px\], .text-\[0\.7rem\] { font-size: 12px !important; }
+  p, li { text-wrap: pretty; }
+  /* Thumb-friendly tap areas without changing the visual size */
+  a, button, [role="button"], summary { touch-action: manipulation; }
+  nav a, footer a, footer button, ul.w-max a, button.gold-link, a.gold-link {
+    min-height: 40px; display: inline-flex; align-items: center;
+  }
+  input, select, textarea { font-size: 16px !important; } /* stops iOS zoom on focus */
+  /* Smooth horizontal rails */
+  .snap-x, ul.w-max { -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .snap-x::-webkit-scrollbar { display: none; }
+  img { content-visibility: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
