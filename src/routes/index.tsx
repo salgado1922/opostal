@@ -1,4 +1,7 @@
 import { SmartImage } from "@/components/SmartImage";
+import { usePassport } from "@/hooks/use-passport";
+import { InkStamp } from "@/components/passport/InkStamp";
+import { STAMP_STYLE, seeded, stampDate } from "@/components/passport/stamps";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -418,7 +421,12 @@ function PostcardFlip({
   const ready = city.status === "ready";
   const code = CITY_STAMP_CODES[city.slug] ?? city.slug.slice(0, 3).toUpperCase();
   const message = CITY_MESSAGES[city.slug] ?? "Postal em preparação. Em breve mando-te notícias.";
-  const stampValue = ready ? "Visitado" : "Em breve";
+  const passport = usePassport();
+  const mine = passport[city.slug];
+  const myStamps = mine ? Object.values(mine.stamps).sort((a, b) => a.at.localeCompare(b.at)) : [];
+  const visited = myStamps.length > 0;
+  const stampValue = visited ? "Visitado" : ready ? "Por ir" : "Em breve";
+  const style = STAMP_STYLE[city.slug];
   const stampInk = ready ? "oklch(0.62 0.14 38)" : "oklch(0.75 0.03 75)";
 
   return (
@@ -483,6 +491,23 @@ function PostcardFlip({
             </span>
           </div>
         </div>
+
+        {/* Carimbo de tinta quando a pessoa já esteve na cidade */}
+        {visited && style && (
+          <div className="absolute right-3 top-[34%] mix-blend-screen">
+            <InkStamp
+              top={city.name}
+              center={stampDate(myStamps[0].at).split(" ").slice(0, 2).join(" ")}
+              sub={`${myStamps.length} / ${mine!.total}`}
+              motif={style.motif}
+              ink="var(--cream)"
+              shape={style.shape}
+              size={128}
+              rotate={-12 + seeded(city.slug) * 10}
+              title={`Carimbado: ${myStamps.length} paragens em ${city.name}`}
+            />
+          </div>
+        )}
 
         {/* Flip hint — texto simples, sem pílula */}
         <span className="absolute right-4 top-4 text-[11px] italic text-cream/85 [text-shadow:0_1px_8px_rgba(0,0,0,0.7)]">

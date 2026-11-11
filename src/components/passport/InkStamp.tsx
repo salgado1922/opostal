@@ -1,0 +1,135 @@
+import { useId } from "react";
+import type { StampShape } from "./stamps";
+
+type Props = {
+  top: string;
+  bottom?: string;
+  center: string;
+  sub?: string;
+  motif?: string;
+  ink: string;
+  shape?: StampShape;
+  size?: number | string;
+  rotate?: number;
+  /** Carimbo ainda por fazer: só um contorno fantasma. */
+  ghost?: boolean;
+  className?: string;
+  title?: string;
+};
+
+/** Carimbo de borracha em SVG, com tinta gasta e bordas irregulares. */
+export function InkStamp({
+  top,
+  bottom = "O POSTAL",
+  center,
+  sub,
+  motif = "✦",
+  ink,
+  shape = "circle",
+  size = 120,
+  rotate = 0,
+  ghost = false,
+  className = "",
+  title,
+}: Props) {
+  const id = useId().replace(/:/g, "");
+  const wide = shape === "oval" || shape === "rect";
+  const W = wide ? 240 : 200;
+  const H = wide ? 170 : 200;
+  const cx = W / 2;
+  const cy = H / 2;
+  const rx = W / 2 - 8;
+  const ry = H / 2 - 8;
+
+  const outline = (inset: number, extra: Record<string, string | number> = {}) => {
+    const a = rx - inset;
+    const b = ry - inset;
+    if (shape === "rect")
+      return <rect x={cx - a} y={cy - b} width={a * 2} height={b * 2} rx={6} {...extra} />;
+    if (shape === "hex") {
+      const pts = Array.from({ length: 6 }, (_, i) => {
+        const ang = (Math.PI / 3) * i - Math.PI / 2;
+        return `${cx + a * Math.cos(ang)},${cy + b * Math.sin(ang)}`;
+      }).join(" ");
+      return <polygon points={pts} {...extra} />;
+    }
+    return <ellipse cx={cx} cy={cy} rx={a} ry={b} {...extra} />;
+  };
+
+  // Arcos para o texto curvo (em cima e em baixo)
+  const ta = rx - 30;
+  const tb = ry - 30;
+  const arcTop = `M ${cx - ta},${cy} A ${ta},${tb} 0 0 1 ${cx + ta},${cy}`;
+  const arcBot = `M ${cx - ta},${cy} A ${ta},${tb} 0 0 0 ${cx + ta},${cy}`;
+  const curved = shape === "circle" || shape === "oval";
+
+  return (
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      width={size}
+      className={`pointer-events-none select-none ${className}`}
+      style={{ transform: `rotate(${rotate}deg)`, color: ink, overflow: "visible" }}
+      role={title ? "img" : undefined}
+      aria-label={title}
+      aria-hidden={title ? undefined : true}
+    >
+      <defs>
+        <filter id={`ink-${id}`} x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed={id.length * 7} result="n" />
+          <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.5 1.45" result="holes" />
+          <feComposite in="SourceGraphic" in2="holes" operator="in" result="worn" />
+          <feTurbulence type="turbulence" baseFrequency="0.04" numOctaves="2" result="w" />
+          <feDisplacementMap in="worn" in2="w" scale="2.6" />
+        </filter>
+        <path id={`t-${id}`} d={arcTop} />
+        <path id={`b-${id}`} d={arcBot} />
+      </defs>
+      <g
+        filter={ghost ? undefined : `url(#ink-${id})`}
+        fill="none"
+        stroke="currentColor"
+        opacity={ghost ? 0.28 : 0.95}
+        strokeDasharray={ghost ? "4 6" : undefined}
+      >
+        {outline(0, { strokeWidth: 5 })}
+        {outline(12, { strokeWidth: 1.6 })}
+        {!ghost && (
+          <>
+            {curved ? (
+              <text fill="currentColor" stroke="none" fontFamily="var(--font-serif)" fontWeight={700} fontSize={19} letterSpacing={4}>
+                <textPath href={`#t-${id}`} startOffset="50%" textAnchor="middle">
+                  {top.toUpperCase()}
+                </textPath>
+              </text>
+            ) : (
+              <text x={cx} y={cy - ry + 44} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-serif)" fontWeight={700} fontSize={20} letterSpacing={4}>
+                {top.toUpperCase()}
+              </text>
+            )}
+            {curved ? (
+              <text fill="currentColor" stroke="none" fontFamily="var(--font-sans)" fontWeight={600} fontSize={11} letterSpacing={3}>
+                <textPath href={`#b-${id}`} startOffset="50%" textAnchor="middle" dominantBaseline="hanging">
+                  {`${motif} ${bottom} ${motif}`}
+                </textPath>
+              </text>
+            ) : (
+              <text x={cx} y={cy + ry - 30} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-sans)" fontWeight={600} fontSize={11} letterSpacing={3}>
+                {`${motif} ${bottom} ${motif}`}
+              </text>
+            )}
+            <line x1={cx - 44} x2={cx + 44} y1={cy - 16} y2={cy - 16} strokeWidth={1.4} />
+            <line x1={cx - 44} x2={cx + 44} y1={cy + 22} y2={cy + 22} strokeWidth={1.4} />
+            <text x={cx} y={cy + 13} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-serif)" fontWeight={700} fontSize={center.length > 7 ? 22 : 30} letterSpacing={2}>
+              {center}
+            </text>
+            {sub && (
+              <text x={cx} y={cy + 40} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-sans)" fontWeight={600} fontSize={9} letterSpacing={2}>
+                {sub.toUpperCase()}
+              </text>
+            )}
+          </>
+        )}
+      </g>
+    </svg>
+  );
+}

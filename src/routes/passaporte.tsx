@@ -2,6 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Share2 } from "lucide-react";
 import { SiteFooter } from "@/components/SiteFooter";
+import { PassportBook } from "@/components/passport/PassportBook";
+import { BadgeSeal } from "@/components/passport/BadgeSeal";
+
+const GLYPH: Record<string, string> = { primeiro: "✉", completa: "✪", tres: "✈", madrugador: "☀", verificado: "⚑", album: "❀" };
 import { CITIES } from "@/data/cities";
 import {
   PASSPORT_EVENT,
@@ -221,16 +225,20 @@ function PassaportePage() {
         )}
       </header>
 
+      <section aria-labelledby="livro" className="mx-auto max-w-4xl px-5 pb-14 md:px-6">
+        <h2 id="livro" className="mb-6 text-[11px] uppercase tracking-[0.3em] text-gold/80">Folheia o teu passaporte</h2>
+        <PassportBook p={p} />
+      </section>
+
       <section aria-labelledby="distincoes" className="mx-auto max-w-4xl px-5 pb-12 md:px-6">
         <h2 id="distincoes" className="text-[11px] uppercase tracking-[0.3em] text-gold/80">Distinções</h2>
-        <ul className="mt-4 grid grid-cols-2 gap-x-6 md:grid-cols-3">
+        <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3">
           {badges.map((b) => (
-            <li key={b.id} className={`border-t border-gold/15 py-4 ${b.earned ? "" : "opacity-45"}`}>
-              <p className={`font-serif text-xl ${b.earned ? "text-gold" : "text-cream"}`}>
-                {b.earned ? "✓ " : ""}
-                {b.title}
-              </p>
-              <p className="mt-1 text-sm text-cream/65">{b.body}</p>
+            <li key={b.id} className="flex flex-col items-center text-center">
+              <BadgeSeal title={b.title} glyph={GLYPH[b.id] ?? "✦"} earned={b.earned} />
+              <p className={`mt-3 font-serif text-xl ${b.earned ? "text-gold" : "text-cream/55"}`}>{b.title}</p>
+              <p className="mt-1 max-w-[16ch] text-sm text-cream/60">{b.body}</p>
+              <span className="sr-only">{b.earned ? "Ganha" : "Por ganhar"}</span>
             </li>
           ))}
         </ul>
@@ -294,7 +302,7 @@ function PassaportePage() {
           })}
         </ol>
         <p className="mt-8 border-t border-gold/15 pt-6 text-sm text-cream/55">
-          Os carimbos ficam guardados apenas neste telemóvel e neste navegador. Completa uma cidade com a maioria das paragens
+          Os carimbos ficam guardados na tua conta. Completa uma cidade com a maioria das paragens
           confirmadas no local e recebes um código de desconto para o roteiro personalizado.
         </p>
       </section>
