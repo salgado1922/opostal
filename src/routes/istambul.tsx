@@ -168,21 +168,23 @@ function Section({
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUp}
-          className="mb-8 max-w-3xl md:mb-14"
+          className="mb-10 md:mb-16"
         >
           {eyebrow && (
-            <div className="mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-gold">
-              <EightPointStar className="h-3 w-3 text-gold" />
-              <span className="h-px w-10 bg-gold/60" />
+            <div className="mb-5 flex items-center gap-4 text-[11px] uppercase tracking-[0.35em] text-gold">
+              <span className="h-px w-12 bg-gold/70" />
               {eyebrow}
             </div>
           )}
-          <h2 className="font-serif text-4xl leading-tight md:text-6xl">
-            <span className="text-gradient-gold">{title}</span>
+          <h2 className="max-w-4xl font-serif text-4xl leading-[1.05] text-cream md:text-6xl">
+            {title}
           </h2>
           {intro && (
-            <p className="mt-5 text-base text-muted-foreground md:text-lg">{intro}</p>
+            <p className="mt-5 max-w-2xl font-serif text-lg italic leading-relaxed text-muted-foreground md:text-xl">
+              {intro}
+            </p>
           )}
+          <div className="mt-9 h-px w-full bg-gradient-to-r from-gold/50 via-gold/15 to-transparent" />
         </motion.div>
         {children}
       </div>
@@ -285,8 +287,11 @@ type Stop = {
   link?: string;
   img?: string;
   imgAlt?: string;
+  image?: string;
+  imageAlt?: string;
   icon: React.ComponentType<{ className?: string }>;
   bookingUrl?: string;
+  affiliate?: boolean;
   hours?: string;
   hoursNote?: string;
   walkTo?: string;
@@ -645,16 +650,15 @@ const days: Day[] = [
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <section
       id="top"
       ref={ref}
-      className="relative z-[2] flex min-h-screen items-center overflow-hidden"
+      className="relative z-[2] flex min-h-screen items-end overflow-hidden"
     >
-      <motion.div style={{ y }} className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10">
         <SmartImage
           sizes="100vw"
           src={HERO_IMG}
@@ -667,57 +671,43 @@ function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, oklch(0.10 0.035 238/0.5), transparent 30%, oklch(0.10 0.035 238/0.55) 70%, oklch(0.16 0.04 238) 100%)",
+              "linear-gradient(180deg, color-mix(in oklab, var(--background) 60%, transparent), transparent 28%, color-mix(in oklab, var(--background) 55%, transparent) 60%, var(--background) 96%)",
           }}
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, transparent 32%, oklch(0.16 0.04 238 / .72) 100%)",
-          }}
-        />
-      </motion.div>
+      </div>
 
       <motion.div style={{ opacity }} className="relative z-10 w-full">
-        <div className="pointer-events-none absolute right-8 top-24 hidden md:right-32 md:top-28 md:block">
+        <div className="pointer-events-none absolute right-6 top-24 hidden md:right-12 md:top-28 md:block">
           <PostmarkCircle city="ISTAMBUL" year="2026" rotate={-9} />
         </div>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] as const }}
-          className="mx-auto w-full max-w-6xl px-6 pb-16 pt-36 text-center md:pt-40"
+          className="mx-auto w-full max-w-6xl px-6 pb-16 pt-36 md:pb-24 md:pt-40"
         >
-          <div className="mb-4 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-gold">
-            <span className="h-px w-8 bg-gold/70" />
+          <div className="mb-5 flex items-center gap-4 text-[11px] uppercase tracking-[0.4em] text-gold">
+            <span className="h-px w-12 bg-gold/70" />
             Guia · 5 dias
-            <span className="h-px w-8 bg-gold/70" />
           </div>
           <h1
-            className="mx-auto font-serif font-semibold"
+            className="font-serif font-semibold text-cream"
             style={{
               margin: 0,
-              lineHeight: 1.02,
-              fontSize: "clamp(3.4rem, 8vw, 6.5rem)",
-              backgroundImage:
-                "linear-gradient(120deg, oklch(0.96 0.015 215), oklch(0.77 0.12 205) 50%, oklch(0.66 0.13 58))",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              color: "transparent",
-              WebkitTextStroke: "1px rgba(0,0,0,0.35)",
+              lineHeight: 0.98,
+              letterSpacing: "-0.02em",
+              fontSize: "clamp(4rem, 11vw, 9.5rem)",
             }}
           >
             Istambul
           </h1>
-          <p className="mx-auto mt-4 max-w-lg font-serif text-lg italic text-cream/85 md:text-xl">
+          <p className="mt-5 max-w-xl font-serif text-xl italic leading-relaxed text-cream/85 md:text-2xl">
             Cinco dias ao teu ritmo: duas margens, dois continentes, mil minaretes.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-9 flex flex-wrap items-center gap-6">
             <a
               href="#dias"
-              className="inline-flex items-center gap-2 rounded-[2px] px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-twilight transition-transform active:scale-95"
-              style={{ background: "oklch(0.77 0.12 205)" }}
+              className="gold-link inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.25em]"
             >
               Ver o itinerário <span aria-hidden>↓</span>
             </a>
@@ -725,7 +715,7 @@ function Hero() {
               toca em cada paragem para ver os detalhes
             </span>
           </div>
-          <div className="mt-6">
+          <div className="mt-7">
             <CustomItineraryHeroLink city="Istambul" />
           </div>
         </motion.div>
@@ -864,33 +854,36 @@ function FlipDaysGrid() {
 function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
   const [open, setOpen] = useState(false);
   const Icon = stop.icon;
-  const hasExtra = !!(stop.tip || stop.img);
+  const stopImg = stop.img ?? stop.image;
+  const stopImgAlt = stop.imgAlt ?? stop.imageAlt;
+  const hasExtra = !!(stop.tip || stopImg);
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.6 }}
-      className="relative pl-16 md:pl-20"
+      className="relative pl-14 md:pl-20"
     >
-      <div className="absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 bg-twilight shadow-[0_0_0_4px_oklch(0.13_0.05_265),0_0_30px_oklch(0.78_0.14_200/0.3)] md:left-5">
+      {/* node */}
+      <div className="absolute left-[7px] top-7 flex h-9 w-9 items-center justify-center rounded-full border border-gold/50 bg-background md:left-[13px]">
         <Icon className="h-4 w-4 text-gold" />
       </div>
 
-      <div className="w-full rounded-[3px] border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80">
+      <div className="w-full border-t border-gold/15 py-6 text-left md:py-7">
         <button
           type="button"
           onClick={() => hasExtra && setOpen((o) => !o)}
           className={`w-full text-left ${hasExtra ? "cursor-pointer" : "cursor-default"}`}
         >
-          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <span className="font-serif text-xl text-gold">{stop.time}</span>
-            <h4 className="font-serif text-xl text-cream md:text-2xl">
-              {stop.link ? <IznikLink href={stop.link}>{stop.title}</IznikLink> : stop.title}
+          <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
+            <span className="font-serif text-2xl italic text-gold md:text-3xl">{stop.time}</span>
+            <h4 className="font-serif text-2xl text-cream md:text-3xl">
+              {stop.link ? <GoldLink href={stop.link}>{stop.title}</GoldLink> : stop.title}
             </h4>
           </div>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
             {stop.desc}
           </p>
         </button>
@@ -929,25 +922,26 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
         )}
       </div>
 
+
       <motion.div
         initial={false}
         animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
         className="overflow-hidden"
       >
-        <div className="mt-3 grid gap-4 rounded-[3px] border border-gold/15 bg-twilight/60 p-5 md:grid-cols-[1fr_auto]">
+        <div className="mb-6 ml-1 grid gap-4 border-l-2 border-gold/40 py-1 pl-5 md:grid-cols-[1fr_auto]">
           {stop.tip && (
             <div className="flex gap-3">
               <Lightbulb className="mt-1 h-4 w-4 flex-shrink-0 text-gold" />
-              <p className="text-sm italic text-cream/90">{stop.tip}</p>
+              <p className="font-serif text-base italic leading-relaxed text-cream/90">{stop.tip}</p>
             </div>
           )}
-          {stop.img && (
+          {stopImg && (
             <SmartImage
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
-              src={stop.img}
-              alt={stop.imgAlt ?? stop.title}
-              className="h-40 w-full rounded-[3px] object-cover md:w-64"
+              src={stopImg}
+              alt={stopImgAlt ?? stop.title}
+              className="h-44 w-full rounded-[2px] object-cover md:w-72"
               loading="lazy"
             />
           )}
@@ -959,7 +953,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
 
 function DayBlock({ day }: { day: Day }) {
   const Icon = day.icon;
-  const isIsland = day.key === "d4";
+  const num = (day.key.match(/\d+/)?.[0] ?? "").padStart(2, "0");
   return (
     <div id={day.key} className="scroll-mt-24">
       <motion.div
@@ -967,21 +961,31 @@ function DayBlock({ day }: { day: Day }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
-        className="mb-10 flex flex-wrap items-end justify-between gap-4 border-b border-gold/20 pb-6"
+        className="relative mb-10 border-b border-gold/20 pb-8"
       >
-        <div>
-          <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-gold">
-            <Icon className="h-4 w-4" />
-            {day.label} · {day.date}
-          </div>
-          <h3 className="mt-3 font-serif text-4xl text-cream md:text-5xl">
-            <span className="text-gradient-gold">{day.title}</span>
-          </h3>
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -top-12 right-0 hidden select-none font-serif text-[10rem] leading-none md:block"
+          style={{
+            color: "transparent",
+            WebkitTextStroke: "1px color-mix(in oklab, var(--gold) 32%, transparent)",
+          }}
+        >
+          {num}
+        </span>
+        <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-gold">
+          <Icon className="h-4 w-4" />
+          {day.label} · {day.date}
         </div>
-        <p className="max-w-md text-sm italic text-muted-foreground md:text-right">{day.vibe}</p>
+        <h3 className="mt-4 max-w-2xl font-serif text-4xl leading-[1.05] text-cream md:text-6xl">
+          {day.title}
+        </h3>
+        <p className="mt-4 max-w-xl font-serif text-base italic leading-relaxed text-muted-foreground md:text-lg">
+          {day.vibe}
+        </p>
       </motion.div>
 
-      {(day.walkTotal || day.howToGet || day.dayTag) && (
+      {(day.walkTotal || day.howToGet) && (
         <div className="mb-6 flex flex-wrap gap-3">
           {day.walkTotal && (
             <span className="inline-flex items-center gap-2 text-xs text-cream/90 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold">
@@ -995,12 +999,6 @@ function DayBlock({ day }: { day: Day }) {
               {day.howToGet}
             </span>
           )}
-          {day.dayTag && (
-            <span className="inline-flex items-center gap-2 text-xs italic text-gold px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold">
-              <Sparkles className="h-3.5 w-3.5" />
-              {day.dayTag}
-            </span>
-          )}
         </div>
       )}
 
@@ -1010,7 +1008,7 @@ function DayBlock({ day }: { day: Day }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-6 flex items-start gap-3 rounded-[3px] border border-amber-400/40 bg-amber-400/10 p-4"
+          className="mb-6 flex items-start gap-3 border-l-2 border-amber-400/70 py-1 pl-4"
         >
           <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-300" />
           <p className="text-sm leading-relaxed text-cream/90">{day.dayNote.text}</p>
@@ -1023,10 +1021,12 @@ function DayBlock({ day }: { day: Day }) {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-8 flex items-start gap-3 rounded-[3px] border border-gold/40 bg-gradient-to-r from-gold/15 via-terracotta/10 to-transparent p-5"
+          className="mb-8 flex items-start gap-3 border-l-2 border-gold/60 py-1 pl-5"
         >
           <Lightbulb className="mt-0.5 h-5 w-5 flex-shrink-0 text-gold" />
-          <p className="text-sm leading-relaxed text-cream md:text-base">{day.highlightTip}</p>
+          <p className="font-serif text-base italic leading-relaxed text-cream md:text-lg">
+            {day.highlightTip}
+          </p>
         </motion.div>
       )}
 
@@ -1055,10 +1055,10 @@ function DayBlock({ day }: { day: Day }) {
           transition={{ duration: 0.6 }}
           className="mt-10"
         >
-          <div className="relative overflow-hidden rounded-[3px] border border-gold/30 bg-twilight/60 shadow-[0_20px_60px_-30px_oklch(0.78_0.14_200/0.45)]">
+          <div className="relative overflow-hidden rounded-[2px] border border-gold/25">
             <iframe
               src={day.mapEmbedUrl}
-              title={isIsland ? "Ilha de Büyükada no mapa" : `Percurso a pé do ${day.label}`}
+              title={`Percurso a pé do ${day.label}`}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               className="h-64 w-full border-0"
@@ -1068,7 +1068,7 @@ function DayBlock({ day }: { day: Day }) {
           </div>
           <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
             <p className="font-serif text-sm italic text-gold/80">
-              {isIsland ? "Büyükada: Ilha dos Príncipes" : `Percurso a pé do ${day.label}`}
+              Percurso a pé do {day.label}
             </p>
             {day.mapLinkUrl && (
               <a
@@ -1078,9 +1078,62 @@ function DayBlock({ day }: { day: Day }) {
                 className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gold hover:bg-gold/10 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
               >
                 <MapPin className="h-3.5 w-3.5" />
-                {isIsland ? "Abrir ilha no mapa" : "Abrir percurso no mapa"}
+                Abrir percurso no mapa
                 <ExternalLink className="h-3 w-3 opacity-70" />
               </a>
+            )}
+          </div>
+        </motion.div>
+      )}
+
+      {day.transport && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="mt-10"
+        >
+          <div className="rounded-[2px] border border-gold/25 p-6">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
+                <TrainFront className="h-5 w-5" />
+              </span>
+              <h4 className="font-serif text-xl text-cream">{day.transport.title}</h4>
+            </div>
+            <p className="mt-3 text-sm text-cream/85">{day.transport.text}</p>
+            {day.transport.primaryUrl && day.transport.primaryLabel && (
+              <div className="mt-4">
+                <a
+                  href={day.transport.primaryUrl}
+                  target="_blank"
+                  rel="sponsored noopener"
+                  className="inline-flex items-center gap-2 rounded-[2px] bg-gold px-5 py-2 text-xs font-medium uppercase tracking-[0.2em] text-twilight hover:bg-gold/90"
+                >
+                  <Ticket className="h-3.5 w-3.5" />
+                  {day.transport.primaryLabel}
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              </div>
+            )}
+            {day.transport.note && (
+              <p className="mt-5 border-t border-gold/15 pt-4 font-serif text-sm italic text-cream/75">
+                {day.transport.note}
+              </p>
+            )}
+            {day.transport.secondaryUrl && day.transport.secondaryLabel && (
+              <div className="mt-3">
+                <a
+                  href={day.transport.secondaryUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gold hover:bg-gold/10 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
+                >
+                  <MapPin className="h-3.5 w-3.5" />
+                  {day.transport.secondaryLabel}
+                  <ExternalLink className="h-3 w-3 opacity-70" />
+                </a>
+              </div>
             )}
           </div>
         </motion.div>
