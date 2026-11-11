@@ -305,7 +305,7 @@ function PostcardFlip({
           onToggle();
         }
       }}
-      className="postcard-flip relative w-full cursor-pointer rounded-[18px] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="postcard-flip relative w-full cursor-pointer rounded-[3px] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       style={{
         aspectRatio: "4 / 5",
         transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
@@ -313,7 +313,7 @@ function PostcardFlip({
     >
       {/* FRONT */}
       <article
-        className="postcard-face postcard-front absolute inset-0 overflow-hidden rounded-[18px] border border-gold/15 shadow-[0_12px_44px_-22px_rgba(0,0,0,0.85)]"
+        className="postcard-face postcard-front absolute inset-0 overflow-hidden rounded-[3px] shadow-[0_10px_34px_-18px_rgba(0,0,0,0.8)]"
         style={{ background: "oklch(0.22 0.055 320 / 0.4)" }}
       >
         <SmartImage
@@ -330,7 +330,7 @@ function PostcardFlip({
         {/* Selo serrilhado */}
         <div
           className="absolute left-3 top-3"
-          style={{ transform: "rotate(-6deg)", filter: "drop-shadow(0 8px 16px rgba(0,0,0,.5))" }}
+          style={{ transform: "rotate(-6deg)" }}
         >
           <div
             className="flex h-20 w-16 flex-col items-center justify-between px-1.5 py-2 text-center"
@@ -355,32 +355,27 @@ function PostcardFlip({
           </div>
         </div>
 
-        {/* Flip hint */}
-        <span className="absolute right-3 top-3.5 inline-flex items-center gap-1 rounded-full border border-gold/35 bg-background/55 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-gold-soft backdrop-blur">
+        {/* Flip hint — texto simples, sem pílula */}
+        <span className="absolute right-4 top-4 text-[11px] italic text-cream/85 [text-shadow:0_1px_8px_rgba(0,0,0,0.7)]">
           {flipped ? "verso" : "vira →"}
         </span>
 
-        {/* Bottom panel */}
-        <div className="absolute inset-x-4 bottom-4">
-          <div className="glass rounded-2xl px-4 py-3.5">
-            <div className="flex items-baseline justify-between gap-3">
-              <h3 className="font-serif text-2xl leading-none text-cream">{city.name}</h3>
-              <span className="text-[10px] uppercase tracking-[0.25em] text-gold/80">{city.country}</span>
-            </div>
-            <p className="mt-2 font-serif italic text-cream/80">{city.vibe}</p>
-            <div className="mt-3 flex items-center justify-between border-t border-gold/15 pt-2">
-              <span className="text-[11px] uppercase tracking-[0.2em] text-cream/60">{city.duration}</span>
-              <span className="text-[11px] uppercase tracking-[0.2em] text-gold">
-                {ready ? "vira o postal →" : "em breve"}
-              </span>
-            </div>
+        {/* Texto sobre a foto, sem caixa */}
+        <div className="absolute inset-x-5 bottom-5">
+          <div className="flex items-baseline justify-between gap-3">
+            <h3 className="font-serif text-3xl leading-none text-cream [text-shadow:0_1px_10px_rgba(0,0,0,0.55)]">{city.name}</h3>
+            <span className="text-[10px] uppercase tracking-[0.25em] text-cream/75">{city.country}</span>
           </div>
+          <p className="mt-2 font-serif italic text-cream/85 [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">{city.vibe}</p>
+          <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-cream/60">
+            {city.duration} · <span className="text-gold-soft">{ready ? "vira o postal →" : "em breve"}</span>
+          </p>
         </div>
       </article>
 
       {/* BACK */}
       <article
-        className="postcard-face postcard-back absolute inset-0 overflow-hidden rounded-[18px] border border-gold/25 shadow-[0_12px_44px_-22px_rgba(0,0,0,0.85)]"
+        className="postcard-face postcard-back absolute inset-0 overflow-hidden rounded-[3px] shadow-[0_10px_34px_-18px_rgba(0,0,0,0.8)]"
         style={{
           background:
             "oklch(0.20 0.05 318)",
@@ -388,7 +383,7 @@ function PostcardFlip({
             "repeating-linear-gradient(135deg, oklch(0.82 0.14 78 / 0.045) 0 2px, transparent 2px 13px)",
         }}
       >
-        <div className="absolute inset-[10px] flex flex-col rounded-xl border border-dashed border-gold/35 p-4">
+        <div className="absolute inset-0 flex flex-col p-5">
           <div className="flex items-start justify-between">
             <span className="text-[9px] uppercase tracking-[0.35em] text-gold">
               Mensagem · {city.name}
@@ -404,12 +399,12 @@ function PostcardFlip({
               <Link
                 to={city.to}
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1.5 rounded-full border border-gold/45 px-3.5 py-2 text-[10px] uppercase tracking-[0.2em] text-gold transition-colors hover:bg-gold/10"
+                className="gold-link inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em]"
               >
                 Abrir roteiro <span aria-hidden>→</span>
               </Link>
             ) : (
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/25 px-3.5 py-2 text-[10px] uppercase tracking-[0.2em] text-cream/60">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-cream/50">
                 Em breve
               </span>
             )}
@@ -463,7 +458,7 @@ const STEPS: { title: string; body: string }[] = [
 function HowItWorks() {
   return (
     <section id="como-funciona" className="relative z-[2] px-5 py-12 md:px-6 md:py-24">
-      <div className="paper-sheet relative mx-auto max-w-3xl rounded-[2px] px-7 py-10 shadow-lg md:px-14 md:py-14 md:rotate-[-0.6deg]">
+      <div className="paper-sheet relative mx-auto max-w-3xl px-7 py-10 md:px-14 md:py-14 md:rotate-[-0.6deg]">
         <div aria-hidden className="absolute right-6 top-6 hidden h-20 w-16 border-2 border-dashed border-ink/40 sm:grid place-items-center">
           <span className="text-center text-[9px] uppercase leading-tight tracking-[0.15em] text-ink/60">Selo<br />aqui</span>
         </div>

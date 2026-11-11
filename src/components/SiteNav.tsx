@@ -59,7 +59,7 @@ export function SiteNav() {
           ))}
           <a
             href="/roteiro-personalizado"
-            className="inline-flex items-center rounded-full border border-gold/40 px-4 py-1.5 text-[11px] uppercase tracking-[0.22em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
+            className="gold-link text-xs uppercase tracking-[0.2em]"
           >
             Roteiro personalizado
           </a>
@@ -70,7 +70,7 @@ export function SiteNav() {
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className={`md:hidden inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/25 ${linkClass}`}
+          className={`md:hidden inline-flex h-9 w-9 items-center justify-center ${linkClass}`}
         >
           <Menu className="h-4 w-4" />
         </button>
@@ -84,7 +84,7 @@ export function SiteNav() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-3 text-xs uppercase tracking-[0.22em] text-cream/80 transition-colors hover:bg-gold/[0.08] hover:text-cream"
+                className="px-3 py-3 text-xs uppercase tracking-[0.22em] text-cream/80 transition-colors hover:text-cream"
               >
                 {l.label}
               </a>
@@ -92,7 +92,7 @@ export function SiteNav() {
             <a
               href="/roteiro-personalizado"
               onClick={() => setOpen(false)}
-              className="mt-2 inline-flex items-center justify-center rounded-full border border-gold/40 px-4 py-2.5 text-[11px] uppercase tracking-[0.22em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
+              className="gold-link mt-2 inline-flex items-center px-3 py-2.5 text-[11px] uppercase tracking-[0.22em]"
             >
               Roteiro personalizado
             </a>
