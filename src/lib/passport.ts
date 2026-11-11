@@ -1,6 +1,6 @@
 /* Passaporte O Postal — carimbos guardados neste telemóvel. */
 import coords from "@/data/stop-coords.json";
-import allStops from "@/data/all-stops.json";
+import { STAMP_STOPS } from "@/data/stamp-stops";
 import { supabase } from "@/integrations/supabase/client";
 
 export type Stamp = { at: string; verified: boolean; photo?: string; day?: string };
@@ -18,7 +18,7 @@ export function readPassport(): Passport {
   try {
     const raw = window.localStorage.getItem(KEY);
     const p = raw ? (JSON.parse(raw) as Passport) : {};
-    return p && typeof p === "object" ? p : {};
+    return p && typeof p === "object" ? normalize(p) : {};
   } catch {
     return {};
   }
@@ -171,14 +171,26 @@ function merge(a: Passport, b: Passport): Passport {
   return out;
 }
 
-/** Todas as paragens, todas confirmadas — o passaporte de quem escreveu os guias. */
+/** Só contam as atrações com carimbo; o total é o número delas. */
+function normalize(p: Passport): Passport {
+  for (const [slug, c] of Object.entries(p)) {
+    const list = STAMP_STOPS[slug];
+    if (!list) continue;
+    const ok = new Set(list.map((s) => s.title));
+    c.total = list.length;
+    for (const k of Object.keys(c.stamps)) if (!ok.has(k)) delete c.stamps[k];
+  }
+  return p;
+}
+
+/** Todas as atrações confirmadas — o passaporte de quem escreveu os guias. */
 export function fullPassport(): Passport {
   const out: Passport = {};
-  const data = allStops as Record<string, { name: string; stops: { title: string; day: string | null }[] }>;
-  for (const [slug, c] of Object.entries(data)) {
+  const names: Record<string, string> = { barcelona: "Barcelona", budapeste: "Budapeste", florenca: "Florença", istambul: "Istambul", lisboa: "Lisboa", londres: "Londres", paris: "Paris", praga: "Praga", viena: "Viena" };
+  for (const [slug, list] of Object.entries(STAMP_STOPS)) {
     const stamps: Record<string, Stamp> = {};
-    for (const s of c.stops) stamps[s.title] = { at: new Date().toISOString(), verified: true, day: s.day ?? undefined };
-    out[slug] = { name: c.name, total: c.stops.length, stamps };
+    for (const s of list) stamps[s.title] = { at: new Date().toISOString(), verified: true };
+    out[slug] = { name: names[slug] ?? slug, total: list.length, stamps };
   }
   return out;
 }
@@ -190,7 +202,7 @@ async function onSignedIn(uid: string) {
   let p = merge((data?.data as Passport | undefined) ?? {}, readPassport());
   const { data: isAdmin } = await supabase.rpc("has_role", { _user_id: uid, _role: "admin" });
   if (isAdmin) p = merge(p, fullPassport());
-  writePassport(p);
+  writePassport(normalize(p));
 }
 
 export function startPassportSync() {

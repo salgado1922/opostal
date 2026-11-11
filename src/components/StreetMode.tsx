@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { Camera, Check, Footprints, MapPin, Share2, X } from "lucide-react";
+import { STAMP_STOPS, stampStopFor } from "@/data/stamp-stops";
 import {
   PASSPORT_EVENT,
   compressPhoto,
@@ -65,7 +66,7 @@ export function StreetMode({ city, slug, days }: Props) {
   const [checking, setChecking] = useState(false);
   const [notice, setNotice] = useState<{ text: string; offerFree?: boolean; signIn?: boolean } | null>(null);
   const photoRef = useRef<HTMLInputElement | null>(null);
-  const totalStops = useMemo(() => days.reduce((n, d) => n + d.stops.length, 0), [days]);
+  const totalStops = STAMP_STOPS[slug]?.length ?? 0;
   const cityStamps = passport[slug]?.stamps ?? {};
   const stamped: Stamped = useMemo(() => {
     const out: Stamped = {};
@@ -225,7 +226,7 @@ export function StreetMode({ city, slug, days }: Props) {
   };
 
   const toggleStamp = async () => {
-    if (!stop || !day || checking) return;
+    if (!stop || !day || checking || !stampStopFor(slug, stop.title)) return;
     setNotice(null);
     if (!passportUser()) {
       setNotice({ text: "Para guardar carimbos no teu passaporte, entra com a tua conta Google.", signIn: true });
@@ -526,6 +527,8 @@ export function StreetMode({ city, slug, days }: Props) {
                   )}
                 </div>
 
+                {stampStopFor(slug, stop.title) ? (
+                  <>
                 <button
                   type="button"
                   onClick={toggleStamp}
@@ -558,7 +561,11 @@ export function StreetMode({ city, slug, days }: Props) {
                   )}
                 </button>
 
-                {!isStamped && !notice && coordsFor(slug, stop.title) && (
+                  </>
+                ) : (
+                  <p className="mt-7 text-sm italic text-cream/50">Esta paragem não tem carimbo. Os carimbos ficam para as atrações principais.</p>
+                )}
+                {!isStamped && !notice && stampStopFor(slug, stop.title) && coordsFor(slug, stop.title) && (
                   <p className="mt-2 text-sm text-cream/55">
                     Confirmamos pela localização que estás mesmo aqui.
                   </p>

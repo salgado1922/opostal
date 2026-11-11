@@ -1,5 +1,6 @@
 import { useId } from "react";
 import type { StampShape } from "./stamps";
+import { Motif } from "./motifs";
 
 type Props = {
   top: string;
@@ -15,6 +16,8 @@ type Props = {
   ghost?: boolean;
   className?: string;
   title?: string;
+  /** Desenho alusivo à atração, no lugar do texto central. */
+  icon?: string;
 };
 
 /** Carimbo de borracha em SVG, com tinta gasta e bordas irregulares. */
@@ -31,6 +34,7 @@ export function InkStamp({
   ghost = false,
   className = "",
   title,
+  icon,
 }: Props) {
   const id = useId().replace(/:/g, "");
   const wide = shape === "oval" || shape === "rect";
@@ -61,7 +65,9 @@ export function InkStamp({
   const tb = ry - 30;
   const arcTop = `M ${cx - ta},${cy} A ${ta},${tb} 0 0 1 ${cx + ta},${cy}`;
   const arcBot = `M ${cx - ta},${cy} A ${ta},${tb} 0 0 0 ${cx + ta},${cy}`;
-  const curved = shape === "circle" || shape === "oval";
+  const curved = shape !== "rect";
+  const topLen = Math.max(1, top.length);
+  const topSize = curved ? Math.min(19, 230 / topLen) : Math.min(20, (2 * rx - 36) / (topLen * 0.78));
 
   return (
     <svg
@@ -93,16 +99,17 @@ export function InkStamp({
       >
         {outline(0, { strokeWidth: 5 })}
         {outline(12, { strokeWidth: 1.6 })}
+        {ghost && icon && <Motif name={icon} x={cx} y={cy} size={wide ? 58 : 66} />}
         {!ghost && (
           <>
             {curved ? (
-              <text fill="currentColor" stroke="none" fontFamily="var(--font-serif)" fontWeight={700} fontSize={19} letterSpacing={4}>
+              <text fill="currentColor" stroke="none" fontFamily="var(--font-serif)" fontWeight={700} fontSize={topSize} letterSpacing={topSize > 15 ? 4 : 2}>
                 <textPath href={`#t-${id}`} startOffset="50%" textAnchor="middle">
                   {top.toUpperCase()}
                 </textPath>
               </text>
             ) : (
-              <text x={cx} y={cy - ry + 44} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-serif)" fontWeight={700} fontSize={20} letterSpacing={4}>
+              <text x={cx} y={cy - ry + (icon ? 38 : 44)} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-serif)" fontWeight={700} fontSize={topSize} letterSpacing={topSize > 15 ? 4 : 2}>
                 {top.toUpperCase()}
               </text>
             )}
@@ -113,19 +120,30 @@ export function InkStamp({
                 </textPath>
               </text>
             ) : (
-              <text x={cx} y={cy + ry - 30} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-sans)" fontWeight={600} fontSize={11} letterSpacing={3}>
+              <text x={cx} y={cy + ry - (icon ? 30 : 22)} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-sans)" fontWeight={600} fontSize={11} letterSpacing={3}>
                 {`${motif} ${bottom} ${motif}`}
               </text>
             )}
+            {icon ? (
+              <>
+                <Motif name={icon} x={cx} y={cy - (wide ? 2 : 6)} size={wide ? 46 : 66} />
+                <text x={cx} y={cy + (wide ? 30 : 44)} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-serif)" fontWeight={700} fontSize={14} letterSpacing={2}>
+                  {center}
+                </text>
+              </>
+            ) : (
+            <>
             <line x1={cx - 44} x2={cx + 44} y1={cy - 16} y2={cy - 16} strokeWidth={1.4} />
             <line x1={cx - 44} x2={cx + 44} y1={cy + 22} y2={cy + 22} strokeWidth={1.4} />
             <text x={cx} y={cy + 13} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-serif)" fontWeight={700} fontSize={center.length > 7 ? 22 : 30} letterSpacing={2}>
               {center}
             </text>
             {sub && (
-              <text x={cx} y={cy + 40} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-sans)" fontWeight={600} fontSize={9} letterSpacing={2}>
+              <text x={cx} y={cy + (wide ? 36 : 40)} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-sans)" fontWeight={600} fontSize={9} letterSpacing={2}>
                 {sub.toUpperCase()}
               </text>
+            )}
+            </>
             )}
           </>
         )}

@@ -2,11 +2,13 @@ import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CITIES } from "@/data/cities";
+import { STAMP_STOPS, type StampStop } from "@/data/stamp-stops";
+import type { Stamp } from "@/lib/passport";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import type { Passport } from "@/lib/passport";
 import { InkStamp } from "./InkStamp";
 import { STAMP_STYLE, inkFor, seeded, stampDate } from "./stamps";
 
-const MAX_MINI = 9;
 
 function Cover() {
   return (
@@ -40,7 +42,7 @@ function Cover() {
   );
 }
 
-function CityPage({ slug, p, n, total }: { slug: string; p: Passport; n: number; total: number }) {
+function CityPage({ slug, p, n, total, onOpen }: { slug: string; p: Passport; n: number; total: number; onOpen: (o: Open) => void }) {
   const city = CITIES.find((c) => c.slug === slug)!;
   const cp = p[slug];
   const style = STAMP_STYLE[slug] ?? { shape: "circle" as const, motif: "✦", code: slug.slice(0, 3).toUpperCase() };
@@ -70,7 +72,7 @@ function CityPage({ slug, p, n, total }: { slug: string; p: Passport; n: number;
           <p className="font-serif text-4xl leading-none">{city.name}</p>
           <p className="mt-1 text-[11px] uppercase tracking-[0.25em] opacity-70">{city.country}</p>
           <p className="mt-3 font-serif text-sm italic opacity-80">
-            {entries.length ? `${entries.length} de ${cp!.total} paragens · ${confirmed} confirmadas` : "Por carimbar"}
+            {entries.length ? `${entries.length} de ${cp!.total} carimbos · ${confirmed} confirmadas` : "Por carimbar"}
           </p>
         </div>
         <InkStamp
@@ -87,35 +89,78 @@ function CityPage({ slug, p, n, total }: { slug: string; p: Passport; n: number;
         />
       </div>
 
-      <div className="relative mt-4 grid grid-cols-3 gap-x-2 gap-y-1">
-        {entries.slice(0, MAX_MINI).map(([title, s]) => {
-          const r = seeded(title);
+      <div className="relative mt-2 grid grid-cols-3 gap-x-2 gap-y-0">
+        {(STAMP_STOPS[slug] ?? []).map((st) => {
+          const s = cp?.stamps[st.title];
+          const r = seeded(st.title);
           return (
-            <div key={title} className="flex justify-center" style={{ transform: `translate(${(r - 0.5) * 14}px, ${(seeded(title + "y") - 0.5) * 12}px)` }}>
+            <button
+              key={st.title}
+              type="button"
+              onClick={() => onOpen({ slug, stop: st, stamp: s })}
+              aria-label={`${st.label}${s ? ", carimbado" : ", por carimbar"}. Ver carimbo`}
+              className="flex justify-center rounded-full transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
+              style={{ transform: `translate(${(r - 0.5) * 12}px, ${(seeded(st.title + "y") - 0.5) * 10}px)` }}
+            >
               <InkStamp
-                top={title.length > 13 ? `${title.slice(0, 12).trim()}…` : title}
-                bottom={s.verified ? "CONFIRMADO" : city.name}
-                center={stampDate(s.at).split(" ").slice(0, 2).join(" ")}
-                motif={style.motif}
+                top={st.label.length > 16 ? `${st.label.slice(0, 15).trim()}…` : st.label}
+                bottom={s?.verified ? "CONFIRMADO" : city.name}
+                center={s ? stampDate(s.at).split(" ").slice(0, 2).join(" ") : ""}
+                icon={st.motif}
                 ink={ink}
-                shape={(["circle", "oval", "rect", "hex"] as const)[Math.floor(r * 4)]}
+                shape={style.shape}
                 size={84}
-                rotate={(r - 0.5) * 30}
+                rotate={(r - 0.5) * 24}
+                ghost={!s}
               />
-            </div>
+            </button>
           );
         })}
-        {entries.length === 0 &&
-          Array.from({ length: 6 }, (_, i) => (
-            <div key={i} className="flex justify-center">
-              <InkStamp top="" center="" ink={ink} shape={style.shape} size={74} rotate={(i - 3) * 4} ghost />
-            </div>
-          ))}
       </div>
-      {entries.length > MAX_MINI && (
-        <p className="absolute bottom-2 right-5 font-serif text-sm italic opacity-70">+ {entries.length - MAX_MINI} carimbos</p>
-      )}
     </div>
+  );
+}
+
+type Open = { slug: string; stop: StampStop; stamp?: Stamp };
+
+function StampPreview({ open, onClose }: { open: Open | null; onClose: () => void }) {
+  const city = open ? CITIES.find((c) => c.slug === open.slug) : undefined;
+  const style = open ? STAMP_STYLE[open.slug] : undefined;
+  return (
+    <Dialog open={!!open} onOpenChange={(v) => !v && onClose()}>
+      <DialogContent
+        className="max-w-sm rounded-none border-0 p-8 text-center"
+        style={{ backgroundColor: "var(--passport-paper)", color: "var(--ink)" }}
+      >
+        {open && city && style && (
+          <>
+            <div className="flex justify-center">
+              <InkStamp
+                top={open.stop.label}
+                bottom={open.stamp?.verified ? "CONFIRMADO" : city.name}
+                center={open.stamp ? stampDate(open.stamp.at) : ""}
+                icon={open.stop.motif}
+                ink={inkFor(open.slug)}
+                shape={style.shape}
+                size={250}
+                rotate={-4}
+                ghost={!open.stamp}
+              />
+            </div>
+            <DialogTitle className="mt-4 font-serif text-3xl font-normal">{open.stop.label}</DialogTitle>
+            <DialogDescription className="font-serif text-base italic" style={{ color: "var(--ink)" }}>
+              {city.name} ·{" "}
+              {open.stamp
+                ? `${new Date(open.stamp.at).toLocaleString("pt-PT", { day: "2-digit", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })} · ${open.stamp.verified ? "confirmado no local" : "sem confirmação"}`
+                : "por carimbar — abre o modo de rua quando lá estiveres"}
+            </DialogDescription>
+            {open.stamp?.photo && (
+              <img src={open.stamp.photo} alt={`A tua fotografia em ${open.stop.label}`} className="mx-auto mt-4 w-40 rotate-2 border-[6px] border-[color:var(--cream)] shadow-md" />
+            )}
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -126,6 +171,7 @@ export function PassportBook({ p }: { p: Passport }) {
   const pages = ["cover", ...cities];
   const [page, setPage] = useState(0);
   const [dir, setDir] = useState(1);
+  const [openStamp, setOpenStamp] = useState<Open | null>(null);
   const touch = useRef<number | null>(null);
   const go = (to: number) => {
     const n = Math.max(0, Math.min(pages.length - 1, to));
@@ -137,6 +183,7 @@ export function PassportBook({ p }: { p: Passport }) {
 
   return (
     <div className="mx-auto w-full max-w-[400px]">
+      <StampPreview open={openStamp} onClose={() => setOpenStamp(null)} />
       <div
         className="relative aspect-[5/7] w-full [perspective:1600px]"
         onTouchStart={(e) => (touch.current = e.touches[0].clientX)}
@@ -174,7 +221,7 @@ export function PassportBook({ p }: { p: Passport }) {
             exit="exit"
             transition={{ duration: 0.55, ease: [0.3, 0.7, 0.2, 1] }}
           >
-            {current === "cover" ? <Cover /> : <CityPage slug={current} p={p} n={page} total={cities.length} />}
+            {current === "cover" ? <Cover /> : <CityPage slug={current} p={p} n={page} total={cities.length} onOpen={setOpenStamp} />}
           </motion.div>
         </AnimatePresence>
       </div>
