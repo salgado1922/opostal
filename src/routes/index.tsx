@@ -241,6 +241,70 @@ const CITY_MESSAGES: Record<string, string> = {
 function CityGrid() {
   // Só um postal pode estar virado de cada vez.
   const [flippedSlug, setFlippedSlug] = useState<string | null>(null);
+
+  // Controlos do carrossel no telemóvel
+  const trackRef = useRef<HTMLUListElement | null>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const updateScrollState = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setCanPrev(el.scrollLeft > 8);
+    setCanNext(el.scrollLeft < max - 8);
+    const kids = el.children;
+    if (kids.length > 1) {
+      const step =
+        (kids[1] as HTMLElement).offsetLeft - (kids[0] as HTMLElement).offsetLeft;
+      if (step > 0) {
+        setActiveIdx(
+          Math.min(
+            kids.length - 1,
+            Math.max(0, Math.round(el.scrollLeft / step)),
+          ),
+        );
+      }
+    }
+  };
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(updateScrollState);
+    };
+    updateScrollState();
+    el.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  const scrollToCard = (i: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const kid = el.children[i] as HTMLElement | undefined;
+    if (!kid) return;
+    el.scrollTo({ left: kid.offsetLeft - 24, behavior: "smooth" });
+  };
+
+  const scrollStep = (dir: 1 | -1) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const kids = el.children;
+    if (kids.length < 2) return;
+    const step =
+      (kids[1] as HTMLElement).offsetLeft - (kids[0] as HTMLElement).offsetLeft;
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
+
   return (
     <section id="cidades" className="relative z-[2] scroll-mt-16 py-14 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
@@ -260,26 +324,83 @@ function CityGrid() {
       </div>
 
       {/* Telemóvel: fila deslizante; computador: grelha */}
-      <ul
-        className="no-scrollbar flex snap-x snap-mandatory list-none gap-4 overflow-x-auto overscroll-x-contain scroll-px-6 px-6 pb-2 md:mx-auto md:grid md:max-w-6xl md:snap-none md:gap-7 md:overflow-visible md:p-0 md:px-6"
-        style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}
-        aria-label="Postais das cidades"
-      >
-        {CITIES.map((city) => (
-          <li key={city.slug} className="postcard-perspective w-[78vw] max-w-[340px] shrink-0 snap-start md:w-auto md:max-w-none">
-            <PostcardFlip
-              city={city}
-              flipped={flippedSlug === city.slug}
-              onToggle={() =>
-                setFlippedSlug((cur) => (cur === city.slug ? null : city.slug))
-              }
-            />
-          </li>
-        ))}
-      </ul>
-      <p className="mt-3 px-6 text-[11px] uppercase tracking-[0.25em] text-muted-foreground md:hidden" aria-hidden>
-        desliza → 
-      </p>
+      <div className="relative">
+        {/* Sombras nas pontas indicam que há mais postais (só telemóvel) */}
+        <div
+          aria-hidden
+          className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-background to-transparent transition-opacity duration-300 md:hidden ${canPrev ? "opacity-100" : "opacity-0"}`}
+        />
+        <div
+          aria-hidden
+          className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-background to-transparent transition-opacity duration-300 md:hidden ${canNext ? "opacity-100" : "opacity-0"}`}
+        />
+        <ul
+          ref={trackRef}
+          className="no-scrollbar flex snap-x snap-mandatory list-none gap-4 overflow-x-auto overscroll-x-contain scroll-px-6 px-6 pb-2 md:mx-auto md:grid md:max-w-6xl md:snap-none md:gap-7 md:overflow-visible md:p-0 md:px-6"
+          style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}
+          aria-label="Postais das cidades"
+        >
+          {CITIES.map((city) => (
+            <li key={city.slug} className="postcard-perspective w-[78vw] max-w-[340px] shrink-0 snap-start md:w-auto md:max-w-none">
+              <PostcardFlip
+                city={city}
+                flipped={flippedSlug === city.slug}
+                onToggle={() =>
+                  setFlippedSlug((cur) => (cur === city.slug ? null : city.slug))
+                }
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Controlos do carrossel — só telemóvel */}
+      <div className="mt-5 flex items-center justify-between gap-4 px-6 md:hidden">
+        <button
+          type="button"
+          onClick={() => scrollStep(-1)}
+          disabled={!canPrev}
+          aria-label="Postal anterior"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold/40 text-gold transition-opacity disabled:opacity-25"
+        >
+          <span aria-hidden className="-mt-0.5 text-lg leading-none">‹</span>
+        </button>
+
+        <div className="flex flex-col items-center gap-2">
+          <div className="flex items-center gap-1.5" role="tablist" aria-label="Escolher postal">
+            {CITIES.map((city, i) => (
+              <button
+                key={city.slug}
+                type="button"
+                role="tab"
+                aria-selected={i === activeIdx}
+                aria-label={`Postal ${i + 1} de ${CITIES.length}: ${city.name}`}
+                onClick={() => scrollToCard(i)}
+                className="flex h-8 w-5 items-center justify-center"
+              >
+                <span
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === activeIdx ? "w-5 bg-gold" : "w-1.5 bg-cream/30"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+          <p className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground" aria-hidden>
+            {activeIdx + 1} / {CITIES.length} · desliza
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => scrollStep(1)}
+          disabled={!canNext}
+          aria-label="Postal seguinte"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold/40 text-gold transition-opacity disabled:opacity-25"
+        >
+          <span aria-hidden className="-mt-0.5 text-lg leading-none">›</span>
+        </button>
+      </div>
 
     </section>
   );
