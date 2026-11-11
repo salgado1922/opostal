@@ -716,7 +716,7 @@ function Hero() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <a
               href="#dias"
-              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-twilight shadow-[0_18px_40px_-18px_rgba(200,119,46,.7)] transition-transform active:scale-95"
+              className="inline-flex items-center gap-2 rounded-[2px] px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-twilight transition-transform active:scale-95"
               style={{ background: "oklch(0.77 0.12 205)" }}
             >
               Ver o itinerário <span aria-hidden>↓</span>
@@ -775,7 +775,7 @@ function FlipDaysGrid() {
             >
               {/* FRONT */}
               <article
-                className="absolute inset-0 overflow-hidden rounded-2xl border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
+                className="absolute inset-0 overflow-hidden rounded-[3px] border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
                 style={{
                   backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
@@ -786,7 +786,7 @@ function FlipDaysGrid() {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px" src={d.cover} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.2) 48%, transparent)" }} />
                 <span
-                  className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[9.5px] uppercase tracking-[0.18em] backdrop-blur"
+                  className="absolute right-3 top-3 inline-flex items-center gap-1 text-[9.5px] uppercase tracking-[0.18em] px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
                   style={{
                     borderColor: "oklch(0.77 0.12 205 / .35)",
                     background: "oklch(0.16 0.04 238 / .5)",
@@ -806,7 +806,7 @@ function FlipDaysGrid() {
               </article>
               {/* BACK */}
               <article
-                className="absolute inset-0 overflow-hidden rounded-2xl border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
+                className="absolute inset-0 overflow-hidden rounded-[3px] border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
                 style={{
                   backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
@@ -817,7 +817,7 @@ function FlipDaysGrid() {
                 }}
               >
                 <div
-                  className="absolute inset-2.5 flex flex-col rounded-xl border border-dashed p-3.5"
+                  className="absolute inset-2.5 flex flex-col rounded-[3px] border p-3.5"
                   style={{ borderColor: "oklch(0.77 0.12 205 / .35)" }}
                 >
                   <div className="text-[9px] uppercase tracking-[0.3em]" style={{ color: "oklch(0.77 0.12 205)" }}>
@@ -844,7 +844,7 @@ function FlipDaysGrid() {
                   <a
                     href={`#${d.key}`}
                     onClick={(e) => e.stopPropagation()}
-                    className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[10px] uppercase tracking-[0.18em] hover:bg-[oklch(0.77_0.12_205_/_.1)]"
+                    className="mt-3 inline-flex items-center justify-center gap-1.5 text-[10px] uppercase tracking-[0.18em] hover:bg-[oklch(0.77_0.12_205_/_.1)] px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
                     style={{ borderColor: "oklch(0.77 0.12 205 / .45)", color: "oklch(0.77 0.12 205)" }}
                   >
                     Abrir o dia →
@@ -878,7 +878,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
         <Icon className="h-4 w-4 text-gold" />
       </div>
 
-      <div className="w-full rounded-2xl border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80">
+      <div className="w-full rounded-[3px] border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80">
         <button
           type="button"
           onClick={() => hasExtra && setOpen((o) => !o)}
@@ -935,7 +935,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
         className="overflow-hidden"
       >
-        <div className="mt-3 grid gap-4 rounded-2xl border border-gold/15 bg-twilight/60 p-5 md:grid-cols-[1fr_auto]">
+        <div className="mt-3 grid gap-4 rounded-[3px] border border-gold/15 bg-twilight/60 p-5 md:grid-cols-[1fr_auto]">
           {stop.tip && (
             <div className="flex gap-3">
               <Lightbulb className="mt-1 h-4 w-4 flex-shrink-0 text-gold" />
@@ -947,7 +947,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
               src={stop.img}
               alt={stop.imgAlt ?? stop.title}
-              className="h-40 w-full rounded-xl object-cover shadow-lg md:w-64"
+              className="h-40 w-full rounded-[3px] object-cover md:w-64"
               loading="lazy"
             />
           )}
@@ -984,19 +984,19 @@ function DayBlock({ day }: { day: Day }) {
       {(day.walkTotal || day.howToGet || day.dayTag) && (
         <div className="mb-6 flex flex-wrap gap-3">
           {day.walkTotal && (
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/25 bg-twilight/60 px-4 py-1.5 text-xs text-cream/90">
+            <span className="inline-flex items-center gap-2 text-xs text-cream/90 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold">
               <Footprints className="h-3.5 w-3.5 text-gold" />
               {day.walkTotal}
             </span>
           )}
           {day.howToGet && (
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/25 bg-twilight/60 px-4 py-1.5 text-xs text-cream/90">
+            <span className="inline-flex items-center gap-2 text-xs text-cream/90 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold">
               <MapPin className="h-3.5 w-3.5 text-gold" />
               {day.howToGet}
             </span>
           )}
           {day.dayTag && (
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-xs italic text-gold">
+            <span className="inline-flex items-center gap-2 text-xs italic text-gold px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold">
               <Sparkles className="h-3.5 w-3.5" />
               {day.dayTag}
             </span>
@@ -1010,7 +1010,7 @@ function DayBlock({ day }: { day: Day }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-400/40 bg-amber-400/10 p-4"
+          className="mb-6 flex items-start gap-3 rounded-[3px] border border-amber-400/40 bg-amber-400/10 p-4"
         >
           <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-300" />
           <p className="text-sm leading-relaxed text-cream/90">{day.dayNote.text}</p>
@@ -1023,7 +1023,7 @@ function DayBlock({ day }: { day: Day }) {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-8 flex items-start gap-3 rounded-2xl border border-gold/40 bg-gradient-to-r from-gold/15 via-terracotta/10 to-transparent p-5"
+          className="mb-8 flex items-start gap-3 rounded-[3px] border border-gold/40 bg-gradient-to-r from-gold/15 via-terracotta/10 to-transparent p-5"
         >
           <Lightbulb className="mt-0.5 h-5 w-5 flex-shrink-0 text-gold" />
           <p className="text-sm leading-relaxed text-cream md:text-base">{day.highlightTip}</p>
@@ -1037,7 +1037,7 @@ function DayBlock({ day }: { day: Day }) {
             <StopItem stop={s} idx={i} />
             {s.walkTo && i < day.stops.length - 1 && (
               <div className="relative mt-4 pl-16 md:pl-20">
-                <span className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-twilight/70 px-3 py-1 text-[11px] text-gold/85">
+                <span className="inline-flex items-center gap-2 text-[11px] text-gold/85 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold">
                   <Footprints className="h-3.5 w-3.5" />
                   {s.walkTo}
                 </span>
@@ -1055,7 +1055,7 @@ function DayBlock({ day }: { day: Day }) {
           transition={{ duration: 0.6 }}
           className="mt-10"
         >
-          <div className="relative overflow-hidden rounded-2xl border border-gold/30 bg-twilight/60 shadow-[0_20px_60px_-30px_oklch(0.78_0.14_200/0.45)]">
+          <div className="relative overflow-hidden rounded-[3px] border border-gold/30 bg-twilight/60 shadow-[0_20px_60px_-30px_oklch(0.78_0.14_200/0.45)]">
             <iframe
               src={day.mapEmbedUrl}
               title={isIsland ? "Ilha de Büyükada no mapa" : `Percurso a pé do ${day.label}`}
@@ -1075,7 +1075,7 @@ function DayBlock({ day }: { day: Day }) {
                 href={day.mapLinkUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-gold/30 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-gold hover:bg-gold/10"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gold hover:bg-gold/10 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
               >
                 <MapPin className="h-3.5 w-3.5" />
                 {isIsland ? "Abrir ilha no mapa" : "Abrir percurso no mapa"}
@@ -1162,7 +1162,7 @@ function Bosforo() {
             }`}
           >
             {t.highlight && (
-              <div className="absolute right-6 top-6 rounded-full border border-gold/50 bg-gold/15 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-gold">
+              <div className="absolute right-6 top-6 text-[10px] uppercase tracking-[0.25em] text-gold px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold">
                 Recomendado
               </div>
             )}
@@ -1255,7 +1255,7 @@ function Food() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.05 }}
-            className="flex gap-3 rounded-2xl border border-gold/15 bg-card p-4 text-sm leading-relaxed text-cream/90"
+            className="flex gap-3 rounded-[3px] border border-gold/15 bg-card p-4 text-sm leading-relaxed text-cream/90"
           >
             <Utensils className="mt-0.5 h-4 w-4 flex-shrink-0 text-gold" />
             <span>{a}</span>
@@ -1272,7 +1272,7 @@ function Food() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="overflow-hidden rounded-2xl border border-gold/15 bg-card"
+            className="overflow-hidden rounded-[3px] border border-gold/15 bg-card"
           >
             {d.img && <SmartImage
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px" src={d.img} alt={d.imgAlt} className="h-44 w-full object-cover" loading="lazy" />}
@@ -1293,7 +1293,7 @@ function Food() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mt-10 flex items-start gap-4 rounded-2xl border border-terracotta/40 bg-terracotta/10 p-5"
+        className="mt-10 flex items-start gap-4 rounded-[3px] border border-terracotta/40 bg-terracotta/10 p-5"
       >
         <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-terracotta" />
         <div>
@@ -1342,7 +1342,7 @@ function Tips() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-7"
+          className="rounded-[3px] border border-emerald-400/30 bg-emerald-400/5 p-7"
         >
           <h3 className="mb-5 flex items-center gap-3 font-serif text-2xl text-cream">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-400/20 text-emerald-300">
@@ -1365,7 +1365,7 @@ function Tips() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-red-400/30 bg-red-400/5 p-7"
+          className="rounded-[3px] border border-red-400/30 bg-red-400/5 p-7"
         >
           <h3 className="mb-5 flex items-center gap-3 font-serif text-2xl text-cream">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-400/20 text-red-300">
@@ -1408,7 +1408,7 @@ function Checklist() {
       title="O que reservar com antecedência"
       intro="Para evitar filas e ficar sem vaga, garante estes bilhetes e mesas antes de chegares."
     >
-      <div className="rounded-2xl border border-gold/20 bg-card p-7">
+      <div className="rounded-[3px] border border-gold/20 bg-card p-7">
         <ul className="grid gap-3 md:grid-cols-2">
           {items.map((b) => (
             <motion.li
@@ -1578,7 +1578,7 @@ function StickyNav() {
       aria-label="Secções da página"
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500 ease-out ${
         scrolled
-          ? "border-b border-gold/15 bg-background/70 backdrop-blur-xl"
+          ? "border-b border-gold/15 bg-background/70"
           : "border-b border-transparent bg-transparent"
       }`}
     >
@@ -1624,7 +1624,7 @@ function StickyNav() {
       <div
         className={`md:hidden -mt-px overflow-x-auto border-t transition-opacity duration-300 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
           scrolled
-            ? "border-gold/10 bg-background/75 backdrop-blur-xl opacity-100"
+            ? "border-gold/10 bg-background/75 opacity-100"
             : "pointer-events-none border-transparent opacity-0"
         }`}
         aria-hidden={!scrolled}
@@ -1653,7 +1653,7 @@ function StickyNav() {
       {open && (
         <div
           id="mobile-nav-panel"
-          className="md:hidden border-t border-gold/15 bg-background/95 backdrop-blur-xl"
+          className="md:hidden border-t border-gold/15 bg-background/95"
         >
           <ul className="mx-auto flex max-w-6xl flex-col px-4 py-2">
             {navLinks.map((l) => {
@@ -1696,8 +1696,8 @@ function GuideVideo() {
         variants={fadeUp}
         className="mx-auto max-w-4xl"
       >
-        <div className="relative rounded-3xl bg-gradient-to-br from-gold/20 via-terracotta/10 to-transparent p-[1px] shadow-2xl shadow-black/50">
-          <div className="relative aspect-video overflow-hidden rounded-3xl border border-gold/20 bg-black">
+        <div className="relative rounded-[3px] bg-gradient-to-br from-gold/20 via-terracotta/10 to-transparent p-[1px] shadow-black/50">
+          <div className="relative aspect-video overflow-hidden rounded-[3px] border border-gold/20 bg-black">
             <iframe
               src="https://www.youtube.com/embed/Tn1zT8RJ0kI"
               title="Vídeo do guia: Istambul"
@@ -1759,7 +1759,7 @@ const eventos: Array<{ nome: string; quando: string; desc: string }> = [
 ];
 
 function ConhecerIstambul() {
-  const itemCls = "glass rounded-2xl border border-gold/15 px-5 sm:px-6 overflow-hidden";
+  const itemCls = "glass rounded-[3px] border border-gold/15 px-5 sm:px-6 overflow-hidden";
   const triggerCls = "py-5 font-serif text-lg sm:text-xl text-cream hover:no-underline gap-3";
   const iconCls =
     "flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30 text-gold";
@@ -1852,7 +1852,7 @@ function ConhecerIstambul() {
               </span>
             </AccordionTrigger>
             <AccordionContent className="pb-6">
-              <div className="overflow-x-auto rounded-xl border border-gold/15">
+              <div className="overflow-x-auto rounded-[3px] border border-gold/15">
                 <table className="w-full text-sm">
                   <thead className="bg-gold/10 text-gold">
                     <tr>
@@ -1975,7 +1975,7 @@ function EssentialInfo() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.55, delay: i * 0.06 }}
               whileHover={{ y: -4 }}
-              className="glass rounded-2xl border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.78_0.14_200/0.5)]"
+              className="glass rounded-[3px] border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.78_0.14_200/0.5)]"
             >
               <div
                 className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30"
@@ -1997,14 +1997,14 @@ function EssentialInfo() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+        className="mt-8 rounded-[3px] border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
       >
         <div className="mb-5 flex items-center gap-3">
           <MapPin className="h-5 w-5 text-gold" />
           <h3 className="font-serif text-2xl text-cream">Onde ficar</h3>
         </div>
         <ul className="grid gap-4 md:grid-cols-3">
-          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+          <li className="rounded-[3px] border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Sultanahmet (cidade velha)</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Central e histórico, a pé dos grandes monumentos. Ideal para a 1.ª visita.
@@ -2019,7 +2019,7 @@ function EssentialInfo() {
               <ExternalLink className="h-3 w-3 opacity-70" />
             </a>
           </li>
-          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+          <li className="rounded-[3px] border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Beyoğlu / Galata</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Moderno e animado, cafés, rooftops e vida noturna. Bom para quem quer movimento.
@@ -2034,7 +2034,7 @@ function EssentialInfo() {
               <ExternalLink className="h-3 w-3 opacity-70" />
             </a>
           </li>
-          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+          <li className="rounded-[3px] border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Kadıköy (lado asiático)</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Jovem, local e descontraído, mercado de comida e esplanadas à beira-mar. Mais barato e
@@ -2058,7 +2058,7 @@ function EssentialInfo() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+        className="mt-8 rounded-[3px] border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
       >
         <div className="mb-5 flex items-center gap-3">
           <Languages className="h-5 w-5 text-gold" />
@@ -2164,7 +2164,7 @@ function CurrencyConverter() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.6, delay: 0.1 }}
-      className="mt-8 overflow-hidden rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+      className="mt-8 overflow-hidden rounded-[3px] border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
     >
       <div className="mb-6 flex items-center gap-3">
         <Coins className="h-5 w-5 text-gold" />
@@ -2192,7 +2192,7 @@ function CurrencyConverter() {
               step="0.01"
               value={eur}
               onChange={(e) => onEurChange(e.target.value)}
-              className="w-full rounded-xl border border-gold/20 bg-background/40 py-4 pl-10 pr-4 text-right font-serif text-3xl text-cream outline-none transition-colors focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
+              className="w-full rounded-[3px] border border-gold/20 bg-background/40 py-4 pl-10 pr-4 text-right font-serif text-3xl text-cream outline-none transition-colors focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
             />
           </div>
         </div>
@@ -2228,7 +2228,7 @@ function CurrencyConverter() {
               step="1"
               value={tryAmt}
               onChange={(e) => onTryChange(e.target.value)}
-              className="w-full rounded-xl border border-gold/20 bg-background/40 py-4 pl-10 pr-4 text-right font-serif text-3xl text-cream outline-none transition-colors focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
+              className="w-full rounded-[3px] border border-gold/20 bg-background/40 py-4 pl-10 pr-4 text-right font-serif text-3xl text-cream outline-none transition-colors focus:border-gold/50 focus:ring-2 focus:ring-gold/40"
             />
           </div>
         </div>
@@ -2245,7 +2245,7 @@ function CurrencyConverter() {
               key={c}
               type="button"
               onClick={() => chipPreset(c)}
-              className="rounded-full border border-gold/20 bg-background/30 px-3.5 py-1.5 text-xs text-gold/90 transition-colors hover:border-gold/50 hover:bg-gold/10"
+              className="text-xs text-gold/90 transition-colors hover:border-gold/50 hover:bg-gold/10 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
             >
               {c} TRY ≈ {eurValue} €
             </button>

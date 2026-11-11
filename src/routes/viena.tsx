@@ -536,7 +536,7 @@ function Hero() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <a
               href="#overview"
-              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] uppercase tracking-[0.22em] text-cream transition-transform active:scale-95"
+              className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.22em] text-cream transition-transform active:scale-95 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
               style={{ background: "var(--city-action)", boxShadow: "var(--city-soft-shadow)" }}
             >
               Ver o itinerário <span aria-hidden>↓</span>
@@ -599,7 +599,7 @@ function FlipDaysGrid() {
             >
               {/* FRONT */}
               <article
-                className="absolute inset-0 overflow-hidden rounded-2xl border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
+                className="absolute inset-0 overflow-hidden rounded-[3px] border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
                 style={{
                   backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
@@ -619,7 +619,7 @@ function FlipDaysGrid() {
                 )}
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.2) 48%, transparent)" }} />
                 <span
-                  className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[9.5px] uppercase tracking-[0.18em] backdrop-blur"
+                  className="absolute right-3 top-3 inline-flex items-center gap-1 text-[9.5px] uppercase tracking-[0.18em] px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
                   style={{
                     borderColor: "color-mix(in oklab, var(--city-highlight) 45%, transparent)",
                     background: "color-mix(in oklab, var(--city-deep) 62%, transparent)",
@@ -639,7 +639,7 @@ function FlipDaysGrid() {
               </article>
               {/* BACK */}
               <article
-                className="absolute inset-0 overflow-hidden rounded-2xl border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
+                className="absolute inset-0 overflow-hidden rounded-[3px] border shadow-[0_12px_40px_-22px_rgba(0,0,0,.85)]"
                 style={{
                   backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
@@ -650,7 +650,7 @@ function FlipDaysGrid() {
                 }}
               >
                 <div
-                  className="absolute inset-2.5 flex flex-col rounded-xl border border-dashed p-3.5"
+                  className="absolute inset-2.5 flex flex-col rounded-[3px] border p-3.5"
                   style={{ borderColor: "color-mix(in oklab, var(--city-highlight) 45%, transparent)" }}
                 >
                   <div className="text-[9px] uppercase tracking-[0.3em]" style={{ color: "var(--city-action)" }}>
@@ -673,7 +673,7 @@ function FlipDaysGrid() {
                   <a
                     href={`#${d.key}`}
                     onClick={(e) => e.stopPropagation()}
-                    className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[10px] uppercase tracking-[0.18em] hover:bg-accent/15"
+                    className="mt-3 inline-flex items-center justify-center gap-1.5 text-[10px] uppercase tracking-[0.18em] hover:bg-accent/15 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
                     style={{ borderColor: "color-mix(in oklab, var(--city-action) 50%, transparent)", color: "var(--city-light)" }}
                   >
                     Abrir o dia →
@@ -707,7 +707,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
         <Icon className="h-4 w-4 text-gold" />
       </div>
 
-      <div className="w-full rounded-2xl border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80">
+      <div className="w-full rounded-[3px] border border-gold/10 bg-card px-6 py-5 text-left transition-all duration-300 hover:border-gold/30 hover:bg-card/80">
         <button
           type="button"
           onClick={() => hasExtra && setOpen((o) => !o)}
@@ -781,7 +781,7 @@ function StopItem({ stop, idx }: { stop: Stop; idx: number }) {
               src={stop.image}
               alt={stop.imageAlt ?? stop.title}
               loading="lazy"
-              className="h-40 w-full rounded-xl object-cover shadow-[0_10px_30px_-12px_rgba(0,0,0,0.7)]"
+              className="h-40 w-full rounded-[3px] object-cover shadow-[0_10px_30px_-12px_rgba(0,0,0,0.7)]"
             />
           )}
         </div>
@@ -816,13 +816,13 @@ function DayBlock({ day }: { day: Day }) {
       {(day.walkTotal || day.howToGet) && (
         <div className="mb-6 flex flex-wrap gap-3">
           {day.walkTotal && (
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/25 bg-twilight/60 px-4 py-1.5 text-xs text-cream/90">
+            <span className="inline-flex items-center gap-2 text-xs text-cream/90 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold">
               <Footprints className="h-3.5 w-3.5 text-gold" />
               {day.walkTotal}
             </span>
           )}
           {day.howToGet && (
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/25 bg-twilight/60 px-4 py-1.5 text-xs text-cream/90">
+            <span className="inline-flex items-center gap-2 text-xs text-cream/90 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold">
               <MapPin className="h-3.5 w-3.5 text-gold" />
               {day.howToGet}
             </span>
@@ -836,7 +836,7 @@ function DayBlock({ day }: { day: Day }) {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-8 flex items-start gap-3 rounded-2xl border border-gold/40 bg-gradient-to-r from-gold/15 via-terracotta/10 to-transparent p-5"
+          className="mb-8 flex items-start gap-3 rounded-[3px] border border-gold/40 bg-gradient-to-r from-gold/15 via-terracotta/10 to-transparent p-5"
         >
           <Lightbulb className="mt-0.5 h-5 w-5 flex-shrink-0 text-gold" />
           <p className="text-sm leading-relaxed text-cream md:text-base">{day.highlightTip}</p>
@@ -850,7 +850,7 @@ function DayBlock({ day }: { day: Day }) {
             <StopItem stop={s} idx={i} />
             {s.walkTo && i < day.stops.length - 1 && (
               <div className="relative mt-4 pl-16 md:pl-20">
-                <span className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-twilight/70 px-3 py-1 text-[11px] text-gold/85">
+                <span className="inline-flex items-center gap-2 text-[11px] text-gold/85 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold">
                   <Footprints className="h-3.5 w-3.5" />
                   {s.walkTo}
                 </span>
@@ -868,7 +868,7 @@ function DayBlock({ day }: { day: Day }) {
           transition={{ duration: 0.6 }}
           className="mt-10"
         >
-          <div className="relative overflow-hidden rounded-2xl border border-gold/30 bg-twilight/60 shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.45)]">
+          <div className="relative overflow-hidden rounded-[3px] border border-gold/30 bg-twilight/60 shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.45)]">
             <iframe
               src={day.mapEmbedUrl}
               title={`Percurso a pé do ${day.label}`}
@@ -886,7 +886,7 @@ function DayBlock({ day }: { day: Day }) {
                 href={day.mapLinkUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-gold/30 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-gold hover:bg-gold/10"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gold hover:bg-gold/10 px-0 py-1 underline decoration-gold/70 underline-offset-[6px] hover:decoration-gold"
               >
                 <MapPin className="h-3.5 w-3.5" />
                 Abrir percurso no mapa
@@ -996,7 +996,7 @@ function Food() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.06 }}
             whileHover={{ y: -4 }}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-gold/15 bg-card transition-all hover:border-gold/40 hover:shadow-[0_20px_50px_-20px_oklch(0.82_0.14_78/0.35)]"
+            className="group flex flex-col overflow-hidden rounded-[3px] border border-gold/15 bg-card transition-all hover:border-gold/40 hover:shadow-[0_20px_50px_-20px_oklch(0.82_0.14_78/0.35)]"
           >
             {r.image && (
               <SmartImage
@@ -1032,7 +1032,7 @@ function Food() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.06 }}
-              className="overflow-hidden rounded-2xl border border-gold/15 bg-card"
+              className="overflow-hidden rounded-[3px] border border-gold/15 bg-card"
             >
               {d.image && (
                 <SmartImage
@@ -1061,7 +1061,7 @@ function Food() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mt-10 flex items-start gap-4 rounded-2xl border border-terracotta/40 bg-terracotta/10 p-5"
+        className="mt-10 flex items-start gap-4 rounded-[3px] border border-terracotta/40 bg-terracotta/10 p-5"
       >
         <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-terracotta" />
         <div>
@@ -1113,7 +1113,7 @@ function Bairros() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.06 }}
-            className="rounded-2xl border border-gold/15 bg-card p-6"
+            className="rounded-[3px] border border-gold/15 bg-card p-6"
           >
             <h4 className="font-serif text-xl text-cream">{b.name}</h4>
             <p className="mt-2 text-sm text-muted-foreground">{b.desc}</p>
@@ -1155,7 +1155,7 @@ function Tips() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-7"
+          className="rounded-[3px] border border-emerald-400/30 bg-emerald-400/5 p-7"
         >
           <h3 className="mb-5 flex items-center gap-3 font-serif text-2xl text-cream">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-400/20 text-emerald-300">
@@ -1178,7 +1178,7 @@ function Tips() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-red-400/30 bg-red-400/5 p-7"
+          className="rounded-[3px] border border-red-400/30 bg-red-400/5 p-7"
         >
           <h3 className="mb-5 flex items-center gap-3 font-serif text-2xl text-cream">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-400/20 text-red-300">
@@ -1219,7 +1219,7 @@ function Checklist() {
       title="O que reservar com antecedência"
       intro="Para evitar filas e ficar sem vaga, garante estes bilhetes e mesas antes de chegares."
     >
-      <div className="rounded-2xl border border-gold/20 bg-card p-7">
+      <div className="rounded-[3px] border border-gold/20 bg-card p-7">
         <ul className="grid gap-3 md:grid-cols-2">
           {items.map((b) => (
             <motion.li
@@ -1376,7 +1376,7 @@ function StickyNav() {
       aria-label="Secções da página"
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500 ease-out ${
         scrolled
-          ? "border-b border-gold/15 bg-background/70 backdrop-blur-xl"
+          ? "border-b border-gold/15 bg-background/70"
           : "border-b border-transparent bg-transparent"
       }`}
     >
@@ -1427,7 +1427,7 @@ function StickyNav() {
       <div
         className={`md:hidden -mt-px overflow-x-auto border-t transition-opacity duration-300 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
           scrolled
-            ? "border-gold/10 bg-background/75 backdrop-blur-xl opacity-100"
+            ? "border-gold/10 bg-background/75 opacity-100"
             : "pointer-events-none border-transparent opacity-0"
         }`}
         aria-hidden={!scrolled}
@@ -1456,7 +1456,7 @@ function StickyNav() {
       {open && (
         <div
           id="mobile-nav-panel"
-          className="md:hidden border-t border-gold/15 bg-background/95 backdrop-blur-xl"
+          className="md:hidden border-t border-gold/15 bg-background/95"
         >
           <ul className="mx-auto flex max-w-6xl flex-col px-4 py-2">
             {navLinks.map((l) => {
@@ -1518,7 +1518,7 @@ const eventos: Array<{ nome: string; quando: string; desc: string }> = [
 ];
 
 function ConhecerViena() {
-  const itemCls = "glass rounded-2xl border border-gold/15 px-5 sm:px-6 overflow-hidden";
+  const itemCls = "glass rounded-[3px] border border-gold/15 px-5 sm:px-6 overflow-hidden";
   const triggerCls = "py-5 font-serif text-lg sm:text-xl text-cream hover:no-underline gap-3";
   const iconCls =
     "flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30 text-gold";
@@ -1588,7 +1588,7 @@ function ConhecerViena() {
               </span>
             </AccordionTrigger>
             <AccordionContent className="pb-6">
-              <div className="overflow-x-auto rounded-xl border border-gold/15">
+              <div className="overflow-x-auto rounded-[3px] border border-gold/15">
                 <table className="w-full text-sm">
                   <thead className="bg-gold/10 text-gold">
                     <tr>
@@ -1711,7 +1711,7 @@ function EssentialInfo() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.55, delay: i * 0.06 }}
               whileHover={{ y: -4 }}
-              className="glass rounded-2xl border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)]"
+              className="glass rounded-[3px] border border-gold/15 p-6 transition-shadow hover:shadow-[0_20px_60px_-30px_oklch(0.82_0.14_78/0.5)]"
             >
               <div
                 className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-gold/10 ring-1 ring-gold/30"
@@ -1731,7 +1731,7 @@ function EssentialInfo() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+        className="mt-8 rounded-[3px] border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
       >
         <div className="mb-5 flex items-center gap-3">
           <MapPin className="h-5 w-5 text-gold" />
@@ -1741,21 +1741,21 @@ function EssentialInfo() {
           Três zonas a considerar; qualquer uma funciona muito bem para um guia de 3 dias.
         </p>
         <ul className="grid gap-4 md:grid-cols-3">
-          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+          <li className="rounded-[3px] border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Innere Stadt (Centro)</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               A pé de tudo, ideal para a primeira visita.
             </p>
             <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DInnere%2BStadt%252C%2BViena%252C%2B%25C3%2581ustria%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=viena-innere-stadt" label="Ver alojamentos no centro" />
           </li>
-          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+          <li className="rounded-[3px] border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Naschmarkt / Mariahilf</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Animado, bom para compras e vida noturna, perto do centro.
             </p>
             <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DMariahilf%252C%2BViena%252C%2B%25C3%2581ustria%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=viena-mariahilf" label="Ver alojamentos em Mariahilf" />
           </li>
-          <li className="rounded-xl border border-gold/15 bg-background/30 p-5">
+          <li className="rounded-[3px] border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Landstraße (Belvedere)</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Mais calmo e elegante, junto ao Belvedere.
@@ -1770,7 +1770,7 @@ function EssentialInfo() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="mt-8 rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
+        className="mt-8 rounded-[3px] border border-gold/20 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-7"
       >
         <div className="mb-5 flex items-center gap-3">
           <Languages className="h-5 w-5 text-gold" />
