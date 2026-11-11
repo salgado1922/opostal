@@ -40,6 +40,7 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
+import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
   Accordion,
@@ -1566,6 +1567,7 @@ function IstambulPage() {
       <FinalStamp code="IST" />
       <CustomItineraryCTA city="Istambul" />
       <OutrosPostais currentSlug="istambul" />
+      <StreetMode city="Istambul" slug="istambul" days={days} />
       <SiteFooter city="Istambul" farewell="Şerefe, à vossa." />
     </main>
   );

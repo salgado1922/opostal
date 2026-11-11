@@ -582,6 +582,7 @@ const STEPS: { title: string; body: string }[] = [
   { title: "Escolhes a cidade.", body: "Viras o postal e abres o roteiro. Não pedimos email nem conta." },
   { title: "Levas o roteiro no bolso.", body: "Dias, horários e mapa. Os horários são sugestões — atrasa-te à vontade." },
   { title: "Vais aos sítios que valem.", body: "Só escrevemos sobre o que comemos e caminhámos. Ninguém nos paga para pôr lá nada." },
+  { title: "Na rua, ligas o modo de rua.", body: "Uma paragem de cada vez, letra grande, e um carimbo para cada visita." },
 ];
 
 function HowItWorks() {
@@ -595,7 +596,7 @@ function HowItWorks() {
         <h2 className="max-w-3xl font-serif text-[2.4rem] leading-[1.04] text-cream md:text-6xl">
           <span className="font-hand text-gold-soft">Olá,</span> sem complicações.
         </h2>
-        <ol className="mt-10 list-none border-t border-gold/25 p-0 md:mt-14 md:grid md:grid-cols-3 md:border-t-0">
+        <ol className="mt-10 list-none border-t border-gold/25 p-0 md:mt-14 md:grid md:grid-cols-4 md:border-t-0">
           {STEPS.map((s, i) => (
             <li
               key={s.title}

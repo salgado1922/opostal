@@ -37,6 +37,7 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
+import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
   Accordion,
@@ -1835,6 +1836,7 @@ function Index() {
       <Farewell />
       <CustomItineraryCTA city="Lisboa" />
       <OutrosPostais currentSlug="lisboa" />
+      <StreetMode city="Lisboa" slug="lisboa" days={days} />
       <SiteFooter city="Lisboa" />
     </main>
   );

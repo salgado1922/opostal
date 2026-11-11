@@ -40,6 +40,7 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
+import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
   Accordion,
@@ -1726,6 +1727,7 @@ function Index() {
       <FinalStamp code="BUD" year="2026" />
       <CustomItineraryCTA city="Budapeste" />
       <OutrosPostais currentSlug="budapeste" />
+      <StreetMode city="Budapeste" slug="budapeste" days={days} />
       <SiteFooter city="Budapeste" farewell="Viszlát, Budapest!" />
     </main>
   );

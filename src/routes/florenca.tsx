@@ -36,6 +36,7 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
+import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
   Accordion,
@@ -1402,6 +1403,7 @@ function Index() {
       <FinalStamp code="FLR" />
       <CustomItineraryCTA city="Florença" />
       <OutrosPostais currentSlug="florenca" />
+      <StreetMode city="Florença" slug="florenca" days={days} />
       <SiteFooter city="Florença" />
     </main>
   );

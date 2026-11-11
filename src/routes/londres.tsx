@@ -40,6 +40,7 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
+import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
   Accordion,
@@ -1608,6 +1609,7 @@ function Index() {
       <FinalStamp code="LDN" />
       <CustomItineraryCTA city="Londres" />
       <OutrosPostais currentSlug="londres" />
+      <StreetMode city="Londres" slug="londres" days={days} />
       <SiteFooter city="Londres" farewell="Mind the gap, e boa viagem." photoCredit="Wikimedia Commons" />
     </main>
   );

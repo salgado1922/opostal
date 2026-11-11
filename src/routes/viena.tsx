@@ -38,6 +38,7 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
+import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
   Accordion,
@@ -1381,6 +1382,7 @@ function Index() {
       <FinalStamp code="VIE" />
       <CustomItineraryCTA city="Viena" />
       <OutrosPostais currentSlug="viena" />
+      <StreetMode city="Viena" slug="viena" days={days} />
       <SiteFooter city="Viena" farewell="Auf Wiedersehen, Wien — bis zum nächsten Walzer." />
     </main>
   );
