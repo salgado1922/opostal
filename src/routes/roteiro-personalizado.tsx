@@ -94,26 +94,25 @@ function Hero() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className="mx-auto max-w-3xl text-center"
+        className="mx-auto max-w-5xl"
       >
-        <p className="mb-5 text-[11px] uppercase tracking-[0.42em] text-gold">
+        <p className="mb-5 flex items-center gap-4 text-[11px] uppercase tracking-[0.4em] text-gold"><span className="h-px w-12 bg-gold/70" />
           Roteiro personalizado
         </p>
         <h1
-          className="text-gradient-gold font-serif leading-[1.05]"
-          style={{ fontSize: "clamp(2.2rem, 4.6vw, 4rem)" }}
+          className="max-w-4xl font-serif font-semibold text-cream"
+          style={{ lineHeight: 0.98, letterSpacing: "-0.02em", fontSize: "clamp(2.8rem, 8vw, 6.5rem)" }}
         >
           Um roteiro só teu, ao teu ritmo.
         </h1>
-        <div className="my-7 mx-auto h-px w-28 bg-gold/70" />
-        <p className="mx-auto max-w-2xl text-base text-cream/85 md:text-lg leading-relaxed">
+        <p className="mt-7 max-w-2xl font-serif text-xl italic leading-relaxed text-cream/85 md:text-2xl">
           Os guias gratuitos servem muita viagem. Quando quiseres algo desenhado à tua medida, com as tuas datas, o teu ritmo e o que mais gostas de fazer, preparo um roteiro só para ti.
         </p>
-        <div className="mt-10 flex justify-center">
+        <div className="mt-10 flex">
           <button
             type="button"
             onClick={scrollToForm}
-            className="group inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-[12px] uppercase tracking-[0.25em] text-[oklch(0.18_0.04_285)] shadow-[0_18px_40px_-18px_rgba(200,119,46,0.7)] transition-all hover:bg-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="group inline-flex items-center gap-2 rounded-[2px] bg-gold px-6 py-3 text-[12px] uppercase tracking-[0.25em] text-[oklch(0.18_0.04_285)] transition-all hover:bg-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             Preencher pedido
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -182,9 +181,9 @@ function Comparison() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.7, delay: i * 0.1 }}
-              className="flex flex-col rounded-2xl border border-gold/15 bg-plum/40 p-8 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.85)] transition-colors hover:border-gold/30"
+              className="flex flex-col rounded-[2px] border-t border-gold/25 p-8"
             >
-              <span className="mb-4 inline-flex w-fit items-center rounded-full border border-gold/30 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.22em] text-gold/85">
+              <span className="mb-4 inline-flex w-fit items-center text-[11px] uppercase tracking-[0.22em] text-gold/85">
                 {c.tag}
               </span>
               <h3 className="font-serif text-2xl text-cream md:text-3xl">{c.title}</h3>
@@ -248,9 +247,9 @@ function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
-              className="rounded-2xl border border-gold/10 bg-plum/25 p-6 transition-colors hover:border-gold/25"
+              className="rounded-[2px] border-t border-gold/25 p-6"
             >
-              <p className="font-serif text-3xl text-gold/80">{s.n}</p>
+              <p className="font-serif text-6xl leading-none" style={{ color: "transparent", WebkitTextStroke: "1px var(--gold)" }}>{s.n}</p>
               <h3 className="mt-3 font-serif text-xl text-cream">{s.t}</h3>
               <p className="mt-2 text-cream/75 leading-relaxed">{s.d}</p>
             </motion.li>
@@ -294,7 +293,7 @@ const EMPTY_FORM: FormState = {
 };
 
 const inputCls =
-  "w-full rounded-md border border-gold/20 bg-plum/30 px-3 py-2.5 text-cream placeholder:text-cream/35 focus:border-gold/60 focus:outline-none focus:ring-1 focus:ring-gold/40";
+  "w-full rounded-[2px] border-0 border-b border-gold/30 bg-transparent px-1 py-3 text-cream placeholder:text-cream/35 focus:border-gold/60 focus:outline-none focus:ring-1 focus:ring-gold/40";
 const labelCls = "block text-[11px] uppercase tracking-[0.2em] text-cream/70";
 const helpCls = "mt-1 text-[11px] text-cream/50";
 const errCls = "border-red-400/70 focus:border-red-400 focus:ring-red-400/40";
@@ -579,7 +578,7 @@ function RequestForm() {
         </motion.div>
 
         {status === "success" ? (
-          <div className="glass rounded-2xl border border-gold/20 px-8 py-10">
+          <div className="border-y border-gold/25 px-8 py-10">
             <h3 className="font-serif text-2xl text-cream md:text-3xl text-center">Pedido recebido.</h3>
             <p className="mt-4 text-cream/80 leading-relaxed text-center">
               Obrigado. Vou analisar o teu pedido e respondo pessoalmente para{" "}
@@ -593,20 +592,20 @@ function RequestForm() {
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
                 to="/"
-                className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-5 py-2.5 text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
+                className="gold-link inline-flex items-center gap-2 py-3 text-[12px] uppercase tracking-[0.25em] text-gold"
               >
                 Voltar ao início
               </Link>
               <a
                 href="/#cidades"
-                className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-[11px] uppercase tracking-[0.25em] text-[oklch(0.18_0.04_285)] transition-colors hover:bg-gold-soft"
+                className="inline-flex items-center gap-2 rounded-[2px] bg-gold px-5 py-2.5 text-[11px] uppercase tracking-[0.25em] text-[oklch(0.18_0.04_285)] transition-colors hover:bg-gold-soft"
               >
                 Explorar roteiros gratuitos
               </a>
             </div>
           </div>
         ) : (
-          <div className="rounded-2xl border border-gold/15 bg-plum/30 p-6 md:p-8">
+          <div className="rounded-[2px] border-t border-gold/25 p-6 md:p-8">
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               <div className="md:col-span-2">
                 <label htmlFor="f-destino" className={labelCls}>Destino</label>
@@ -798,7 +797,7 @@ function RequestForm() {
                 value = monthValue || "Seleciona um mês";
               }
               return (
-                <div className="mt-6 rounded-xl border border-gold/15 bg-plum/40 px-5 py-4">
+                <div className="mt-6 rounded-[2px] border-t border-gold/25 px-5 py-4">
                   <p className="text-[10px] uppercase tracking-[0.25em] text-gold/80">Resumo do pedido</p>
                   <div className="mt-3 space-y-1.5 text-cream/85">
                     {(hasExact || hasMonth) && (
@@ -806,7 +805,7 @@ function RequestForm() {
                         <span className="text-sm text-cream/65">{modeLabel}:</span>
                         <span className="font-serif text-base text-cream">{value}</span>
                         {weekendsOnly && (
-                          <span className="inline-flex items-center rounded-full border border-gold/30 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.22em] text-gold">
+                          <span className="inline-flex items-center text-[11px] uppercase tracking-[0.22em] text-gold">
                             Apenas fins de semana
                           </span>
                         )}
@@ -834,7 +833,7 @@ function RequestForm() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={status === "submitting"}
-                className="group inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-[12px] uppercase tracking-[0.25em] text-[oklch(0.18_0.04_285)] shadow-[0_18px_40px_-18px_rgba(200,119,46,0.7)] transition-all hover:bg-gold-soft disabled:opacity-60"
+                className="group inline-flex items-center gap-2 rounded-[2px] bg-gold px-6 py-3 text-[12px] uppercase tracking-[0.25em] text-[oklch(0.18_0.04_285)] transition-all hover:bg-gold-soft disabled:opacity-60"
               >
                 Enviar pedido
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -909,7 +908,7 @@ function ClosingCTA() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.7 }}
-        className="glass mx-auto max-w-3xl rounded-2xl border border-gold/20 px-8 py-10 text-center"
+        className="mx-auto max-w-3xl border-y border-gold/25 px-8 py-10 text-center"
       >
         <h2 className="font-serif text-2xl text-cream md:text-3xl">
           Pronto para um roteiro só teu?
@@ -917,7 +916,7 @@ function ClosingCTA() {
         <button
           type="button"
           onClick={scrollToForm}
-          className="mt-7 inline-flex items-center gap-2 rounded-full border border-gold/40 px-6 py-3 text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08]"
+          className="mt-7 gold-link inline-flex items-center gap-2 py-3 text-[12px] uppercase tracking-[0.25em] text-gold"
         >
           Preencher pedido
           <ArrowRight className="h-3.5 w-3.5" />
@@ -1007,7 +1006,7 @@ function ExampleDay() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="rounded-2xl border border-gold/15 bg-plum/40 p-6 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.85)] md:p-8"
+          className="rounded-[2px] border-t border-gold/25 p-6 md:p-8"
         >
           <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-gold/10 pb-5">
             <div>
@@ -1016,7 +1015,7 @@ function ExampleDay() {
                 O clássico de Sultanahmet, sem filas nem pressa
               </h3>
             </div>
-            <span className="inline-flex items-center rounded-full border border-gold/30 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-gold/85">
+            <span className="inline-flex items-center text-[11px] uppercase tracking-[0.22em] text-gold/85">
               A pé + ferry
             </span>
           </div>
@@ -1125,7 +1124,7 @@ function WhatYouGet() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: i * 0.06 }}
-              className="rounded-2xl border border-gold/10 bg-plum/25 p-6 transition-colors hover:border-gold/25"
+              className="rounded-[2px] border-t border-gold/25 p-6"
             >
               <d.icon className="h-5 w-5 text-gold" />
               <h3 className="mt-4 font-serif text-lg text-cream">{d.title}</h3>
@@ -1137,7 +1136,7 @@ function WhatYouGet() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: DELIVERABLES.length * 0.06 }}
-            className="flex flex-col justify-center rounded-2xl border border-gold/25 bg-gold/[0.06] p-6"
+            className="flex flex-col justify-center rounded-[2px] border-t border-gold/25 p-6"
           >
             <p className="font-serif text-lg text-cream leading-snug">
               Tudo pensado para as tuas datas, o teu ritmo e o teu orçamento.
@@ -1221,7 +1220,7 @@ function FreeVsPaid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="overflow-hidden rounded-2xl border border-gold/15 bg-plum/40 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.85)]"
+          className="overflow-hidden rounded-[2px] border-t border-gold/25"
         >
           <div className="grid grid-cols-[1.1fr_1fr_1.2fr] border-b border-gold/15 bg-gold/[0.05] px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-gold/85 md:px-6">
             <span />
@@ -1329,12 +1328,12 @@ function NewGuidesSignup() {
                 setEmail(e.target.value);
                 if (state === "error") setState("idle");
               }}
-              className="flex-1 rounded-full border border-gold/20 bg-plum/40 px-5 py-3 text-sm text-cream placeholder:text-cream/35 outline-none transition-colors focus:border-gold/50"
+              className="flex-1 rounded-[2px] border-0 border-b border-gold/30 bg-transparent px-1 py-3 text-sm text-cream placeholder:text-cream/35 outline-none transition-colors focus:border-gold/50"
             />
             <button
               type="submit"
               disabled={state === "sending"}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-gold/40 px-6 py-3 text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:border-gold/70 hover:bg-gold/[0.08] disabled:opacity-50"
+              className="gold-link inline-flex items-center justify-center gap-2 py-3 text-[12px] uppercase tracking-[0.25em] text-gold disabled:opacity-50"
             >
               {state === "sending" ? "A enviar…" : "Avisar-me"}
             </button>
