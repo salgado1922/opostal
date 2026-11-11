@@ -1,7 +1,7 @@
 import { SmartImage } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReducedMotion } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CITIES, type CityMeta } from "@/data/cities";
 import hubHero from "@/assets/hub-hero.jpg";
 import pragaImg from "@/assets/city-praga.jpg";
@@ -62,14 +62,9 @@ function Home() {
   return (
     <main
       id="top"
-      className="relative min-h-screen overflow-x-hidden"
-      style={{
-        background:
-          "radial-gradient(ellipse at 20% 0%, oklch(0.62 0.14 38 / 0.15), transparent 55%),radial-gradient(ellipse at 90% 30%, oklch(0.82 0.14 78 / 0.12), transparent 50%),radial-gradient(ellipse at 50% 100%, oklch(0.22 0.055 320 / 0.6), transparent 60%),oklch(0.16 0.035 290)",
-      }}
+      className="relative min-h-screen overflow-x-hidden bg-background"
     >
       <SiteNav />
-      <RouteThread />
       <Hero />
       <CityGrid />
       <HowItWorks />
@@ -120,25 +115,6 @@ function Hero() {
     return () => window.clearInterval(id);
   }, [reduce, visible]);
 
-  useEffect(() => {
-    if (reduce || !visible) return;
-    let raf: number | null = null;
-    const onScroll = () => {
-      if (raf != null) return;
-      raf = window.requestAnimationFrame(() => {
-        raf = null;
-        const y = window.scrollY;
-        const el = postmarkRef.current;
-        if (el) el.style.transform = `translateY(${y * 0.18}px) rotate(${-y * 0.01 - 10}deg)`;
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (raf != null) window.cancelAnimationFrame(raf);
-    };
-  }, [reduce, visible]);
-
   const goToCidades = () => {
     document.getElementById("cidades")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -166,25 +142,20 @@ function Hero() {
               className="absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-in-out"
               style={{
                 opacity: active ? 1 : 0,
-                animation:
-                  reduce || !active || !visible
-                    ? undefined
-                    : "kenburns 16s linear infinite alternate",
               }}
             />
           );
         })}
 
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.10_0.03_290/0.55)_0%,transparent_28%,transparent_45%,oklch(0.10_0.03_290/0.78)_80%,oklch(0.16_0.035_290)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_70%,oklch(0.62_0.14_38/0.18),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_top_right,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.05)_60%)]" />
+        <div className="absolute inset-0 bg-background/20" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
       </div>
 
       <div
         ref={postmarkRef}
         aria-hidden
         className="pointer-events-none absolute right-6 top-28 hidden md:right-12 md:top-32 md:block"
-        style={{ transform: "rotate(-10deg)", willChange: "transform" }}
+        style={{ transform: "rotate(-10deg)" }}
       >
         <div className="flex h-40 w-40 items-center justify-center rounded-full border-2 border-dashed border-gold opacity-60">
           <div className="flex h-[82%] w-[82%] flex-col items-center justify-center rounded-full border border-gold">
@@ -199,25 +170,25 @@ function Hero() {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-28 pt-40 md:px-10 md:pb-32 md:pt-44">
         <div className="max-w-3xl">
           <p className="mb-5 text-[11px] uppercase tracking-[0.42em] text-gold [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
-            Diários de viagem · Europa
+            Correspondência de viagem · Europa
           </p>
           <h1
-            className="text-gradient-gold font-serif leading-[1.05] [text-shadow:0_1px_12px_rgba(0,0,0,0.45)] [-webkit-text-stroke:1.2px_rgba(0,0,0,0.55)]"
+            className="font-serif leading-[1.05] text-cream"
             style={{ fontSize: "clamp(2.6rem, 5.4vw, 4.8rem)" }}
           >
             O Postal
           </h1>
           <div className="my-7 h-px w-28 bg-gold/70" />
           <p className="max-w-xl text-base text-cream md:text-lg [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
-            Guias em português, testados no terreno, cidade a cidade. Para viajar com calma, ver bem e fugir às turistadas.
+            Roteiros escritos à mão, cidade a cidade, depois de lá termos andado. Em português e de borla.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-5">
             <button
               type="button"
               onClick={goToCidades}
-              className="group inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-[12px] uppercase tracking-[0.25em] text-[oklch(0.18_0.04_285)] shadow-[0_18px_40px_-18px_rgba(200,119,46,0.7)] transition-all hover:bg-gold-soft hover:shadow-[0_22px_50px_-18px_rgba(216,162,74,0.85)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="inline-flex items-center gap-2 rounded-sm border border-paper bg-paper px-6 py-3 text-[12px] uppercase tracking-[0.25em] text-ink transition-colors hover:bg-transparent hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              Explorar roteiros gratuitos
+              Ver as cidades
               <span aria-hidden className="text-base leading-none">→</span>
             </button>
             <span className="font-hand text-[1.45rem] text-cream/85 [text-shadow:0_1px_10px_rgba(0,0,0,0.5)]">
@@ -236,13 +207,7 @@ function Hero() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center">
-        <div className="relative h-12 w-px overflow-hidden bg-cream/15">
-          <span className="absolute left-1/2 top-0 h-3 w-px -translate-x-1/2 bg-gold animate-scroll-cue" />
-        </div>
-      </div>
 
-      <style>{`@keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.13)}}`}</style>
     </section>
   );
 }
@@ -280,18 +245,16 @@ function CityGrid() {
     <section id="cidades" className="relative z-[2] px-5 py-14 md:px-6 md:py-32">
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 max-w-2xl">
-          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Catálogo</p>
+          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">N.º 1 a 9</p>
           <h2 className="font-serif text-3xl text-cream md:text-5xl">
-            Começa com um roteiro gratuito
+            Os postais que já mandámos
           </h2>
           <p className="mt-4 text-cream/70 leading-relaxed">
-            Cada cidade é um postal. <strong className="text-gold-soft font-semibold">Vira</strong> para leres a mensagem do terreno e abrir o roteiro. Sem registo e sem pagar nada.
+            Toca num postal para o virar e ler o recado. Atrás está o roteiro.
           </p>
         </div>
 
-        <p className="mb-10 font-hand text-[1.3rem] text-gold/85">
-          Segue o fio dourado — cada postal é uma paragem da viagem.
-        </p>
+<div className="mb-10" />
 
         <ul
           className="grid list-none gap-7 p-0"
@@ -489,270 +452,39 @@ function PostcardFlip({
   );
 }
 
-/* ---------------- ROUTE THREAD (golden dashed path) ---------------- */
+/* ---------------- HOW IT WORKS (carta) ---------------- */
 
-function RouteThread() {
-  const reduce = useReducedMotion();
-  const svgRef = useRef<SVGSVGElement | null>(null);
-  const baseRef = useRef<SVGPathElement | null>(null);
-  const progRef = useRef<SVGPathElement | null>(null);
-  const tokenRef = useRef<SVGGElement | null>(null);
-  const totalRef = useRef(0);
-  const maxRef = useRef(0);
-  const rafRef = useRef<number | null>(null);
-
-  const build = useCallback(() => {
-    const svg = svgRef.current;
-    const base = baseRef.current;
-    const prog = progRef.current;
-    if (!svg || !base || !prog) return;
-    const w = window.innerWidth;
-    const h = document.documentElement.scrollHeight;
-    if (!w || !h) return;
-    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
-    svg.style.height = `${h}px`;
-    const cx = w * (w < 640 ? 0.22 : 0.5);
-    const amp = Math.min(120, w * (w < 640 ? 0.04 : 0.085));
-    const top = h * 0.16;
-    const bot = h * 0.9;
-    const n = 80;
-    let d = "";
-    for (let i = 0; i <= n; i++) {
-      const t = i / n;
-      const y = top + (bot - top) * t;
-      const x = cx + Math.sin(t * Math.PI * 3.2) * amp * (1 - t * 0.25);
-      d += (i === 0 ? "M " : " L ") + x.toFixed(1) + " " + y.toFixed(1);
-    }
-    base.setAttribute("d", d);
-    prog.setAttribute("d", d);
-    const total = prog.getTotalLength();
-    totalRef.current = total;
-    maxRef.current = Math.max(0, h - window.innerHeight);
-    prog.style.strokeDasharray = String(total);
-    prog.style.strokeDashoffset = String(total);
-  }, []);
-
-  const update = useCallback(() => {
-    const prog = progRef.current;
-    const token = tokenRef.current;
-    const total = totalRef.current;
-    if (!prog || !token || !total) return;
-    const max = maxRef.current;
-    const p = max > 0 ? Math.max(0, Math.min(1, window.scrollY / max)) : 0;
-    prog.style.strokeDashoffset = (total * (1 - p)).toFixed(1);
-    const pt = prog.getPointAtLength(total * Math.max(0.001, p));
-    token.setAttribute("transform", `translate(${pt.x} ${pt.y})`);
-  }, []);
-
-  useEffect(() => {
-    build();
-    update();
-    const t1 = window.setTimeout(() => {
-      build();
-      update();
-    }, 500);
-    const t2 = window.setTimeout(() => {
-      build();
-      update();
-    }, 1500);
-    const onScroll = () => {
-      if (rafRef.current != null) return;
-      rafRef.current = window.requestAnimationFrame(() => {
-        rafRef.current = null;
-        update();
-      });
-    };
-    let rebuildTimer: number | null = null;
-    const scheduleRebuild = () => {
-      if (rebuildTimer != null) window.clearTimeout(rebuildTimer);
-      rebuildTimer = window.setTimeout(() => {
-        rebuildTimer = null;
-        build();
-        update();
-      }, 150);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", scheduleRebuild);
-    const ro = new ResizeObserver(scheduleRebuild);
-    ro.observe(document.body);
-
-    return () => {
-      window.clearTimeout(t1);
-      window.clearTimeout(t2);
-      if (rebuildTimer != null) window.clearTimeout(rebuildTimer);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", scheduleRebuild);
-      ro.disconnect();
-      if (rafRef.current != null) window.cancelAnimationFrame(rafRef.current);
-    };
-  }, [build, update]);
-
-
-  return (
-    <svg
-      ref={svgRef}
-      aria-hidden
-      className="pointer-events-none absolute left-0 top-0 z-[1] w-full"
-      style={{ overflow: "visible" }}
-    >
-      <path
-        ref={baseRef}
-        fill="none"
-        stroke="oklch(0.82 0.14 78)"
-        strokeWidth={2}
-        strokeLinecap="round"
-        strokeDasharray="1 11"
-        opacity={0.22}
-      />
-      <path
-        ref={progRef}
-        fill="none"
-        stroke="oklch(0.88 0.09 82)"
-        strokeWidth={2.5}
-        strokeLinecap="round"
-        opacity={0.9}
-      />
-      <g ref={tokenRef}>
-        <circle
-          r={15}
-          fill="oklch(0.82 0.14 78)"
-          style={reduce ? undefined : { animation: "tokenPulse 2.4s ease-in-out infinite" }}
-        />
-        <circle r={5.5} fill="oklch(0.88 0.09 82)" />
-        <circle r={5.5} fill="none" stroke="oklch(0.96 0.02 75)" strokeWidth={1} opacity={0.7} />
-      </g>
-      <style>{`@keyframes tokenPulse{0%,100%{opacity:.14;transform:scale(1)}50%{opacity:.32;transform:scale(1.25)}}`}</style>
-    </svg>
-  );
-}
-
-/* ---------------- HOW IT WORKS ---------------- */
-
-const STEPS: { n: string; title: string; body: string }[] = [
-  {
-    n: "01",
-    title: "Escolhes a cidade",
-    body: "Vira o postal, lê o recado e abre o roteiro. Sem registo, sem app, sem paywall.",
-  },
-  {
-    n: "02",
-    title: "Levas o roteiro contigo",
-    body: "Dias sugeridos, mapas e horários. Segues à tua velocidade — tudo pensado para andar a pé.",
-  },
-  {
-    n: "03",
-    title: "Comes e vês o que vale",
-    body: "Só entra o que provámos e caminhámos. Sem turistadas, sem parcerias pagas, sem enchimento.",
-  },
+const STEPS: { title: string; body: string }[] = [
+  { title: "Escolhes a cidade.", body: "Viras o postal e abres o roteiro. Não pedimos email nem conta." },
+  { title: "Levas o roteiro no bolso.", body: "Dias, horários e mapa. Os horários são sugestões — atrasa-te à vontade." },
+  { title: "Vais aos sítios que valem.", body: "Só escrevemos sobre o que comemos e caminhámos. Ninguém nos paga para pôr lá nada." },
 ];
 
 function HowItWorks() {
-  const reduce = useReducedMotion();
-  const listRef = useRef<HTMLOListElement | null>(null);
-  const [visible, setVisible] = useState<boolean[]>(() => STEPS.map(() => false));
-
-  useEffect(() => {
-    if (reduce) {
-      setVisible(STEPS.map(() => true));
-      return;
-    }
-    const items = Array.from(listRef.current?.querySelectorAll<HTMLLIElement>("li[data-step]") ?? []);
-    if (items.length === 0) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            const idx = Number((e.target as HTMLElement).dataset.step);
-            setVisible((prev) => {
-              if (prev[idx]) return prev;
-              const next = [...prev];
-              next[idx] = true;
-              return next;
-            });
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.25, rootMargin: "0px 0px -10% 0px" },
-    );
-    items.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, [reduce]);
-
   return (
-    <section id="como-funciona" className="relative z-[2] px-5 py-12 md:px-6 md:py-28">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-12 max-w-2xl">
-          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Como funciona</p>
-          <h2 className="font-serif text-2xl text-cream sm:text-3xl md:text-5xl">
-            Do postal ao terreno, em três passos.
-          </h2>
-          <p className="mt-4 text-cream/70 leading-relaxed">
-            Roteiros gratuitos, escritos por quem esteve lá. Sem intermediários, sem comissões escondidas.
-          </p>
+    <section id="como-funciona" className="relative z-[2] px-5 py-12 md:px-6 md:py-24">
+      <div className="paper-sheet relative mx-auto max-w-3xl rounded-[2px] px-7 py-10 shadow-lg md:px-14 md:py-14 md:rotate-[-0.6deg]">
+        <div aria-hidden className="absolute right-6 top-6 hidden h-20 w-16 border-2 border-dashed border-ink/40 sm:grid place-items-center">
+          <span className="text-center text-[9px] uppercase leading-tight tracking-[0.15em] text-ink/60">Selo<br />aqui</span>
         </div>
-
-        <ol
-          ref={listRef}
-          className="grid list-none gap-5 p-0 md:gap-10"
-          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}
-        >
-          {STEPS.map((s, i) => {
-            const isOn = visible[i];
-            const delayMs = reduce ? 0 : i * 120;
-            const circleDelayMs = reduce ? 0 : delayMs + 80;
-            return (
-              <li
-                key={s.n}
-                data-step={i}
-                className={[
-                  "glass group relative flex flex-col rounded-2xl p-7 md:p-8",
-                  "transition-[transform,opacity,border-color,box-shadow] duration-500 ease-out",
-                  "will-change-transform",
-                  "hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_16px_44px_-18px_oklch(0.82_0.14_78_/_45%)]",
-                  "active:scale-[0.99] motion-reduce:transition-none motion-reduce:transform-none",
-                  isOn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
-                ].join(" ")}
-                style={{ transitionDelay: `${delayMs}ms` }}
-              >
-                <div
-                  aria-hidden
-                  className={[
-                    "grid h-14 w-14 place-items-center rounded-full border border-gold/25 bg-gold/10 md:h-16 md:w-16",
-                    "transition-[transform,background-color,border-color,box-shadow] duration-500 ease-out",
-                    "group-hover:bg-gold/20 group-hover:border-gold/55 group-hover:shadow-[0_0_28px_-6px_oklch(0.82_0.14_78_/_55%)]",
-                    "motion-reduce:transition-none motion-reduce:transform-none",
-                    isOn ? "scale-100 opacity-100" : "scale-90 opacity-0",
-                  ].join(" ")}
-                  style={{ transitionDelay: `${circleDelayMs}ms` }}
-                >
-                  <span className="font-serif text-2xl font-bold text-gold md:text-3xl">
-                    {s.n}
-                  </span>
-                </div>
-                <h3 className="mt-5 font-serif text-xl text-cream/95 transition-colors duration-300 group-hover:text-cream md:text-2xl">
-                  {s.title}
-                </h3>
-                <p className="mt-2.5 text-cream/70 leading-relaxed">{s.body}</p>
-              </li>
-            );
-          })}
+        <p className="font-hand text-2xl text-ink/80">Olá,</p>
+        <h2 className="mt-2 max-w-md font-serif text-2xl text-ink sm:text-3xl md:text-4xl">
+          Funciona assim, sem complicações:
+        </h2>
+        <ol className="mt-8 list-none space-y-0 p-0">
+          {STEPS.map((s, i) => (
+            <li key={s.title} className="flex gap-5 border-b border-ink/20 py-5 last:border-b-0">
+              <span className="font-serif text-3xl italic text-terracotta md:text-4xl">{i + 1}.</span>
+              <div>
+                <h3 className="font-serif text-xl text-ink md:text-2xl">{s.title}</h3>
+                <p className="mt-1 leading-relaxed text-ink/75">{s.body}</p>
+              </div>
+            </li>
+          ))}
         </ol>
-
-        <ul className="mt-12 flex flex-col items-center justify-center gap-4 text-[11px] uppercase tracking-[0.25em] text-cream/60 sm:flex-row sm:gap-x-8 sm:gap-y-3">
-          <li className="flex items-center gap-2">
-            <span aria-hidden className="text-gold">✓</span> 100% gratuito
-          </li>
-          <li className="flex items-center gap-2">
-            <span aria-hidden className="text-gold">✓</span> Sem registo
-          </li>
-          <li className="flex items-center gap-2">
-            <span aria-hidden className="text-gold">✓</span> Testado no terreno
-          </li>
-          <li className="flex items-center gap-2">
-            <span aria-hidden className="text-gold">✓</span> Em português
-          </li>
-        </ul>
+        <p className="mt-6 text-[11px] uppercase tracking-[0.25em] text-ink/55">
+          Gratuito · Sem registo · Em português
+        </p>
       </div>
     </section>
   );
@@ -762,19 +494,14 @@ function HowItWorks() {
 
 function About() {
   return (
-    <section id="sobre" className="relative z-[2] px-6 pb-28 pt-4">
-      <div className="glass mx-auto max-w-3xl rounded-2xl px-8 py-10 text-center">
-        <p className="mb-3 text-xs uppercase tracking-[0.3em] text-gold/80">Sobre</p>
-        <h2 className="font-serif text-2xl text-cream md:text-3xl">
-          Viajar devagar, sem turistadas.
-        </h2>
-        <p className="mt-4 text-cream/75 leading-relaxed">
-          Percorremos cada rua a pé, provámos antes de recomendar. Aqui só fica o que valeu a pena — horários sugeridos, nunca obrigatórios. Chegaste ao fim do fio: agora é a tua vez de partir.
+    <section id="sobre" className="relative z-[2] px-6 pb-24 pt-4">
+      <div className="mx-auto max-w-2xl text-center">
+        <p className="mb-3 text-xs uppercase tracking-[0.3em] text-gold/80">Quem escreve</p>
+        <p className="font-serif text-xl leading-relaxed text-cream/85 md:text-2xl">
+          Viajamos devagar e voltamos com cadernos cheios. O que não valeu a pena fica de fora — o resto vem parar aqui.
         </p>
+        <p className="mt-6 font-hand text-2xl text-gold-soft">— Um abraço, O Postal</p>
       </div>
-      <p className="mx-auto mt-12 max-w-3xl text-center text-[11px] uppercase tracking-[0.25em] text-cream/35">
-        O Postal · MMXXVI · Diários de viagem
-      </p>
     </section>
   );
 }

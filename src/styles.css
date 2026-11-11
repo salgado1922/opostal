@@ -40,6 +40,8 @@ html { scroll-behavior: smooth; }
   --color-plum: var(--plum);
   --color-twilight: var(--twilight);
   --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
 
   --font-serif: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -56,6 +58,8 @@ html { scroll-behavior: smooth; }
   --gold-soft: oklch(0.88 0.09 82);
   --terracotta: oklch(0.62 0.14 38);
   --cream: oklch(0.96 0.02 75);
+  --paper: oklch(0.93 0.03 82);         /* aged postcard paper */
+  --ink: oklch(0.28 0.04 40);           /* sepia ink */
 
   --background: oklch(0.16 0.035 290);
   --foreground: oklch(0.94 0.02 75);
@@ -678,4 +682,11 @@ html { scroll-behavior: smooth; }
     radial-gradient(ellipse at 88% 22%, color-mix(in oklab, var(--bud-danube) 32%, transparent), transparent 52%),
     radial-gradient(ellipse at 50% 100%, color-mix(in oklab, var(--bud-brass) 14%, transparent), transparent 60%),
     var(--background);
+}
+
+/* Real paper: subtle print grain, no glow */
+@utility paper-sheet {
+  background-color: var(--paper);
+  color: var(--ink);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .15 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
