@@ -122,7 +122,7 @@ function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative z-[2] flex min-h-screen items-end overflow-hidden"
+      className="relative z-[2] flex min-h-[100svh] items-end overflow-hidden md:min-h-screen"
     >
       <div className="absolute inset-0 -z-10">
         {HERO_SLIDES.map((slide, i) => {
@@ -147,8 +147,8 @@ function Hero() {
           );
         })}
 
-        <div className="absolute inset-0 bg-background/20" />
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
+        <div className="absolute inset-0 bg-background/25" />
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-background via-background/60 to-transparent" />
       </div>
 
       <div
@@ -167,37 +167,37 @@ function Hero() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-28 pt-40 md:px-10 md:pb-32 md:pt-44">
-        <div className="max-w-3xl">
-          <p className="mb-5 text-[11px] uppercase tracking-[0.42em] text-gold [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
-            Correspondência de viagem · Europa
-          </p>
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-14 pt-32 md:px-10 md:pb-28 md:pt-44">
+        <div className="max-w-4xl">
+          <div className="mb-5 flex items-center gap-4 text-[11px] uppercase tracking-[0.4em] text-gold [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
+            <span className="h-px w-10 bg-gold/70 md:w-12" />
+            Correspondência de viagem
+          </div>
           <h1
-            className="font-serif leading-[1.05] text-cream"
-            style={{ fontSize: "clamp(2.6rem, 5.4vw, 4.8rem)" }}
+            className="font-serif font-semibold text-cream [text-shadow:0_2px_24px_rgba(0,0,0,0.35)]"
+            style={{ margin: 0, lineHeight: 0.92, letterSpacing: "-0.025em", fontSize: "clamp(4.2rem, 15vw, 10rem)" }}
           >
             O Postal
           </h1>
-          <div className="my-7 h-px w-28 bg-gold/70" />
-          <p className="max-w-xl text-base text-cream md:text-lg [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
+          <p className="mt-6 max-w-xl font-serif text-xl italic leading-snug text-cream/90 md:text-2xl [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
             Roteiros escritos à mão, cidade a cidade, depois de lá termos andado. Em português e de borla.
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-5">
+          <div className="mt-8 h-px w-full max-w-xl bg-gradient-to-r from-gold/60 via-gold/20 to-transparent" />
+          <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-3">
             <button
               type="button"
               onClick={goToCidades}
-              className="inline-flex items-center gap-2 rounded-sm border border-paper bg-paper px-6 py-3 text-[12px] uppercase tracking-[0.25em] text-ink transition-colors hover:bg-transparent hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="gold-link inline-flex min-h-11 items-center gap-2 text-[13px] uppercase tracking-[0.25em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
             >
-              Ver as cidades
-              <span aria-hidden className="text-base leading-none">→</span>
+              Ver as cidades <span aria-hidden>↓</span>
             </button>
-            <span className="font-hand text-[1.45rem] text-cream/85 [text-shadow:0_1px_10px_rgba(0,0,0,0.5)]">
-              vira cada postal ↓
+            <span className="font-hand text-[1.35rem] text-cream/80 [text-shadow:0_1px_10px_rgba(0,0,0,0.5)]">
+              nove postais, nove cidades
             </span>
           </div>
         </div>
 
-        <div className="mt-14 flex items-center gap-2" aria-hidden>
+        <div className="mt-10 flex items-center gap-2 md:mt-14" aria-hidden>
           {HERO_SLIDES.map((_, i) => (
             <span
               key={i}
@@ -242,38 +242,91 @@ function CityGrid() {
   // Só um postal pode estar virado de cada vez.
   const [flippedSlug, setFlippedSlug] = useState<string | null>(null);
   return (
-    <section id="cidades" className="relative z-[2] px-5 py-14 md:px-6 md:py-32">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-6 max-w-2xl">
-          <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">N.º 1 a 9</p>
-          <h2 className="font-serif text-3xl text-cream md:text-5xl">
+    <section id="cidades" className="relative z-[2] scroll-mt-16 py-14 md:py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-8 md:mb-14">
+          <div className="mb-4 flex items-center gap-4 text-[11px] uppercase tracking-[0.35em] text-gold">
+            <span className="h-px w-10 bg-gold/70 md:w-12" />
+            N.º 01 — 09
+          </div>
+          <h2 className="max-w-3xl font-serif text-[2.6rem] leading-[1.02] text-cream md:text-6xl">
             Os postais que já mandámos
           </h2>
-          <p className="mt-4 text-cream/70 leading-relaxed">
+          <p className="mt-4 max-w-xl font-serif text-lg italic leading-relaxed text-muted-foreground">
             Toca num postal para o virar e ler o recado. Atrás está o roteiro.
           </p>
+          <div className="mt-8 h-px w-full bg-gradient-to-r from-gold/50 via-gold/15 to-transparent" />
         </div>
-
-<div className="mb-10" />
-
-        <ul
-          className="grid list-none gap-7 p-0"
-          style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}
-        >
-          {CITIES.map((city) => (
-            <li key={city.slug} className="postcard-perspective">
-              <PostcardFlip
-                city={city}
-                flipped={flippedSlug === city.slug}
-                onToggle={() =>
-                  setFlippedSlug((cur) => (cur === city.slug ? null : city.slug))
-                }
-              />
-            </li>
-          ))}
-        </ul>
       </div>
+
+      {/* Telemóvel: fila deslizante; computador: grelha */}
+      <ul
+        className="no-scrollbar flex snap-x snap-mandatory list-none gap-4 overflow-x-auto overscroll-x-contain scroll-px-6 px-6 pb-2 md:mx-auto md:grid md:max-w-6xl md:snap-none md:gap-7 md:overflow-visible md:p-0 md:px-6"
+        style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}
+        aria-label="Postais das cidades"
+      >
+        {CITIES.map((city) => (
+          <li key={city.slug} className="postcard-perspective w-[78vw] max-w-[340px] shrink-0 snap-start md:w-auto md:max-w-none">
+            <PostcardFlip
+              city={city}
+              flipped={flippedSlug === city.slug}
+              onToggle={() =>
+                setFlippedSlug((cur) => (cur === city.slug ? null : city.slug))
+              }
+            />
+          </li>
+        ))}
+      </ul>
+      <p className="mt-3 px-6 text-[11px] uppercase tracking-[0.25em] text-muted-foreground md:hidden" aria-hidden>
+        desliza → 
+      </p>
+
+      <CityIndex />
     </section>
+  );
+}
+
+function CityIndex() {
+  return (
+    <nav aria-label="Índice das cidades" className="mx-auto mt-14 max-w-6xl px-6 md:mt-24">
+      <div className="mb-2 flex items-baseline justify-between gap-4">
+        <h3 className="font-serif text-2xl italic text-cream md:text-3xl">Índice</h3>
+        <span className="text-[11px] uppercase tracking-[0.3em] text-gold/80">vai direto ao roteiro</span>
+      </div>
+      <ol className="list-none border-t border-gold/25 p-0 md:grid md:grid-cols-2 md:gap-x-12">
+        {CITIES.map((city, i) => {
+          const ready = city.status === "ready" && city.to;
+          const inner = (
+            <>
+              <span className="w-8 shrink-0 font-serif text-lg italic text-gold">{String(i + 1).padStart(2, "0")}</span>
+              <span className="min-w-0 flex-1">
+                <span className="block truncate font-serif text-2xl leading-tight text-cream">{city.name}</span>
+                <span className="block truncate text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+                  {city.country} · {city.duration}
+                </span>
+              </span>
+              <span aria-hidden className="shrink-0 text-xl text-gold transition-transform group-hover:translate-x-1">
+                {ready ? "→" : "·"}
+              </span>
+            </>
+          );
+          return (
+            <li key={city.slug} className="border-b border-gold/15">
+              {ready ? (
+                <Link
+                  to={city.to!}
+                  className="group flex min-h-[64px] items-center gap-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                >
+                  {inner}
+                </Link>
+              ) : (
+                <div className="flex min-h-[64px] items-center gap-4 py-3 opacity-50">{inner}</div>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
   );
 }
 
@@ -457,27 +510,36 @@ const STEPS: { title: string; body: string }[] = [
 
 function HowItWorks() {
   return (
-    <section id="como-funciona" className="relative z-[2] px-5 py-12 md:px-6 md:py-24">
-      <div className="paper-sheet relative mx-auto max-w-3xl px-7 py-10 md:px-14 md:py-14 md:rotate-[-0.6deg]">
-        <div aria-hidden className="absolute right-6 top-6 hidden h-20 w-16 border-2 border-dashed border-ink/40 sm:grid place-items-center">
-          <span className="text-center text-[9px] uppercase leading-tight tracking-[0.15em] text-ink/60">Selo<br />aqui</span>
+    <section id="como-funciona" className="relative z-[2] px-6 py-16 md:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-4 flex items-center gap-4 text-[11px] uppercase tracking-[0.35em] text-gold">
+          <span className="h-px w-10 bg-gold/70 md:w-12" />
+          Como funciona
         </div>
-        <p className="font-hand text-2xl text-ink/80">Olá,</p>
-        <h2 className="mt-2 max-w-md font-serif text-2xl text-ink sm:text-3xl md:text-4xl">
-          Funciona assim, sem complicações:
+        <h2 className="max-w-3xl font-serif text-[2.4rem] leading-[1.04] text-cream md:text-6xl">
+          <span className="font-hand text-gold-soft">Olá,</span> sem complicações.
         </h2>
-        <ol className="mt-8 list-none space-y-0 p-0">
+        <ol className="mt-10 list-none border-t border-gold/25 p-0 md:mt-14 md:grid md:grid-cols-3 md:border-t-0">
           {STEPS.map((s, i) => (
-            <li key={s.title} className="flex gap-5 border-b border-ink/20 py-5 last:border-b-0">
-              <span className="font-serif text-3xl italic text-terracotta md:text-4xl">{i + 1}.</span>
-              <div>
-                <h3 className="font-serif text-xl text-ink md:text-2xl">{s.title}</h3>
-                <p className="mt-1 leading-relaxed text-ink/75">{s.body}</p>
+            <li
+              key={s.title}
+              className="flex gap-5 border-b border-gold/15 py-6 md:block md:border-b-0 md:border-l md:border-gold/20 md:px-8 md:py-2 md:first:border-l-0 md:first:pl-0"
+            >
+              <span
+                aria-hidden
+                className="shrink-0 font-serif text-5xl leading-none md:text-7xl"
+                style={{ color: "transparent", WebkitTextStroke: "1px color-mix(in oklab, var(--gold) 55%, transparent)" }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div className="min-w-0 md:mt-6">
+                <h3 className="font-serif text-2xl leading-tight text-cream">{s.title}</h3>
+                <p className="mt-2 leading-relaxed text-muted-foreground">{s.body}</p>
               </div>
             </li>
           ))}
         </ol>
-        <p className="mt-6 text-[11px] uppercase tracking-[0.25em] text-ink/55">
+        <p className="mt-8 text-[11px] uppercase tracking-[0.25em] text-gold/70">
           Gratuito · Sem registo · Em português
         </p>
       </div>
@@ -489,10 +551,10 @@ function HowItWorks() {
 
 function About() {
   return (
-    <section id="sobre" className="relative z-[2] px-6 pb-24 pt-4">
-      <div className="mx-auto max-w-2xl text-center">
-        <p className="mb-3 text-xs uppercase tracking-[0.3em] text-gold/80">Quem escreve</p>
-        <p className="font-serif text-xl leading-relaxed text-cream/85 md:text-2xl">
+    <section id="sobre" className="relative z-[2] px-6 pb-20 pt-4 md:pb-28">
+      <div className="mx-auto max-w-3xl border-t border-gold/25 pt-12 text-center md:pt-16">
+        <p className="mb-5 text-[11px] uppercase tracking-[0.35em] text-gold/80">Quem escreve</p>
+        <p className="font-serif text-2xl italic leading-snug text-cream/90 md:text-4xl">
           Viajamos devagar e voltamos com cadernos cheios. O que não valeu a pena fica de fora — o resto vem parar aqui.
         </p>
         <p className="mt-6 font-hand text-2xl text-gold-soft">— Um abraço, O Postal</p>
