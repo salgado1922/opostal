@@ -5,6 +5,10 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { CITIES } from "@/data/cities";
 import {
   PASSPORT_EVENT,
+  PASSPORT_AUTH_EVENT,
+  goSignIn,
+  passportUser,
+  startPassportSync,
   badgesFor,
   isComplete,
   readPassport,
@@ -118,6 +122,14 @@ async function drawShareImage(p: Passport): Promise<Blob | null> {
 function PassaportePage() {
   const [p, setP] = useState<Passport>({});
   const [msg, setMsg] = useState("");
+  const [signedIn, setSignedIn] = useState<boolean | null>(null);
+  useEffect(() => {
+    const auth = () => setSignedIn(!!passportUser());
+    window.addEventListener(PASSPORT_AUTH_EVENT, auth);
+    startPassportSync();
+    if (passportUser()) auth();
+    return () => window.removeEventListener(PASSPORT_AUTH_EVENT, auth);
+  }, []);
   useEffect(() => {
     const sync = () => setP(readPassport());
     sync();
@@ -167,6 +179,20 @@ function PassaportePage() {
           Cada paragem que visitas no modo de rua fica aqui carimbada, com a data, a hora e, se quiseres, uma fotografia.
         </p>
         <div className="mt-8 h-px w-24 bg-gold/60" />
+        {signedIn === false && (
+          <div className="mt-8 border-l-2 border-gold/60 pl-4">
+            <p className="text-cream/85">
+              O passaporte guarda-se na tua conta, para não se perder quando mudas de telemóvel. Entra para começar a carimbar.
+            </p>
+            <button
+              type="button"
+              onClick={goSignIn}
+              className="mt-3 inline-flex min-h-[48px] items-center border border-gold/50 px-5 font-serif text-lg italic text-gold hover:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
+            >
+              Entrar com Google
+            </button>
+          </div>
+        )}
         <dl className="mt-8 grid grid-cols-3 gap-4 border-y border-gold/15 py-6 text-center">
           {[
             [all.length, "carimbos"],

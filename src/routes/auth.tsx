@@ -1,4 +1,18 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+
+function nextPath() {
+  try {
+    const n = window.sessionStorage.getItem("opostal:next");
+    return n && n.startsWith("/") && !n.startsWith("//") ? n : "/admin";
+  } catch {
+    return "/admin";
+  }
+}
+function goNext() {
+  const n = nextPath();
+  try { window.sessionStorage.removeItem("opostal:next"); } catch { /* ignora */ }
+  window.location.replace(n);
+}
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
@@ -15,7 +29,6 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,23 +36,23 @@ function AuthPage() {
     let cancelled = false;
     supabase.auth.getSession().then(({ data }) => {
       if (!cancelled && data.session) {
-        navigate({ to: "/admin" });
+        goNext();
       }
     });
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_IN") navigate({ to: "/admin" });
+      if (event === "SIGNED_IN") goNext();
     });
     return () => {
       cancelled = true;
       sub.subscription.unsubscribe();
     };
-  }, [navigate]);
+  }, []);
 
   const signIn = async () => {
     setLoading(true);
     setError(null);
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+      redirect_uri: `${window.location.origin}/auth`,
     });
     if (result.error) {
       setError("Não foi possível iniciar sessão. Tenta novamente.");
@@ -50,10 +63,10 @@ function AuthPage() {
   return (
     <main className="bg-twilight-radial flex min-h-screen items-center justify-center px-6">
       <div className="glass w-full max-w-sm rounded-2xl border border-gold/20 px-8 py-10 text-center">
-        <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Área privada</p>
+        <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">O Postal</p>
         <h1 className="font-serif text-3xl text-cream">Entrar</h1>
         <p className="mt-3 text-sm text-cream/70">
-          Acesso reservado à gestão d'O Postal.
+          Entra para guardar o teu passaporte de carimbos em qualquer telemóvel.
         </p>
         <button
           type="button"

@@ -1,0 +1,819 @@
+{
+ "barcelona": {
+  "name": "Barcelona",
+  "stops": [
+   {
+    "title": "Sagrada Família",
+    "day": "d1"
+   },
+   {
+    "title": "Passeig de Gràcia",
+    "day": "d1"
+   },
+   {
+    "title": "Casa Batlló",
+    "day": "d1"
+   },
+   {
+    "title": "La Pedrera (Casa Milà)",
+    "day": "d1"
+   },
+   {
+    "title": "Almoço num bistrô perto do Passeig de Gràcia",
+    "day": "d1"
+   },
+   {
+    "title": "Park Güell",
+    "day": "d1"
+   },
+   {
+    "title": "La Rambla",
+    "day": "d2"
+   },
+   {
+    "title": "Mercat de la Boqueria",
+    "day": "d2"
+   },
+   {
+    "title": "Catedral de Barcelona (Barri Gòtic)",
+    "day": "d2"
+   },
+   {
+    "title": "Almoço no Born",
+    "day": "d2"
+   },
+   {
+    "title": "Museu Picasso",
+    "day": "d2"
+   },
+   {
+    "title": "Basílica de Santa Maria del Mar",
+    "day": "d2"
+   },
+   {
+    "title": "Vermut na Barceloneta ou no Born",
+    "day": "d2"
+   },
+   {
+    "title": "Museu Nacional d'Art de Catalunya (MNAC)",
+    "day": "d3"
+   },
+   {
+    "title": "Jardins e Font Màgica de Montjuïc",
+    "day": "d3"
+   },
+   {
+    "title": "Almoço na Barceloneta",
+    "day": "d3"
+   },
+   {
+    "title": "Praia da Barceloneta",
+    "day": "d3"
+   },
+   {
+    "title": "Parc de la Ciutadella",
+    "day": "d3"
+   },
+   {
+    "title": "Bairro de Gràcia",
+    "day": "d3"
+   }
+  ]
+ },
+ "budapeste": {
+  "name": "Budapeste",
+  "stops": [
+   {
+    "title": "Check-in & primeiro café",
+    "day": "d1"
+   },
+   {
+    "title": "Parlamento Húngaro (Országház)",
+    "day": "d1"
+   },
+   {
+    "title": "Sapatos de Ferro à Beira do Danúbio",
+    "day": "d1"
+   },
+   {
+    "title": "Almoço perto da Basílica",
+    "day": "d1"
+   },
+   {
+    "title": "Basílica de Santo Estêvão",
+    "day": "d1"
+   },
+   {
+    "title": "Ponte das Correntes ao fim do dia",
+    "day": "d1"
+   },
+   {
+    "title": "Castelo de Buda",
+    "day": "d2"
+   },
+   {
+    "title": "Bastião dos Pescadores",
+    "day": "d2"
+   },
+   {
+    "title": "Igreja de Matias",
+    "day": "d2"
+   },
+   {
+    "title": "Almoço em Buda",
+    "day": "d2"
+   },
+   {
+    "title": "Monte Gellért ao pôr do sol",
+    "day": "d2"
+   },
+   {
+    "title": "Praça dos Heróis",
+    "day": "d3"
+   },
+   {
+    "title": "Avenida Andrássy",
+    "day": "d3"
+   },
+   {
+    "title": "Ópera Estatal Húngara",
+    "day": "d3"
+   },
+   {
+    "title": "Termas Széchenyi",
+    "day": "d3"
+   },
+   {
+    "title": "Grande Mercado Central",
+    "day": "d3"
+   },
+   {
+    "title": "Bairro Judaico & Sinagoga da Rua Dohány",
+    "day": "d3"
+   },
+   {
+    "title": "Ruin bar: Szimpla Kert",
+    "day": "d3"
+   },
+   {
+    "title": "Cruzeiro noturno no Danúbio",
+    "day": "d3"
+   }
+  ]
+ },
+ "florenca": {
+  "name": "Florença",
+  "stops": [
+   {
+    "title": "Check-in & primeiro café",
+    "day": "d1"
+   },
+   {
+    "title": "Duomo por fora (Piazza del Duomo)",
+    "day": "d1"
+   },
+   {
+    "title": "Piazza della Repubblica",
+    "day": "d1"
+   },
+   {
+    "title": "Almoço no Mercato Centrale",
+    "day": "d1"
+   },
+   {
+    "title": "Galleria dell'Accademia",
+    "day": "d1"
+   },
+   {
+    "title": "Ponte Vecchio",
+    "day": "d1"
+   },
+   {
+    "title": "Gelato tradicional",
+    "day": "d1"
+   },
+   {
+    "title": "Piazza della Signoria",
+    "day": "d2"
+   },
+   {
+    "title": "Galleria degli Uffizi",
+    "day": "d2"
+   },
+   {
+    "title": "Almoço na Piazza Santo Spirito (Oltrarno)",
+    "day": "d2"
+   },
+   {
+    "title": "Palazzo Pitti",
+    "day": "d2"
+   },
+   {
+    "title": "Jardins de Boboli",
+    "day": "d2"
+   },
+   {
+    "title": "Piazzale Michelangelo (pôr do sol)",
+    "day": "d2"
+   },
+   {
+    "title": "Interior do Duomo (Santa Maria del Fiore)",
+    "day": "d3"
+   },
+   {
+    "title": "Subida ao Campanário de Giotto",
+    "day": "d3"
+   },
+   {
+    "title": "Opcional (incluído no Brunelleschi Pass)",
+    "day": "d3"
+   },
+   {
+    "title": "Basílica de Santa Croce",
+    "day": "d3"
+   },
+   {
+    "title": "Capelas Medici (Cappelle Medicee, San Lorenzo)",
+    "day": "d3"
+   }
+  ]
+ },
+ "istambul": {
+  "name": "Istambul",
+  "stops": [
+   {
+    "title": "Check-in & primeiro chá",
+    "day": "d1"
+   },
+   {
+    "title": "Hagia Sophia",
+    "day": "d1"
+   },
+   {
+    "title": "Mesquita Azul (Sultanahmet)",
+    "day": "d1"
+   },
+   {
+    "title": "Hipódromo (Praça Sultanahmet)",
+    "day": "d1"
+   },
+   {
+    "title": "Cisterna da Basílica",
+    "day": "d1"
+   },
+   {
+    "title": "Palácio Topkapi",
+    "day": "d2"
+   },
+   {
+    "title": "Parque Gülhane",
+    "day": "d2"
+   },
+   {
+    "title": "Mesquita Süleymaniye",
+    "day": "d2"
+   },
+   {
+    "title": "Grande Bazar",
+    "day": "d2"
+   },
+   {
+    "title": "Palácio Dolmabahçe",
+    "day": "d3"
+   },
+   {
+    "title": "Ortaköy (Mesquita Büyük Mecidiye)",
+    "day": "d3"
+   },
+   {
+    "title": "Kadıköy & Moda (lado asiático)",
+    "day": "d3"
+   },
+   {
+    "title": "Cruzeiro noturno no Bósforo",
+    "day": "d3"
+   },
+   {
+    "title": "Embarque dos ferries (Eminönü/Kabataş)",
+    "day": "d4"
+   },
+   {
+    "title": "Büyükada",
+    "day": "d4"
+   },
+   {
+    "title": "Banho, miradouro & café",
+    "day": "d4"
+   },
+   {
+    "title": "Ferry de regresso",
+    "day": "d4"
+   },
+   {
+    "title": "Bazar das Especiarias (Egípcio)",
+    "day": "d5"
+   },
+   {
+    "title": "Ponte Gálata",
+    "day": "d5"
+   },
+   {
+    "title": "Karaköy",
+    "day": "d5"
+   },
+   {
+    "title": "Torre de Gálata",
+    "day": "d5"
+   },
+   {
+    "title": "Avenida İstiklal & Taksim",
+    "day": "d5"
+   },
+   {
+    "title": "Regresso / aeroporto",
+    "day": "d5"
+   }
+  ]
+ },
+ "lisboa": {
+  "name": "Lisboa",
+  "stops": [
+   {
+    "title": "Praça do Comércio & Cais das Colunas",
+    "day": "d1"
+   },
+   {
+    "title": "Arco da Rua Augusta",
+    "day": "d1"
+   },
+   {
+    "title": "Elevador de Santa Justa",
+    "day": "d1"
+   },
+   {
+    "title": "Chiado",
+    "day": "d1"
+   },
+   {
+    "title": "Miradouro de São Pedro de Alcântara",
+    "day": "d1"
+   },
+   {
+    "title": "Bairro Alto à noite",
+    "day": "d1"
+   },
+   {
+    "title": "Sé de Lisboa",
+    "day": "d2"
+   },
+   {
+    "title": "Alfama e o Tram 28",
+    "day": "d2"
+   },
+   {
+    "title": "Miradouro das Portas do Sol",
+    "day": "d2"
+   },
+   {
+    "title": "Castelo de São Jorge",
+    "day": "d2"
+   },
+   {
+    "title": "Panteão Nacional & Feira da Ladra",
+    "day": "d2"
+   },
+   {
+    "title": "Miradouro da Senhora do Monte (pôr do sol)",
+    "day": "d2"
+   },
+   {
+    "title": "Mosteiro dos Jerónimos",
+    "day": "d3"
+   },
+   {
+    "title": "Pastéis de Belém",
+    "day": "d3"
+   },
+   {
+    "title": "Padrão dos Descobrimentos",
+    "day": "d3"
+   },
+   {
+    "title": "Torre de Belém",
+    "day": "d3"
+   },
+   {
+    "title": "LX Factory",
+    "day": "d3"
+   },
+   {
+    "title": "Time Out Market",
+    "day": "d3"
+   },
+   {
+    "title": "Sintra",
+    "day": "d3"
+   },
+   {
+    "title": "Cascais",
+    "day": "d3"
+   }
+  ]
+ },
+ "londres": {
+  "name": "Londres",
+  "stops": [
+   {
+    "title": "Check-in e primeiro café",
+    "day": "d1"
+   },
+   {
+    "title": "Piccadilly Circus",
+    "day": "d1"
+   },
+   {
+    "title": "Leicester Square",
+    "day": "d1"
+   },
+   {
+    "title": "Trafalgar Square",
+    "day": "d1"
+   },
+   {
+    "title": "National Gallery (visita breve)",
+    "day": "d1"
+   },
+   {
+    "title": "Almoço em Chinatown ou Soho",
+    "day": "d1"
+   },
+   {
+    "title": "South Bank ao fim da tarde",
+    "day": "d1"
+   },
+   {
+    "title": "Jantar e regresso",
+    "day": "d1"
+   },
+   {
+    "title": "Westminster e Big Ben",
+    "day": "d2"
+   },
+   {
+    "title": "St James's Park até Buckingham",
+    "day": "d2"
+   },
+   {
+    "title": "Buckingham Palace e Changing of the Guard",
+    "day": "d2"
+   },
+   {
+    "title": "Almoço a caminho de Hyde Park",
+    "day": "d2"
+   },
+   {
+    "title": "Hyde Park",
+    "day": "d2"
+   },
+   {
+    "title": "Natural History Museum",
+    "day": "d2"
+   },
+   {
+    "title": "Harrods, como teatro",
+    "day": "d2"
+   },
+   {
+    "title": "St Paul's Cathedral",
+    "day": "d3"
+   },
+   {
+    "title": "Miradouro da City: Sky Garden ou Horizon 22",
+    "day": "d3"
+   },
+   {
+    "title": "Borough Market (cedo, antes do pico)",
+    "day": "d3"
+   },
+   {
+    "title": "Tate Modern ou Millennium Bridge",
+    "day": "d3"
+   },
+   {
+    "title": "Caminhada à beira-rio até Tower Bridge",
+    "day": "d3"
+   },
+   {
+    "title": "Tower Bridge e Torre de Londres",
+    "day": "d3"
+   },
+   {
+    "title": "Madame Tussauds (Marylebone)",
+    "day": "d4"
+   },
+   {
+    "title": "Marylebone e Regent's Park",
+    "day": "d4"
+   },
+   {
+    "title": "Almoço leve e viagem até Leavesden",
+    "day": "d4"
+   },
+   {
+    "title": "Warner Bros. Studio Tour London",
+    "day": "d4"
+   },
+   {
+    "title": "Regresso a Londres",
+    "day": "d4"
+   },
+   {
+    "title": "Madame Tussauds (opcional)",
+    "day": "d4-alt"
+   },
+   {
+    "title": "St Paul's por dentro e miradouro",
+    "day": "d4-alt"
+   },
+   {
+    "title": "Mais uma volta pela South Bank",
+    "day": "d4-alt"
+   },
+   {
+    "title": "Escolher um bairro: Notting Hill, Shoreditch ou Greenwich",
+    "day": "d4-alt"
+   },
+   {
+    "title": "Jantar calmo no bairro escolhido",
+    "day": "d4-alt"
+   }
+  ]
+ },
+ "paris": {
+  "name": "Paris",
+  "stops": [
+   {
+    "title": "Torre Eiffel",
+    "day": "d1"
+   },
+   {
+    "title": "Arco do Triunfo",
+    "day": "d1"
+   },
+   {
+    "title": "Avenue des Champs-Élysées",
+    "day": "d1"
+   },
+   {
+    "title": "Grand Palais e Petit Palais",
+    "day": "d1"
+   },
+   {
+    "title": "Ponte Alexandre III",
+    "day": "d1"
+   },
+   {
+    "title": "Les Invalides",
+    "day": "d1"
+   },
+   {
+    "title": "Musée d'Orsay",
+    "day": "d1"
+   },
+   {
+    "title": "Place de la Concorde",
+    "day": "d2"
+   },
+   {
+    "title": "Jardim das Tulherias e Musée de l'Orangerie",
+    "day": "d2"
+   },
+   {
+    "title": "Museu do Louvre",
+    "day": "d2"
+   },
+   {
+    "title": "Pont des Arts",
+    "day": "d2"
+   },
+   {
+    "title": "Île de la Cité: Pont Neuf, Sainte-Chapelle e Notre-Dame",
+    "day": "d2"
+   },
+   {
+    "title": "Quartier Latin e Jardins de Luxemburgo",
+    "day": "d2"
+   },
+   {
+    "title": "Saint-Sulpice e Saint-Germain-des-Prés",
+    "day": "d2"
+   },
+   {
+    "title": "Montmartre e Place du Tertre",
+    "day": "d3"
+   },
+   {
+    "title": "Basílica do Sacré-Coeur",
+    "day": "d3"
+   },
+   {
+    "title": "Pigalle e Moulin Rouge",
+    "day": "d3"
+   },
+   {
+    "title": "Centro Georges Pompidou",
+    "day": "d3"
+   },
+   {
+    "title": "Le Marais (Place des Vosges e Marché des Enfants Rouges)",
+    "day": "d3"
+   },
+   {
+    "title": "Palácio de Versalhes (Grandes Aposentos e Galeria dos Espelhos)",
+    "day": "d4"
+   },
+   {
+    "title": "Jardins de Versalhes",
+    "day": "d4"
+   },
+   {
+    "title": "Shakespeare and Company",
+    "day": "d4"
+   },
+   {
+    "title": "Arènes de Lutèce (joia escondida)",
+    "day": "d4"
+   },
+   {
+    "title": "Grande Mosquée de Paris (salão de chá) — joia escondida",
+    "day": "d4"
+   }
+  ]
+ },
+ "praga": {
+  "name": "Praga",
+  "stops": [
+   {
+    "title": "Check-in no hotel",
+    "day": "d1"
+   },
+   {
+    "title": "Josefov: Bairro Judeu",
+    "day": "d1"
+   },
+   {
+    "title": "Praça da Cidade Velha & Relógio Astronómico",
+    "day": "d1"
+   },
+   {
+    "title": "Ponte Carlos ao pôr do sol",
+    "day": "d1"
+   },
+   {
+    "title": "Castelo de Praga: S. Vito & Beco de Ouro",
+    "day": "d2"
+   },
+   {
+    "title": "Igreja de São Nicolau (Malá Strana)",
+    "day": "d2"
+   },
+   {
+    "title": "Muro do Lennon",
+    "day": "d2"
+   },
+   {
+    "title": "Torre de Petřín",
+    "day": "d2"
+   },
+   {
+    "title": "Comboio para Kutná Hora",
+    "day": "d3"
+   },
+   {
+    "title": "Ossário de Sedlec: reservar slot!",
+    "day": "d3"
+   },
+   {
+    "title": "Almoço no centro",
+    "day": "d3"
+   },
+   {
+    "title": "Catedral de Santa Bárbara",
+    "day": "d3"
+   },
+   {
+    "title": "Explorar o centro histórico",
+    "day": "d3"
+   },
+   {
+    "title": "Comboio de regresso a Praga",
+    "day": "d3"
+   },
+   {
+    "title": "Concerto & Jantar (opcional)",
+    "day": "d3"
+   },
+   {
+    "title": "Vyšehrad: vistas panorâmicas, sem multidões",
+    "day": "d4"
+   },
+   {
+    "title": "Almoço com calma",
+    "day": "d4"
+   },
+   {
+    "title": "Passeio leve no centro",
+    "day": "d4"
+   },
+   {
+    "title": "Regresso ao hotel / aeroporto",
+    "day": "d4"
+   }
+  ]
+ },
+ "viena": {
+  "name": "Viena",
+  "stops": [
+   {
+    "title": "Check-in & primeiro café",
+    "day": "d1"
+   },
+   {
+    "title": "Stephansdom (Catedral de Santo Estêvão)",
+    "day": "d1"
+   },
+   {
+    "title": "Graben & Kohlmarkt",
+    "day": "d1"
+   },
+   {
+    "title": "Almoço perto da Hofburg",
+    "day": "d1"
+   },
+   {
+    "title": "Hofburg & Museu Sisi",
+    "day": "d1"
+   },
+   {
+    "title": "Albertina",
+    "day": "d1"
+   },
+   {
+    "title": "Ópera Estatal (Wiener Staatsoper)",
+    "day": "d1"
+   },
+   {
+    "title": "Café histórico",
+    "day": "d1"
+   },
+   {
+    "title": "Naschmarkt",
+    "day": "d2"
+   },
+   {
+    "title": "Karlskirche",
+    "day": "d2"
+   },
+   {
+    "title": "Almoço perto do Belvedere",
+    "day": "d2"
+   },
+   {
+    "title": "Palácio Belvedere (Superior)",
+    "day": "d2"
+   },
+   {
+    "title": "MuseumsQuartier",
+    "day": "d2"
+   },
+   {
+    "title": "Kunsthistorisches Museum (a cúpula)",
+    "day": "d2"
+   },
+   {
+    "title": "Palácio de Schönbrunn",
+    "day": "d3"
+   },
+   {
+    "title": "Jardins & Gloriette",
+    "day": "d3"
+   },
+   {
+    "title": "Almoço rápido",
+    "day": "d3"
+   },
+   {
+    "title": "Prater & Riesenrad",
+    "day": "d3"
+   },
+   {
+    "title": "Donaukanal",
+    "day": "d3"
+   },
+   {
+    "title": "Heuriger em Grinzing",
+    "day": "d3"
+   }
+  ]
+ }
+}

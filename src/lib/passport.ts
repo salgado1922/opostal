@@ -1,5 +1,7 @@
 /* Passaporte O Postal — carimbos guardados neste telemóvel. */
 import coords from "@/data/stop-coords.json";
+import allStops from "@/data/all-stops.json";
+import { supabase } from "@/integrations/supabase/client";
 
 export type Stamp = { at: string; verified: boolean; photo?: string; day?: string };
 export type CityPassport = { name: string; total: number; stamps: Record<string, Stamp> };
@@ -26,6 +28,7 @@ export function writePassport(p: Passport): boolean {
   try {
     window.localStorage.setItem(KEY, JSON.stringify(p));
     window.dispatchEvent(new Event(PASSPORT_EVENT));
+    pushRemote(p);
     return true;
   } catch {
     return false;
@@ -136,4 +139,80 @@ export function rewardFor(slug: string, c: CityPassport): string | null {
   let h = 0;
   for (const s of Object.values(c.stamps)) for (const ch of s.at) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
   return `POSTAL-${slug.slice(0, 4).toUpperCase()}-${h.toString(36).slice(-4).toUpperCase().padStart(4, "0")}`;
+}
+
+/* ---------- Conta: o passaporte só se guarda com sessão iniciada ---------- */
+export const PASSPORT_AUTH_EVENT = "opostal:passaporte-auth";
+let currentUser: string | null = null;
+let started = false;
+let pushTimer: ReturnType<typeof setTimeout> | undefined;
+
+export const passportUser = () => currentUser;
+
+function pushRemote(p: Passport) {
+  if (!currentUser) return;
+  const uid = currentUser;
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(() => {
+    void supabase.from("passports").upsert({ user_id: uid, data: p as never, updated_at: new Date().toISOString() });
+  }, 400);
+}
+
+function merge(a: Passport, b: Passport): Passport {
+  const out: Passport = JSON.parse(JSON.stringify(a));
+  for (const [slug, c] of Object.entries(b)) {
+    const t = out[slug] ?? { name: c.name, total: c.total, stamps: {} };
+    for (const [title, s] of Object.entries(c.stamps)) {
+      const prev = t.stamps[title];
+      if (!prev || (s.verified && !prev.verified) || (s.photo && !prev.photo)) t.stamps[title] = { ...prev, ...s };
+    }
+    out[slug] = t;
+  }
+  return out;
+}
+
+/** Todas as paragens, todas confirmadas — o passaporte de quem escreveu os guias. */
+export function fullPassport(): Passport {
+  const out: Passport = {};
+  const data = allStops as Record<string, { name: string; stops: { title: string; day: string | null }[] }>;
+  for (const [slug, c] of Object.entries(data)) {
+    const stamps: Record<string, Stamp> = {};
+    for (const s of c.stops) stamps[s.title] = { at: new Date().toISOString(), verified: true, day: s.day ?? undefined };
+    out[slug] = { name: c.name, total: c.stops.length, stamps };
+  }
+  return out;
+}
+
+async function onSignedIn(uid: string) {
+  currentUser = uid;
+  window.dispatchEvent(new Event(PASSPORT_AUTH_EVENT));
+  const { data } = await supabase.from("passports").select("data").eq("user_id", uid).maybeSingle();
+  let p = merge((data?.data as Passport | undefined) ?? {}, readPassport());
+  const { data: isAdmin } = await supabase.rpc("has_role", { _user_id: uid, _role: "admin" });
+  if (isAdmin) p = merge(p, fullPassport());
+  writePassport(p);
+}
+
+export function startPassportSync() {
+  if (started || typeof window === "undefined") return;
+  started = true;
+  supabase.auth.getSession().then(({ data }) => {
+    if (data.session) void onSignedIn(data.session.user.id);
+    else window.dispatchEvent(new Event(PASSPORT_AUTH_EVENT));
+  });
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_IN" && session && session.user.id !== currentUser) void onSignedIn(session.user.id);
+    if (event === "SIGNED_OUT") {
+      currentUser = null;
+      window.localStorage.removeItem(KEY);
+      window.dispatchEvent(new Event(PASSPORT_EVENT));
+      window.dispatchEvent(new Event(PASSPORT_AUTH_EVENT));
+    }
+  });
+}
+
+/** Leva a pessoa a entrar e volta ao sítio onde estava. */
+export function goSignIn() {
+  try { window.sessionStorage.setItem("opostal:next", window.location.pathname); } catch { /* ignora */ }
+  window.location.href = "/auth?passaporte=1";
 }

@@ -9,6 +9,9 @@ import {
   getPosition,
   isNear,
   migrateLegacy,
+  passportUser,
+  goSignIn,
+  startPassportSync,
   readPassport,
   rewardFor,
   writePassport,
@@ -60,7 +63,7 @@ export function StreetMode({ city, slug, days }: Props) {
   const [idx, setIdx] = useState(0);
   const [passport, setPassport] = useState<Passport>({});
   const [checking, setChecking] = useState(false);
-  const [notice, setNotice] = useState<{ text: string; offerFree?: boolean } | null>(null);
+  const [notice, setNotice] = useState<{ text: string; offerFree?: boolean; signIn?: boolean } | null>(null);
   const photoRef = useRef<HTMLInputElement | null>(null);
   const totalStops = useMemo(() => days.reduce((n, d) => n + d.stops.length, 0), [days]);
   const cityStamps = passport[slug]?.stamps ?? {};
@@ -104,6 +107,7 @@ export function StreetMode({ city, slug, days }: Props) {
   }, []);
 
   useEffect(() => {
+    startPassportSync();
     migrateLegacy(slug, city, totalStops);
     const sync = () => setPassport(readPassport());
     sync();
@@ -223,6 +227,10 @@ export function StreetMode({ city, slug, days }: Props) {
   const toggleStamp = async () => {
     if (!stop || !day || checking) return;
     setNotice(null);
+    if (!passportUser()) {
+      setNotice({ text: "Para guardar carimbos no teu passaporte, entra com a tua conta Google.", signIn: true });
+      return;
+    }
     if (isStamped) {
       saveStamps((st) => {
         delete st[stop.title];
@@ -569,6 +577,15 @@ export function StreetMode({ city, slug, days }: Props) {
                         className="mt-2 min-h-[44px] text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
                       >
                         Carimbar sem confirmação
+                      </button>
+                    )}
+                    {notice.signIn && (
+                      <button
+                        type="button"
+                        onClick={goSignIn}
+                        className="mt-2 min-h-[44px] text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                      >
+                        Entrar com Google
                       </button>
                     )}
                   </div>
