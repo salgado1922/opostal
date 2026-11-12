@@ -344,8 +344,9 @@ export function StreetMode({ city, slug, days }: Props) {
             if (!start || !t) return;
             const dx = t.clientX - start.x;
             const dy = t.clientY - start.y;
-            if (Math.abs(dy) < 60 || Math.abs(dy) < Math.abs(dx)) return;
-            if (dy < 0) actions.current.next();
+            // Só gestos horizontais mudam de paragem; o vertical rola o conteúdo.
+            if (Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+            if (dx < 0) actions.current.next();
             else actions.current.prev();
           }}
         >
@@ -659,7 +660,7 @@ export function StreetMode({ city, slug, days }: Props) {
             </div>
             {!reduce && !card && (
               <p className="pb-2 pt-1 text-center text-[10px] uppercase tracking-[0.25em] text-cream/55">
-                desliza para cima ou para baixo
+                desliza para o lado
               </p>
             )}
           </div>
