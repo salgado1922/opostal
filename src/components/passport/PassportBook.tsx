@@ -108,7 +108,7 @@ function CityPage({ slug, p, n, total, onOpen, onSeal }: { slug: string; p: Pass
               onClick={() => onOpen({ slug, stop: st, stamp: s })}
               aria-label={`${st.label}${s ? ", carimbado" : ", por carimbar"}. Ver carimbo`}
               className="flex justify-center rounded-full transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
-              style={{ transform: `translate(${(r - 0.5) * 12}px, ${(seeded(st.title + "y") - 0.5) * 10}px)`, ...(s && !s.verified ? { opacity: 0.4 } : null) }}
+              style={{ transform: `translate(${(r - 0.5) * 12}px, ${(seeded(st.title + "y") - 0.5) * 10}px)` }}
             >
               <InkStamp
                 top={st.label.length > 16 ? `${st.label.slice(0, 15).trim()}…` : st.label}
@@ -120,6 +120,8 @@ function CityPage({ slug, p, n, total, onOpen, onSeal }: { slug: string; p: Pass
                 size={84}
                 rotate={(r - 0.5) * 24}
                 ghost={!s}
+                tier={s?.verified ? "verified" : "plain"}
+                photo={s?.photo}
               />
             </button>
           );
@@ -190,6 +192,7 @@ export function StampPreview({ open, onClose }: { open: Open | null; onClose: ()
                 size={250}
                 rotate={-4}
                 ghost={!open.stamp}
+                tier={open.stamp?.verified ? "verified" : "plain"}
               />
             </div>
             <DialogTitle className="mt-4 font-serif text-3xl font-normal">{open.stop.label}</DialogTitle>

@@ -361,7 +361,7 @@ function PassaportePage() {
                           aria-label={`Ver carimbo ${st.label}${s.photo ? " e fotografia" : ""}`}
                           className="flex w-full items-center gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
                         >
-                        <span className="shrink-0 transition" style={s.verified ? undefined : { opacity: 0.5, filter: "grayscale(0.5)" }}>
+                        <span className="shrink-0 transition">
                           <InkStamp
                             top={st.label.length > 16 ? `${st.label.slice(0, 15).trim()}…` : st.label}
                             bottom={ct.name}
@@ -371,11 +371,10 @@ function PassaportePage() {
                             shape={style.shape}
                             size={76}
                             rotate={-6}
+                            tier={s.verified ? "verified" : "plain"}
+                            photo={s.photo}
                           />
                         </span>
-                        {s.photo && (
-                          <img src={s.photo} alt={`Fotografia em ${title}`} className="h-14 w-14 shrink-0 rotate-2 border-2 border-cream object-cover" />
-                        )}
                         <div className="min-w-0">
                           <p className="font-serif text-lg leading-snug">{st.label}</p>
                           <p className="text-xs text-cream/60">

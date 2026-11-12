@@ -18,6 +18,10 @@ type Props = {
   title?: string;
   /** Desenho alusivo à atração, no lugar do texto central. */
   icon?: string;
+  /** Nível do carimbo: "plain" = feito sem confirmação, "verified" = confirmado no local. */
+  tier?: "plain" | "verified";
+  /** Fotografia associada: aparece como polaroide presa atrás do carimbo. */
+  photo?: string;
 };
 
 /** Carimbo de borracha em SVG, com tinta gasta e bordas irregulares. */
@@ -35,7 +39,10 @@ export function InkStamp({
   className = "",
   title,
   icon,
+  tier = "verified",
+  photo,
 }: Props) {
+  const verified = !ghost && tier === "verified";
   const id = useId().replace(/:/g, "");
   const wide = shape === "oval" || shape === "rect";
   const W = wide ? 240 : 200;
@@ -87,18 +94,39 @@ export function InkStamp({
           <feTurbulence type="turbulence" baseFrequency="0.04" numOctaves="2" result="w" />
           <feDisplacementMap in="worn" in2="w" scale="2.6" />
         </filter>
+        <radialGradient id={`g-${id}`} cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stopColor="#fbe7a6" />
+          <stop offset="55%" stopColor="#d4a640" />
+          <stop offset="100%" stopColor="#8a6418" />
+        </radialGradient>
+        <clipPath id={`p-${id}`}><rect x={0} y={0} width={92} height={92} /></clipPath>
         <path id={`t-${id}`} d={arcTop} />
         <path id={`b-${id}`} d={arcBot} />
       </defs>
+      {photo && !ghost && (
+        <g transform={`translate(${W - 92},${-26}) rotate(9)`} style={{ filter: "drop-shadow(0 2px 3px rgba(0,0,0,.35))" }}>
+          <rect x={-6} y={-6} width={104} height={122} fill="#f6efe0" />
+          <image href={photo} x={0} y={0} width={92} height={92} preserveAspectRatio="xMidYMid slice" clipPath={`url(#p-${id})`} />
+          <rect x={30} y={-13} width={34} height={13} fill="#e9d9a8" opacity={0.85} transform="rotate(-4 33 -5)" />
+        </g>
+      )}
+      {verified && (
+        <g fill="currentColor" opacity={0.75} filter={`url(#ink-${id})`}>
+          {Array.from({ length: 40 }, (_, i) => {
+            const a = (Math.PI * 2 * i) / 40;
+            return <circle key={i} cx={cx + (rx + 5) * Math.cos(a)} cy={cy + (ry + 5) * Math.sin(a)} r={1.7} />;
+          })}
+        </g>
+      )}
       <g
         filter={ghost ? undefined : `url(#ink-${id})`}
         fill="none"
         stroke="currentColor"
-        opacity={ghost ? 0.28 : 0.95}
+        opacity={ghost ? 0.28 : verified ? 1 : 0.88}
         strokeDasharray={ghost ? "4 6" : undefined}
       >
-        {outline(0, { strokeWidth: 5 })}
-        {outline(12, { strokeWidth: 1.6 })}
+        {outline(0, { strokeWidth: verified ? 5.5 : 3 })}
+        {(ghost || verified) && outline(12, { strokeWidth: 1.6 })}
         {ghost && icon && <Motif name={icon} x={cx} y={cy} size={wide ? 58 : 66} />}
         {!ghost && (
           <>
@@ -148,6 +176,17 @@ export function InkStamp({
           </>
         )}
       </g>
+      {verified && (
+        <g transform={`translate(${W - 26},${H - 24}) rotate(-12)`} style={{ filter: "drop-shadow(0 1px 1.5px rgba(0,0,0,.4))" }}>
+          {Array.from({ length: 12 }, (_, i) => {
+            const a = (Math.PI * 2 * i) / 12;
+            return <circle key={i} cx={20 * Math.cos(a)} cy={20 * Math.sin(a)} r={5} fill={`url(#g-${id})`} />;
+          })}
+          <circle r={19} fill={`url(#g-${id})`} />
+          <circle r={14.5} fill="none" stroke="#7a5512" strokeWidth={1} opacity={0.6} />
+          <path d="M -7 0 L -2 5 L 8 -6" fill="none" stroke="#5c3f0c" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+      )}
     </svg>
   );
 }
