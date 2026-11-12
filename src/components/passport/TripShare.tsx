@@ -180,10 +180,18 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
       await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
       setCopied("Copiada. Abre a história no Instagram, toca no ecrã e escolhe «Colar».");
     } catch {
-      setCopied("O teu telemóvel não deixou copiar. Usa «Guardar imagem».");
+      setCopied("O teu telemóvel não deixou copiar. Usa «Partilhar» ou «Guardar imagem».");
     }
   };
-  const canShare = typeof navigator !== "undefined" && !!navigator.canShare;
+  // Partilha nativa: só mostramos o botão quando o telemóvel aceita mesmo ficheiros.
+  const canShare = useMemo(() => {
+    if (typeof navigator === "undefined" || !navigator.canShare || !blob) return false;
+    try {
+      return navigator.canShare({ files: [new File([blob], name, { type: "image/png" })] });
+    } catch {
+      return false;
+    }
+  }, [blob, name]);
 
   return (
     <div role="dialog" aria-modal="true" aria-label="Partilhar página do passaporte" className="fixed inset-0 z-[80] overflow-y-auto overscroll-contain bg-background/95 backdrop-blur-sm">
@@ -249,6 +257,12 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 text-cream/75 underline decoration-gold/40 underline-offset-4 disabled:opacity-50">
                 <Download className="h-4 w-4" aria-hidden /> Guardar imagem (.png)
               </button>
+              {!canCopy && !canShare && (
+                <p className="text-center text-xs text-cream/55">O teu telemóvel não deixa copiar nem partilhar diretamente. Guarda a imagem e junta-a à história a partir da galeria.</p>
+              )}
+              {!canCopy && canShare && (
+                <p className="text-center text-xs text-cream/55">O teu telemóvel não deixa copiar imagens. Usa «Partilhar» para enviar diretamente para o Instagram.</p>
+              )}
             </div>
             {look === "clear" && (
               <p className="mt-4 text-center text-xs text-cream/50">Na história do Instagram, põe uma foto da viagem e cola esta imagem por cima.</p>
