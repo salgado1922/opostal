@@ -50,12 +50,23 @@ function AuthPage() {
   const [aTentar, setATentar] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [aviso, setAviso] = useState<string | null>(null);
+  const [sessao, setSessao] = useState<string | null>(null);
 
-  // Já está sessão? Vai direto ao destino.
+  // Já está sessão? Se a app te mandou para aqui (há um destino guardado),
+  // vai direto. Se vieste por tua iniciativa, ficas na página para poderes
+  // trocar de conta.
   useEffect(() => {
     let cancelado = false;
     supabase.auth.getSession().then(({ data }) => {
-      if (!cancelado && data.session) goNext();
+      if (cancelado || !data.session) return;
+      let temDestino = false;
+      try {
+        temDestino = !!window.sessionStorage.getItem("opostal:next");
+      } catch {
+        /* ignora */
+      }
+      if (temDestino) goNext();
+      else setSessao(data.session.user.email ?? "a tua conta");
     });
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
       if (event === "SIGNED_IN") goNext();
@@ -141,6 +152,33 @@ function AuthPage() {
           telemóvel.
         </p>
         <div className="mt-8 h-px w-16 bg-gold/50" />
+
+        {sessao && (
+          <div className="mt-8 border-l-2 border-gold/60 pl-4" role="status">
+            <p className="text-sm text-cream/85">
+              Já tens sessão como <span className="text-gold">{sessao}</span>.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+              <button
+                type="button"
+                onClick={goNext}
+                className="min-h-[44px] text-sm text-gold underline decoration-gold/40 underline-offset-4 hover:text-cream"
+              >
+                Continuar com esta conta →
+              </button>
+              <button
+                type="button"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  setSessao(null);
+                }}
+                className="min-h-[44px] text-sm text-cream/55 underline decoration-gold/30 underline-offset-4 hover:text-cream"
+              >
+                Sair para trocar de conta
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className="mt-8 space-y-3">
           <GoogleButton onError={setErro} disabled={aTentar} />

@@ -19,6 +19,9 @@ function useSocial(provider: Provider, onError: (m: string) => void) {
     onError("");
     const result = await lovable.auth.signInWithOAuth(provider, {
       redirect_uri: `${window.location.origin}/auth`,
+      // Na Google, mostrar sempre a janela de escolha de conta em vez de
+      // entrar direto com a conta já ligada no navegador.
+      extraParams: provider === "google" ? { prompt: "select_account" } : undefined,
     });
     if (result.error) {
       onError(
