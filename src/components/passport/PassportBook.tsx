@@ -3,7 +3,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CITIES } from "@/data/cities";
 import { STAMP_STOPS, type StampStop } from "@/data/stamp-stops";
-import type { Stamp } from "@/lib/passport";
+import { type Stamp, compressPhoto, setStampPhoto, addCityPhoto, removeCityPhoto, CITY_PHOTOS_MAX } from "@/lib/passport";
+import { usePassport } from "@/hooks/use-passport";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import type { Passport } from "@/lib/passport";
 import { InkStamp } from "./InkStamp";
@@ -43,7 +44,7 @@ function Cover() {
   );
 }
 
-function CityPage({ slug, p, n, total, onOpen }: { slug: string; p: Passport; n: number; total: number; onOpen: (o: Open) => void }) {
+function CityPage({ slug, p, n, total, onOpen, onSeal }: { slug: string; p: Passport; n: number; total: number; onOpen: (o: Open) => void; onSeal: (slug: string) => void }) {
   const city = CITIES.find((c) => c.slug === slug)!;
   const cp = p[slug];
   const style = STAMP_STYLE[slug] ?? { shape: "circle" as const, motif: "✦", code: slug.slice(0, 3).toUpperCase() };
@@ -75,7 +76,12 @@ function CityPage({ slug, p, n, total, onOpen }: { slug: string; p: Passport; n:
             {entries.length ? `${entries.length} de ${cp!.total} carimbos · ${confirmed} confirmadas` : "Por carimbar"}
           </p>
         </div>
-        <div className="flex shrink-0 flex-col items-center">
+        <button
+          type="button"
+          onClick={() => onSeal(slug)}
+          aria-label={`Selo de ${city.name}. Ver em grande`}
+          className="flex shrink-0 flex-col items-center rounded-full transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
+        >
           <BadgeSeal
             title={city.name}
             glyph={style.motif}
@@ -88,7 +94,7 @@ function CityPage({ slug, p, n, total, onOpen }: { slug: string; p: Passport; n:
               {entries.length === 0 ? "3 carimbos para colar" : `faltam ${3 - entries.length} para colar`}
             </p>
           )}
-        </div>
+        </button>
       </div>
 
       <div className="relative mt-2 grid grid-cols-3 gap-x-2 gap-y-0">
@@ -125,7 +131,44 @@ function CityPage({ slug, p, n, total, onOpen }: { slug: string; p: Passport; n:
 
 export type Open = { slug: string; stop: StampStop; stamp?: Stamp };
 
+function PhotoPick({ label, onFile }: { label: string; onFile: (dataUrl: string) => void }) {
+  const ref = useRef<HTMLInputElement>(null);
+  const [busy, setBusy] = useState(false);
+  return (
+    <>
+      <input
+        ref={ref}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={async (e) => {
+          const f = e.target.files?.[0];
+          e.target.value = "";
+          if (!f) return;
+          setBusy(true);
+          try {
+            onFile(await compressPhoto(f, 900));
+          } finally {
+            setBusy(false);
+          }
+        }}
+      />
+      <button
+        type="button"
+        onClick={() => ref.current?.click()}
+        disabled={busy}
+        className="mt-5 inline-block min-h-11 font-serif text-base italic underline decoration-[color:var(--gold)] decoration-2 underline-offset-4 disabled:opacity-50"
+      >
+        {busy ? "A preparar a fotografia…" : label}
+      </button>
+    </>
+  );
+}
+
 export function StampPreview({ open, onClose }: { open: Open | null; onClose: () => void }) {
+  const live = usePassport();
+  const stamp = open ? (live[open.slug]?.stamps[open.stop.title] ?? open.stamp) : undefined;
+  if (open) open = { ...open, stamp };
   const city = open ? CITIES.find((c) => c.slug === open.slug) : undefined;
   const style = open ? STAMP_STYLE[open.slug] : undefined;
   return (
@@ -162,6 +205,81 @@ export function StampPreview({ open, onClose }: { open: Open | null; onClose: ()
             {open.stamp?.photo && (
               <img src={open.stamp.photo} alt={`A tua fotografia em ${open.stop.label}`} className="mx-auto mt-5 w-full max-w-[16rem] rotate-1 border-[8px] border-[color:var(--cream)] shadow-md" />
             )}
+            {open.stamp && (
+              <div>
+                <PhotoPick
+                  label={open.stamp.photo ? "Trocar fotografia" : "Juntar uma fotografia"}
+                  onFile={(d) => setStampPhoto(open!.slug, open!.stop.title, d)}
+                />
+              </div>
+            )}
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export function SealPreview({ slug, onClose }: { slug: string | null; onClose: () => void }) {
+  const p = usePassport();
+  const city = slug ? CITIES.find((c) => c.slug === slug) : undefined;
+  const cp = slug ? p[slug] : undefined;
+  const count = cp ? Object.keys(cp.stamps).length : 0;
+  const earned = count >= 3;
+  const photos = cp?.photos ?? [];
+  const style = slug ? STAMP_STYLE[slug] : undefined;
+  return (
+    <Dialog open={!!slug} onOpenChange={(v) => !v && onClose()}>
+      <DialogContent
+        className="max-h-[92vh] max-w-sm overflow-y-auto rounded-none border-0 p-8 text-center"
+        style={{ backgroundColor: "var(--passport-paper)", color: "var(--ink)" }}
+      >
+        {slug && city && (
+          <>
+            <div className="flex justify-center">
+              <BadgeSeal title={city.name} glyph={style?.motif ?? "✦"} earned={earned} size={250} onPaper />
+            </div>
+            <DialogTitle className="mt-4 font-serif text-3xl font-normal">Selo de {city.name}</DialogTitle>
+            <DialogDescription className="font-serif text-base italic" style={{ color: "var(--ink)" }}>
+              {earned
+                ? `Colado · ${count} de ${cp!.total} carimbos`
+                : count === 0
+                  ? "Junta 3 carimbos desta cidade para colar o selo."
+                  : `Faltam ${3 - count} carimbos para colar o selo.`}
+            </DialogDescription>
+            {earned && (
+              <>
+                {photos.length > 0 && (
+                  <>
+                    <p className="mt-6 text-[10px] uppercase tracking-[0.3em] opacity-70">Memórias de {city.name}</p>
+                    <div className="mt-3 grid grid-cols-2 gap-3">
+                      {photos.map((ph, i) => (
+                        <figure key={i} className="relative" style={{ transform: `rotate(${(seeded(slug + i) - 0.5) * 6}deg)` }}>
+                          <img src={ph} alt={`Memória ${i + 1} de ${city.name}`} className="aspect-square w-full border-[6px] border-[color:var(--cream)] object-cover shadow-md" />
+                          <button
+                            type="button"
+                            onClick={() => removeCityPhoto(slug, i)}
+                            aria-label={`Retirar memória ${i + 1}`}
+                            className="absolute -right-2 -top-2 grid size-7 place-items-center rounded-full text-sm"
+                            style={{ background: "var(--ink)", color: "var(--passport-paper)" }}
+                          >
+                            ×
+                          </button>
+                        </figure>
+                      ))}
+                    </div>
+                  </>
+                )}
+                {photos.length < CITY_PHOTOS_MAX ? (
+                  <PhotoPick
+                    label={photos.length ? "Juntar mais uma fotografia" : "Juntar fotografias da viagem"}
+                    onFile={(d) => addCityPhoto(slug, d)}
+                  />
+                ) : (
+                  <p className="mt-5 text-xs italic opacity-70">Máximo de {CITY_PHOTOS_MAX} memórias por cidade.</p>
+                )}
+              </>
+            )}
           </>
         )}
       </DialogContent>
@@ -177,6 +295,7 @@ export function PassportBook({ p }: { p: Passport }) {
   const [page, setPage] = useState(0);
   const [dir, setDir] = useState(1);
   const [openStamp, setOpenStamp] = useState<Open | null>(null);
+  const [openSeal, setOpenSeal] = useState<string | null>(null);
   const touch = useRef<number | null>(null);
   const go = (to: number) => {
     const n = Math.max(0, Math.min(pages.length - 1, to));
@@ -189,6 +308,7 @@ export function PassportBook({ p }: { p: Passport }) {
   return (
     <div className="mx-auto w-full max-w-[400px]">
       <StampPreview open={openStamp} onClose={() => setOpenStamp(null)} />
+      <SealPreview slug={openSeal} onClose={() => setOpenSeal(null)} />
       <div
         className="relative aspect-[5/7] w-full [perspective:1600px]"
         onTouchStart={(e) => (touch.current = e.touches[0].clientX)}
@@ -226,7 +346,7 @@ export function PassportBook({ p }: { p: Passport }) {
             exit="exit"
             transition={{ duration: 0.55, ease: [0.3, 0.7, 0.2, 1] }}
           >
-            {current === "cover" ? <Cover /> : <CityPage slug={current} p={p} n={page} total={cities.length} onOpen={setOpenStamp} />}
+            {current === "cover" ? <Cover /> : <CityPage slug={current} p={p} n={page} total={cities.length} onOpen={setOpenStamp} onSeal={setOpenSeal} />}
           </motion.div>
         </AnimatePresence>
       </div>

@@ -4,7 +4,7 @@ import { STAMP_STOPS } from "@/data/stamp-stops";
 import { supabase } from "@/integrations/supabase/client";
 
 export type Stamp = { at: string; verified: boolean; photo?: string; day?: string };
-export type CityPassport = { name: string; total: number; stamps: Record<string, Stamp> };
+export type CityPassport = { name: string; total: number; stamps: Record<string, Stamp>; photos?: string[] };
 export type Passport = Record<string, CityPassport>;
 
 const KEY = "opostal:passaporte";
@@ -166,6 +166,7 @@ function merge(a: Passport, b: Passport): Passport {
       const prev = t.stamps[title];
       if (!prev || (s.verified && !prev.verified) || (s.photo && !prev.photo)) t.stamps[title] = { ...prev, ...s };
     }
+    if (c.photos?.length) t.photos = Array.from(new Set([...(t.photos ?? []), ...c.photos])).slice(0, 6);
     out[slug] = t;
   }
   return out;
@@ -227,4 +228,31 @@ export function startPassportSync() {
 export function goSignIn() {
   try { window.sessionStorage.setItem("opostal:next", window.location.pathname); } catch { /* ignora */ }
   window.location.href = "/auth?passaporte=1";
+}
+
+/** Guarda (ou troca) a fotografia de um carimbo já feito. */
+export function setStampPhoto(slug: string, title: string, photo: string | undefined) {
+  const p = readPassport();
+  const s = p[slug]?.stamps[title];
+  if (!s) return false;
+  if (photo) s.photo = photo;
+  else delete s.photo;
+  return writePassport(p);
+}
+
+/** Memórias da cidade — até 6 fotografias junto ao selo da cidade. */
+export const CITY_PHOTOS_MAX = 6;
+export function addCityPhoto(slug: string, photo: string) {
+  const p = readPassport();
+  const c = p[slug];
+  if (!c) return false;
+  c.photos = [...(c.photos ?? []), photo].slice(-CITY_PHOTOS_MAX);
+  return writePassport(p);
+}
+export function removeCityPhoto(slug: string, i: number) {
+  const p = readPassport();
+  const c = p[slug];
+  if (!c?.photos) return false;
+  c.photos = c.photos.filter((_, k) => k !== i);
+  return writePassport(p);
 }
