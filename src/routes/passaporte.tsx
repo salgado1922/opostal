@@ -240,7 +240,7 @@ function PassaportePage() {
               onClick={goSignIn}
               className="mt-3 inline-flex min-h-[48px] items-center border border-gold/50 px-5 font-serif text-lg italic text-gold hover:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
             >
-              Entrar com Google
+              Entrar na conta
             </button>
           </div>
         )}

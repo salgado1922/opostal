@@ -593,7 +593,7 @@ export function StreetMode({ city, slug, days }: Props) {
                         onClick={goSignIn}
                         className="mt-2 min-h-[44px] text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
                       >
-                        Entrar com Google
+                        Entrar na conta
                       </button>
                     )}
                   </div>

@@ -22,6 +22,7 @@ import { Route as LondresRouteImport } from './routes/londres'
 import { Route as ParisRouteImport } from './routes/paris'
 import { Route as PassaporteRouteImport } from './routes/passaporte'
 import { Route as PragaRouteImport } from './routes/praga'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RoteiroPersonalizadoRouteImport } from './routes/roteiro-personalizado'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as VienaRouteImport } from './routes/viena'
@@ -95,6 +96,11 @@ const PragaRoute = PragaRouteImport.update({
   path: '/praga',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RoteiroPersonalizadoRoute = RoteiroPersonalizadoRouteImport.update({
   id: '/roteiro-personalizado',
   path: '/roteiro-personalizado',
@@ -150,6 +156,7 @@ export interface FileRoutesByFullPath {
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
   '/praga': typeof PragaRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
@@ -172,6 +179,7 @@ export interface FileRoutesByTo {
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
   '/praga': typeof PragaRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
@@ -196,6 +204,7 @@ export interface FileRoutesById {
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
   '/praga': typeof PragaRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
@@ -220,6 +229,7 @@ export interface FileRouteTypes {
     | '/paris'
     | '/passaporte'
     | '/praga'
+    | '/reset-password'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
     | '/viena'
@@ -242,6 +252,7 @@ export interface FileRouteTypes {
     | '/paris'
     | '/passaporte'
     | '/praga'
+    | '/reset-password'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
     | '/viena'
@@ -265,6 +276,7 @@ export interface FileRouteTypes {
     | '/paris'
     | '/passaporte'
     | '/praga'
+    | '/reset-password'
     | '/roteiro-personalizado'
     | '/sitemap.xml'
     | '/viena'
@@ -289,6 +301,7 @@ export interface RootRouteChildren {
   ParisRoute: typeof ParisRoute
   PassaporteRoute: typeof PassaporteRoute
   PragaRoute: typeof PragaRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   RoteiroPersonalizadoRoute: typeof RoteiroPersonalizadoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VienaRoute: typeof VienaRoute
@@ -389,6 +402,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PragaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/roteiro-personalizado': {
       id: '/roteiro-personalizado'
       path: '/roteiro-personalizado'
@@ -477,6 +497,7 @@ const rootRouteChildren: RootRouteChildren = {
   ParisRoute: ParisRoute,
   PassaporteRoute: PassaporteRoute,
   PragaRoute: PragaRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   RoteiroPersonalizadoRoute: RoteiroPersonalizadoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VienaRoute: VienaRoute,
