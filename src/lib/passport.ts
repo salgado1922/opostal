@@ -4,7 +4,7 @@ import { STAMP_STOPS } from "@/data/stamp-stops";
 import { supabase } from "@/integrations/supabase/client";
 
 export type Stamp = { at: string; verified: boolean; photo?: string; day?: string };
-export type CityPassport = { name: string; total: number; stamps: Record<string, Stamp>; photos?: string[] };
+export type CityPassport = { name: string; total: number; stamps: Record<string, Stamp>; photos?: string[]; removed?: string[] };
 export type Passport = Record<string, CityPassport>;
 
 const KEY = "opostal:passaporte";
@@ -168,6 +168,7 @@ function merge(a: Passport, b: Passport): Passport {
       const prev = t.stamps[title];
       if (!prev || (s.verified && !prev.verified) || (s.photo && !prev.photo)) t.stamps[title] = { ...prev, ...s };
     }
+    if (c.removed?.length) t.removed = Array.from(new Set([...(t.removed ?? []), ...c.removed]));
     if (c.photos?.length) t.photos = Array.from(new Set([...(t.photos ?? []), ...c.photos])).slice(0, 6);
     out[slug] = t;
   }
@@ -220,7 +221,7 @@ async function onSignedIn(uid: string) {
     const full = fullPassport();
     for (const [slug, c] of Object.entries(full)) {
       const t = (p[slug] ??= { name: c.name, total: c.total, stamps: {} });
-      for (const [title, st] of Object.entries(c.stamps)) if (!t.stamps[title]) t.stamps[title] = st;
+      for (const [title, st] of Object.entries(c.stamps)) if (!t.stamps[title] && !t.removed?.includes(title)) t.stamps[title] = st;
     }
   }
   window.dispatchEvent(new Event(PASSPORT_AUTH_EVENT));
@@ -288,9 +289,29 @@ export function setStampVerified(slug: string, title: string, verified: boolean)
   return writePassport(p);
 }
 
+/** Admin: tira um carimbo (fica "sem carimbo" e não volta sozinho). */
+export function removeStamp(slug: string, title: string) {
+  const p = readPassport();
+  const c = p[slug];
+  if (!c?.stamps[title]) return false;
+  delete c.stamps[title];
+  c.removed = Array.from(new Set([...(c.removed ?? []), title]));
+  return writePassport(p);
+}
+
+/** Admin: volta a pôr todos os carimbos que tinham sido tirados. */
+function refillAll(p: Passport) {
+  for (const [slug, c] of Object.entries(fullPassport())) {
+    const t = (p[slug] ??= { name: c.name, total: c.total, stamps: {} });
+    delete t.removed;
+    for (const [title, st] of Object.entries(c.stamps)) if (!t.stamps[title]) t.stamps[title] = st;
+  }
+}
+
 /** Admin: repõe a amostra de teste (alguns carimbos por confirmar). */
 export function resetAdminTestStates() {
   const p = readPassport();
+  refillAll(p);
   for (const c of Object.values(p)) for (const st of Object.values(c.stamps)) st.verified = true;
   for (const [slug, t] of ADMIN_UNVERIFIED) if (p[slug]?.stamps[t]) p[slug].stamps[t].verified = false;
   return writePassport(p);
@@ -299,6 +320,7 @@ export function resetAdminTestStates() {
 /** Admin: confirma todos os carimbos no local. */
 export function confirmAllStamps() {
   const p = readPassport();
+  refillAll(p);
   for (const c of Object.values(p)) for (const st of Object.values(c.stamps)) st.verified = true;
   return writePassport(p);
 }

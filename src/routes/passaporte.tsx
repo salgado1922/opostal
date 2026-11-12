@@ -18,6 +18,7 @@ import {
   passportUser,
   passportIsAdmin,
   setStampVerified,
+  removeStamp,
   resetAdminTestStates,
   confirmAllStamps,
   startPassportSync,
@@ -383,14 +384,23 @@ function PassaportePage() {
                         </div>
                         </button>
                         {isAdmin && (
+                          <div className="ml-[92px] mt-1 flex flex-wrap gap-x-4">
                           <button
                             type="button"
                             onClick={() => setStampVerified(ct.slug, title, !s.verified)}
                             aria-pressed={s.verified}
-                            className="ml-[92px] mt-1 min-h-[36px] text-xs text-cream/60 underline decoration-gold/40 underline-offset-4 hover:text-gold"
+                            className="min-h-[36px] text-xs text-cream/60 underline decoration-gold/40 underline-offset-4 hover:text-gold"
                           >
                             {s.verified ? "Confirmado no local · marcar por confirmar" : "Por confirmar · marcar confirmado"}
                           </button>
+                          <button
+                            type="button"
+                            onClick={() => removeStamp(ct.slug, title)}
+                            className="min-h-[36px] text-xs text-cream/60 underline decoration-gold/40 underline-offset-4 hover:text-gold"
+                          >
+                            Tirar carimbo
+                          </button>
+                          </div>
                         )}
                       </li>
                       );

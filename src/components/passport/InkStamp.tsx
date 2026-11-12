@@ -94,11 +94,6 @@ export function InkStamp({
           <feTurbulence type="turbulence" baseFrequency="0.04" numOctaves="2" result="w" />
           <feDisplacementMap in="worn" in2="w" scale="2.6" />
         </filter>
-        <radialGradient id={`g-${id}`} cx="35%" cy="30%" r="75%">
-          <stop offset="0%" stopColor="#fbe7a6" />
-          <stop offset="55%" stopColor="#d4a640" />
-          <stop offset="100%" stopColor="#8a6418" />
-        </radialGradient>
         <clipPath id={`p-${id}`}><rect x={0} y={0} width={92} height={92} /></clipPath>
         <path id={`t-${id}`} d={arcTop} />
         <path id={`b-${id}`} d={arcBot} />
@@ -176,17 +171,6 @@ export function InkStamp({
           </>
         )}
       </g>
-      {verified && (
-        <g transform={`translate(${W - 26},${H - 24}) rotate(-12)`} style={{ filter: "drop-shadow(0 1px 1.5px rgba(0,0,0,.4))" }}>
-          {Array.from({ length: 12 }, (_, i) => {
-            const a = (Math.PI * 2 * i) / 12;
-            return <circle key={i} cx={20 * Math.cos(a)} cy={20 * Math.sin(a)} r={5} fill={`url(#g-${id})`} />;
-          })}
-          <circle r={19} fill={`url(#g-${id})`} />
-          <circle r={14.5} fill="none" stroke="#7a5512" strokeWidth={1} opacity={0.6} />
-          <path d="M -7 0 L -2 5 L 8 -6" fill="none" stroke="#5c3f0c" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" />
-        </g>
-      )}
     </svg>
   );
 }
