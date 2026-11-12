@@ -342,7 +342,7 @@ function PassaportePage() {
                           aria-label={`Ver carimbo ${st.label}${s.photo ? " e fotografia" : ""}`}
                           className="flex w-full items-center gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
                         >
-                        <span className="shrink-0 p-1" style={{ backgroundColor: "var(--passport-paper)" }}>
+                        <span className="shrink-0">
                           <InkStamp
                             top={st.label.length > 16 ? `${st.label.slice(0, 15).trim()}…` : st.label}
                             bottom={s.verified ? "CONFIRMADO" : ct.name}
