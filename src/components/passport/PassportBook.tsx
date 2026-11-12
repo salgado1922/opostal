@@ -30,9 +30,6 @@ function Cover() {
           <ellipse cx="60" cy="60" rx="22" ry="52" fill="none" stroke="currentColor" strokeWidth="1.2" />
           <line x1="8" x2="112" y1="60" y2="60" stroke="currentColor" strokeWidth="1.2" />
           <path d="M14 38 H106 M14 82 H106" stroke="currentColor" strokeWidth="1" />
-          <text x="60" y="66" textAnchor="middle" fontFamily="var(--font-serif)" fontSize="18" fill="currentColor" fontStyle="italic">
-            O P
-          </text>
         </svg>
         <h3 className="mt-6 font-serif text-4xl tracking-[0.1em] sm:text-5xl" style={{ textShadow: "0 1px 0 color-mix(in oklab, black 50%, transparent)" }}>
           PASSAPORTE
