@@ -121,9 +121,9 @@ function CityPage({ slug, p, n, total, onOpen }: { slug: string; p: Passport; n:
   );
 }
 
-type Open = { slug: string; stop: StampStop; stamp?: Stamp };
+export type Open = { slug: string; stop: StampStop; stamp?: Stamp };
 
-function StampPreview({ open, onClose }: { open: Open | null; onClose: () => void }) {
+export function StampPreview({ open, onClose }: { open: Open | null; onClose: () => void }) {
   const city = open ? CITIES.find((c) => c.slug === open.slug) : undefined;
   const style = open ? STAMP_STYLE[open.slug] : undefined;
   return (
@@ -155,7 +155,10 @@ function StampPreview({ open, onClose }: { open: Open | null; onClose: () => voi
                 : "por carimbar — abre o modo de rua quando lá estiveres"}
             </DialogDescription>
             {open.stamp?.photo && (
-              <img src={open.stamp.photo} alt={`A tua fotografia em ${open.stop.label}`} className="mx-auto mt-4 w-40 rotate-2 border-[6px] border-[color:var(--cream)] shadow-md" />
+              <p className="mt-5 text-[10px] uppercase tracking-[0.3em] opacity-70">A tua memória</p>
+            )}
+            {open.stamp?.photo && (
+              <img src={open.stamp.photo} alt={`A tua fotografia em ${open.stop.label}`} className="mx-auto mt-5 w-full max-w-[16rem] rotate-1 border-[8px] border-[color:var(--cream)] shadow-md" />
             )}
           </>
         )}

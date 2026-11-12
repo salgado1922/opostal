@@ -2,7 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Share2 } from "lucide-react";
 import { SiteFooter } from "@/components/SiteFooter";
-import { PassportBook } from "@/components/passport/PassportBook";
+import { PassportBook, StampPreview, type Open } from "@/components/passport/PassportBook";
+import { InkStamp } from "@/components/passport/InkStamp";
+import { STAMP_STYLE, inkFor, stampDate } from "@/components/passport/stamps";
+import { stampStopFor } from "@/data/stamp-stops";
+import { supabase } from "@/integrations/supabase/client";
 import { BadgeSeal } from "@/components/passport/BadgeSeal";
 
 const GLYPH: Record<string, string> = { primeiro: "✉", completa: "✪", tres: "✈", madrugador: "☀", verificado: "⚑", album: "❀" };
@@ -127,6 +131,30 @@ function PassaportePage() {
   const [p, setP] = useState<Passport>({});
   const [msg, setMsg] = useState("");
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
+  const [account, setAccount] = useState<{ email: string; name?: string; avatar?: string } | null>(null);
+  const [openStamp, setOpenStamp] = useState<Open | null>(null);
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await supabase.auth.getUser();
+      const u = data.user;
+      setSignedIn(!!u);
+      setAccount(
+        u
+          ? {
+              email: u.email ?? "",
+              name: (u.user_metadata?.full_name ?? u.user_metadata?.name) as string | undefined,
+              avatar: (u.user_metadata?.avatar_url ?? u.user_metadata?.picture) as string | undefined,
+            }
+          : null,
+      );
+    };
+    void load();
+    const { data: sub } = supabase.auth.onAuthStateChange(() => void load());
+    return () => sub.subscription.unsubscribe();
+  }, []);
+  const signOut = async () => {
+    await supabase.auth.signOut();
+  };
   useEffect(() => {
     const auth = () => setSignedIn(!!passportUser());
     window.addEventListener(PASSPORT_AUTH_EVENT, auth);
@@ -183,6 +211,25 @@ function PassaportePage() {
           Cada paragem que visitas no modo de rua fica aqui carimbada, com a data, a hora e, se quiseres, uma fotografia.
         </p>
         <div className="mt-8 h-px w-24 bg-gold/60" />
+        {account && (
+          <div className="mt-8 flex items-center gap-4 border-y border-gold/15 py-4">
+            {account.avatar ? (
+              <img src={account.avatar} alt="" referrerPolicy="no-referrer" className="h-12 w-12 shrink-0 rounded-full border border-gold/50 object-cover" />
+            ) : (
+              <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/50 font-serif text-xl text-gold">
+                {(account.name ?? account.email).charAt(0).toUpperCase()}
+              </span>
+            )}
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-gold/80">Titular</p>
+              <p className="truncate font-serif text-xl">{account.name ?? account.email}</p>
+              {account.name && <p className="truncate text-xs text-cream/60">{account.email}</p>}
+            </div>
+            <button type="button" onClick={signOut} className="min-h-[44px] shrink-0 text-sm text-cream/60 underline decoration-gold/40 underline-offset-4 hover:text-cream">
+              Sair
+            </button>
+          </div>
+        )}
         {signedIn === false && (
           <div className="mt-8 border-l-2 border-gold/60 pl-4">
             <p className="text-cream/85">
@@ -197,6 +244,7 @@ function PassaportePage() {
             </button>
           </div>
         )}
+        {signedIn && (<>
         <dl className="mt-8 grid grid-cols-3 gap-4 border-y border-gold/15 py-6 text-center">
           {[
             [all.length, "carimbos"],
@@ -223,7 +271,10 @@ function PassaportePage() {
             {msg && <p className="mt-2 text-sm text-gold/90" role="status">{msg}</p>}
           </div>
         )}
+        </>)}
       </header>
+      {signedIn && (<>
+      <StampPreview open={openStamp} onClose={() => setOpenStamp(null)} />
 
       <section aria-labelledby="livro" className="mx-auto max-w-4xl px-5 pb-14 md:px-6">
         <h2 id="livro" className="mb-6 text-[11px] uppercase tracking-[0.3em] text-gold/80">Folheia o teu passaporte</h2>
@@ -280,21 +331,42 @@ function PassaportePage() {
                 )}
                 {entries.length > 0 && (
                   <ul className="mt-4 space-y-3">
-                    {entries.map(([title, s]) => (
-                      <li key={title} className="flex items-center gap-4">
-                        {s.photo ? (
-                          <img src={s.photo} alt={`Fotografia em ${title}`} className="h-14 w-14 shrink-0 border-2 border-cream object-cover" />
-                        ) : (
-                          <span aria-hidden className="h-14 w-14 shrink-0 rounded-full border border-dashed border-gold/50" />
+                    {entries.map(([title, s]) => {
+                      const st = stampStopFor(ct.slug, title) ?? { title, label: title, motif: "star" };
+                      const style = STAMP_STYLE[ct.slug] ?? { shape: "circle" as const, motif: "✦", code: "" };
+                      return (
+                      <li key={title}>
+                        <button
+                          type="button"
+                          onClick={() => setOpenStamp({ slug: ct.slug, stop: st, stamp: s })}
+                          aria-label={`Ver carimbo ${st.label}${s.photo ? " e fotografia" : ""}`}
+                          className="flex w-full items-center gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                        >
+                        <span className="shrink-0 p-1" style={{ backgroundColor: "var(--passport-paper)" }}>
+                          <InkStamp
+                            top={st.label.length > 16 ? `${st.label.slice(0, 15).trim()}…` : st.label}
+                            bottom={s.verified ? "CONFIRMADO" : ct.name}
+                            center={stampDate(s.at).split(" ").slice(0, 2).join(" ")}
+                            icon={st.motif}
+                            ink={inkFor(ct.slug)}
+                            shape={style.shape}
+                            size={76}
+                            rotate={-6}
+                          />
+                        </span>
+                        {s.photo && (
+                          <img src={s.photo} alt={`Fotografia em ${title}`} className="h-14 w-14 shrink-0 rotate-2 border-2 border-cream object-cover" />
                         )}
                         <div className="min-w-0">
-                          <p className="font-serif text-lg leading-snug">{title}</p>
+                          <p className="font-serif text-lg leading-snug">{st.label}</p>
                           <p className="text-xs text-cream/60">
                             {fmt(s.at)} · {s.verified ? <span className="text-gold">confirmado no local</span> : "sem confirmação"}
                           </p>
                         </div>
+                        </button>
                       </li>
-                    ))}
+                      );
+                    })}
                   </ul>
                 )}
               </li>
@@ -306,6 +378,7 @@ function PassaportePage() {
           confirmadas no local e recebes um código de desconto para o roteiro personalizado.
         </p>
       </section>
+      </>)}
       <SiteFooter />
     </main>
   );
