@@ -154,7 +154,7 @@ function pushRemote(p: Passport) {
   const uid = currentUser;
   clearTimeout(pushTimer);
   pushTimer = setTimeout(() => {
-    void supabase.from("passports").upsert({ user_id: uid, data: p as never, updated_at: new Date().toISOString() });
+    supabase.from("passports").upsert({ user_id: uid, data: p as never, updated_at: new Date().toISOString() }).then(({ error }) => { if (error) console.warn("passaporte: falhou guardar", error.message); });
   }, 400);
 }
 
