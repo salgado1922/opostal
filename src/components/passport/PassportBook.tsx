@@ -7,6 +7,7 @@ import type { Stamp } from "@/lib/passport";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import type { Passport } from "@/lib/passport";
 import { InkStamp } from "./InkStamp";
+import { BadgeSeal } from "./BadgeSeal";
 import { STAMP_STYLE, inkFor, seeded, stampDate } from "./stamps";
 
 
@@ -47,7 +48,6 @@ function CityPage({ slug, p, n, total, onOpen }: { slug: string; p: Passport; n:
   const cp = p[slug];
   const style = STAMP_STYLE[slug] ?? { shape: "circle" as const, motif: "✦", code: slug.slice(0, 3).toUpperCase() };
   const entries = cp ? Object.entries(cp.stamps).sort((a, b) => a[1].at.localeCompare(b[1].at)) : [];
-  const first = entries[0]?.[1];
   const ink = inkFor(slug);
   const confirmed = entries.filter(([, s]) => s.verified).length;
   return (
@@ -75,18 +75,20 @@ function CityPage({ slug, p, n, total, onOpen }: { slug: string; p: Passport; n:
             {entries.length ? `${entries.length} de ${cp!.total} carimbos · ${confirmed} confirmadas` : "Por carimbar"}
           </p>
         </div>
-        <InkStamp
-          top={city.name}
-          center={first ? stampDate(first.at).split(" ").slice(0, 2).join(" ") : style.code}
-          sub={first ? style.code : undefined}
-          motif={style.motif}
-          ink={ink}
-          shape={style.shape}
-          size={132}
-          rotate={-8 + seeded(slug) * 16}
-          ghost={!first}
-          title={first ? `Carimbo de ${city.name}` : undefined}
-        />
+        <div className="flex shrink-0 flex-col items-center">
+          <BadgeSeal
+            title={city.name}
+            glyph={style.motif}
+            earned={entries.length >= 3}
+            size={132}
+            onPaper
+          />
+          {entries.length < 3 && (
+            <p className="mt-1 max-w-[11ch] text-center text-[10px] uppercase tracking-[0.18em] opacity-60">
+              {entries.length === 0 ? "3 carimbos para colar" : `faltam ${3 - entries.length} para colar`}
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="relative mt-2 grid grid-cols-3 gap-x-2 gap-y-0">

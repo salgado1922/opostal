@@ -1,16 +1,20 @@
 import { useId } from "react";
 
-type Props = { title: string; glyph: string; earned: boolean; size?: number };
+type Props = { title: string; glyph: string; earned: boolean; size?: number; onPaper?: boolean };
 
 /**
  * Distinção: um carimbo de borracha como os outros, mas em tinta dourada
  * "premium" — anel triplo, pequenas estrelas laterais e brilho metálico
  * discreto. Por ganhar, fica só o contorno fantasma tracejado.
+ * `onPaper` escurece a tinta para se ler sobre o papel creme do passaporte.
  */
-export function BadgeSeal({ title, glyph, earned, size = 124 }: Props) {
+export function BadgeSeal({ title, glyph, earned, size = 124, onPaper = false }: Props) {
   const id = useId().replace(/:/g, "");
   const cx = 100;
   const cy = 100;
+  const g1 = onPaper ? "color-mix(in oklab, var(--gold) 70%, var(--ink))" : "var(--gold-soft)";
+  const g2 = onPaper ? "color-mix(in oklab, var(--gold) 55%, var(--ink))" : "var(--gold)";
+  const g3 = onPaper ? "color-mix(in oklab, var(--gold) 40%, var(--ink))" : "var(--gold-deep, var(--gold))";
 
   const arcTop = "M 32,100 A 68,68 0 0 1 168,100";
   const arcBot = "M 32,100 A 68,68 0 0 0 168,100";
@@ -45,9 +49,9 @@ export function BadgeSeal({ title, glyph, earned, size = 124 }: Props) {
         </filter>
         {/* dourado com leve variação, como tinta metalizada */}
         <radialGradient id={`bg-${id}`} cx="42%" cy="36%" r="80%">
-          <stop offset="0%" stopColor="var(--gold-soft)" />
-          <stop offset="55%" stopColor="var(--gold)" />
-          <stop offset="100%" stopColor="var(--gold-deep, var(--gold))" />
+          <stop offset="0%" stopColor={g1} />
+          <stop offset="55%" stopColor={g2} />
+          <stop offset="100%" stopColor={g3} />
         </radialGradient>
         <path id={`bt-${id}`} d={arcTop} />
         <path id={`bb-${id}`} d={arcBot} />
@@ -79,11 +83,11 @@ export function BadgeSeal({ title, glyph, earned, size = 124 }: Props) {
           </text>
         </g>
       ) : (
-        <g fill="none" stroke="var(--cream)" strokeOpacity={0.28} strokeDasharray="4 6">
+        <g fill="none" stroke={onPaper ? "var(--ink)" : "var(--cream)"} strokeOpacity={0.28} strokeDasharray="4 6">
           <circle cx={cx} cy={cy} r={92} strokeWidth={4} />
           <circle cx={cx} cy={cy} r={82} strokeWidth={1.2} />
           <circle cx={cx} cy={cy} r={56} strokeWidth={1.6} />
-          <text x={cx} y={cy + 20} textAnchor="middle" fontSize={48} fill="var(--cream)" fillOpacity={0.2} stroke="none" strokeDasharray="none" fontFamily="var(--font-serif)">
+          <text x={cx} y={cy + 20} textAnchor="middle" fontSize={48} fill={onPaper ? "var(--ink)" : "var(--cream)"} fillOpacity={0.2} stroke="none" strokeDasharray="none" fontFamily="var(--font-serif)">
             {glyph}
           </text>
         </g>
