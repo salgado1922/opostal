@@ -36,8 +36,7 @@ function SharePage({ slug, p, look, ink }: { slug: string; p: Passport; look: Lo
   const cols = n <= 4 ? 2 : 3;
   const cell = cols === 2 ? 380 : 262;
   const rows = Math.ceil(Math.min(n, 9) / cols);
-  const gridTop = 385 + (3 - rows) * (cols === 2 ? 60 : 131);
-  const verified = entries.filter(([, s]) => s.verified).length;
+  const gridTop = 350 + (3 - rows) * (cols === 2 ? 60 : 131);
   const dates = entries.map(([, s]) => s.at).sort();
   const span = dates.length
     ? new Date(dates[0]).toLocaleDateString("pt-PT", { month: "long", year: "numeric" })
@@ -49,13 +48,10 @@ function SharePage({ slug, p, look, ink }: { slug: string; p: Passport; look: Lo
       {look !== "clear" && (
         <rect x={44} y={44} width={W - 88} height={H - 88} fill="none" stroke={look === "paper" ? "rgba(42,33,24,.35)" : "rgba(201,164,92,.5)"} strokeWidth={2} />
       )}
-      <text x={W / 2} y={150} textAnchor="middle" fill={soft} fontFamily={SANS} fontSize={24} fontWeight={600} letterSpacing={9}>
-        O POSTAL · PASSAPORTE {style.code}
-      </text>
-      <text x={W / 2} y={292} textAnchor="middle" fill={text} fontFamily={SERIF} fontStyle="italic" fontWeight={600} fontSize={city && city.name.length > 8 ? 130 : 160}>
+      <text x={W / 2} y={250} textAnchor="middle" fill={text} fontFamily={SERIF} fontStyle="italic" fontWeight={600} fontSize={city && city.name.length > 8 ? 130 : 160}>
         {city?.name ?? slug}
       </text>
-      <line x1={W / 2 - 60} x2={W / 2 + 60} y1={340} y2={340} stroke={look === "paper" ? "#a3824a" : "#c9a45c"} strokeWidth={2} />
+      <line x1={W / 2 - 60} x2={W / 2 + 60} y1={300} y2={300} stroke={look === "paper" ? "#a3824a" : "#c9a45c"} strokeWidth={2} />
       {entries.slice(0, 9).map(([title, s], i) => {
         const st = stampStopFor(slug, title) ?? { title, label: title, motif: "star" };
         const rowN = Math.min(cols, Math.min(n, 9) - Math.floor(i / cols) * cols);
@@ -82,9 +78,6 @@ function SharePage({ slug, p, look, ink }: { slug: string; p: Passport; look: Lo
           </g>
         );
       })}
-      <text x={W / 2} y={H - 120} textAnchor="middle" fill={text} fontFamily={SERIF} fontStyle="italic" fontSize={46}>
-        {n} {n === 1 ? "carimbo" : "carimbos"} · {verified} no local
-      </text>
       <text x={W / 2} y={H - 68} textAnchor="middle" fill={soft} fontFamily={SANS} fontSize={22} fontWeight={600} letterSpacing={7}>
         {span.toUpperCase()} · OPOSTAL.PT
       </text>
