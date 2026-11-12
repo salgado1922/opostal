@@ -174,7 +174,7 @@ export function StampPreview({ open, onClose }: { open: Open | null; onClose: ()
   return (
     <Dialog open={!!open} onOpenChange={(v) => !v && onClose()}>
       <DialogContent
-        className="max-w-sm rounded-none border-0 p-8 text-center"
+        className="max-h-[88dvh] max-w-sm overflow-y-auto overscroll-contain rounded-none border-0 p-8 text-center"
         style={{ backgroundColor: "var(--passport-paper)", color: "var(--ink)" }}
       >
         {open && city && style && (
@@ -231,7 +231,7 @@ export function SealPreview({ slug, onClose }: { slug: string | null; onClose: (
   return (
     <Dialog open={!!slug} onOpenChange={(v) => !v && onClose()}>
       <DialogContent
-        className="max-h-[92vh] max-w-sm overflow-y-auto rounded-none border-0 p-8 text-center"
+        className="max-h-[88dvh] overscroll-contain max-w-sm overflow-y-auto rounded-none border-0 p-8 text-center"
         style={{ backgroundColor: "var(--passport-paper)", color: "var(--ink)" }}
       >
         {slug && city && (
