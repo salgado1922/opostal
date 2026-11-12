@@ -22,6 +22,8 @@ type Props = {
   tier?: "plain" | "verified";
   /** Fotografia associada: aparece como polaroide presa atrás do carimbo. */
   photo?: string;
+  /** Altura explícita (necessária quando vai dentro de outro SVG). */
+  height?: number;
 };
 
 /** Carimbo de borracha em SVG, com tinta gasta e bordas irregulares. */
@@ -41,6 +43,7 @@ export function InkStamp({
   icon,
   tier = "verified",
   photo,
+  height,
 }: Props) {
   const verified = !ghost && tier === "verified";
   const id = useId().replace(/:/g, "");
@@ -80,6 +83,7 @@ export function InkStamp({
     <svg
       viewBox={`0 0 ${W} ${H}`}
       width={size}
+      height={height}
       className={`pointer-events-none select-none ${className}`}
       style={{ transform: `rotate(${rotate}deg)`, color: ink, overflow: "visible" }}
       role={title ? "img" : undefined}

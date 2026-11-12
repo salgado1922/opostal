@@ -7,6 +7,7 @@ import { InkStamp } from "@/components/passport/InkStamp";
 import { STAMP_STYLE, inkFor, stampDate } from "@/components/passport/stamps";
 import { STAMP_STOPS, stampStopFor } from "@/data/stamp-stops";
 import { supabase } from "@/integrations/supabase/client";
+import { TripShare } from "@/components/passport/TripShare";
 import { BadgeSeal } from "@/components/passport/BadgeSeal";
 
 const GLYPH: Record<string, string> = { primeiro: "✉", completa: "✪", tres: "✈", madrugador: "☀", verificado: "⚑", album: "❀" };
@@ -62,77 +63,6 @@ const fmt = (iso: string) =>
     minute: "2-digit",
   });
 
-/** Desenha o passaporte numa imagem 1080×1350 para Instagram/TikTok. */
-async function drawShareImage(p: Passport): Promise<Blob | null> {
-  const W = 1080;
-  const H = 1350;
-  const c = document.createElement("canvas");
-  c.width = W;
-  c.height = H;
-  const g = c.getContext("2d");
-  if (!g) return null;
-  await document.fonts?.ready;
-  const ink = "#14110d";
-  const gold = "#c9a45c";
-  const cream = "#efe6d4";
-  g.fillStyle = ink;
-  g.fillRect(0, 0, W, H);
-  g.strokeStyle = gold;
-  g.lineWidth = 2;
-  g.strokeRect(48, 48, W - 96, H - 96);
-  g.fillStyle = gold;
-  g.font = "500 26px Inter, sans-serif";
-  g.textAlign = "center";
-  g.fillText("O POSTAL · PASSAPORTE", W / 2, 140);
-  const cities = CITIES.filter((ct) => p[ct.slug] && Object.keys(p[ct.slug].stamps).length);
-  const total = cities.reduce((n, ct) => n + Object.keys(p[ct.slug].stamps).length, 0);
-  g.fillStyle = cream;
-  g.font = "italic 600 96px 'Cormorant Garamond', Georgia, serif";
-  g.fillText(`${total} carimbos`, W / 2, 270);
-  g.font = "italic 40px 'Cormorant Garamond', Georgia, serif";
-  g.fillStyle = gold;
-  g.fillText(`${cities.length} ${cities.length === 1 ? "cidade" : "cidades"}`, W / 2, 330);
-
-  const cols = 3;
-  const r = 118;
-  cities.slice(0, 9).forEach((ct, i) => {
-    const cx = 210 + (i % cols) * 330;
-    const cy = 540 + Math.floor(i / cols) * 300;
-    const cp = p[ct.slug];
-    const n = Object.keys(cp.stamps).length;
-    const frac = cp.total ? Math.min(1, n / cp.total) : 0;
-    g.save();
-    g.translate(cx, cy);
-    g.rotate(((i * 37) % 13 - 6) * (Math.PI / 180));
-    g.strokeStyle = "rgba(201,164,92,0.25)";
-    g.lineWidth = 6;
-    g.beginPath();
-    g.arc(0, 0, r, 0, Math.PI * 2);
-    g.stroke();
-    g.strokeStyle = gold;
-    g.beginPath();
-    g.arc(0, 0, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * frac);
-    g.stroke();
-    g.setLineDash([4, 8]);
-    g.lineWidth = 2;
-    g.beginPath();
-    g.arc(0, 0, r - 18, 0, Math.PI * 2);
-    g.stroke();
-    g.setLineDash([]);
-    g.fillStyle = cream;
-    g.font = "italic 600 44px 'Cormorant Garamond', Georgia, serif";
-    g.fillText(ct.name, 0, 8);
-    g.fillStyle = gold;
-    g.font = "500 20px Inter, sans-serif";
-    g.fillText(`${n} / ${cp.total}`, 0, 48);
-    g.restore();
-  });
-  g.fillStyle = "rgba(239,230,212,0.6)";
-  g.font = "500 24px Inter, sans-serif";
-  g.fillText("opostal.pt", W / 2, H - 100);
-  return new Promise((res) => c.toBlob(res, "image/png"));
-}
-
 function PassaportePage() {
   const [p, setP] = useState<Passport>({});
   const [msg, setMsg] = useState("");
@@ -140,6 +70,7 @@ function PassaportePage() {
   const [account, setAccount] = useState<{ email: string; name?: string; avatar?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [openStamp, setOpenStamp] = useState<Open | null>(null);
+  const [sharing, setSharing] = useState(false);
   useEffect(() => {
     const load = async () => {
       const { data } = await supabase.auth.getUser();
@@ -184,26 +115,6 @@ function PassaportePage() {
   const verified = all.filter((s) => s.verified).length;
   const badges = badgesFor(p);
   const cities = CITIES.filter((c) => c.status === "ready");
-
-  const share = async () => {
-    setMsg("");
-    const blob = await drawShareImage(p);
-    if (!blob) return;
-    const file = new File([blob], "passaporte-opostal.png", { type: "image/png" });
-    try {
-      if (navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ files: [file], title: "O meu passaporte O Postal", text: "opostal.pt" });
-        return;
-      }
-    } catch {
-      return;
-    }
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = file.name;
-    a.click();
-    setMsg("Imagem guardada.");
-  };
 
   return (
     <main className="min-h-screen bg-background text-cream">
@@ -269,11 +180,11 @@ function PassaportePage() {
           <div className="mt-6">
             <button
               type="button"
-              onClick={share}
+              onClick={() => setSharing(true)}
               className="inline-flex min-h-[48px] items-center gap-2 border border-gold/50 px-5 font-serif text-lg italic text-gold hover:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
             >
               <Share2 className="h-4 w-4" aria-hidden />
-              Partilhar o passaporte
+              Partilhar a viagem
             </button>
             {msg && <p className="mt-2 text-sm text-gold/90" role="status">{msg}</p>}
           </div>
@@ -456,6 +367,7 @@ function PassaportePage() {
         </p>
       </section>
       </>)}
+      {sharing && <TripShare p={p} onClose={() => setSharing(false)} />}
       <SiteFooter />
     </main>
   );
