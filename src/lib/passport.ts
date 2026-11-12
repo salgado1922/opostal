@@ -196,13 +196,27 @@ export function fullPassport(): Passport {
   return out;
 }
 
+const ADMIN_UNVERIFIED: [string, string][] = [
+  ["praga", "Torre de Petřín"],
+  ["praga", "Vyšehrad: vistas panorâmicas, sem multidões"],
+  ["paris", "Basílica do Sacré-Coeur"],
+  ["londres", "Borough Market (cedo, antes do pico)"],
+  ["istambul", "Kadıköy & Moda (lado asiático)"],
+  ["lisboa", "Pastéis de Belém"],
+  ["viena", "Prater & Riesenrad"],
+];
+
 async function onSignedIn(uid: string) {
   currentUser = uid;
   window.dispatchEvent(new Event(PASSPORT_AUTH_EVENT));
   const { data } = await supabase.from("passports").select("data").eq("user_id", uid).maybeSingle();
   let p = merge((data?.data as Passport | undefined) ?? {}, readPassport());
   const { data: isAdmin } = await supabase.rpc("has_role", { _user_id: uid, _role: "admin" });
-  if (isAdmin) p = merge(p, fullPassport());
+  if (isAdmin) {
+    p = merge(p, fullPassport());
+    // Amostra para ver a diferença visual: estes ficam como não confirmados no local.
+    for (const [slug, t] of ADMIN_UNVERIFIED) if (p[slug]?.stamps[t]) p[slug].stamps[t].verified = false;
+  }
   writePassport(normalize(p));
 }
 

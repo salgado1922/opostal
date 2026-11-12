@@ -108,11 +108,11 @@ function CityPage({ slug, p, n, total, onOpen, onSeal }: { slug: string; p: Pass
               onClick={() => onOpen({ slug, stop: st, stamp: s })}
               aria-label={`${st.label}${s ? ", carimbado" : ", por carimbar"}. Ver carimbo`}
               className="flex justify-center rounded-full transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
-              style={{ transform: `translate(${(r - 0.5) * 12}px, ${(seeded(st.title + "y") - 0.5) * 10}px)` }}
+              style={{ transform: `translate(${(r - 0.5) * 12}px, ${(seeded(st.title + "y") - 0.5) * 10}px)`, ...(s && !s.verified ? { opacity: 0.4 } : null) }}
             >
               <InkStamp
                 top={st.label.length > 16 ? `${st.label.slice(0, 15).trim()}…` : st.label}
-                bottom={s?.verified ? "CONFIRMADO" : city.name}
+                bottom={city.name}
                 center={s ? stampDate(s.at).split(" ").slice(0, 2).join(" ") : ""}
                 icon={st.motif}
                 ink={ink}
@@ -182,7 +182,7 @@ export function StampPreview({ open, onClose }: { open: Open | null; onClose: ()
             <div className="flex justify-center">
               <InkStamp
                 top={open.stop.label}
-                bottom={open.stamp?.verified ? "CONFIRMADO" : city.name}
+                bottom={city.name}
                 center={open.stamp ? stampDate(open.stamp.at) : ""}
                 icon={open.stop.motif}
                 ink={inkFor(open.slug)}

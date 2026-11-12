@@ -342,10 +342,10 @@ function PassaportePage() {
                           aria-label={`Ver carimbo ${st.label}${s.photo ? " e fotografia" : ""}`}
                           className="flex w-full items-center gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
                         >
-                        <span className="shrink-0">
+                        <span className="shrink-0 transition" style={s.verified ? undefined : { opacity: 0.5, filter: "grayscale(0.5)" }}>
                           <InkStamp
                             top={st.label.length > 16 ? `${st.label.slice(0, 15).trim()}…` : st.label}
-                            bottom={s.verified ? "CONFIRMADO" : ct.name}
+                            bottom={ct.name}
                             center={stampDate(s.at).split(" ").slice(0, 2).join(" ")}
                             icon={st.motif}
                             ink={inkFor(ct.slug)}
@@ -360,7 +360,7 @@ function PassaportePage() {
                         <div className="min-w-0">
                           <p className="font-serif text-lg leading-snug">{st.label}</p>
                           <p className="text-xs text-cream/60">
-                            {fmt(s.at)} · {s.verified ? <span className="text-gold">confirmado no local</span> : "sem confirmação"}
+                            {fmt(s.at)}
                           </p>
                         </div>
                         </button>
