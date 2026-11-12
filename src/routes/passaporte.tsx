@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { PassportBook, StampPreview, type Open } from "@/components/passport/PassportBook";
 import { InkStamp } from "@/components/passport/InkStamp";
 import { STAMP_STYLE, inkFor, stampDate } from "@/components/passport/stamps";
-import { stampStopFor } from "@/data/stamp-stops";
+import { STAMP_STOPS, stampStopFor } from "@/data/stamp-stops";
 import { supabase } from "@/integrations/supabase/client";
 import { BadgeSeal } from "@/components/passport/BadgeSeal";
 
@@ -317,6 +317,9 @@ function PassaportePage() {
 
       <section aria-labelledby="cidades" className="mx-auto max-w-4xl px-5 pb-16 md:px-6">
         <h2 id="cidades" className="text-[11px] uppercase tracking-[0.3em] text-gold/80">Cidades</h2>
+        <p className="mt-3 max-w-xl text-sm text-cream/55">
+          Aqui estão todos os carimbos à espera de tinta. Os contornos tracejados são as paragens que ainda não carimbaste.
+        </p>
         {all.length === 0 && (
           <p className="mt-4 max-w-xl text-cream/75">
             Ainda sem carimbos. Abre um guia, desce até passares a capa e toca em <em className="text-gold">Modo de rua</em>.
@@ -328,6 +331,8 @@ function PassaportePage() {
             const cp = p[ct.slug];
             const entries = cp ? Object.entries(cp.stamps).sort((a, b) => a[1].at.localeCompare(b[1].at)) : [];
             const reward = cp ? rewardFor(ct.slug, cp) : null;
+            const cityStyle = STAMP_STYLE[ct.slug] ?? { shape: "circle" as const, motif: "✦", code: "" };
+            const missing = (STAMP_STOPS[ct.slug] ?? []).filter((s) => !entries.some(([t]) => t === s.title));
             return (
               <li key={ct.slug} className="border-t border-gold/15 py-6">
                 <div className="flex items-baseline justify-between gap-4">
@@ -353,7 +358,6 @@ function PassaportePage() {
                   <ul className="mt-4 space-y-3">
                     {entries.map(([title, s]) => {
                       const st = stampStopFor(ct.slug, title) ?? { title, label: title, motif: "star" };
-                      const style = STAMP_STYLE[ct.slug] ?? { shape: "circle" as const, motif: "✦", code: "" };
                       return (
                       <li key={title}>
                         <button
@@ -369,7 +373,7 @@ function PassaportePage() {
                             center={stampDate(s.at).split(" ").slice(0, 2).join(" ")}
                             icon={st.motif}
                             ink={inkFor(ct.slug)}
-                            shape={style.shape}
+                            shape={cityStyle.shape}
                             size={76}
                             rotate={-6}
                             tier={s.verified ? "verified" : "plain"}
@@ -406,6 +410,31 @@ function PassaportePage() {
                       );
                     })}
                   </ul>
+                )}
+                {missing.length > 0 && (
+                  <div className="mt-6">
+                    <p className="text-[10px] uppercase tracking-[0.28em] text-cream/45">
+                      Por carimbar · {missing.length} {missing.length === 1 ? "paragem" : "paragens"}
+                    </p>
+                    <ul className="mt-3 grid grid-cols-3 gap-x-3 gap-y-6 sm:grid-cols-4">
+                      {missing.map((st) => (
+                        <li key={st.title} className="flex flex-col items-center text-center">
+                          <InkStamp
+                            ghost
+                            top={st.label}
+                            bottom={ct.name}
+                            center=""
+                            icon={st.motif}
+                            ink="var(--cream)"
+                            shape={cityStyle.shape}
+                            size={96}
+                            rotate={-4}
+                          />
+                          <p className="mt-1 max-w-[16ch] text-xs leading-snug text-cream/55">{st.label}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </li>
             );

@@ -117,8 +117,8 @@ export function InkStamp({
         filter={ghost ? undefined : `url(#ink-${id})`}
         fill="none"
         stroke="currentColor"
-        opacity={ghost ? 0.28 : verified ? 1 : 0.88}
-        strokeDasharray={ghost ? "4 6" : undefined}
+        opacity={ghost ? 0.6 : verified ? 1 : 0.88}
+        strokeDasharray={ghost ? "5 5" : undefined}
       >
         {outline(0, { strokeWidth: verified ? 5.5 : 3 })}
         {(ghost || verified) && outline(12, { strokeWidth: 1.6 })}
