@@ -1,26 +1,61 @@
 import { SmartImage } from "@/components/SmartImage";
+import { usePassport } from "@/hooks/use-passport";
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Menu } from "lucide-react";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 
 const NAV_LINKS: { href: string; label: string }[] = [
   { href: "/#cidades", label: "Roteiros gratuitos" },
-  { href: "/#sobre", label: "Sobre" },
 ];
+
+/** Selo de borracha: o sinal do passaporte, sempre junto ao link. */
+function StampMark({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.1"
+      strokeLinecap="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="10" strokeDasharray="1.6 2.1" opacity="0.75" />
+      <circle cx="12" cy="12" r="6.6" />
+      <path d="M12 8.6l1 2.4 2.4.3-1.8 1.7.5 2.4-2.1-1.2-2.1 1.2.5-2.4-1.8-1.7 2.4-.3z" strokeWidth="0.9" />
+    </svg>
+  );
+}
 
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const passport = usePassport();
+  const carimbos = useMemo(
+    () =>
+      Object.values(passport).reduce(
+        (n, c) => n + Object.keys(c?.stamps ?? {}).length,
+        0,
+      ),
+    [passport],
+  );
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.5);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
   const linkClass = scrolled
     ? "text-cream/70 hover:text-cream"
     : "text-cream/90 hover:text-cream [text-shadow:0_1px_8px_rgba(0,0,0,0.65)]";
+
+  const passportClass = scrolled
+    ? "text-gold-soft"
+    : "text-gold [text-shadow:0_1px_8px_rgba(0,0,0,0.65)]";
+
   return (
     <nav
       aria-label="Navegação principal"
@@ -44,7 +79,6 @@ export function SiteNav() {
             priority
             className="h-8 w-auto object-contain md:h-10"
           />
-
         </Link>
 
         <div className="hidden items-center gap-7 md:flex">
@@ -57,6 +91,20 @@ export function SiteNav() {
               {l.label}
             </a>
           ))}
+
+          <Link
+            to="/passaporte"
+            className={`group inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] transition-colors ${passportClass}`}
+          >
+            <StampMark className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:-rotate-6" />
+            <span className="border-b border-gold/50 pb-0.5 transition-colors group-hover:border-gold">
+              O meu passaporte
+            </span>
+            {carimbos > 0 && (
+              <span className="text-[11px] tracking-[0.14em] text-gold/90">· {carimbos}</span>
+            )}
+          </Link>
+
           <a
             href="/roteiro-personalizado"
             className="gold-link text-xs uppercase tracking-[0.2em]"
@@ -79,6 +127,18 @@ export function SiteNav() {
       {open && (
         <div className="md:hidden border-t border-gold/15 bg-background/95 backdrop-blur-xl">
           <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
+            <Link
+              to="/passaporte"
+              onClick={() => setOpen(false)}
+              className="mb-1 flex items-center gap-3 border-b border-gold/15 px-3 pb-4 text-xs uppercase tracking-[0.22em] text-gold"
+            >
+              <StampMark className="h-5 w-5 shrink-0" />
+              <span className="border-b border-gold/50 pb-0.5">O meu passaporte</span>
+              {carimbos > 0 && (
+                <span className="text-xs tracking-[0.14em] text-gold/90">· {carimbos}</span>
+              )}
+            </Link>
+
             {NAV_LINKS.map((l) => (
               <a
                 key={l.href}
