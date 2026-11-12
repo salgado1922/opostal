@@ -213,6 +213,7 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
             >
               <SharePage slug={slug} p={p} look={look} ink={ink} format={format} />
             </div>
+            <p className="mt-2 text-center text-[11px] uppercase tracking-[0.25em] text-cream/40">Pré-visualização em tempo real</p>
             <div className="mt-5 grid grid-cols-2 border-y border-gold/15" role="radiogroup" aria-label="Formato">
               {FORMATS.map((f) => (
                 <button key={f.id} type="button" role="radio" aria-checked={format === f.id} onClick={() => setFormat(f.id)}
