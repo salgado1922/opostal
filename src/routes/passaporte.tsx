@@ -18,6 +18,7 @@ import {
   passportUser,
   passportIsAdmin,
   setStampVerified,
+  addStamp,
   removeStamp,
   resetAdminTestStates,
   confirmAllStamps,
@@ -431,6 +432,15 @@ function PassaportePage() {
                             rotate={-4}
                           />
                           <p className="mt-1 max-w-[16ch] text-xs leading-snug text-cream/55">{st.label}</p>
+                          {isAdmin && (
+                            <button
+                              type="button"
+                              onClick={() => { addStamp(ct.slug, st.title); setMsg(`«${st.label}» carimbado.`); }}
+                              className="mt-1 min-h-[36px] text-xs text-cream/60 underline decoration-gold/40 underline-offset-4 hover:text-gold"
+                            >
+                              Carimbar
+                            </button>
+                          )}
                         </li>
                       ))}
                     </ul>

@@ -292,6 +292,19 @@ export function setStampVerified(slug: string, title: string, verified: boolean)
   return writePassport(p);
 }
 
+/** Admin: carimba uma paragem que ainda estava por carimbar. */
+export function addStamp(slug: string, title: string, verified = true) {
+  const p = readPassport();
+  const list = STAMP_STOPS[slug];
+  const stop = list?.find((s) => s.title === title);
+  if (!stop) return false;
+  const c = (p[slug] ??= { name: slug, total: list.length, stamps: {} });
+  if (c.stamps[title]) return false;
+  c.stamps[title] = { at: new Date().toISOString(), verified };
+  c.removed = (c.removed ?? []).filter((t) => t !== title);
+  return writePassport(p);
+}
+
 /** Admin: tira um carimbo (fica "sem carimbo" e não volta sozinho). */
 export function removeStamp(slug: string, title: string) {
   const p = readPassport();
