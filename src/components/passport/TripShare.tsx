@@ -12,8 +12,11 @@ const LOOKS: { id: Look; label: string; hint: string }[] = [
   { id: "paper", label: "Com fundo", hint: "Página creme de passaporte" },
   { id: "night", label: "Noite", hint: "Fundo escuro, tinta da cidade" },
 ];
-const W = 1080;
-const H = 1350;
+type Format = "story" | "square";
+const FORMATS: { id: Format; label: string; hint: string; w: number; h: number }[] = [
+  { id: "story", label: "História", hint: "1080×1920, o formato das histórias do Instagram", w: 1080, h: 1920 },
+  { id: "square", label: "Quadrada", hint: "1080×1080, mais compacta, para publicações", w: 1080, h: 1080 },
+];
 const SERIF = "'Cormorant Garamond', 'Playfair Display', Georgia, 'Times New Roman', serif";
 const SANS = "Inter, 'Helvetica Neue', Arial, sans-serif";
 
@@ -23,8 +26,9 @@ function cssVar(name: string, fallback: string) {
   return v || fallback;
 }
 
-/** Página do passaporte de uma cidade, num único SVG 1080×1350. */
-function SharePage({ slug, p, look, ink }: { slug: string; p: Passport; look: Look; ink: string }) {
+/** Página do passaporte de uma cidade, num único SVG. */
+function SharePage({ slug, p, look, ink, format }: { slug: string; p: Passport; look: Look; ink: string; format: Format }) {
+  const { w: W, h: H } = FORMATS.find((f) => f.id === format)!;
   const city = CITIES.find((c) => c.slug === slug);
   const cp = p[slug];
   const entries = cp ? Object.entries(cp.stamps).sort((a, b) => a[1].at.localeCompare(b[1].at)) : [];
@@ -34,9 +38,12 @@ function SharePage({ slug, p, look, ink }: { slug: string; p: Passport; look: Lo
   const soft = look === "paper" ? "rgba(42,33,24,.55)" : "rgba(244,236,220,.7)";
   const n = entries.length;
   const cols = n <= 4 ? 2 : 3;
-  const cell = cols === 2 ? 380 : 262;
+  const story = format === "story";
+  const cell = story ? (cols === 2 ? 420 : 300) : cols === 2 ? 340 : 230;
   const rows = Math.ceil(Math.min(n, 9) / cols);
-  const gridTop = 350 + (3 - rows) * (cols === 2 ? 60 : 131);
+  const nameY = story ? 300 : 170;
+  const lineY = nameY + 50;
+  const gridTop = lineY + (story ? 150 : 55) + (3 - rows) * cell * 0.5;
   const dates = entries.map(([, s]) => s.at).sort();
   const span = dates.length
     ? new Date(dates[0]).toLocaleDateString("pt-PT", { month: "long", year: "numeric" })
@@ -48,10 +55,10 @@ function SharePage({ slug, p, look, ink }: { slug: string; p: Passport; look: Lo
       {look !== "clear" && (
         <rect x={44} y={44} width={W - 88} height={H - 88} fill="none" stroke={look === "paper" ? "rgba(42,33,24,.35)" : "rgba(201,164,92,.5)"} strokeWidth={2} />
       )}
-      <text x={W / 2} y={250} textAnchor="middle" fill={text} fontFamily={SERIF} fontStyle="italic" fontWeight={600} fontSize={city && city.name.length > 8 ? 130 : 160}>
+      <text x={W / 2} y={nameY} textAnchor="middle" fill={text} fontFamily={SERIF} fontStyle="italic" fontWeight={600} fontSize={city && city.name.length > 8 ? 130 : 160}>
         {city?.name ?? slug}
       </text>
-      <line x1={W / 2 - 60} x2={W / 2 + 60} y1={300} y2={300} stroke={look === "paper" ? "#a3824a" : "#c9a45c"} strokeWidth={2} />
+      <line x1={W / 2 - 60} x2={W / 2 + 60} y1={lineY} y2={lineY} stroke={look === "paper" ? "#a3824a" : "#c9a45c"} strokeWidth={2} />
       {entries.slice(0, 9).map(([title, s], i) => {
         const st = stampStopFor(slug, title) ?? { title, label: title, motif: "star" };
         const rowN = Math.min(cols, Math.min(n, 9) - Math.floor(i / cols) * cols);
@@ -85,7 +92,7 @@ function SharePage({ slug, p, look, ink }: { slug: string; p: Passport; look: Lo
   );
 }
 
-async function toPng(svg: SVGSVGElement): Promise<Blob | null> {
+async function toPng(svg: SVGSVGElement, w: number, h: number): Promise<Blob | null> {
   await document.fonts?.ready;
   let xml = new XMLSerializer().serializeToString(svg);
   xml = xml.replace(/var\(--font-serif\)/g, SERIF.replace(/'/g, "&apos;")).replace(/var\(--font-sans\)/g, SANS.replace(/'/g, "&apos;"));
@@ -95,9 +102,9 @@ async function toPng(svg: SVGSVGElement): Promise<Blob | null> {
     img.src = url;
     await img.decode();
     const c = document.createElement("canvas");
-    c.width = W;
-    c.height = H;
-    c.getContext("2d")!.drawImage(img, 0, 0, W, H);
+    c.width = w;
+    c.height = h;
+    c.getContext("2d")!.drawImage(img, 0, 0, w, h);
     return await new Promise((r) => c.toBlob(r, "image/png"));
   } finally {
     URL.revokeObjectURL(url);
@@ -115,11 +122,13 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
   );
   const [slug, setSlug] = useState(done[0]?.slug ?? "");
   const [look, setLook] = useState<Look>("clear");
+  const [format, setFormat] = useState<Format>("story");
   const [busy, setBusy] = useState(false);
   const [blob, setBlob] = useState<Blob | null>(null);
   const [copied, setCopied] = useState("");
   const ref = useRef<HTMLDivElement>(null);
   const ink = look === "clear" ? "#f7f0e2" : cssVar(`--stamp-${slug}`, cssVar("--terracotta", "#b5523b"));
+  const dims = FORMATS.find((f) => f.id === format)!;
 
   useEffect(() => {
     const k = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -138,13 +147,13 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
       const svg = ref.current?.querySelector("svg");
       if (!svg) return;
       setBusy(true);
-      const b = await toPng(svg as SVGSVGElement).catch(() => null);
+      const b = await toPng(svg as SVGSVGElement, dims.w, dims.h).catch(() => null);
       if (alive) { setBlob(b); setBusy(false); }
     }, 150);
     return () => { alive = false; clearTimeout(t); };
-  }, [slug, look, ink]);
+  }, [slug, look, ink, format, dims]);
 
-  const name = `passaporte-${slug}-${look === "clear" ? "sem-fundo" : look}.png`;
+  const name = `passaporte-${slug}-${look === "clear" ? "sem-fundo" : look}-${format}.png`;
   const save = () => {
     if (!blob) return;
     const a = document.createElement("a");
@@ -202,9 +211,17 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
               className="relative mt-5 w-full overflow-hidden border border-gold/20 [&>svg]:h-auto [&>svg]:w-full"
               style={look === "clear" ? { backgroundImage: "repeating-conic-gradient(rgba(255,255,255,.07) 0 25%, transparent 0 50%)", backgroundSize: "24px 24px" } : undefined}
             >
-              <SharePage slug={slug} p={p} look={look} ink={ink} />
+              <SharePage slug={slug} p={p} look={look} ink={ink} format={format} />
             </div>
-            <div className="mt-5 grid grid-cols-3 border-y border-gold/15" role="radiogroup" aria-label="Estilo">
+            <div className="mt-5 grid grid-cols-2 border-y border-gold/15" role="radiogroup" aria-label="Formato">
+              {FORMATS.map((f) => (
+                <button key={f.id} type="button" role="radio" aria-checked={format === f.id} onClick={() => setFormat(f.id)}
+                  className={`min-h-[52px] font-serif text-lg italic ${format === f.id ? "text-gold" : "text-cream/55"}`}>
+                  {f.label}
+                </button>
+              ))}
+            </div>
+            <div className="grid grid-cols-3 border-b border-gold/15" role="radiogroup" aria-label="Estilo">
               {LOOKS.map((l) => (
                 <button key={l.id} type="button" role="radio" aria-checked={look === l.id} onClick={() => setLook(l.id)}
                   className={`min-h-[52px] font-serif text-lg italic ${look === l.id ? "text-gold" : "text-cream/55"}`}>
@@ -212,7 +229,7 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
                 </button>
               ))}
             </div>
-            <p className="mt-2 text-center text-xs text-cream/55">{LOOKS.find((l) => l.id === look)?.hint}</p>
+            <p className="mt-2 text-center text-xs text-cream/55">{dims.hint} · {LOOKS.find((l) => l.id === look)?.hint}</p>
             <div className="mt-6 flex flex-col gap-3">
               {canCopy && (
                 <button type="button" disabled={!blob} onClick={copy}
