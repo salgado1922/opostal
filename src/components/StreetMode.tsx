@@ -266,7 +266,7 @@ export function StreetMode({ city, slug, days }: Props) {
     try {
       const photo = await compressPhoto(file);
       saveStamps((st) => {
-        if (st[stop.title]) st[stop.title].photo = photo;
+        if (st[stop.title]) { st[stop.title].photo = photo; st[stop.title].verified = true; }
       });
     } catch {
       setNotice({ text: "Não consegui ler esta fotografia." });

@@ -183,6 +183,7 @@ function normalize(p: Passport): Passport {
     const ok = new Set(list.map((s) => s.title));
     c.total = list.length;
     for (const k of Object.keys(c.stamps)) if (!ok.has(k)) delete c.stamps[k];
+    for (const st of Object.values(c.stamps)) if (st.photo) st.verified = true;
   }
   return p;
 }
@@ -258,8 +259,10 @@ export function setStampPhoto(slug: string, title: string, photo: string | undef
   const p = readPassport();
   const s = p[slug]?.stamps[title];
   if (!s) return false;
-  if (photo) s.photo = photo;
-  else delete s.photo;
+  if (photo) {
+    s.photo = photo;
+    s.verified = true; // com fotografia conta sempre como confirmado no local
+  } else delete s.photo;
   return writePassport(p);
 }
 
@@ -285,7 +288,7 @@ export function setStampVerified(slug: string, title: string, verified: boolean)
   const s = readPassport()[slug]?.stamps[title];
   if (!s) return false;
   const p = readPassport();
-  p[slug].stamps[title].verified = verified;
+  p[slug].stamps[title].verified = verified || !!s.photo;
   return writePassport(p);
 }
 
@@ -313,7 +316,7 @@ export function resetAdminTestStates() {
   const p = readPassport();
   refillAll(p);
   for (const c of Object.values(p)) for (const st of Object.values(c.stamps)) st.verified = true;
-  for (const [slug, t] of ADMIN_UNVERIFIED) if (p[slug]?.stamps[t]) p[slug].stamps[t].verified = false;
+  for (const [slug, t] of ADMIN_UNVERIFIED) if (p[slug]?.stamps[t] && !p[slug].stamps[t].photo) p[slug].stamps[t].verified = false;
   return writePassport(p);
 }
 
