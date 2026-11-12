@@ -144,6 +144,8 @@ export function rewardFor(slug: string, c: CityPassport): string | null {
 /* ---------- Conta: o passaporte só se guarda com sessão iniciada ---------- */
 export const PASSPORT_AUTH_EVENT = "opostal:passaporte-auth";
 let currentUser: string | null = null;
+let currentAdmin = false;
+export const passportIsAdmin = () => currentAdmin;
 let started = false;
 let pushTimer: ReturnType<typeof setTimeout> | undefined;
 
@@ -212,11 +214,16 @@ async function onSignedIn(uid: string) {
   const { data } = await supabase.from("passports").select("data").eq("user_id", uid).maybeSingle();
   let p = merge((data?.data as Passport | undefined) ?? {}, readPassport());
   const { data: isAdmin } = await supabase.rpc("has_role", { _user_id: uid, _role: "admin" });
+  currentAdmin = !!isAdmin;
   if (isAdmin) {
-    p = merge(p, fullPassport());
-    // Amostra para ver a diferença visual: estes ficam como não confirmados no local.
-    for (const [slug, t] of ADMIN_UNVERIFIED) if (p[slug]?.stamps[t]) p[slug].stamps[t].verified = false;
+    // Junta só os carimbos em falta; não mexe nos estados que o admin escolheu.
+    const full = fullPassport();
+    for (const [slug, c] of Object.entries(full)) {
+      const t = (p[slug] ??= { name: c.name, total: c.total, stamps: {} });
+      for (const [title, st] of Object.entries(c.stamps)) if (!t.stamps[title]) t.stamps[title] = st;
+    }
   }
+  window.dispatchEvent(new Event(PASSPORT_AUTH_EVENT));
   writePassport(normalize(p));
 }
 
@@ -231,6 +238,7 @@ export function startPassportSync() {
     if (event === "SIGNED_IN" && session && session.user.id !== currentUser) void onSignedIn(session.user.id);
     if (event === "SIGNED_OUT") {
       currentUser = null;
+      currentAdmin = false;
       window.localStorage.removeItem(KEY);
       window.dispatchEvent(new Event(PASSPORT_EVENT));
       window.dispatchEvent(new Event(PASSPORT_AUTH_EVENT));
@@ -268,5 +276,29 @@ export function removeCityPhoto(slug: string, i: number) {
   const c = p[slug];
   if (!c?.photos) return false;
   c.photos = c.photos.filter((_, k) => k !== i);
+  return writePassport(p);
+}
+
+/** Admin: muda o estado "confirmado no local" de um carimbo. */
+export function setStampVerified(slug: string, title: string, verified: boolean) {
+  const s = readPassport()[slug]?.stamps[title];
+  if (!s) return false;
+  const p = readPassport();
+  p[slug].stamps[title].verified = verified;
+  return writePassport(p);
+}
+
+/** Admin: repõe a amostra de teste (alguns carimbos por confirmar). */
+export function resetAdminTestStates() {
+  const p = readPassport();
+  for (const c of Object.values(p)) for (const st of Object.values(c.stamps)) st.verified = true;
+  for (const [slug, t] of ADMIN_UNVERIFIED) if (p[slug]?.stamps[t]) p[slug].stamps[t].verified = false;
+  return writePassport(p);
+}
+
+/** Admin: confirma todos os carimbos no local. */
+export function confirmAllStamps() {
+  const p = readPassport();
+  for (const c of Object.values(p)) for (const st of Object.values(c.stamps)) st.verified = true;
   return writePassport(p);
 }

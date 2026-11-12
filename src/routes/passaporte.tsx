@@ -16,6 +16,10 @@ import {
   PASSPORT_AUTH_EVENT,
   goSignIn,
   passportUser,
+  passportIsAdmin,
+  setStampVerified,
+  resetAdminTestStates,
+  confirmAllStamps,
   startPassportSync,
   badgesFor,
   isComplete,
@@ -132,6 +136,7 @@ function PassaportePage() {
   const [msg, setMsg] = useState("");
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
   const [account, setAccount] = useState<{ email: string; name?: string; avatar?: string } | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [openStamp, setOpenStamp] = useState<Open | null>(null);
   useEffect(() => {
     const load = async () => {
@@ -156,7 +161,7 @@ function PassaportePage() {
     await supabase.auth.signOut();
   };
   useEffect(() => {
-    const auth = () => setSignedIn(!!passportUser());
+    const auth = () => { setSignedIn(!!passportUser()); setIsAdmin(passportIsAdmin()); };
     window.addEventListener(PASSPORT_AUTH_EVENT, auth);
     startPassportSync();
     if (passportUser()) auth();
@@ -271,6 +276,20 @@ function PassaportePage() {
             {msg && <p className="mt-2 text-sm text-gold/90" role="status">{msg}</p>}
           </div>
         )}
+        {isAdmin && (
+          <div className="mt-8 border-l-2 border-gold/60 pl-4">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-gold/80">Controlos de admin</p>
+            <p className="mt-2 text-sm text-cream/70">Em cada carimbo da lista de cidades podes trocar entre confirmado no local e por confirmar.</p>
+            <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+              <button type="button" onClick={() => { resetAdminTestStates(); setMsg("Estados de teste repostos."); }} className="min-h-[44px] text-sm text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold">
+                Repor estados de teste
+              </button>
+              <button type="button" onClick={() => { confirmAllStamps(); setMsg("Todos os carimbos confirmados."); }} className="min-h-[44px] text-sm text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold">
+                Confirmar todos no local
+              </button>
+            </div>
+          </div>
+        )}
         </>)}
       </header>
       {signedIn && (<>
@@ -364,6 +383,16 @@ function PassaportePage() {
                           </p>
                         </div>
                         </button>
+                        {isAdmin && (
+                          <button
+                            type="button"
+                            onClick={() => setStampVerified(ct.slug, title, !s.verified)}
+                            aria-pressed={s.verified}
+                            className="ml-[92px] mt-1 min-h-[36px] text-xs text-cream/60 underline decoration-gold/40 underline-offset-4 hover:text-gold"
+                          >
+                            {s.verified ? "Confirmado no local · marcar por confirmar" : "Por confirmar · marcar confirmado"}
+                          </button>
+                        )}
                       </li>
                       );
                     })}
