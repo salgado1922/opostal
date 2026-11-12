@@ -44,6 +44,7 @@ export const MOTIFS: Record<string, ReactNode> = {
   skull: (<><path d="M14 30a18 18 0 0 1 36 0v8l-4 4v8H18v-8l-4-4z" /><circle cx="25" cy="32" r="5" /><circle cx="39" cy="32" r="5" /><path d="M32 38l-3 5h6zM24 50v6M32 50v6M40 50v6M10 60l44-6M10 54l44 6" /></>),
   music: (<><path d="M24 48V14l26-6v34" /><ellipse cx="18" cy="48" rx="6" ry="5" /><ellipse cx="44" cy="42" rx="6" ry="5" /><path d="M24 22l26-6" /></>),
   cake: (<><path d="M10 34l34-16 10 10v20H10z" /><path d="M10 34h44M10 42h44M44 18v16" /><path d="M30 18c0-4 4-6 4-10" /><circle cx="34" cy="8" r="2" /></>),
+  camera: (<><rect x="8" y="20" width="48" height="32" rx="5" /><path d="M22 20l4-8h12l4 8" /><circle cx="32" cy="36" r="10" /><circle cx="32" cy="36" r="4" /><circle cx="48" cy="27" r="1.6" /></>),
 };
 
 export function Motif({ name, x, y, size }: { name: string; x: number; y: number; size: number }) {

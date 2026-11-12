@@ -1,6 +1,6 @@
 import { useId } from "react";
 import type { StampShape } from "./stamps";
-import { Motif } from "./motifs";
+import { MOTIFS, Motif } from "./motifs";
 
 type Props = {
   top: string;
@@ -98,15 +98,14 @@ export function InkStamp({
           <feTurbulence type="turbulence" baseFrequency="0.04" numOctaves="2" result="w" />
           <feDisplacementMap in="worn" in2="w" scale="2.6" />
         </filter>
-        <clipPath id={`p-${id}`}><rect x={0} y={0} width={92} height={92} /></clipPath>
         <path id={`t-${id}`} d={arcTop} />
         <path id={`b-${id}`} d={arcBot} />
       </defs>
       {photo && !ghost && (
-        <g transform={`translate(${W - 92},${-26}) rotate(9)`} style={{ filter: "drop-shadow(0 2px 3px rgba(0,0,0,.35))" }}>
-          <rect x={-6} y={-6} width={104} height={122} fill="#f6efe0" />
-          <image href={photo} x={0} y={0} width={92} height={92} preserveAspectRatio="xMidYMid slice" clipPath={`url(#p-${id})`} />
-          <rect x={30} y={-13} width={34} height={13} fill="#e9d9a8" opacity={0.85} transform="rotate(-4 33 -5)" />
+        <g transform={`translate(${W - 40},${H - 34})`} filter={`url(#ink-${id})`} opacity={0.9} color="currentColor" style={{ color: ink }}>
+          <g transform="translate(-15 -15) scale(0.47)" stroke="currentColor" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" fill="none">
+            {MOTIFS.camera}
+          </g>
         </g>
       )}
       {verified && (

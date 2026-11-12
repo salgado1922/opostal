@@ -298,6 +298,11 @@ function PassaportePage() {
                             {fmt(s.at)}
                           </p>
                         </div>
+                        {s.photo && (
+                          <span className="ml-3 shrink-0 rotate-2 border-4 border-[color:var(--cream)] bg-[color:var(--cream)] shadow-md">
+                            <img src={s.photo} alt={`A tua fotografia em ${st.label}`} className="h-16 w-16 object-cover" />
+                          </span>
+                        )}
                         </button>
                         {isAdmin && (
                           <div className="ml-[92px] mt-1 flex flex-wrap gap-x-4">
