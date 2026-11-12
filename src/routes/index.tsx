@@ -4,8 +4,15 @@ import { InkStamp } from "@/components/passport/InkStamp";
 import { STAMP_STYLE, seeded, stampDate } from "@/components/passport/stamps";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReducedMotion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { CITIES, type CityMeta } from "@/data/cities";
+
+/** Zona livre de cada foto (céu, água) para o carimbo — nunca sobre o monumento. */
+const STAMP_SPOT: Record<string, CSSProperties> = {
+  paris: { top: "20%", left: "5%" },
+  florenca: { top: "2%", left: "30%" },
+  lisboa: { top: "12%", right: "2%" },
+};
 import hubHero from "@/assets/hub-hero.jpg";
 import pragaImg from "@/assets/city-praga.jpg";
 import istambulImg from "@/assets/istambul/home-card.jpg";
@@ -494,7 +501,7 @@ function PostcardFlip({
 
         {/* Carimbo de tinta quando a pessoa já esteve na cidade */}
         {visited && style && (
-          <div className="absolute right-3 top-[34%] mix-blend-screen">
+          <div className="pointer-events-none absolute mix-blend-screen" style={STAMP_SPOT[city.slug] ?? { top: "10%", right: "4%" }}>
             <InkStamp
               top={city.name}
               center={stampDate(myStamps[0].at).split(" ").slice(0, 2).join(" ")}
