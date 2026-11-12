@@ -28,6 +28,15 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/viena", changefreq: "monthly", priority: "0.9" },
           { path: "/lisboa", changefreq: "monthly", priority: "0.9" },
           { path: "/budapeste", changefreq: "monthly", priority: "0.9" },
+          { path: "/carimbos/praga", changefreq: "monthly", priority: "0.6" },
+          { path: "/carimbos/istambul", changefreq: "monthly", priority: "0.6" },
+          { path: "/carimbos/florenca", changefreq: "monthly", priority: "0.6" },
+          { path: "/carimbos/londres", changefreq: "monthly", priority: "0.6" },
+          { path: "/carimbos/paris", changefreq: "monthly", priority: "0.6" },
+          { path: "/carimbos/barcelona", changefreq: "monthly", priority: "0.6" },
+          { path: "/carimbos/viena", changefreq: "monthly", priority: "0.6" },
+          { path: "/carimbos/lisboa", changefreq: "monthly", priority: "0.6" },
+          { path: "/carimbos/budapeste", changefreq: "monthly", priority: "0.6" },
         ];
         for (const slug of await fetchPublishedGuideSlugs()) {
           entries.push({ path: `/guia/${slug}`, changefreq: "monthly", priority: "0.9" });

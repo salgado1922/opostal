@@ -27,6 +27,7 @@ import { Route as RoteiroPersonalizadoRouteImport } from './routes/roteiro-perso
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as VienaRouteImport } from './routes/viena'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as CarimbosCidadeRouteImport } from './routes/carimbos.$cidade'
 import { Route as GuiaSlugRouteImport } from './routes/guia.$slug'
 import { Route as AuthenticatedGuiasIndexRouteImport } from './routes/_authenticated/guias.index'
 import { Route as AuthenticatedGuiasIdRouteImport } from './routes/_authenticated/guias.$id'
@@ -121,6 +122,11 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const CarimbosCidadeRoute = CarimbosCidadeRouteImport.update({
+  id: '/carimbos/$cidade',
+  path: '/carimbos/$cidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuiaSlugRoute = GuiaSlugRouteImport.update({
   id: '/guia/$slug',
   path: '/guia/$slug',
@@ -161,6 +167,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/guia/$slug': typeof GuiaSlugRoute
   '/guias/$id': typeof AuthenticatedGuiasIdRoute
   '/guias/': typeof AuthenticatedGuiasIndexRoute
@@ -184,6 +191,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/guia/$slug': typeof GuiaSlugRoute
   '/guias/$id': typeof AuthenticatedGuiasIdRoute
   '/guias': typeof AuthenticatedGuiasIndexRoute
@@ -209,6 +217,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/guia/$slug': typeof GuiaSlugRoute
   '/_authenticated/guias/$id': typeof AuthenticatedGuiasIdRoute
   '/_authenticated/guias/': typeof AuthenticatedGuiasIndexRoute
@@ -234,6 +243,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/viena'
     | '/admin'
+    | '/carimbos/$cidade'
     | '/guia/$slug'
     | '/guias/$id'
     | '/guias/'
@@ -257,6 +267,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/viena'
     | '/admin'
+    | '/carimbos/$cidade'
     | '/guia/$slug'
     | '/guias/$id'
     | '/guias'
@@ -281,6 +292,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/viena'
     | '/_authenticated/admin'
+    | '/carimbos/$cidade'
     | '/guia/$slug'
     | '/_authenticated/guias/$id'
     | '/_authenticated/guias/'
@@ -305,6 +317,7 @@ export interface RootRouteChildren {
   RoteiroPersonalizadoRoute: typeof RoteiroPersonalizadoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VienaRoute: typeof VienaRoute
+  CarimbosCidadeRoute: typeof CarimbosCidadeRoute
   GuiaSlugRoute: typeof GuiaSlugRoute
   ApiPublicGuideImageSplatRoute: typeof ApiPublicGuideImageSplatRoute
 }
@@ -437,6 +450,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/carimbos/$cidade': {
+      id: '/carimbos/$cidade'
+      path: '/carimbos/$cidade'
+      fullPath: '/carimbos/$cidade'
+      preLoaderRoute: typeof CarimbosCidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guia/$slug': {
       id: '/guia/$slug'
       path: '/guia/$slug'
@@ -501,6 +521,7 @@ const rootRouteChildren: RootRouteChildren = {
   RoteiroPersonalizadoRoute: RoteiroPersonalizadoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VienaRoute: VienaRoute,
+  CarimbosCidadeRoute: CarimbosCidadeRoute,
   GuiaSlugRoute: GuiaSlugRoute,
   ApiPublicGuideImageSplatRoute: ApiPublicGuideImageSplatRoute,
 }
