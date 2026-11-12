@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { X, Download, Share2 } from "lucide-react";
+import { X, Download, Share2, Copy } from "lucide-react";
 import { InkStamp } from "./InkStamp";
 import { STAMP_STYLE, stampDate } from "./stamps";
 import { stampStopFor } from "@/data/stamp-stops";
@@ -9,7 +9,7 @@ import { CITIES } from "@/data/cities";
 type Look = "clear" | "paper" | "night";
 const LOOKS: { id: Look; label: string; hint: string }[] = [
   { id: "clear", label: "Sem fundo", hint: "PNG transparente, para pôr por cima de uma foto" },
-  { id: "paper", label: "Papel", hint: "Página creme de passaporte" },
+  { id: "paper", label: "Com fundo", hint: "Página creme de passaporte" },
   { id: "night", label: "Noite", hint: "Fundo escuro, tinta da cidade" },
 ];
 const W = 1080;
@@ -124,6 +124,7 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
   const [look, setLook] = useState<Look>("clear");
   const [busy, setBusy] = useState(false);
   const [blob, setBlob] = useState<Blob | null>(null);
+  const [copied, setCopied] = useState("");
   const ref = useRef<HTMLDivElement>(null);
   const ink = look === "clear" ? "#f7f0e2" : cssVar(`--stamp-${slug}`, cssVar("--terracotta", "#b5523b"));
 
@@ -138,6 +139,7 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
   // Gera a imagem antes do toque, para a partilha no telemóvel não perder o gesto.
   useEffect(() => {
     setBlob(null);
+    setCopied("");
     let alive = true;
     const t = setTimeout(async () => {
       const svg = ref.current?.querySelector("svg");
@@ -168,6 +170,16 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
       return;
     }
     save();
+  };
+  const canCopy = typeof window !== "undefined" && "ClipboardItem" in window && !!navigator.clipboard?.write;
+  const copy = async () => {
+    if (!blob) return;
+    try {
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+      setCopied("Copiada. Abre a história no Instagram, toca no ecrã e escolhe «Colar».");
+    } catch {
+      setCopied("O teu telemóvel não deixou copiar. Usa «Guardar imagem».");
+    }
   };
   const canShare = typeof navigator !== "undefined" && !!navigator.canShare;
 
@@ -209,6 +221,13 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
             </div>
             <p className="mt-2 text-center text-xs text-cream/55">{LOOKS.find((l) => l.id === look)?.hint}</p>
             <div className="mt-6 flex flex-col gap-3">
+              {canCopy && (
+                <button type="button" disabled={!blob} onClick={copy}
+                  className="inline-flex min-h-[52px] items-center justify-center gap-2 border border-gold bg-gold/10 font-serif text-xl italic text-gold disabled:opacity-50">
+                  <Copy className="h-4 w-4" aria-hidden /> Copiar para colar na história
+                </button>
+              )}
+              {copied && <p role="status" className="text-center text-sm text-gold/90">{copied}</p>}
               {canShare && (
                 <button type="button" disabled={!blob} onClick={share}
                   className="inline-flex min-h-[52px] items-center justify-center gap-2 border border-gold/60 font-serif text-xl italic text-gold disabled:opacity-50">
@@ -221,7 +240,7 @@ export function TripShare({ p, onClose }: { p: Passport; onClose: () => void }) 
               </button>
             </div>
             {look === "clear" && (
-              <p className="mt-4 text-center text-xs text-cream/50">No Instagram, abre uma foto da viagem nas histórias e cola esta imagem por cima.</p>
+              <p className="mt-4 text-center text-xs text-cream/50">Na história do Instagram, põe uma foto da viagem e cola esta imagem por cima.</p>
             )}
           </>
         )}
