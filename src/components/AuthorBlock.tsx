@@ -1,4 +1,5 @@
 import { AUTHOR } from "@/data/author";
+import SmartImage from "@/components/SmartImage";
 
 export function AuthorBlock({ align = "center" }: { align?: "center" | "left" }) {
   const hasPhoto = !!AUTHOR.foto;
@@ -8,7 +9,14 @@ export function AuthorBlock({ align = "center" }: { align?: "center" | "left" })
     <div className={`mt-10 grid items-center gap-8 border-t border-gold/20 pt-10 ${c}`}>
       {hasPhoto && (
         <div className="mx-auto aspect-[4/5] w-40 overflow-hidden border border-gold/30 md:w-full">
-          <img src={AUTHOR.foto} alt={AUTHOR.fotoAlt} loading="lazy" className="h-full w-full object-cover" />
+          <SmartImage
+            src={AUTHOR.foto}
+            alt={AUTHOR.fotoAlt}
+            width={768}
+            height={960}
+            sizes="(max-width: 768px) 160px, 180px"
+            className="h-full w-full object-cover"
+          />
         </div>
       )}
       <div>
