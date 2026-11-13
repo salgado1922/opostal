@@ -162,13 +162,17 @@ export function InkStamp({
               </>
             ) : (
             <>
-            <line x1={cx - 44} x2={cx + 44} y1={cy - 16} y2={cy - 16} strokeWidth={1.4} />
-            <line x1={cx - 44} x2={cx + 44} y1={cy + 22} y2={cy + 22} strokeWidth={1.4} />
-            <text x={cx} y={cy + 13} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-serif)" fontWeight={700} fontSize={center.length > 7 ? 22 : 30} letterSpacing={2}>
-              {center}
-            </text>
+            {center && (
+              <>
+                <line x1={cx - 44} x2={cx + 44} y1={cy - 16} y2={cy - 16} strokeWidth={1.4} />
+                <line x1={cx - 44} x2={cx + 44} y1={cy + 22} y2={cy + 22} strokeWidth={1.4} />
+                <text x={cx} y={cy + 13} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-serif)" fontWeight={700} fontSize={center.length > 7 ? 22 : 30} letterSpacing={2}>
+                  {center}
+                </text>
+              </>
+            )}
             {sub && (
-              <text x={cx} y={cy + (wide ? 36 : 40)} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-sans)" fontWeight={600} fontSize={9} letterSpacing={2}>
+              <text x={cx} y={center ? cy + (wide ? 36 : 40) : cy + 6} textAnchor="middle" fill="currentColor" stroke="none" fontFamily="var(--font-sans)" fontWeight={600} fontSize={9} letterSpacing={2}>
                 {sub.toUpperCase()}
               </text>
             )}

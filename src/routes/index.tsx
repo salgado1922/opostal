@@ -5,7 +5,7 @@ import { STAMP_STYLE, seeded } from "@/components/passport/stamps";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { CITIES, type CityMeta } from "@/data/cities";
+import { CITIES, visitStampLabel, type CityMeta } from "@/data/cities";
 import { AdminLinks } from "@/components/AdminLinks";
 import { AuthorBlock } from "@/components/AuthorBlock";
 
@@ -517,7 +517,7 @@ function PostcardFlip({
           <div className="pointer-events-none absolute mix-blend-screen" style={STAMP_SPOT[city.slug] ?? { top: "10%", right: "4%" }}>
             <InkStamp
               top={city.name}
-              center={city.dataVisita ?? ""}
+              center={visitStampLabel(city.dataVisita)}
               sub={`${myStamps.length} paragens`}
               motif={style.motif}
               ink="var(--cream)"
@@ -542,7 +542,7 @@ function PostcardFlip({
           </div>
           <p className="mt-2 font-serif italic text-cream/85 [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">{city.vibe}</p>
           <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-cream/60">
-            {city.duration}{city.dataVisita ? ` · visitado ${city.dataVisita.toLowerCase().startsWith("v") ? city.dataVisita.toLowerCase() : "em " + city.dataVisita}` : ""} · <span className="text-gold-soft">{ready ? "vira o postal →" : "em breve"}</span>
+            {city.duration} · <span className="text-gold-soft">{ready ? "vira o postal →" : "em breve"}</span>
           </p>
         </div>
       </article>

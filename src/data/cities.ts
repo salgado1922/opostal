@@ -156,3 +156,18 @@ export const CITIES: CityMeta[] = [
     coords: { lng: 19.04, lat: 47.50 },
   },
 ];
+
+/**
+ * Texto do carimbo a partir da data de visita.
+ * - Uma visita: mantém mês e ano ("Jul 2026").
+ * - Mais do que uma visita: só os anos ("2024 & 2025").
+ * - Sem ano ("Várias vezes"): nada.
+ */
+export function visitStampLabel(dataVisita?: string): string {
+  if (!dataVisita) return "";
+  const entries = dataVisita.split("·").map((s) => s.trim()).filter(Boolean);
+  const years = [...new Set(dataVisita.match(/\d{4}/g) ?? [])];
+  if (years.length === 0) return "";
+  if (entries.length > 1 || years.length > 1) return years.join(" & ");
+  return entries[0] ?? dataVisita;
+}
