@@ -1,9 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { suggestCaption } from "@/lib/caption.functions";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CITIES } from "@/data/cities";
 import { STAMP_STOPS, type StampStop } from "@/data/stamp-stops";
-import { type Stamp, compressPhoto, setStampPhoto, addCityPhoto, removeCityPhoto, CITY_PHOTOS_MAX } from "@/lib/passport";
+import { type Stamp, compressPhoto, setStampPhoto, stampWithPhoto, setStampCaption, addCityPhoto, removeCityPhoto, CITY_PHOTOS_MAX } from "@/lib/passport";
 import { usePassport } from "@/hooks/use-passport";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import type { Passport } from "@/lib/passport";
@@ -164,6 +166,56 @@ function PhotoPick({ label, onFile }: { label: string; onFile: (dataUrl: string)
   );
 }
 
+function MemoryCaption({ slug, title, place, city, photo, saved }: { slug: string; title: string; place: string; city: string; photo: string; saved?: string }) {
+  const suggest = useServerFn(suggestCaption);
+  const [text, setText] = useState(saved ?? "");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const [elements, setElements] = useState<string[]>([]);
+  const ask = async () => {
+    setBusy(true); setErr(null);
+    try {
+      const r = await suggest({ data: { image: photo, place, city } });
+      if (r.error) setErr(r.error);
+      else { setText(r.caption); setElements(r.elements); }
+    } catch { setErr("Não foi possível sugerir uma legenda."); }
+    finally { setBusy(false); }
+  };
+  // Primeira vez que a fotografia aparece sem legenda: sugere logo uma.
+  useEffect(() => { if (!saved) void ask(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const dirty = text.trim() !== (saved ?? "");
+  return (
+    <div className="mt-4 text-left">
+      {elements.length > 0 && (
+        <p className="text-[10px] uppercase tracking-[0.2em] opacity-60">Na fotografia · {elements.join(" · ")}</p>
+      )}
+      <label className="sr-only" htmlFor={`cap-${title}`}>Legenda da memória</label>
+      <textarea
+        id={`cap-${title}`}
+        value={busy && !text ? "" : text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder={busy ? "A olhar para a tua fotografia…" : "Escreve uma legenda para esta memória"}
+        rows={2}
+        maxLength={160}
+        className="mt-2 w-full resize-none border-0 border-b bg-transparent py-2 font-serif text-lg italic leading-snug outline-none focus:border-[color:var(--gold)]"
+        style={{ borderColor: "color-mix(in oklab, var(--ink) 30%, transparent)", fontSize: "16px" }}
+      />
+      {err && <p className="mt-1 text-xs" role="alert">{err}</p>}
+      <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
+        <button type="button" onClick={ask} disabled={busy} className="min-h-11 underline decoration-[color:var(--gold)] underline-offset-4 disabled:opacity-50">
+          {busy ? "A sugerir…" : text ? "Outra sugestão" : "Sugerir legenda"}
+        </button>
+        {dirty && text.trim() && (
+          <button type="button" onClick={() => setStampCaption(slug, title, text)} className="min-h-11 font-medium underline decoration-[color:var(--gold)] decoration-2 underline-offset-4">
+            Guardar legenda
+          </button>
+        )}
+        {!dirty && saved && <span className="opacity-60">Legenda guardada</span>}
+      </div>
+    </div>
+  );
+}
+
 export function StampPreview({ open, onClose }: { open: Open | null; onClose: () => void }) {
   const live = usePassport();
   const stamp = open ? (live[open.slug]?.stamps[open.stop.title] ?? open.stamp) : undefined;
@@ -196,7 +248,7 @@ export function StampPreview({ open, onClose }: { open: Open | null; onClose: ()
             <DialogDescription className="font-serif text-base italic" style={{ color: "var(--ink)" }}>
               {city.name} ·{" "}
               {open.stamp
-                ? `${new Date(open.stamp.at).toLocaleString("pt-PT", { day: "2-digit", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })} · ${open.stamp.verified ? "confirmado no local" : "sem confirmação"}`
+                ? `${new Date(open.stamp.at).toLocaleString("pt-PT", { day: "2-digit", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })} · ${open.stamp.via === "photo" ? "confirmado por fotografia" : open.stamp.verified ? "confirmado no local" : "sem confirmação"}`
                 : "por carimbar — abre o modo de rua quando lá estiveres"}
             </DialogDescription>
             {open.stamp?.photo && (
@@ -205,11 +257,34 @@ export function StampPreview({ open, onClose }: { open: Open | null; onClose: ()
             {open.stamp?.photo && (
               <img src={open.stamp.photo} alt={`A tua fotografia em ${open.stop.label}`} className="mx-auto mt-5 w-full max-w-[16rem] rotate-1 border-[8px] border-[color:var(--cream)] shadow-md" />
             )}
+            {open.stamp?.photo && (
+              <MemoryCaption
+                key={`${open.slug}:${open.stop.title}:${open.stamp.photo.length}`}
+                slug={open.slug}
+                title={open.stop.title}
+                place={open.stop.label}
+                city={city.name}
+                photo={open.stamp.photo}
+                saved={open.stamp.caption}
+              />
+            )}
             {open.stamp && (
               <div>
                 <PhotoPick
                   label={open.stamp.photo ? "Trocar fotografia" : "Juntar uma fotografia"}
                   onFile={(d) => setStampPhoto(open!.slug, open!.stop.title, d)}
+                />
+              </div>
+            )}
+            {!open.stamp && (
+              <div className="mt-6 border-t pt-5" style={{ borderColor: "color-mix(in oklab, var(--ink) 20%, transparent)" }}>
+                <p className="font-serif text-lg">Já lá estiveste?</p>
+                <p className="mt-1 text-sm opacity-75">
+                  Junta uma fotografia tua da viagem. A fotografia é a prova — o carimbo fica confirmado.
+                </p>
+                <PhotoPick
+                  label="Carimbar com uma fotografia minha"
+                  onFile={(d) => stampWithPhoto(open!.slug, open!.stop.title, d)}
                 />
               </div>
             )}

@@ -295,8 +295,9 @@ function PassaportePage() {
                         <div className="min-w-0">
                           <p className="font-serif text-lg leading-snug">{st.label}</p>
                           <p className="text-xs text-cream/60">
-                            {fmt(s.at)}
+                            {fmt(s.at)}{s.via === "photo" ? " · confirmado por fotografia" : ""}
                           </p>
+                          {s.caption && <p className="mt-0.5 font-serif text-sm italic text-cream/75">{s.caption}</p>}
                         </div>
                         {s.photo && (
                           <span className="ml-3 shrink-0 rotate-2 border-4 border-[color:var(--cream)] bg-[color:var(--cream)] shadow-md">
@@ -336,6 +337,12 @@ function PassaportePage() {
                     <ul className="mt-3 grid grid-cols-3 gap-x-3 gap-y-6 sm:grid-cols-4">
                       {missing.map((st) => (
                         <li key={st.title} className="flex flex-col items-center text-center">
+                          <button
+                            type="button"
+                            onClick={() => setOpenStamp({ slug: ct.slug, stop: st })}
+                            aria-label={`${st.label} — já lá estiveste? Carimbar com fotografia`}
+                            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                          >
                           <InkStamp
                             ghost
                             top={st.label}
@@ -347,6 +354,7 @@ function PassaportePage() {
                             size={96}
                             rotate={-4}
                           />
+                          </button>
                           <p className="mt-1 max-w-[16ch] text-xs leading-snug text-cream/55">{st.label}</p>
                           {isAdmin && (
                             <button

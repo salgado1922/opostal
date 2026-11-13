@@ -3,7 +3,7 @@ import coords from "@/data/stop-coords.json";
 import { STAMP_STOPS } from "@/data/stamp-stops";
 import { supabase } from "@/integrations/supabase/client";
 
-export type Stamp = { at: string; verified: boolean; photo?: string; day?: string };
+export type Stamp = { at: string; verified: boolean; photo?: string; day?: string; via?: "gps" | "photo"; caption?: string };
 export type CityPassport = { name: string; total: number; stamps: Record<string, Stamp>; photos?: string[]; removed?: string[] };
 export type Passport = Record<string, CityPassport>;
 
@@ -260,9 +260,34 @@ export function setStampPhoto(slug: string, title: string, photo: string | undef
   const s = p[slug]?.stamps[title];
   if (!s) return false;
   if (photo) {
+    if (!s.verified) s.via = "photo";
     s.photo = photo;
-    s.verified = true; // com fotografia conta sempre como confirmado no local
-  } else delete s.photo;
+    s.verified = true; // com fotografia conta sempre como confirmado
+  } else { delete s.photo; delete s.caption; }
+  return writePassport(p);
+}
+
+/** "Já lá estive": carimba à distância com uma fotografia da viagem como prova. */
+export function stampWithPhoto(slug: string, title: string, photo: string) {
+  const p = readPassport();
+  const list = STAMP_STOPS[slug];
+  if (!list?.some((s) => s.title === title)) return false;
+  const c = (p[slug] ??= { name: slug, total: list.length, stamps: {} });
+  const prev = c.stamps[title];
+  c.stamps[title] = prev
+    ? { ...prev, photo, verified: true, via: prev.verified && prev.via !== "photo" ? prev.via : "photo" }
+    : { at: new Date().toISOString(), verified: true, photo, via: "photo" };
+  c.removed = (c.removed ?? []).filter((t) => t !== title);
+  return writePassport(p);
+}
+
+/** Legenda da memória (fotografia) de um carimbo. */
+export function setStampCaption(slug: string, title: string, caption: string) {
+  const p = readPassport();
+  const s = p[slug]?.stamps[title];
+  if (!s) return false;
+  const t = caption.trim().slice(0, 160);
+  if (t) s.caption = t; else delete s.caption;
   return writePassport(p);
 }
 
