@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Share2 } from "lucide-react";
 import { SiteFooter } from "@/components/SiteFooter";
+import { SiteNav } from "@/components/SiteNav";
 import { PassportBook, StampPreview, type Open } from "@/components/passport/PassportBook";
 import { InkStamp } from "@/components/passport/InkStamp";
 import { STAMP_STYLE, inkFor, stampDate } from "@/components/passport/stamps";
@@ -118,11 +119,9 @@ function PassaportePage() {
 
   return (
     <main className="min-h-screen bg-background text-cream">
-      <header className="mx-auto max-w-4xl px-5 pb-10 pt-16 md:px-6 md:pt-24">
-        <Link to="/" className="text-[11px] uppercase tracking-[0.3em] text-gold/80 hover:text-gold">
-          O Postal
-        </Link>
-        <h1 className="mt-6 font-serif leading-[0.95]" style={{ fontSize: "clamp(3rem, 12vw, 6.5rem)" }}>
+      <SiteNav />
+      <header className="mx-auto max-w-4xl px-5 pb-10 pt-28 md:px-6 md:pt-36">
+        <h1 className="font-serif text-5xl leading-[0.95] sm:text-7xl md:text-8xl">
           Passaporte
         </h1>
         <p className="mt-4 max-w-xl font-serif text-xl italic text-cream/75">
