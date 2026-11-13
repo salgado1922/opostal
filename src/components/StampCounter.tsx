@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { usePassport } from "@/hooks/use-passport";
 
 type Stats = { total: number; this_month: number; travellers: number };
 
 // Piso de prova social enquanto o tráfego é pequeno.
-// Quando os números reais ultrapassarem o piso, passam a ser mostrados os reais.
+// Os carimbos reais somam-se a esta base, para cada carimbo novo fazer o número subir.
 // Para tirar a simulação: apagar SIM_FLOOR e usar só os números reais.
 const SIM_FLOOR: Stats = { total: 186, this_month: 14, travellers: 32 };
 
@@ -12,17 +13,28 @@ const SIM_FLOOR: Stats = { total: 186, this_month: 14, travellers: 32 };
 export function StampCounter() {
   const [s, setS] = useState<Stats | null>(null);
 
+  const mine = usePassport();
+  const myCount = Object.values(mine).reduce((n, c) => n + Object.keys(c.stamps).length, 0);
+
   useEffect(() => {
-    supabase.rpc("public_stamp_stats").then(({ data }) => {
-      const r = Array.isArray(data) ? data[0] : data;
-      if (!r) return;
-      setS({
-        total: Math.max(Number(r.total), SIM_FLOOR.total),
-        this_month: Math.max(Number(r.this_month), SIM_FLOOR.this_month),
-        travellers: Math.max(Number(r.travellers), SIM_FLOOR.travellers),
+    let alive = true;
+    const load = () =>
+      supabase.rpc("public_stamp_stats").then(({ data }) => {
+        const r = Array.isArray(data) ? data[0] : data;
+        if (!r || !alive) return;
+        setS({
+          total: SIM_FLOOR.total + Number(r.total),
+          this_month: SIM_FLOOR.this_month + Number(r.this_month),
+          travellers: SIM_FLOOR.travellers + Number(r.travellers),
+        });
       });
-    });
-  }, []);
+    // Os carimbos são gravados na conta logo a seguir; espera um instante antes de reler.
+    const t = window.setTimeout(load, myCount ? 1500 : 0);
+    const every = window.setInterval(load, 60_000);
+    const onFocus = () => document.visibilityState === "visible" && load();
+    document.addEventListener("visibilitychange", onFocus);
+    return () => { alive = false; clearTimeout(t); clearInterval(every); document.removeEventListener("visibilitychange", onFocus); };
+  }, [myCount]);
 
   if (!s || s.total < 10) return null;
 
