@@ -2,6 +2,9 @@ import { useId } from "react";
 import type { StampShape } from "./stamps";
 import { MOTIFS, Motif } from "./motifs";
 
+/** Arredonda ao milésimo para que servidor e browser escrevam exatamente o mesmo número. */
+const r3 = (n: number) => Math.round(n * 1000) / 1000;
+
 type Props = {
   top: string;
   bottom?: string;
@@ -63,7 +66,7 @@ export function InkStamp({
     if (shape === "hex") {
       const pts = Array.from({ length: 6 }, (_, i) => {
         const ang = (Math.PI / 3) * i - Math.PI / 2;
-        return `${cx + a * Math.cos(ang)},${cy + b * Math.sin(ang)}`;
+        return `${r3(cx + a * Math.cos(ang))},${r3(cy + b * Math.sin(ang))}`;
       }).join(" ");
       return <polygon points={pts} {...extra} />;
     }
@@ -112,7 +115,7 @@ export function InkStamp({
         <g fill="currentColor" opacity={0.75} filter={`url(#ink-${id})`}>
           {Array.from({ length: 40 }, (_, i) => {
             const a = (Math.PI * 2 * i) / 40;
-            return <circle key={i} cx={cx + (rx + 5) * Math.cos(a)} cy={cy + (ry + 5) * Math.sin(a)} r={1.7} />;
+            return <circle key={i} cx={r3(cx + (rx + 5) * Math.cos(a))} cy={r3(cy + (ry + 5) * Math.sin(a))} r={1.7} />;
           })}
         </g>
       )}

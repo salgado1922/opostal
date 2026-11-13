@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteFooter } from "@/components/SiteFooter";
 import { InkStamp } from "@/components/passport/InkStamp";
+import { CityShareBar } from "@/components/passport/CityShareBar";
 import { STAMP_STYLE, inkFor } from "@/components/passport/stamps";
 import { STAMP_STOPS } from "@/data/stamp-stops";
 import { CITIES } from "@/data/cities";
@@ -83,6 +84,8 @@ function CarimbosPage() {
           ))}
         </ul>
       </section>
+
+      <CityShareBar name={name} count={stops.length} url={`https://opostal.pt/carimbos/${slug}`} />
 
       <section className="mx-auto max-w-4xl border-t border-cream/10 px-5 py-14">
         <h2 className="font-serif text-3xl sm:text-4xl">Como se carimba</h2>
