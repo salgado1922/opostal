@@ -22,6 +22,7 @@ import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-tran
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StampCounter } from "@/components/StampCounter";
+import { StampToasts } from "@/components/StampToasts";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -79,6 +80,7 @@ function Home() {
       <Hero />
       <CityGrid />
       <StampCounter />
+      <StampToasts />
       <HowItWorks />
       <About />
       <SiteFooter />

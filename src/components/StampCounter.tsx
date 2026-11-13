@@ -6,7 +6,7 @@ type Stats = { total: number; this_month: number; travellers: number };
 // Piso de prova social enquanto o tráfego é pequeno.
 // Quando os números reais ultrapassarem o piso, passam a ser mostrados os reais.
 // Para tirar a simulação: apagar SIM_FLOOR e usar só os números reais.
-const SIM_FLOOR: Stats = { total: 347, this_month: 26, travellers: 61 };
+const SIM_FLOOR: Stats = { total: 186, this_month: 14, travellers: 32 };
 
 /** Prova social: carimbos feitos por viajantes (sem contar a conta de admin). */
 export function StampCounter() {
