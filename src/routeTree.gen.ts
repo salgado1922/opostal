@@ -28,6 +28,7 @@ import { Route as RoteiroPersonalizadoRouteImport } from './routes/roteiro-perso
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as VienaRouteImport } from './routes/viena'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedPassaportesRouteImport } from './routes/_authenticated/passaportes'
 import { Route as CarimbosCidadeRouteImport } from './routes/carimbos.$cidade'
 import { Route as GuiaSlugRouteImport } from './routes/guia.$slug'
 import { Route as OndeFicarCidadeRouteImport } from './routes/onde-ficar.$cidade'
@@ -129,6 +130,12 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPassaportesRoute =
+  AuthenticatedPassaportesRouteImport.update({
+    id: '/passaportes',
+    path: '/passaportes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const CarimbosCidadeRoute = CarimbosCidadeRouteImport.update({
   id: '/carimbos/$cidade',
   path: '/carimbos/$cidade',
@@ -180,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/guia/$slug': typeof GuiaSlugRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
@@ -206,6 +214,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/guia/$slug': typeof GuiaSlugRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
@@ -234,6 +243,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/viena': typeof VienaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/guia/$slug': typeof GuiaSlugRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
@@ -262,6 +272,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/viena'
     | '/admin'
+    | '/passaportes'
     | '/carimbos/$cidade'
     | '/guia/$slug'
     | '/onde-ficar/$cidade'
@@ -288,6 +299,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/viena'
     | '/admin'
+    | '/passaportes'
     | '/carimbos/$cidade'
     | '/guia/$slug'
     | '/onde-ficar/$cidade'
@@ -315,6 +327,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/viena'
     | '/_authenticated/admin'
+    | '/_authenticated/passaportes'
     | '/carimbos/$cidade'
     | '/guia/$slug'
     | '/onde-ficar/$cidade'
@@ -483,6 +496,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/passaportes': {
+      id: '/_authenticated/passaportes'
+      path: '/passaportes'
+      fullPath: '/passaportes'
+      preLoaderRoute: typeof AuthenticatedPassaportesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/carimbos/$cidade': {
       id: '/carimbos/$cidade'
       path: '/carimbos/$cidade'
@@ -530,12 +550,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedPassaportesRoute: typeof AuthenticatedPassaportesRoute
   AuthenticatedGuiasIdRoute: typeof AuthenticatedGuiasIdRoute
   AuthenticatedGuiasIndexRoute: typeof AuthenticatedGuiasIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedPassaportesRoute: AuthenticatedPassaportesRoute,
   AuthenticatedGuiasIdRoute: AuthenticatedGuiasIdRoute,
   AuthenticatedGuiasIndexRoute: AuthenticatedGuiasIndexRoute,
 }
