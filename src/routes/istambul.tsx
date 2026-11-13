@@ -1,3 +1,4 @@
+import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -119,6 +120,7 @@ export const Route = createFileRoute("/istambul")({
       heroPreloadLink(HERO_IMG),
     ],
     scripts: [
+      cityBreadcrumbScript("istambul"),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -131,6 +133,8 @@ export const Route = createFileRoute("/istambul")({
           description:
             "O que visitar em Istambul em 5 dias: Sultanahmet, Topkapi, Bósforo, Ilha dos Príncipes e Beyoğlu.",
           author: { "@type": "Person", name: "O Postal" },
+          datePublished: GUIDE_PUBLISHED.istambul,
+          dateModified: PAGE_LASTMOD["/istambul"],
         }),
       },
     ],

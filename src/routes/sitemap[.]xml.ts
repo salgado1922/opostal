@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { lastmodFor } from "@/data/page-dates";
 
 const BASE_URL = "https://opostal.pt";
 
@@ -43,7 +44,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           [
             `  <url>`,
             `    <loc>${BASE_URL}${e.path}</loc>`,
-            e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
+            (e.lastmod ?? lastmodFor(e.path)) ? `    <lastmod>${e.lastmod ?? lastmodFor(e.path)}</lastmod>` : null,
             e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
             e.priority ? `    <priority>${e.priority}</priority>` : null,
             `  </url>`,

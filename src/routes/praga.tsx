@@ -1,3 +1,4 @@
+import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -98,6 +99,7 @@ export const Route = createFileRoute("/praga")({
       heroPreloadLink(HERO_IMG),
     ],
     scripts: [
+      cityBreadcrumbScript("praga"),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -110,6 +112,8 @@ export const Route = createFileRoute("/praga")({
           description:
             "O que visitar em Praga em 4 dias, a pé e sem turistadas: cidade velha, castelo, Kutná Hora e Vyšehrad. Dicas, comida e o que reservar.",
           author: { "@type": "Person", name: "O Postal" },
+          datePublished: GUIDE_PUBLISHED.praga,
+          dateModified: PAGE_LASTMOD["/praga"],
         }),
       },
     ],

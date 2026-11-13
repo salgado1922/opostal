@@ -17,7 +17,7 @@ export const Route = createFileRoute("/carimbos/$cidade")({
   head: ({ loaderData, params }) => {
     const name = loaderData?.name ?? "Cidade";
     const n = loaderData?.stops.length ?? 0;
-    const title = `Carimbos de ${name} — passaporte O Postal`;
+    const title = `Carimbos de ${name} | O Postal`;
     const desc = `${n} carimbos para colecionar em ${name}, um por cada atração principal do guia gratuito d'O Postal. Visita, carimba no local e guarda a memória.`;
     const url = `https://opostal.pt/carimbos/${params.cidade}`;
     return {

@@ -1,3 +1,4 @@
+import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -69,7 +70,7 @@ export const Route = createFileRoute("/budapeste")({
       {
         name: "description",
         content:
-          "O que visitar em Budapeste em 3 dias, ao teu ritmo: Parlamento, Castelo de Buda, Bastião dos Pescadores, termas Széchenyi e o bairro judaico. Dicas, comida e o que reservar.",
+          "O que visitar em Budapeste em 3 dias: Parlamento, Castelo de Buda, Bastião dos Pescadores, termas Széchenyi e bairro judaico. Dicas, comida e o que reservar.",
       },
       { property: "og:title", content: "O que visitar em Budapeste: roteiro de 3 dias | O Postal" },
       {
@@ -94,6 +95,7 @@ export const Route = createFileRoute("/budapeste")({
       heroPreloadLink(HERO_IMG),
     ],
     scripts: [
+      cityBreadcrumbScript("budapeste"),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -106,6 +108,8 @@ export const Route = createFileRoute("/budapeste")({
           description:
             "O que visitar em Budapeste em 3 dias, ao teu ritmo: Parlamento, Castelo de Buda, Bastião dos Pescadores, termas Széchenyi e o bairro judaico.",
           author: { "@type": "Person", name: "O Postal" },
+          datePublished: GUIDE_PUBLISHED.budapeste,
+          dateModified: PAGE_LASTMOD["/budapeste"],
         }),
       },
     ],

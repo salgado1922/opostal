@@ -1,3 +1,4 @@
+import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -92,6 +93,7 @@ export const Route = createFileRoute("/paris")({
       heroPreloadLink(HERO_IMG),
     ],
     scripts: [
+      cityBreadcrumbScript("paris"),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -104,6 +106,8 @@ export const Route = createFileRoute("/paris")({
           description:
             "Roteiro de 3 dias em Paris com dia extra em Versalhes: Torre Eiffel, Louvre, Notre-Dame, Montmartre, joias escondidas e onde comer.",
           author: { "@type": "Person", name: "O Postal" },
+          datePublished: GUIDE_PUBLISHED.paris,
+          dateModified: PAGE_LASTMOD["/paris"],
         }),
       },
     ],

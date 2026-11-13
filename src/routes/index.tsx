@@ -26,7 +26,7 @@ import { StampToasts } from "@/components/StampToasts";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "O Postal: roteiros de viagem gratuitos" },
+      { title: "O Postal | Roteiros de viagem gratuitos em português" },
       {
         name: "description",
         content:
@@ -59,7 +59,13 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
-            { "@type": "Organization", name: "O Postal", url: "https://opostal.pt/" },
+            {
+              "@type": "Organization",
+              name: "O Postal",
+              url: "https://opostal.pt/",
+              logo: "https://opostal.pt/web-app-manifest-512x512.png",
+              sameAs: ["https://www.tiktok.com/@opostal.pt", "https://www.youtube.com/@opostalpt"],
+            },
             { "@type": "WebSite", name: "O Postal", url: "https://opostal.pt/" },
           ],
         }),

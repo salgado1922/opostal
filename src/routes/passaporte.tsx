@@ -31,7 +31,7 @@ import {
   type Passport,
 } from "@/lib/passport";
 
-const TITLE = "O meu passaporte - O Postal";
+const TITLE = "O meu passaporte | O Postal";
 const DESC =
   "Os carimbos das paragens que visitaste com os guias d'O Postal, com data, hora, fotografia e distinções.";
 

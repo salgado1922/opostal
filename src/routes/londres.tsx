@@ -1,3 +1,4 @@
+import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -95,6 +96,7 @@ export const Route = createFileRoute("/londres")({
       heroPreloadLink(HERO_IMG),
     ],
     scripts: [
+      cityBreadcrumbScript("londres"),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -107,6 +109,8 @@ export const Route = createFileRoute("/londres")({
           description:
             "O que visitar em Londres em 3 dias sem pressa, quase tudo a pé, com um dia extra opcional para Madame Tussauds e os Warner Bros. Studios de Harry Potter.",
           author: { "@type": "Person", name: "O Postal" },
+          datePublished: GUIDE_PUBLISHED.londres,
+          dateModified: PAGE_LASTMOD["/londres"],
         }),
       },
     ],

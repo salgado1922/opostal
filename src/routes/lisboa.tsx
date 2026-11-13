@@ -1,3 +1,4 @@
+import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -90,6 +91,7 @@ export const Route = createFileRoute("/lisboa")({
       heroPreloadLink(HERO_IMG),
     ],
     scripts: [
+      cityBreadcrumbScript("lisboa"),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -102,6 +104,8 @@ export const Route = createFileRoute("/lisboa")({
           description:
             "O que visitar em Lisboa em 3 dias, ao teu ritmo: Baixa, Alfama e o Tram 28, Castelo de São Jorge, Belém e um extra opcional a Sintra ou Cascais.",
           author: { "@type": "Person", name: "O Postal" },
+          datePublished: GUIDE_PUBLISHED.lisboa,
+          dateModified: PAGE_LASTMOD["/lisboa"],
         }),
       },
     ],

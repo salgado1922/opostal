@@ -6,7 +6,7 @@ const LINKS = [
   { href: "/#cidades", label: "Roteiros gratuitos" },
   { href: "/roteiro-personalizado", label: "Roteiro personalizado" },
   { href: "/#como-funciona", label: "Como funciona" },
-  { href: "/#sobre", label: "Sobre" },
+  { href: "/abordagem", label: "Sobre" },
   { href: "/passaporte", label: "Passaporte" },
   { href: "mailto:contacto@opostal.pt", label: "Contacto" },
 ];
@@ -87,6 +87,11 @@ export function SiteFooter({
             </li>
           ))}
         </ul>
+        <nav aria-label="Onde ficar" className="flex flex-wrap items-baseline justify-center gap-x-5 gap-y-2 sm:justify-start">
+          <span className="text-[11px] uppercase tracking-[0.22em] text-gold/70">Onde ficar</span>
+          <a href="/onde-ficar/lisboa" className="text-[11px] uppercase tracking-[0.22em] text-cream/65 transition-colors hover:text-gold">Lisboa</a>
+          <a href="/onde-ficar/praga" className="text-[11px] uppercase tracking-[0.22em] text-cream/65 transition-colors hover:text-gold">Praga</a>
+        </nav>
         <p className="text-[11px] text-cream/40 leading-relaxed">
           Alguns dos links de reserva são afiliados. Só recomendo o que faz sentido para a viagem.
         </p>

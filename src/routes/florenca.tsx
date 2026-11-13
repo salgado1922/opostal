@@ -1,3 +1,4 @@
+import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -66,7 +67,7 @@ export const Route = createFileRoute("/florenca")({
       {
         name: "description",
         content:
-          "O que visitar em Florença em 3 dias, ao teu ritmo: Duomo, Uffizi, Accademia, Ponte Vecchio, Oltrarno e Piazzale Michelangelo. Dicas, comida e o que reservar.",
+          "O que visitar em Florença em 3 dias: Duomo, Uffizi, Accademia, Ponte Vecchio, Oltrarno e Piazzale Michelangelo. Dicas, comida e o que reservar.",
       },
       { property: "og:title", content: "O que visitar em Florença: roteiro de 3 dias | O Postal" },
       {
@@ -90,6 +91,7 @@ export const Route = createFileRoute("/florenca")({
       heroPreloadLink(HERO_IMG),
     ],
     scripts: [
+      cityBreadcrumbScript("florenca"),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -102,6 +104,8 @@ export const Route = createFileRoute("/florenca")({
           description:
             "O que visitar em Florença em 3 dias, ao teu ritmo: Duomo, Uffizi, Accademia, Ponte Vecchio, Oltrarno e Piazzale Michelangelo.",
           author: { "@type": "Person", name: "O Postal" },
+          datePublished: GUIDE_PUBLISHED.florenca,
+          dateModified: PAGE_LASTMOD["/florenca"],
         }),
       },
     ],

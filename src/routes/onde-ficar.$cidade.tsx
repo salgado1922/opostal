@@ -11,11 +11,11 @@ export const Route = createFileRoute("/onde-ficar/$cidade")({
     return a;
   },
   head: ({ loaderData: a }) => {
-    if (!a) return { meta: [{ title: "Página indisponível · O Postal" }, { name: "robots", content: "noindex" }] };
+    if (!a) return { meta: [{ title: "Página indisponível | O Postal" }, { name: "robots", content: "noindex" }] };
     const url = `https://opostal.pt/onde-ficar/${a.slug}`;
     return {
       meta: [
-        { title: `${a.title} · O Postal` },
+        { title: `${a.title} | O Postal` },
         { name: "description", content: a.description },
         { property: "og:title", content: a.title },
         { property: "og:description", content: a.description },

@@ -11,12 +11,12 @@ import { DashedDivider } from "@/components/postal/DashedDivider";
 export const Route = createFileRoute("/abordagem")({
   head: () => ({
     meta: [
-      { title: "A nossa abordagem - O Postal" },
+      { title: "A nossa abordagem | O Postal" },
       {
         name: "description",
         content: "Como fazemos os guias d'O Postal, e porque é que os fazemos assim.",
       },
-      { property: "og:title", content: "A nossa abordagem - O Postal" },
+      { property: "og:title", content: "A nossa abordagem | O Postal" },
       {
         property: "og:description",
         content: "Como fazemos os guias d'O Postal, e porque é que os fazemos assim.",
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/abordagem")({
       { property: "og:url", content: "https://opostal.pt/abordagem" },
       { property: "og:image", content: "https://opostal.pt/og-default.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "A nossa abordagem - O Postal" },
+      { name: "twitter:title", content: "A nossa abordagem | O Postal" },
       {
         name: "twitter:description",
         content: "Como fazemos os guias d'O Postal, e porque é que os fazemos assim.",

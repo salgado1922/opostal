@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SplatRouteImport } from './routes/$'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AbordagemRouteImport } from './routes/abordagem'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -34,6 +35,11 @@ import { Route as OndeFicarCidadeRouteImport } from './routes/onde-ficar.$cidade
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SplatRoute = SplatRouteImport.update({
+  id: '/$',
+  path: '/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -139,6 +145,7 @@ const OndeFicarCidadeRoute = OndeFicarCidadeRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/abordagem': typeof AbordagemRoute
   '/auth': typeof AuthRoute
   '/barcelona': typeof BarcelonaRoute
@@ -161,6 +168,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/abordagem': typeof AbordagemRoute
   '/auth': typeof AuthRoute
   '/barcelona': typeof BarcelonaRoute
@@ -185,6 +193,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/$': typeof SplatRoute
   '/abordagem': typeof AbordagemRoute
   '/auth': typeof AuthRoute
   '/barcelona': typeof BarcelonaRoute
@@ -209,6 +218,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$'
     | '/abordagem'
     | '/auth'
     | '/barcelona'
@@ -231,6 +241,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/$'
     | '/abordagem'
     | '/auth'
     | '/barcelona'
@@ -254,6 +265,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/$'
     | '/abordagem'
     | '/auth'
     | '/barcelona'
@@ -278,6 +290,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  SplatRoute: typeof SplatRoute
   AbordagemRoute: typeof AbordagemRoute
   AuthRoute: typeof AuthRoute
   BarcelonaRoute: typeof BarcelonaRoute
@@ -304,6 +317,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -465,6 +485,7 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  SplatRoute: SplatRoute,
   AbordagemRoute: AbordagemRoute,
   AuthRoute: AuthRoute,
   BarcelonaRoute: BarcelonaRoute,

@@ -1,3 +1,4 @@
+import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -65,7 +66,7 @@ export const Route = createFileRoute("/barcelona")({
       {
         name: "description",
         content:
-          "O que visitar em Barcelona em 3 dias: Sagrada Família, Passeig de Gràcia, Park Güell, Barri Gòtic, La Boqueria, Montjuïc e Barceloneta. Dicas, comida e o que reservar.",
+          "O que visitar em Barcelona em 3 dias: Sagrada Família, Park Güell, Barri Gòtic, La Boqueria, Montjuïc e Barceloneta. Dicas, comida e o que reservar.",
       },
       { property: "og:title", content: "O que visitar em Barcelona: roteiro de 3 dias | O Postal" },
       {
@@ -89,6 +90,7 @@ export const Route = createFileRoute("/barcelona")({
       heroPreloadLink(HERO_IMG),
     ],
     scripts: [
+      cityBreadcrumbScript("barcelona"),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -101,6 +103,8 @@ export const Route = createFileRoute("/barcelona")({
           description:
             "O que visitar em Barcelona em 3 dias: Sagrada Família, Passeig de Gràcia, Park Güell, Barri Gòtic, La Boqueria, Montjuïc e Barceloneta.",
           author: { "@type": "Person", name: "O Postal" },
+          datePublished: GUIDE_PUBLISHED.barcelona,
+          dateModified: PAGE_LASTMOD["/barcelona"],
         }),
       },
     ],
