@@ -52,8 +52,8 @@ export function RequestEditor({ request: r, onSaved }: { request: ItineraryReque
     <div className="min-w-0 space-y-5">
       <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">{fields.filter(([, value]) => value).map(([label, value]) => <div key={label}><dt className="text-xs text-muted-foreground">{label}</dt><dd className="whitespace-pre-wrap break-words text-sm">{value}</dd></div>)}</dl>
       <label className="block text-sm">Estado<select aria-label="Estado do pedido" className="mt-2 h-11 w-full border border-input bg-background px-3" value={status} onChange={e => setStatus(e.target.value as typeof status)}>{Object.entries(REQUEST_STATES).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
-      <label className="block text-sm">Entrega prevista<Input className="mt-2 h-11" type="date" value={date} onChange={e => setDate(e.target.value)} /></label>
-      <label className="block text-sm">Notas privadas<Textarea className="mt-2" value={notes} maxLength={10000} onChange={e => setNotes(e.target.value)} /></label>
+      <label className="block text-sm">Entrega prevista<Input aria-label="Entrega prevista" className="mt-2 h-11" type="date" value={date} onChange={e => setDate(e.target.value)} /></label>
+      <label className="block text-sm">Notas privadas<Textarea aria-label="Notas privadas" className="mt-2" value={notes} maxLength={10000} onChange={e => setNotes(e.target.value)} /></label>
       <Button variant="outline" asChild><a href={`mailto:${r.email}?subject=${encodeURIComponent(`O teu roteiro — ${r.destino}`)}`}><Mail />Responder por email</a></Button>
     </div>
     <div className="min-w-0 space-y-4">
