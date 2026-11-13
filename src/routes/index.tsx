@@ -6,6 +6,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { CITIES, type CityMeta } from "@/data/cities";
+import { AdminLinks } from "@/components/AdminLinks";
 import { AuthorBlock } from "@/components/AuthorBlock";
 
 /** Zona livre de cada foto (céu, água) para o carimbo — nunca sobre o monumento. */
@@ -90,6 +91,7 @@ function Home() {
       <HowItWorks />
       <About />
       <SiteFooter />
+      <AdminLinks floating />
     </main>
   );
 }

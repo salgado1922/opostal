@@ -1,3 +1,4 @@
+import { AdminLinks } from "@/components/AdminLinks";
 import { Youtube } from "lucide-react";
 import { ContactDialog } from "@/components/ContactDialog";
 
@@ -92,6 +93,7 @@ export function SiteFooter({
           <a href="/onde-ficar/lisboa" className="text-[11px] uppercase tracking-[0.22em] text-cream/65 transition-colors hover:text-gold">Lisboa</a>
           <a href="/onde-ficar/praga" className="text-[11px] uppercase tracking-[0.22em] text-cream/65 transition-colors hover:text-gold">Praga</a>
         </nav>
+        <AdminLinks />
         <p className="text-[11px] text-cream/40 leading-relaxed">
           Alguns dos links de reserva são afiliados. Só recomendamos o que faz sentido para a viagem.
         </p>

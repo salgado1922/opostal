@@ -1,0 +1,1 @@
+- Affiliate URL overrides live in the affiliate_links table (edited at /afiliados) and are swapped into matching fallback hrefs at click time; why: keeps SSR HTML stable while letting the admin change links without code.

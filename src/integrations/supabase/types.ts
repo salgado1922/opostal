@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      affiliate_links: {
+        Row: {
+          id: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          id: string
+          updated_at?: string
+          url?: string
+        }
+        Update: {
+          id?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
       guide_access: {
         Row: {
           granted_at: string
