@@ -1,8 +1,3 @@
-import pragaImg from "@/assets/city-praga.jpg";
-import istambulImg from "@/assets/istambul/home-card.jpg";
-import florencaImg from "@/assets/city-florenca.jpg";
-import barcelonaImg from "@/assets/city-barcelona.jpg";
-import londresImg from "@/assets/city-londres.jpg";
 
 export type CityStatus = "ready" | "coming-soon";
 
@@ -33,7 +28,7 @@ export const CITIES: CityMeta[] = [
     vibe: "Hora dourada sobre o Vltava, sem turistadas.",
     duration: "4 dias",
     status: "ready",
-    cover: pragaImg,
+    cover: "/img/cities/praga-card-1024.jpg",
     to: "/praga",
     bestSeason: "Mai–Set",
     price: "€€",
@@ -48,7 +43,7 @@ export const CITIES: CityMeta[] = [
     vibe: "Entre dois continentes, do azul do Bósforo ao azulejo de İznik.",
     duration: "5 dias",
     status: "ready",
-    cover: istambulImg,
+    cover: "/img/cities/istambul-card-1024.jpg",
     to: "/istambul",
     bestSeason: "Abr–Jun / Set",
     price: "€€",
@@ -63,7 +58,7 @@ export const CITIES: CityMeta[] = [
     vibe: "Berço do Renascimento, museu a céu aberto.",
     duration: "3 dias",
     status: "ready",
-    cover: florencaImg,
+    cover: "/img/cities/florenca-card-1024.jpg",
     to: "/florenca",
     bestSeason: "Abr–Jun / Set",
     price: "€€€",
@@ -78,7 +73,7 @@ export const CITIES: CityMeta[] = [
     vibe: "Museus, parques e mercados, a pé e sem pressa.",
     duration: "3 dias + extra",
     status: "ready",
-    cover: londresImg,
+    cover: "/img/cities/londres-card-1024.jpg",
     to: "/londres",
     bestSeason: "Mai–Set",
     price: "€€€",
@@ -93,8 +88,7 @@ export const CITIES: CityMeta[] = [
     vibe: "A Cidade Luz em 3 dias, mais uma tarde de realeza em Versalhes.",
     duration: "3 dias + extra",
     status: "ready",
-    cover:
-      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1400&q=80",
+    cover: "/img/cities/paris-card-1024.jpg",
     to: "/paris",
     bestSeason: "Abr–Jun / Set–Out",
     price: "€€€",
@@ -109,7 +103,7 @@ export const CITIES: CityMeta[] = [
     vibe: "Gaudí, mar e tapas até tarde.",
     duration: "3 dias",
     status: "ready",
-    cover: barcelonaImg,
+    cover: "/img/cities/barcelona-card-1024.jpg",
     to: "/barcelona",
     bestSeason: "Mai–Jun / Set",
     price: "€€",
@@ -124,8 +118,7 @@ export const CITIES: CityMeta[] = [
     vibe: "Palácios imperiais, café e valsa.",
     duration: "3 dias",
     status: "ready",
-    cover:
-      "https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=1400&q=80",
+    cover: "/img/cities/viena-card-1024.jpg",
     to: "/viena",
     bestSeason: "Abr–Jun / Set",
     price: "€€€",
@@ -140,8 +133,7 @@ export const CITIES: CityMeta[] = [
     vibe: "Luz, miradouros e fado à esquina.",
     duration: "3 dias",
     status: "ready",
-    cover:
-      "https://images.unsplash.com/photo-1589622192346-947fd6825486?auto=format&fit=crop&w=1400&q=80",
+    cover: "/img/cities/lisboa-card-1024.jpg",
     to: "/lisboa",
     bestSeason: "Mar–Jun / Set–Out",
     price: "€€",
@@ -156,8 +148,7 @@ export const CITIES: CityMeta[] = [
     vibe: "Termas, Danúbio e ruínas com vida.",
     duration: "3 dias",
     status: "ready",
-    cover:
-      "https://images.unsplash.com/photo-1761393882613-c09ad7ca9a87?auto=format&fit=crop&w=1400&q=80",
+    cover: "/img/cities/budapeste-card-1024.jpg",
     to: "/budapeste",
     bestSeason: "Abr–Jun / Set",
     price: "€€",

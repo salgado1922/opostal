@@ -80,11 +80,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
-const SHARE_IMG =
-  "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&h=630&q=80";
+const SHARE_IMG = "https://opostal.pt/img/og/istambul.jpg";
 
-const HERO_IMG =
-  "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=2400&q=80";
+const HERO_IMG = "/img/cities/istambul-hero-1920.jpg";
 
 export const Route = createFileRoute("/istambul")({
   head: () => ({

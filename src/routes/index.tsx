@@ -474,7 +474,8 @@ function PostcardFlip({
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
           src={city.cover}
           alt={city.name}
-          loading="lazy"
+          loading="eager"
+          fetchPriority="low"
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ filter: ready ? undefined : "grayscale(1) brightness(.7)" }}

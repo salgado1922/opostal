@@ -56,11 +56,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
-const HERO_IMG =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg/1920px-Tour_Eiffel_Wikimedia_Commons.jpg";
+const HERO_IMG = "/img/cities/paris-hero-1920.jpg";
 
-const SHARE_IMG =
-  "https://commons.wikimedia.org/wiki/Special:FilePath/Tour_Eiffel_Wikimedia_Commons.jpg?width=1200";
+const SHARE_IMG = "https://opostal.pt/img/og/paris.jpg";
 
 export const Route = createFileRoute("/paris")({
   head: () => ({

@@ -1,3 +1,4 @@
+import { SmartImage } from "@/components/SmartImage";
 import { Link } from "@tanstack/react-router";
 import { CITIES } from "@/data/cities";
 
@@ -17,7 +18,7 @@ export function NotFoundPage() {
             <li key={c.slug}>
               <a href={c.to ?? `/${c.slug}`} className="group block">
                 <div className="aspect-[4/3] overflow-hidden rounded-[2px] border border-gold/15">
-                  <img src={c.cover} alt={c.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <SmartImage src={c.cover} alt={c.name} sizes="(max-width: 640px) 50vw, 300px" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <p className="mt-2 font-serif text-lg text-cream group-hover:text-gold">{c.name}</p>
                 <p className="text-[11px] uppercase tracking-[0.2em] text-cream/50">{c.country}</p>

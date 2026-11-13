@@ -59,11 +59,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
-const SHARE_IMG =
-  "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1200&h=630&q=80";
+const SHARE_IMG = "https://opostal.pt/img/og/praga.jpg";
 
-const HERO_IMG =
-  "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=2400&q=80";
+const HERO_IMG = "/img/cities/praga-hero-1920.jpg";
 
 export const Route = createFileRoute("/praga")({
   head: () => ({

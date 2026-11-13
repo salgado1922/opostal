@@ -58,11 +58,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
-const SHARE_IMG =
-  "https://commons.wikimedia.org/wiki/Special:FilePath/20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg?width=1200";
+const SHARE_IMG = "https://opostal.pt/img/og/budapeste.jpg";
 
-const HERO_IMG =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg/1920px-20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg";
+const HERO_IMG = "/img/cities/budapeste-hero-1920.jpg";
 
 export const Route = createFileRoute("/budapeste")({
   head: () => ({

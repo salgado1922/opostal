@@ -60,11 +60,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
-const SHARE_IMG =
-  "https://commons.wikimedia.org/wiki/Special:FilePath/Westminster_Bridge_with_shadows_and_Big_Ben.jpg?width=1200";
+const SHARE_IMG = "https://opostal.pt/img/og/londres.jpg";
 
-const HERO_IMG =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Westminster_Bridge_with_shadows_and_Big_Ben.jpg/1920px-Westminster_Bridge_with_shadows_and_Big_Ben.jpg";
+const HERO_IMG = "/img/cities/londres-hero-1920.jpg";
 
 export const Route = createFileRoute("/londres")({
   head: () => ({

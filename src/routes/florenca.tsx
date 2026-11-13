@@ -55,11 +55,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
-const SHARE_IMG =
-  "https://commons.wikimedia.org/wiki/Special:FilePath/Florence_skyline_at_dusk_%283867485023%29.jpg?width=1200";
+const SHARE_IMG = "https://opostal.pt/img/og/florenca.jpg";
 
-const HERO_IMG =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Florence_skyline_at_dusk_%283867485023%29.jpg/1280px-Florence_skyline_at_dusk_%283867485023%29.jpg";
+const HERO_IMG = "/img/cities/florenca-hero-1280.jpg";
 
 export const Route = createFileRoute("/florenca")({
   head: () => ({

@@ -54,11 +54,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
-const HERO_IMG =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Sagrada_Familia_01.jpg/1920px-Sagrada_Familia_01.jpg";
+const HERO_IMG = "/img/cities/barcelona-hero-1920.jpg";
 
-const SHARE_IMG =
-  "https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_01.jpg?width=1200";
+const SHARE_IMG = "https://opostal.pt/img/og/barcelona.jpg";
 
 export const Route = createFileRoute("/barcelona")({
   head: () => ({

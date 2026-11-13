@@ -61,7 +61,20 @@ function withWidth(src: string, host: Host, w: number): string {
   return src;
 }
 
+/**
+ * Local city images live in /public/img/cities as `<slug>-<kind>-<w>.jpg`,
+ * pre-resized to the ladder below (the width in the name is the largest one).
+ */
+const LOCAL_WIDTHS = [480, 768, 1024, 1600, 1920] as const;
+const LOCAL_RE = /^(\/img\/cities\/[a-z0-9-]+)-(\d+)\.jpg$/;
+
 export function buildSrcSet(src: string): { srcSet?: string; src: string } {
+  const local = src.match(LOCAL_RE);
+  if (local) {
+    const max = parseInt(local[2], 10);
+    const list = [...LOCAL_WIDTHS.filter((w) => w < max), max];
+    return { srcSet: list.map((w) => `${local[1]}-${w}.jpg ${w}w`).join(", "), src };
+  }
   const host = classify(src);
   if (host === "other") return { src };
   const current = currentRequestedWidth(src, host) ?? 1600;

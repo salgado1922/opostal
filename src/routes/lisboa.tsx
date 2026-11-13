@@ -53,11 +53,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
-const HERO_IMG =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Lisboa%2C_Miradouro_das_Portas_do_Sol%2C_vista.jpg/1920px-Lisboa%2C_Miradouro_das_Portas_do_Sol%2C_vista.jpg";
+const HERO_IMG = "/img/cities/lisboa-hero-1920.jpg";
 
-const SHARE_IMG =
-  "https://commons.wikimedia.org/wiki/Special:FilePath/Lisboa%2C_Miradouro_das_Portas_do_Sol%2C_vista.jpg?width=1200";
+const SHARE_IMG = "https://opostal.pt/img/og/lisboa.jpg";
 
 export const Route = createFileRoute("/lisboa")({
   head: () => ({

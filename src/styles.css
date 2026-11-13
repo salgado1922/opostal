@@ -207,15 +207,27 @@ html { scroll-behavior: smooth; }
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
   transition: transform .85s cubic-bezier(.2, .8, .2, 1);
-  will-change: transform;
 }
 
 .postcard-face {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
+  /* Flat face: Safari ignores backface-visibility on children of a nested
+     preserve-3d context, and drops lazy images painted inside it. */
+  transform-style: flat;
+  -webkit-transform-style: flat;
   isolation: isolate;
+}
+
+/* Safety net for WebKit/iOS: hide the face that points away halfway through
+   the turn, so a missed backface-visibility never shows a mirrored side. */
+.postcard-flip .postcard-face { transition: visibility 0s linear .42s; }
+.postcard-flip[aria-pressed="false"] .postcard-back,
+.postcard-flip[aria-pressed="true"] .postcard-front { visibility: hidden; }
+
+.postcard-face img {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .postcard-front {

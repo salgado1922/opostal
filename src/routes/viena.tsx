@@ -56,11 +56,9 @@ import {
 } from "@/components/CustomItineraryCTA";
 import { OutrosPostais } from "@/components/OutrosPostais";
 
-const SHARE_IMG =
-  "https://commons.wikimedia.org/wiki/Special:FilePath/20180109%20Vienna%20State%20Opera%20at%20blue%20hour%20850%209387.jpg?width=1200";
+const SHARE_IMG = "https://opostal.pt/img/og/viena.jpg";
 
-const HERO_IMG =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/20180109_Vienna_State_Opera_at_blue_hour_850_9387.jpg/1920px-20180109_Vienna_State_Opera_at_blue_hour_850_9387.jpg";
+const HERO_IMG = "/img/cities/viena-hero-1920.jpg";
 
 export const Route = createFileRoute("/viena")({
   head: () => ({
