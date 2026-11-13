@@ -7,6 +7,9 @@ type Stats = { total: number; this_month: number; travellers: number };
 // Piso de prova social enquanto o tráfego é pequeno.
 // Os carimbos reais somam-se a esta base, para cada carimbo novo fazer o número subir.
 // Para tirar a simulação: apagar SIM_FLOOR e usar só os números reais.
+/** Mudar para true para voltar a mostrar "este mês" e "viajantes com passaporte". */
+export const SHOW_SECONDARY_STATS = false;
+
 const SIM_FLOOR: Stats = { total: 186, this_month: 14, travellers: 32 };
 
 /** Prova social: carimbos feitos por viajantes (sem contar a conta de admin). */
@@ -47,12 +50,14 @@ export function StampCounter() {
             carimbos no total
           </span>
         </p>
-        {s.this_month > 0 && (
+        {SHOW_SECONDARY_STATS && s.this_month > 0 && (
           <p className="font-serif text-2xl italic text-cream/85">{s.this_month} este mês</p>
         )}
-        <p className="font-serif text-2xl italic text-cream/85">
-          {s.travellers} viajantes com passaporte
-        </p>
+        {SHOW_SECONDARY_STATS && (
+          <p className="font-serif text-2xl italic text-cream/85">
+            {s.travellers} viajantes com passaporte
+          </p>
+        )}
       </div>
     </section>
   );

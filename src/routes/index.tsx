@@ -1,11 +1,12 @@
 import { SmartImage } from "@/components/SmartImage";
 import { usePassport } from "@/hooks/use-passport";
 import { InkStamp } from "@/components/passport/InkStamp";
-import { STAMP_STYLE, seeded, stampDate } from "@/components/passport/stamps";
+import { STAMP_STYLE, seeded } from "@/components/passport/stamps";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { CITIES, type CityMeta } from "@/data/cities";
+import { AuthorBlock } from "@/components/AuthorBlock";
 
 /** Zona livre de cada foto (céu, água) para o carimbo — nunca sobre o monumento. */
 const STAMP_SPOT: Record<string, CSSProperties> = {
@@ -513,8 +514,8 @@ function PostcardFlip({
           <div className="pointer-events-none absolute mix-blend-screen" style={STAMP_SPOT[city.slug] ?? { top: "10%", right: "4%" }}>
             <InkStamp
               top={city.name}
-              center={stampDate(myStamps[0].at).split(" ").slice(0, 2).join(" ")}
-              sub={`${myStamps.length} / ${mine!.total}`}
+              center={city.dataVisita ?? ""}
+              sub={`${myStamps.length} paragens`}
               motif={style.motif}
               ink="var(--cream)"
               shape={style.shape}
@@ -675,7 +676,8 @@ function About() {
         <p className="font-serif text-2xl italic leading-snug text-cream/90 md:text-4xl">
           Viajamos devagar e voltamos com cadernos cheios. O que não valeu a pena fica de fora — o resto vem parar aqui.
         </p>
-        <p className="mt-6 font-hand text-2xl text-gold-soft">— Um abraço, O Postal</p>
+        <AuthorBlock />
+        <p className="mt-10 font-hand text-2xl text-gold-soft">— Um abraço, O Postal</p>
       </div>
     </section>
   );

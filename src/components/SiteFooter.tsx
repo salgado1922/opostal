@@ -93,7 +93,7 @@ export function SiteFooter({
           <a href="/onde-ficar/praga" className="text-[11px] uppercase tracking-[0.22em] text-cream/65 transition-colors hover:text-gold">Praga</a>
         </nav>
         <p className="text-[11px] text-cream/40 leading-relaxed">
-          Alguns dos links de reserva são afiliados. Só recomendo o que faz sentido para a viagem.
+          Alguns dos links de reserva são afiliados. Só recomendamos o que faz sentido para a viagem.
         </p>
         <div className="flex flex-col gap-4 border-t border-gold/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-cream/55">

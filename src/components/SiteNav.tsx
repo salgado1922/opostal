@@ -101,7 +101,7 @@ export function SiteNav() {
               O meu passaporte
             </span>
             {carimbos > 0 && (
-              <span className="text-[11px] tracking-[0.14em] text-gold/90">· {carimbos}</span>
+              <span className="border border-gold/50 px-1.5 py-0.5 text-[10px] tracking-[0.14em] text-gold/90">{carimbos} {carimbos === 1 ? "carimbo" : "carimbos"}</span>
             )}
           </Link>
 
@@ -135,7 +135,7 @@ export function SiteNav() {
               <StampMark className="h-5 w-5 shrink-0" />
               <span className="border-b border-gold/50 pb-0.5">O meu passaporte</span>
               {carimbos > 0 && (
-                <span className="text-xs tracking-[0.14em] text-gold/90">· {carimbos}</span>
+                <span className="border border-gold/50 px-1.5 py-0.5 text-[10px] tracking-[0.14em] text-gold/90">{carimbos} {carimbos === 1 ? "carimbo" : "carimbos"}</span>
               )}
             </Link>
 

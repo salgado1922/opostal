@@ -1,3 +1,4 @@
+import { AuthorBlock } from "@/components/AuthorBlock";
 import { SmartImage } from "@/components/SmartImage";
 import { SiteFooter } from "@/components/SiteFooter";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -256,6 +257,14 @@ function AbordagemPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Quem escreve */}
+      <section className="px-6 pb-24 md:px-10">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-[11px] uppercase tracking-[0.35em] text-gold/80">Quem escreve</p>
+          <AuthorBlock align="left" />
         </div>
       </section>
 

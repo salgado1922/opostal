@@ -150,7 +150,7 @@ function Comparison() {
       tag: "Testado no terreno",
       title: "Roteiro Personalizado O Postal",
       rows: [
-        ["Destinos", "Cidades do catálogo, percorridas a pé por mim."],
+        ["Destinos", "Cidades do catálogo, percorridas a pé por nós."],
         ["Base de trabalho", "Experiência presencial e notas tiradas no terreno."],
         ["Detalhe local", "Muito elevado, do que se vê e do que se evita."],
         ["Preço", "A partir de 24,90 €"],
