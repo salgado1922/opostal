@@ -29,6 +29,7 @@ import { Route as VienaRouteImport } from './routes/viena'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as CarimbosCidadeRouteImport } from './routes/carimbos.$cidade'
 import { Route as GuiaSlugRouteImport } from './routes/guia.$slug'
+import { Route as OndeFicarCidadeRouteImport } from './routes/onde-ficar.$cidade'
 import { Route as AuthenticatedGuiasIndexRouteImport } from './routes/_authenticated/guias.index'
 import { Route as AuthenticatedGuiasIdRouteImport } from './routes/_authenticated/guias.$id'
 import { Route as ApiPublicGuideImageSplatRouteImport } from './routes/api/public/guide-image/$'
@@ -132,6 +133,11 @@ const GuiaSlugRoute = GuiaSlugRouteImport.update({
   path: '/guia/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OndeFicarCidadeRoute = OndeFicarCidadeRouteImport.update({
+  id: '/onde-ficar/$cidade',
+  path: '/onde-ficar/$cidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedGuiasIndexRoute = AuthenticatedGuiasIndexRouteImport.update({
   id: '/guias/',
   path: '/guias/',
@@ -169,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/guia/$slug': typeof GuiaSlugRoute
+  '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
   '/guias/$id': typeof AuthenticatedGuiasIdRoute
   '/guias/': typeof AuthenticatedGuiasIndexRoute
   '/api/public/guide-image/$': typeof ApiPublicGuideImageSplatRoute
@@ -193,6 +200,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/guia/$slug': typeof GuiaSlugRoute
+  '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
   '/guias/$id': typeof AuthenticatedGuiasIdRoute
   '/guias': typeof AuthenticatedGuiasIndexRoute
   '/api/public/guide-image/$': typeof ApiPublicGuideImageSplatRoute
@@ -219,6 +227,7 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/guia/$slug': typeof GuiaSlugRoute
+  '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
   '/_authenticated/guias/$id': typeof AuthenticatedGuiasIdRoute
   '/_authenticated/guias/': typeof AuthenticatedGuiasIndexRoute
   '/api/public/guide-image/$': typeof ApiPublicGuideImageSplatRoute
@@ -245,6 +254,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/carimbos/$cidade'
     | '/guia/$slug'
+    | '/onde-ficar/$cidade'
     | '/guias/$id'
     | '/guias/'
     | '/api/public/guide-image/$'
@@ -269,6 +279,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/carimbos/$cidade'
     | '/guia/$slug'
+    | '/onde-ficar/$cidade'
     | '/guias/$id'
     | '/guias'
     | '/api/public/guide-image/$'
@@ -294,6 +305,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/carimbos/$cidade'
     | '/guia/$slug'
+    | '/onde-ficar/$cidade'
     | '/_authenticated/guias/$id'
     | '/_authenticated/guias/'
     | '/api/public/guide-image/$'
@@ -319,6 +331,7 @@ export interface RootRouteChildren {
   VienaRoute: typeof VienaRoute
   CarimbosCidadeRoute: typeof CarimbosCidadeRoute
   GuiaSlugRoute: typeof GuiaSlugRoute
+  OndeFicarCidadeRoute: typeof OndeFicarCidadeRoute
   ApiPublicGuideImageSplatRoute: typeof ApiPublicGuideImageSplatRoute
 }
 
@@ -464,6 +477,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuiaSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onde-ficar/$cidade': {
+      id: '/onde-ficar/$cidade'
+      path: '/onde-ficar/$cidade'
+      fullPath: '/onde-ficar/$cidade'
+      preLoaderRoute: typeof OndeFicarCidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/guias/': {
       id: '/_authenticated/guias/'
       path: '/guias'
@@ -523,6 +543,7 @@ const rootRouteChildren: RootRouteChildren = {
   VienaRoute: VienaRoute,
   CarimbosCidadeRoute: CarimbosCidadeRoute,
   GuiaSlugRoute: GuiaSlugRoute,
+  OndeFicarCidadeRoute: OndeFicarCidadeRoute,
   ApiPublicGuideImageSplatRoute: ApiPublicGuideImageSplatRoute,
 }
 export const routeTree = rootRouteImport

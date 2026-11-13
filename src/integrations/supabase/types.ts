@@ -279,6 +279,14 @@ export type Database = {
         }
         Returns: boolean
       }
+      public_stamp_stats: {
+        Args: never
+        Returns: {
+          this_month: number
+          total: number
+          travellers: number
+        }[]
+      }
       redeem_credit_for_guide: { Args: { _slug: string }; Returns: boolean }
     }
     Enums: {

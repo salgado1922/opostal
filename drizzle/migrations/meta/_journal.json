@@ -15,6 +15,13 @@
       "when": 1794488173227,
       "tag": "0001_passports_grants",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794567437259,
+      "tag": "0002_public_stamp_stats",
+      "breakpoints": true
     }
   ]
 }

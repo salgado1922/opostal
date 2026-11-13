@@ -21,6 +21,7 @@ import londresImg from "@/assets/city-londres.jpg";
 import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { StampCounter } from "@/components/StampCounter";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -77,6 +78,7 @@ function Home() {
       <SiteNav />
       <Hero />
       <CityGrid />
+      <StampCounter />
       <HowItWorks />
       <About />
       <SiteFooter />

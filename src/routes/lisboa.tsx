@@ -1579,7 +1579,7 @@ function EssentialInfo() {
           <h3 className="font-serif text-2xl text-cream">Onde ficar</h3>
         </div>
         <p className="mb-5 text-sm text-muted-foreground">
-          Três zonas a considerar; qualquer uma funciona muito bem para um guia de 3 dias.
+          Três zonas a considerar; qualquer uma funciona muito bem para um guia de 3 dias.{" "}<Link to="/onde-ficar/$cidade" params={{ cidade: "lisboa" }} className="text-gold underline underline-offset-4">Comparar os bairros em detalhe →</Link>
         </p>
         <ul className="grid gap-4 md:grid-cols-3">
           <li className="rounded-[3px] border border-gold/15 bg-background/30 p-5">
