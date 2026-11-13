@@ -1,3 +1,4 @@
+import { bookingLink } from "@/data/booking-bairros";
 import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -2130,7 +2131,7 @@ function EssentialInfo() {
               A pé do West End, dos teatros e da South Bank; central, animado, mais caro.
             </p>
             <a
-              href="https://www.kqzyfj.com/click-101800647-15734352?sid=londres-covent-garden-soho&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DSoho%252C%2BLondres%252C%2BReino%2BUnido%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
+              href={bookingLink("londres-covent-garden-soho")}
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold lg:min-h-0 lg:py-0"
@@ -2145,7 +2146,7 @@ function EssentialInfo() {
               Junto ao rio e ao Borough Market, com fácil acesso à City e a Westminster pelo Tamisa.
             </p>
             <a
-              href="https://www.kqzyfj.com/click-101800647-15734352?sid=londres-south-bank&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DSouth%2BBank%252C%2BLondres%252C%2BReino%2BUnido%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
+              href={bookingLink("londres-south-bank")}
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold lg:min-h-0 lg:py-0"
@@ -2160,7 +2161,7 @@ function EssentialInfo() {
               Calmo, residencial, com museus à porta e ligação direta de metro ao centro.
             </p>
             <a
-              href="https://www.kqzyfj.com/click-101800647-15734352?sid=londres-kensington&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DKensington%252C%2BLondres%252C%2BReino%2BUnido%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0"
+              href={bookingLink("londres-kensington")}
               target="_blank"
               rel="sponsored noopener"
               className="mt-3 inline-flex min-h-11 items-center gap-1 py-2 text-[11px] uppercase tracking-[0.22em] text-gold/85 hover:text-gold lg:min-h-0 lg:py-0"

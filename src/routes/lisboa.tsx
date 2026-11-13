@@ -1,3 +1,4 @@
+import { bookingLink } from "@/data/booking-bairros";
 import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -19,8 +20,6 @@ import {
   Crown,
   Lightbulb,
   Sun,
-  Coins,
-  Plug,
   Phone,
   HandCoins,
   ExternalLink,
@@ -34,7 +33,7 @@ import {
   Waves,
   TramFront,
   Landmark,
-  Fish, Ticket } from "lucide-react";
+  Fish, Ticket, Car } from "lucide-react";
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -1506,29 +1505,24 @@ function ConhecerLisboa() {
 
 const essentials = [
   {
-    icon: Clock,
-    title: "Fuso horário",
-    body: "WET (UTC+0), o mesmo fuso de Lisboa continental. Sem diferença horária vindo do resto de Portugal.",
+    icon: TrainFront,
+    title: "Chegar a Lisboa",
+    body: "Do Porto, o Alfa Pendular faz a viagem em cerca de 2h50 e o Intercidades em 3h10 [VERIFICAR]; compra cedo no site da CP, que os bilhetes promocionais esgotam. Sai em Oriente se ficares no Parque das Nações, em Santa Apolónia se ficares na Baixa ou em Alfama. De autocarro (Rede Expressos, FlixBus) chega-se a Sete Rios ou ao Oriente, mais barato e mais lento. Das ilhas, o avião aterra no Humberto Delgado, a 20 minutos do centro de metro.",
   },
   {
-    icon: Coins,
-    title: "Moeda",
-    body: "Euro. A mesma moeda de Portugal, sem conversões nem surpresas de câmbio.",
+    icon: Ticket,
+    title: "Navegante e Viva Viagem",
+    body: "Para uns dias, o cartão Navegante Ocasional (antigo Viva Viagem) custa 0,50 € [VERIFICAR] e carrega-se com viagens soltas, cerca de 1,85 € cada [VERIFICAR], ou com o passe de 24 horas Carris/Metro, cerca de 7 € [VERIFICAR]. Compra-se nas máquinas das estações de metro e comboio. Se vives na Área Metropolitana e já tens o passe Navegante mensal, ele vale em toda a rede. Elétrico 28 e elevadores pagos a bordo saem bem mais caros.",
   },
   {
-    icon: Plug,
-    title: "Tomadas",
-    body: "Tipo F, 230 V / 50 Hz, a mesma tomada de todo o território português.",
+    icon: Car,
+    title: "Estacionar",
+    body: "No centro, a rua é da EMEL: zonas pagas por cores, limite de horas e tarifas que sobem perto da Baixa [VERIFICAR]; paga-se na app ePark ou nos parquímetros. Melhor deixar o carro num parque dissuasor junto ao metro (Colégio Militar, Telheiras, Senhor Roubado ou Pontinha [VERIFICAR]) e entrar na cidade de metro. Nas colinas de Alfama e do Bairro Alto, nem tentes.",
   },
   {
     icon: Phone,
     title: "Emergência",
     body: "112 (número de emergência nacional).",
-  },
-  {
-    icon: TrainFront,
-    title: "Metro, Carris & cartão Navegante",
-    body: "O metro tem quatro linhas e cobre bem o centro; os elétricos históricos da Carris (como o 28) sobem as colinas. Compra um cartão Navegante (ou usa o Navegante Ocasional/Viva Viagem) para carregar viagens em metro, elétrico, autocarro e comboios urbanos.",
   },
   {
     icon: TramFront,
@@ -1591,21 +1585,21 @@ function EssentialInfo() {
             <p className="mt-2 text-sm text-muted-foreground">
               O centro pombalino, plano e a pé de quase tudo. Ideal para a primeira visita.
             </p>
-            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DBaixa%252C%2BLisboa%252C%2BPortugal%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=lisboa-baixa" label="Ver alojamentos na Baixa" />
+            <AffiliateLink href={bookingLink("lisboa-baixa")} label="Ver alojamentos na Baixa" />
           </li>
           <li className="rounded-[3px] border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Alfama</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               O bairro mais antigo e carismático, entre miradouros, becos e fado à noite.
             </p>
-            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DAlfama%252C%2BLisboa%252C%2BPortugal%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=lisboa-alfama" label="Ver alojamentos em Alfama" />
+            <AffiliateLink href={bookingLink("lisboa-alfama")} label="Ver alojamentos em Alfama" />
           </li>
           <li className="rounded-[3px] border border-gold/15 bg-background/30 p-5">
             <h4 className="font-serif text-lg text-gold">Bairro Alto / Príncipe Real</h4>
             <p className="mt-2 text-sm text-muted-foreground">
               Vida noturna, lojas e restaurantes, a dois passos do Chiado e dos miradouros.
             </p>
-            <AffiliateLink href="https://www.kqzyfj.com/click-101800647-15734352?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Fss%3DBairro%2BAlto%252C%2BLisboa%252C%2BPortugal%26lang%3Dpt-pt%26selected_currency%3DEUR%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0&sid=lisboa-bairro-alto" label="Ver alojamentos no Bairro Alto" />
+            <AffiliateLink href={bookingLink("lisboa-bairro-alto")} label="Ver alojamentos no Bairro Alto" />
           </li>
         </ul>
       </motion.div>
