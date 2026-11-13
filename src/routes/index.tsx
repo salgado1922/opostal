@@ -18,7 +18,6 @@ import pragaImg from "@/assets/city-praga.jpg";
 import istambulImg from "@/assets/istambul/home-card.jpg";
 import florencaImg from "@/assets/city-florenca.jpg";
 import londresImg from "@/assets/city-londres.jpg";
-import opostalHorizontalTransparent from "@/assets/brand/opostal-horizontal-transparent.png.asset.json";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StampCounter } from "@/components/StampCounter";
@@ -41,14 +40,14 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://opostal.pt/" },
-      { property: "og:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
+      { property: "og:image", content: "https://opostal.pt/og-default.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "O Postal: roteiros de viagem gratuitos" },
       {
         name: "twitter:description",
         content: "Roteiros de viagem gratuitos em português, testados no terreno, cidade a cidade.",
       },
-      { name: "twitter:image", content: `https://opostal.pt${opostalHorizontalTransparent.url}` },
+      { name: "twitter:image", content: "https://opostal.pt/og-default.jpg" },
     ],
     links: [
       { rel: "canonical", href: "https://opostal.pt/" },
@@ -91,7 +90,7 @@ function Home() {
 /* ---------------- HERO ---------------- */
 
 const HERO_SLIDES: { src: string; alt: string }[] = [
-  { src: hubHero, alt: "Cidade europeia ao entardecer" },
+  { src: hubHero, alt: "Telhados e cúpulas de uma cidade europeia ao anoitecer" },
   { src: pragaImg, alt: "Praga ao pôr-do-sol sobre o rio Vltava" },
   { src: istambulImg, alt: "Istambul à hora azul sobre o Bósforo" },
   { src: florencaImg, alt: "Florença com o Duomo e os telhados ao fim da tarde" },

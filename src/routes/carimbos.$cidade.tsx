@@ -5,6 +5,7 @@ import { CityShareBar } from "@/components/passport/CityShareBar";
 import { STAMP_STYLE, inkFor } from "@/components/passport/stamps";
 import { STAMP_STOPS } from "@/data/stamp-stops";
 import { CITIES } from "@/data/cities";
+import { shareImgFor } from "@/data/share-images";
 
 export const Route = createFileRoute("/carimbos/$cidade")({
   loader: ({ params }) => {
@@ -30,6 +31,8 @@ export const Route = createFileRoute("/carimbos/$cidade")({
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: desc },
+        { property: "og:image", content: shareImgFor(params.cidade) },
+        { name: "twitter:image", content: shareImgFor(params.cidade) },
       ],
       links: [{ rel: "canonical", href: url }],
     };

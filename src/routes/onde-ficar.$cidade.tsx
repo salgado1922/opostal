@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { STAY_ARTICLES } from "@/data/onde-ficar";
+import { shareImgFor } from "@/data/share-images";
 
 export const Route = createFileRoute("/onde-ficar/$cidade")({
   loader: ({ params }) => {
@@ -21,6 +22,8 @@ export const Route = createFileRoute("/onde-ficar/$cidade")({
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
         { name: "twitter:card", content: "summary_large_image" },
+        { property: "og:image", content: shareImgFor(a.slug) },
+        { name: "twitter:image", content: shareImgFor(a.slug) },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "Article", headline: a.title, description: a.description, inLanguage: "pt-PT", mainEntityOfPage: url, publisher: { "@type": "Organization", name: "O Postal" } }) }],

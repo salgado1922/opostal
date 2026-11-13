@@ -11,7 +11,6 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import opostalVerticalDark from "@/assets/brand/opostal-vertical-dark.png.asset.json";
 
 function NotFoundComponent() {
   return (
@@ -92,18 +91,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "O Postal" },
       { property: "og:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: `https://opostal.pt${opostalVerticalDark.url}` },
+      { property: "og:locale", content: "pt_PT" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "O Postal" },
       { name: "twitter:description", content: "Guias de viagem editoriais, testados por mim, cidade a cidade." },
-      { name: "twitter:image", content: `https://opostal.pt${opostalVerticalDark.url}` },
       { name: "google-site-verification", content: "dQAQGexXakufEptudUA9z8UOAL_5de0_ProAfWpwTzw" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
-      { rel: "icon", type: "image/png", sizes: "96x96", href: "/favicon-96x96.png" },
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -131,7 +127,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt" className="dark">
+    <html lang="pt-PT" className="dark">
       <head>
         <HeadContent />
       </head>
