@@ -21,6 +21,7 @@ import { Route as LisboaRouteImport } from './routes/lisboa'
 import { Route as LondresRouteImport } from './routes/londres'
 import { Route as ParisRouteImport } from './routes/paris'
 import { Route as PassaporteRouteImport } from './routes/passaporte'
+import { Route as PostaisRouteImport } from './routes/postais'
 import { Route as PragaRouteImport } from './routes/praga'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RoteiroPersonalizadoRouteImport } from './routes/roteiro-personalizado'
@@ -91,6 +92,11 @@ const ParisRoute = ParisRouteImport.update({
 const PassaporteRoute = PassaporteRouteImport.update({
   id: '/passaporte',
   path: '/passaporte',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PostaisRoute = PostaisRouteImport.update({
+  id: '/postais',
+  path: '/postais',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PragaRoute = PragaRouteImport.update({
@@ -167,6 +173,7 @@ export interface FileRoutesByFullPath {
   '/londres': typeof LondresRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
+  '/postais': typeof PostaisRoute
   '/praga': typeof PragaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
@@ -192,6 +199,7 @@ export interface FileRoutesByTo {
   '/londres': typeof LondresRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
+  '/postais': typeof PostaisRoute
   '/praga': typeof PragaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
@@ -219,6 +227,7 @@ export interface FileRoutesById {
   '/londres': typeof LondresRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
+  '/postais': typeof PostaisRoute
   '/praga': typeof PragaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
@@ -246,6 +255,7 @@ export interface FileRouteTypes {
     | '/londres'
     | '/paris'
     | '/passaporte'
+    | '/postais'
     | '/praga'
     | '/reset-password'
     | '/roteiro-personalizado'
@@ -271,6 +281,7 @@ export interface FileRouteTypes {
     | '/londres'
     | '/paris'
     | '/passaporte'
+    | '/postais'
     | '/praga'
     | '/reset-password'
     | '/roteiro-personalizado'
@@ -297,6 +308,7 @@ export interface FileRouteTypes {
     | '/londres'
     | '/paris'
     | '/passaporte'
+    | '/postais'
     | '/praga'
     | '/reset-password'
     | '/roteiro-personalizado'
@@ -324,6 +336,7 @@ export interface RootRouteChildren {
   LondresRoute: typeof LondresRoute
   ParisRoute: typeof ParisRoute
   PassaporteRoute: typeof PassaporteRoute
+  PostaisRoute: typeof PostaisRoute
   PragaRoute: typeof PragaRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   RoteiroPersonalizadoRoute: typeof RoteiroPersonalizadoRoute
@@ -419,6 +432,13 @@ declare module '@tanstack/react-router' {
       path: '/passaporte'
       fullPath: '/passaporte'
       preLoaderRoute: typeof PassaporteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/postais': {
+      id: '/postais'
+      path: '/postais'
+      fullPath: '/postais'
+      preLoaderRoute: typeof PostaisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/praga': {
@@ -536,6 +556,7 @@ const rootRouteChildren: RootRouteChildren = {
   LondresRoute: LondresRoute,
   ParisRoute: ParisRoute,
   PassaporteRoute: PassaporteRoute,
+  PostaisRoute: PostaisRoute,
   PragaRoute: PragaRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   RoteiroPersonalizadoRoute: RoteiroPersonalizadoRoute,

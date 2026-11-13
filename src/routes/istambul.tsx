@@ -40,6 +40,8 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
+import { CityArticles } from "@/components/guides/CityArticles";
+import { guidesForCity } from "@/lib/related-guides";
 import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
@@ -85,6 +87,7 @@ const HERO_IMG =
   "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=2400&q=80";
 
 export const Route = createFileRoute("/istambul")({
+  loader: () => guidesForCity("Istambul", "istambul"),
   head: () => ({
     meta: [
       { title: "O que visitar em Istambul: roteiro de 5 dias | O Postal" },
@@ -1566,6 +1569,7 @@ function IstambulPage() {
       <Checklist />
       <FinalStamp code="IST" />
       <CustomItineraryCTA city="Istambul" />
+      <CityArticles city="Istambul" items={Route.useLoaderData()} />
       <OutrosPostais currentSlug="istambul" />
       <StreetMode city="Istambul" slug="istambul" days={days} />
       <SiteFooter city="Istambul" farewell="Şerefe, à vossa." />

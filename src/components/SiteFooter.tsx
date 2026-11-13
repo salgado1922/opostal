@@ -4,6 +4,7 @@ import { ContactDialog } from "@/components/ContactDialog";
 
 const LINKS = [
   { href: "/#cidades", label: "Roteiros gratuitos" },
+  { href: "/postais", label: "Todos os postais" },
   { href: "/roteiro-personalizado", label: "Roteiro personalizado" },
   { href: "/#como-funciona", label: "Como funciona" },
   { href: "/#sobre", label: "Sobre" },

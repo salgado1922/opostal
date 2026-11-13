@@ -40,6 +40,8 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
+import { CityArticles } from "@/components/guides/CityArticles";
+import { guidesForCity } from "@/lib/related-guides";
 import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
@@ -65,6 +67,7 @@ const HERO_IMG =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Westminster_Bridge_with_shadows_and_Big_Ben.jpg/1920px-Westminster_Bridge_with_shadows_and_Big_Ben.jpg";
 
 export const Route = createFileRoute("/londres")({
+  loader: () => guidesForCity("Londres", "londres"),
   head: () => ({
     meta: [
       { title: "O que visitar em Londres: roteiro de 3 dias a pé | O Postal" },
@@ -1608,6 +1611,7 @@ function Index() {
       <Checklist />
       <FinalStamp code="LDN" />
       <CustomItineraryCTA city="Londres" />
+      <CityArticles city="Londres" items={Route.useLoaderData()} />
       <OutrosPostais currentSlug="londres" />
       <StreetMode city="Londres" slug="londres" days={days} />
       <SiteFooter city="Londres" farewell="Mind the gap, e boa viagem." photoCredit="Wikimedia Commons" />

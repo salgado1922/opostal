@@ -38,6 +38,8 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
+import { CityArticles } from "@/components/guides/CityArticles";
+import { guidesForCity } from "@/lib/related-guides";
 import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
@@ -61,6 +63,7 @@ const HERO_IMG =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/20180109_Vienna_State_Opera_at_blue_hour_850_9387.jpg/1920px-20180109_Vienna_State_Opera_at_blue_hour_850_9387.jpg";
 
 export const Route = createFileRoute("/viena")({
+  loader: () => guidesForCity("Viena", "viena"),
   head: () => ({
     meta: [
       { title: "O que visitar em Viena: roteiro de 3 dias | O Postal" },
@@ -1381,6 +1384,7 @@ function Index() {
       <Checklist />
       <FinalStamp code="VIE" />
       <CustomItineraryCTA city="Viena" />
+      <CityArticles city="Viena" items={Route.useLoaderData()} />
       <OutrosPostais currentSlug="viena" />
       <StreetMode city="Viena" slug="viena" days={days} />
       <SiteFooter city="Viena" farewell="Auf Wiedersehen, Wien — bis zum nächsten Walzer." />

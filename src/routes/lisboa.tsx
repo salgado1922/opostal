@@ -37,6 +37,8 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
+import { CityArticles } from "@/components/guides/CityArticles";
+import { guidesForCity } from "@/lib/related-guides";
 import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
@@ -60,6 +62,7 @@ const SHARE_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/Lisboa%2C_Miradouro_das_Portas_do_Sol%2C_vista.jpg?width=1200";
 
 export const Route = createFileRoute("/lisboa")({
+  loader: () => guidesForCity("Lisboa", "lisboa"),
   head: () => ({
     meta: [
       { title: "O que visitar em Lisboa: roteiro de 3 dias | O Postal" },
@@ -1835,6 +1838,7 @@ function Index() {
       <FinalStamp code="LIS" />
       <Farewell />
       <CustomItineraryCTA city="Lisboa" />
+      <CityArticles city="Lisboa" items={Route.useLoaderData()} />
       <OutrosPostais currentSlug="lisboa" />
       <StreetMode city="Lisboa" slug="lisboa" days={days} />
       <SiteFooter city="Lisboa" />
