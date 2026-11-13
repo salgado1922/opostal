@@ -6,7 +6,7 @@ export const GUIDE_PUBLISHED: Record<string, string> = {
 
 export const PAGE_LASTMOD: Record<string, string> = {
   "/": "2026-11-13",
-  "/abordagem": "2026-09-03",
+  "/abordagem": "2026-11-13",
   "/roteiro-personalizado": "2026-11-11",
   "/praga": "2026-11-13", "/istambul": "2026-11-13", "/florenca": "2026-11-13", "/londres": "2026-11-13",
   "/paris": "2026-11-13", "/barcelona": "2026-11-13", "/viena": "2026-11-13", "/lisboa": "2026-11-13",
