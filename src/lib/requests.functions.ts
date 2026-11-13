@@ -21,6 +21,12 @@ const requestSchema = z.object({
 export type ItineraryRequest = z.infer<typeof requestSchema> & {
   id: string;
   created_at: string;
+  status: "novo" | "preparacao" | "enviado" | "concluido";
+  admin_notes: string;
+  delivery_date: string | null;
+  proposal: string;
+  review_checks: Record<string, boolean>;
+  updated_at: string;
 };
 
 // Public: stores a custom-itinerary request. Privileged insert (RLS has no
@@ -58,7 +64,7 @@ export const listItineraryRequests = createServerFn({ method: "GET" })
       .eq("user_id", context.userId)
       .eq("role", "admin");
     if (!roles || roles.length === 0) {
-      throw new Response("Forbidden", { status: 403 });
+      throw new Error("Forbidden");
     }
     const { data, error } = await context.supabase
       .from("itinerary_requests")

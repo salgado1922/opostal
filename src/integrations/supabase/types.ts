@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_ai_state: {
+        Row: {
+          blocked: boolean
+          id: string
+          message: string
+          updated_at: string
+        }
+        Insert: {
+          blocked?: boolean
+          id: string
+          message?: string
+          updated_at?: string
+        }
+        Update: {
+          blocked?: boolean
+          id?: string
+          message?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       affiliate_links: {
         Row: {
           id: string
@@ -53,6 +74,27 @@ export type Database = {
           id?: string
           source?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      guide_health: {
+        Row: {
+          checked_at: string | null
+          city: string
+          result: Json
+          reviewed_at: string | null
+        }
+        Insert: {
+          checked_at?: string | null
+          city: string
+          result?: Json
+          reviewed_at?: string | null
+        }
+        Update: {
+          checked_at?: string | null
+          city?: string
+          result?: Json
+          reviewed_at?: string | null
         }
         Relationships: []
       }
@@ -115,9 +157,11 @@ export type Database = {
       }
       itinerary_requests: {
         Row: {
+          admin_notes: string
           alojamento: string | null
           created_at: string
           datas: string | null
+          delivery_date: string | null
           destino: string | null
           dias: string | null
           email: string
@@ -128,13 +172,19 @@ export type Database = {
           orcamento: string | null
           partida: string | null
           pessoas: string | null
+          proposal: string
           restricoes: string | null
+          review_checks: Json
           ritmo: string | null
+          status: string
+          updated_at: string
         }
         Insert: {
+          admin_notes?: string
           alojamento?: string | null
           created_at?: string
           datas?: string | null
+          delivery_date?: string | null
           destino?: string | null
           dias?: string | null
           email: string
@@ -145,13 +195,19 @@ export type Database = {
           orcamento?: string | null
           partida?: string | null
           pessoas?: string | null
+          proposal?: string
           restricoes?: string | null
+          review_checks?: Json
           ritmo?: string | null
+          status?: string
+          updated_at?: string
         }
         Update: {
+          admin_notes?: string
           alojamento?: string | null
           created_at?: string
           datas?: string | null
+          delivery_date?: string | null
           destino?: string | null
           dias?: string | null
           email?: string
@@ -162,8 +218,12 @@ export type Database = {
           orcamento?: string | null
           partida?: string | null
           pessoas?: string | null
+          proposal?: string
           restricoes?: string | null
+          review_checks?: Json
           ritmo?: string | null
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -254,6 +314,45 @@ export type Database = {
         }
         Relationships: []
       }
+      site_metric_daily: {
+        Row: {
+          booking_clicks: number
+          city: string
+          day: string
+          views: number
+        }
+        Insert: {
+          booking_clicks?: number
+          city: string
+          day?: string
+          views?: number
+        }
+        Update: {
+          booking_clicks?: number
+          city?: string
+          day?: string
+          views?: number
+        }
+        Relationships: []
+      }
+      site_metric_limits: {
+        Row: {
+          events: number
+          expires_at: string
+          fingerprint: string
+        }
+        Insert: {
+          events?: number
+          expires_at?: string
+          fingerprint: string
+        }
+        Update: {
+          events?: number
+          expires_at?: string
+          fingerprint?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -304,6 +403,10 @@ export type Database = {
           total: number
           travellers: number
         }[]
+      }
+      record_site_metric: {
+        Args: { p_city: string; p_fingerprint: string; p_kind: string }
+        Returns: undefined
       }
       redeem_credit_for_guide: { Args: { _slug: string }; Returns: boolean }
     }

@@ -32,6 +32,8 @@ import { Route as AuthenticatedAfiliadosRouteImport } from './routes/_authentica
 import { Route as AuthenticatedPassaportesRouteImport } from './routes/_authenticated/passaportes'
 import { Route as CarimbosCidadeRouteImport } from './routes/carimbos.$cidade'
 import { Route as OndeFicarCidadeRouteImport } from './routes/onde-ficar.$cidade'
+import { Route as ApiPublicAdminProposalRouteImport } from './routes/api/public/admin-proposal'
+import { Route as ApiPublicMetricsRouteImport } from './routes/api/public/metrics'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -148,6 +150,16 @@ const OndeFicarCidadeRoute = OndeFicarCidadeRouteImport.update({
   path: '/onde-ficar/$cidade',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAdminProposalRoute = ApiPublicAdminProposalRouteImport.update({
+  id: '/api/public/admin-proposal',
+  path: '/api/public/admin-proposal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicMetricsRoute = ApiPublicMetricsRouteImport.update({
+  id: '/api/public/metrics',
+  path: '/api/public/metrics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -172,6 +184,8 @@ export interface FileRoutesByFullPath {
   '/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
+  '/api/public/admin-proposal': typeof ApiPublicAdminProposalRoute
+  '/api/public/metrics': typeof ApiPublicMetricsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -196,6 +210,8 @@ export interface FileRoutesByTo {
   '/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
+  '/api/public/admin-proposal': typeof ApiPublicAdminProposalRoute
+  '/api/public/metrics': typeof ApiPublicMetricsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -222,6 +238,8 @@ export interface FileRoutesById {
   '/_authenticated/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
+  '/api/public/admin-proposal': typeof ApiPublicAdminProposalRoute
+  '/api/public/metrics': typeof ApiPublicMetricsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -248,6 +266,8 @@ export interface FileRouteTypes {
     | '/passaportes'
     | '/carimbos/$cidade'
     | '/onde-ficar/$cidade'
+    | '/api/public/admin-proposal'
+    | '/api/public/metrics'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -272,6 +292,8 @@ export interface FileRouteTypes {
     | '/passaportes'
     | '/carimbos/$cidade'
     | '/onde-ficar/$cidade'
+    | '/api/public/admin-proposal'
+    | '/api/public/metrics'
   id:
     | '__root__'
     | '/'
@@ -297,6 +319,8 @@ export interface FileRouteTypes {
     | '/_authenticated/passaportes'
     | '/carimbos/$cidade'
     | '/onde-ficar/$cidade'
+    | '/api/public/admin-proposal'
+    | '/api/public/metrics'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -320,6 +344,8 @@ export interface RootRouteChildren {
   VienaRoute: typeof VienaRoute
   CarimbosCidadeRoute: typeof CarimbosCidadeRoute
   OndeFicarCidadeRoute: typeof OndeFicarCidadeRoute
+  ApiPublicAdminProposalRoute: typeof ApiPublicAdminProposalRoute
+  ApiPublicMetricsRoute: typeof ApiPublicMetricsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -485,6 +511,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OndeFicarCidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/admin-proposal': {
+      id: '/api/public/admin-proposal'
+      path: '/api/public/admin-proposal'
+      fullPath: '/api/public/admin-proposal'
+      preLoaderRoute: typeof ApiPublicAdminProposalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/metrics': {
+      id: '/api/public/metrics'
+      path: '/api/public/metrics'
+      fullPath: '/api/public/metrics'
+      preLoaderRoute: typeof ApiPublicMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -524,6 +564,8 @@ const rootRouteChildren: RootRouteChildren = {
   VienaRoute: VienaRoute,
   CarimbosCidadeRoute: CarimbosCidadeRoute,
   OndeFicarCidadeRoute: OndeFicarCidadeRoute,
+  ApiPublicAdminProposalRoute: ApiPublicAdminProposalRoute,
+  ApiPublicMetricsRoute: ApiPublicMetricsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

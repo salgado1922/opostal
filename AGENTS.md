@@ -1,1 +1,5 @@
 - Affiliate URL overrides live in the affiliate_links table (edited at /afiliados) and are swapped into matching fallback hrefs at click time; why: keeps SSR HTML stable while letting the admin change links without code.
+- Admin work lives in /admin with role-checked workflow functions and a separately authenticated streaming proposal endpoint; why: customer data and AI actions must remain admin-only.
+- Paid itinerary AI drafts require human review and checklist completion before sent/completed states; why: estimates cannot substitute verified travel information.
+- Guide health checks inspect only fixed public guide URLs and approved image hosts; why: arbitrary URL fetching would permit SSRF.
+- Site results use anonymous daily aggregates with short-lived hashed rate-limit keys, no simulated base and no booking revenue inference; why: report observed activity without collecting visitor profiles.

@@ -2,175 +2,56 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { format } from "date-fns";
-import { pt } from "date-fns/locale";
-import { ChevronDown, LogOut, Mail, RefreshCw } from "lucide-react";
+import { ChevronDown, LogOut, RefreshCw, Search } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { listItineraryRequests, type ItineraryRequest } from "@/lib/requests.functions";
-import { cn } from "@/lib/utils";
+import { listItineraryRequests } from "@/lib/requests.functions";
+import { getAdminOverview, resumeAdminAI } from "@/lib/admin.functions";
+import { REQUEST_STATES } from "@/lib/admin-workflow";
+import { RequestEditor } from "@/components/admin/RequestEditor";
+import { GuideHealth } from "@/components/admin/GuideHealth";
+import { AdminResults } from "@/components/admin/AdminResults";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/admin")({
-  head: () => ({
-    meta: [
-      { name: "robots", content: "noindex, nofollow" },
-      { title: "Pedidos de roteiro | O Postal" },
-      { name: "robots", content: "noindex, nofollow" },
-    ],
-  }),
-  component: AdminPage,
+  head: () => ({ meta: [
+    { title: "Painel de administração | O Postal" },
+    { name: "description", content: "Área privada de gestão dos pedidos, revisão dos guias e resultados do O Postal." },
+    { property: "og:title", content: "Painel de administração | O Postal" },
+    { property: "og:description", content: "Área privada de gestão do O Postal." },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" },
+    { name: "robots", content: "noindex, nofollow" },
+  ] }), component: AdminPage,
 });
-
-const DETAIL_FIELDS: { key: keyof ItineraryRequest; label: string }[] = [
-  { key: "destino", label: "Destino" },
-  { key: "datas", label: "Datas da viagem" },
-  { key: "dias", label: "Número de dias" },
-  { key: "pessoas", label: "Número de pessoas" },
-  { key: "orcamento", label: "Orçamento aproximado" },
-  { key: "ritmo", label: "Ritmo de viagem" },
-  { key: "interesses", label: "Interesses" },
-  { key: "restricoes", label: "Restrições alimentares" },
-  { key: "alojamento", label: "Tipo de alojamento" },
-  { key: "partida", label: "Ponto de partida" },
-  { key: "observacoes", label: "Observações" },
-];
 
 function AdminPage() {
   const fetchRequests = useServerFn(listItineraryRequests);
+  const overview = useServerFn(getAdminOverview);
+  const resume = useServerFn(resumeAdminAI);
+  const [tab, setTab] = useState("pedidos");
   const [expanded, setExpanded] = useState<string | null>(null);
-  const { data, isLoading, error, refetch, isFetching } = useQuery({
-    queryKey: ["itinerary-requests"],
-    queryFn: async () => (await fetchRequests()) as ItineraryRequest[],
-  });
-
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    window.location.href = "/auth";
-  };
-
-  const forbidden = error instanceof Error && /forbidden/i.test(error.message);
-
-  return (
-    <main className="bg-twilight-radial min-h-screen px-6 py-12 md:py-16">
-      <div className="mx-auto max-w-4xl">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="mb-2 text-[11px] uppercase tracking-[0.3em] text-gold/80">Área privada</p>
-            <h1 className="font-serif text-3xl text-cream md:text-4xl">Pedidos de roteiro</h1>
-            <p className="mt-2 text-sm text-cream/65">
-              {data ? `${data.length} ${data.length === 1 ? "pedido" : "pedidos"}` : "A carregar…"}
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link
-              to="/passaportes"
-              className="inline-flex items-center gap-2 rounded-md border border-gold/40 bg-gold/10 px-3 py-2 text-xs text-cream transition-colors hover:bg-gold/20 focus:outline-none focus:ring-2 focus:ring-gold/50"
-            >
-              Passaportes
-            </Link>
-            <button
-              type="button"
-              onClick={() => refetch()}
-              className="inline-flex items-center gap-2 rounded-md border border-gold/30 px-3 py-2 text-xs text-cream/80 transition-colors hover:bg-gold/10 focus:outline-none focus:ring-2 focus:ring-gold/50"
-            >
-              <RefreshCw className={cn("h-3.5 w-3.5", isFetching && "animate-spin")} />
-              Atualizar
-            </button>
-            <button
-              type="button"
-              onClick={signOut}
-              className="inline-flex items-center gap-2 rounded-md border border-cream/20 px-3 py-2 text-xs text-cream/60 transition-colors hover:bg-cream/5 focus:outline-none focus:ring-2 focus:ring-gold/50"
-            >
-              <LogOut className="h-3.5 w-3.5" />
-              Sair
-            </button>
-          </div>
-        </div>
-
-        {isLoading && <p className="mt-12 text-cream/60">A carregar pedidos…</p>}
-
-        {forbidden && (
-          <div className="glass mt-10 rounded-2xl border border-red-400/30 px-6 py-8">
-            <p className="text-cream">Esta conta não tem permissões de administrador.</p>
-            <p className="mt-2 text-sm text-cream/60">
-              Entra com a conta de gestão d'O Postal para veres os pedidos.
-            </p>
-          </div>
-        )}
-
-        {error && !forbidden && (
-          <p className="mt-10 text-red-400">Erro ao carregar os pedidos. Tenta atualizar.</p>
-        )}
-
-        {data && data.length === 0 && (
-          <div className="glass mt-10 rounded-2xl border border-gold/20 px-6 py-10 text-center">
-            <p className="font-serif text-xl text-cream">Ainda não há pedidos.</p>
-            <p className="mt-2 text-sm text-cream/60">
-              Quando alguém pedir um roteiro personalizado, aparece aqui.
-            </p>
-          </div>
-        )}
-
-        <ul className="mt-8 space-y-4">
-          {data?.map((r) => {
-            const open = expanded === r.id;
-            return (
-              <li key={r.id} className="glass overflow-hidden rounded-2xl border border-gold/20">
-                <button
-                  type="button"
-                  onClick={() => setExpanded(open ? null : r.id)}
-                  aria-expanded={open}
-                  className="flex w-full flex-wrap items-center gap-x-6 gap-y-1 px-5 py-4 text-left transition-colors hover:bg-gold/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gold/50"
-                >
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate font-medium text-cream">
-                      {r.nome?.trim() || "Sem nome"}
-                    </span>
-                    <span className="block truncate text-sm text-cream/60">{r.email}</span>
-                  </span>
-                  <span className="hidden text-sm text-cream/70 sm:block">{r.destino || "—"}</span>
-                  <span className="text-xs uppercase tracking-wider text-cream/50">
-                    {format(new Date(r.created_at), "d MMM yyyy, HH:mm", { locale: pt })}
-                  </span>
-                  <ChevronDown
-                    className={cn("h-4 w-4 text-gold/70 transition-transform", open && "rotate-180")}
-                  />
-                </button>
-                {open && (
-                  <div className="border-t border-gold/15 px-5 py-5">
-                    <dl className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
-                      {DETAIL_FIELDS.map(({ key, label }) => {
-                        const value = (r[key] as string | null)?.trim();
-                        if (!value) return null;
-                        return (
-                          <div key={key}>
-                            <dt className="text-[10px] uppercase tracking-[0.2em] text-cream/50">{label}</dt>
-                            <dd className="mt-1 whitespace-pre-wrap text-sm text-cream/85">{value}</dd>
-                          </div>
-                        );
-                      })}
-                    </dl>
-                    <a
-                      href={`mailto:${r.email}?subject=${encodeURIComponent(
-                        `O teu roteiro personalizado${r.destino ? ` — ${r.destino}` : ""}`,
-                      )}`}
-                      className="mt-6 inline-flex items-center gap-2 rounded-md border border-gold/40 bg-gold/10 px-4 py-2 text-sm text-cream transition-colors hover:bg-gold/20 focus:outline-none focus:ring-2 focus:ring-gold/50"
-                    >
-                      <Mail className="h-4 w-4" />
-                      Responder por email
-                    </a>
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-
-        <p className="mt-10 text-center">
-          <Link to="/" className="text-xs text-cream/50 underline-offset-4 hover:text-cream/80 hover:underline">
-            ← Voltar à homepage
-          </Link>
-        </p>
-      </div>
-    </main>
-  );
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("todos");
+  const requests = useQuery({ queryKey: ["itinerary-requests"], queryFn: () => fetchRequests() });
+  const info = useQuery({ queryKey: ["admin-overview"], queryFn: () => overview() });
+  const rows = requests.data ?? [];
+  const visible = rows.filter(r => (filter === "todos" || r.status === filter) && `${r.nome} ${r.email} ${r.destino}`.toLocaleLowerCase("pt-PT").includes(search.toLocaleLowerCase("pt-PT")));
+  const error = requests.error || info.error;
+  return <main className="min-h-screen bg-background px-4 py-10 text-foreground sm:px-8"><div className="mx-auto max-w-6xl">
+    <header className="flex flex-wrap items-end justify-between gap-5 border-b border-border pb-7"><div><p className="mb-2 text-xs uppercase text-gold">Área privada · O Postal</p><h1 className="font-serif text-4xl">Mesa de trabalho</h1></div><nav className="flex flex-wrap gap-2"><Button variant="ghost" asChild><Link to="/passaportes">Passaportes</Link></Button><Button variant="ghost" asChild><Link to="/afiliados">Afiliados</Link></Button><Button variant="outline" aria-label="Atualizar painel" title="Atualizar painel" size="icon" onClick={() => { void requests.refetch(); void info.refetch(); }}><RefreshCw /></Button><Button variant="ghost" title="Sair da conta" aria-label="Sair da conta" size="icon" onClick={async () => { await supabase.auth.signOut(); window.location.href = "/auth"; }}><LogOut /></Button></nav></header>
+    <div role="tablist" aria-label="Secções do painel" className="mt-6 flex overflow-x-auto border-b border-border">{[["pedidos", "Pedidos"], ["saude", "Saúde dos guias"], ["resultados", "Resultados"]].map(([id, label]) => <Button key={id} role="tab" aria-selected={tab === id} variant="ghost" className={`h-12 rounded-none border-b-2 ${tab === id ? "border-gold text-gold" : "border-transparent text-muted-foreground"}`} onClick={() => setTab(id)}>{label}</Button>)}</div>
+    {error ? <p role="alert" className="mt-8 text-destructive">{error instanceof Error && /forbidden/i.test(error.message) ? "Esta conta não tem permissões de administrador." : "Não foi possível carregar o painel. Tenta atualizar."}</p> : requests.isLoading || info.isLoading ? <p className="mt-8 text-muted-foreground">A carregar…</p> : <>
+      {tab === "pedidos" && <section className="mt-8">
+        <div className="grid grid-cols-2 gap-4 border-b border-border pb-6 sm:grid-cols-4">{Object.entries(REQUEST_STATES).map(([key, label]) => <div key={key}><p className="font-serif text-3xl text-gold">{rows.filter(r => r.status === key).length}</p><p className="text-xs text-muted-foreground">{label}</p></div>)}</div>
+        {info.data?.ai?.blocked && <div className="mt-6 border-y border-border py-4"><p role="alert" className="text-sm text-destructive">{info.data.ai.message}</p><Button variant="outline" className="mt-3" onClick={async () => { try { await resume(); await info.refetch(); toast.success("Podes iniciar um novo pedido de preparação."); } catch { toast.error("Não foi possível retomar."); } }}>Retomar após resolver o acesso à IA</Button></div>}
+        <div className="my-6 flex flex-wrap gap-3"><label className="relative min-w-0 flex-1"><Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" /><Input aria-label="Pesquisar pedidos" placeholder="Nome, email ou destino" className="h-11 pl-9" value={search} onChange={e => setSearch(e.target.value)} /></label><select aria-label="Filtrar estado" value={filter} onChange={e => setFilter(e.target.value)} className="h-11 border border-input bg-background px-3 text-sm"><option value="todos">Todos os estados</option>{Object.entries(REQUEST_STATES).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></div>
+        {!visible.length && <p className="border-y border-border py-12 text-center text-muted-foreground">{rows.length ? "Nenhum pedido corresponde à pesquisa." : "Ainda não há pedidos."}</p>}
+        <ul className="space-y-4">{visible.map(r => <li key={r.id} className="overflow-hidden rounded-sm border border-border"><Button variant="ghost" aria-expanded={expanded === r.id} className="h-auto w-full justify-between whitespace-normal rounded-none p-5 text-left" onClick={() => setExpanded(expanded === r.id ? null : r.id)}><span className="min-w-0 flex-1"><span className="block break-words font-medium">{r.nome || "Sem nome"} · {r.destino || "Destino por definir"}</span><span className="block break-all text-xs text-muted-foreground">{r.email}</span></span><span className="ml-3 shrink-0 text-right"><span className="block text-xs text-gold">{REQUEST_STATES[r.status]}</span><span className="block text-xs text-muted-foreground">{new Date(r.created_at).toLocaleDateString("pt-PT")}</span>{r.delivery_date && <span className="block text-xs text-muted-foreground">Entrega: {new Date(`${r.delivery_date}T12:00:00`).toLocaleDateString("pt-PT")}</span>}</span><ChevronDown className={`ml-3 ${expanded === r.id ? "rotate-180" : ""}`} /></Button>{expanded === r.id && <RequestEditor request={r} onSaved={() => { void requests.refetch(); void info.refetch(); }} />}</li>)}</ul>
+      </section>}
+      {tab === "saude" && <GuideHealth rows={info.data?.health ?? []} onSaved={() => { void info.refetch(); }} />}
+      {tab === "resultados" && <AdminResults metrics={info.data?.metrics ?? []} requests={rows} />}
+    </>}
+    <Button asChild variant="link" className="mt-12"><Link to="/">← Voltar ao site</Link></Button>
+  </div></main>;
 }

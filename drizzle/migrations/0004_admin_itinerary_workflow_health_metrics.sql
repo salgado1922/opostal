@@ -1,0 +1,33 @@
+ALTER TABLE public.itinerary_requests ADD COLUMN status text NOT NULL DEFAULT 'novo', ADD COLUMN admin_notes text NOT NULL DEFAULT '', ADD COLUMN delivery_date date, ADD COLUMN proposal text NOT NULL DEFAULT '', ADD COLUMN review_checks jsonb NOT NULL DEFAULT '{}'::jsonb, ADD COLUMN updated_at timestamptz NOT NULL DEFAULT now();
+ALTER TABLE public.itinerary_requests ADD CONSTRAINT itinerary_workflow_status CHECK (status IN ('novo','preparacao','enviado','concluido'));
+GRANT UPDATE ON public.itinerary_requests TO authenticated;
+CREATE POLICY "Admins update requests" ON public.itinerary_requests FOR UPDATE TO authenticated USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));
+CREATE TABLE public.guide_health (city text PRIMARY KEY, checked_at timestamptz, result jsonb NOT NULL DEFAULT '{}'::jsonb, reviewed_at timestamptz);
+GRANT SELECT, INSERT, UPDATE ON public.guide_health TO authenticated;
+GRANT ALL ON public.guide_health TO service_role;
+ALTER TABLE public.guide_health ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins manage guide health" ON public.guide_health FOR ALL TO authenticated USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));
+CREATE TABLE public.site_metric_daily (day date NOT NULL DEFAULT CURRENT_DATE, city text NOT NULL, views integer NOT NULL DEFAULT 0, booking_clicks integer NOT NULL DEFAULT 0, PRIMARY KEY (day, city));
+GRANT SELECT ON public.site_metric_daily TO authenticated;
+GRANT ALL ON public.site_metric_daily TO service_role;
+ALTER TABLE public.site_metric_daily ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins read site metrics" ON public.site_metric_daily FOR SELECT TO authenticated USING (public.has_role(auth.uid(), 'admin'));
+CREATE TABLE public.site_metric_limits (fingerprint text PRIMARY KEY, events integer NOT NULL DEFAULT 0, expires_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.site_metric_limits TO service_role;
+ALTER TABLE public.site_metric_limits ENABLE ROW LEVEL SECURITY;
+CREATE FUNCTION public.record_site_metric(p_city text, p_kind text, p_fingerprint text) RETURNS void LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
+DECLARE n integer;
+BEGIN
+ IF p_city NOT IN ('praga','istambul','florenca','londres','paris','barcelona','viena','lisboa','budapeste') OR p_kind NOT IN ('view','booking') THEN RETURN; END IF;
+ INSERT INTO public.site_metric_limits (fingerprint,events,expires_at) VALUES (p_fingerprint,1,now()+interval '1 day') ON CONFLICT (fingerprint) DO UPDATE SET events=site_metric_limits.events+1 RETURNING events INTO n;
+ IF n > 120 THEN RETURN; END IF;
+ INSERT INTO public.site_metric_daily (day,city,views,booking_clicks) VALUES (CURRENT_DATE,p_city,CASE WHEN p_kind='view' THEN 1 ELSE 0 END,CASE WHEN p_kind='booking' THEN 1 ELSE 0 END) ON CONFLICT(day,city) DO UPDATE SET views=site_metric_daily.views+EXCLUDED.views,booking_clicks=site_metric_daily.booking_clicks+EXCLUDED.booking_clicks;
+ DELETE FROM public.site_metric_limits WHERE expires_at < now();
+END; $$;
+REVOKE ALL ON FUNCTION public.record_site_metric(text,text,text) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.record_site_metric(text,text,text) TO service_role;
+CREATE TABLE public.admin_ai_state (id text PRIMARY KEY, blocked boolean NOT NULL DEFAULT false, message text NOT NULL DEFAULT '', updated_at timestamptz NOT NULL DEFAULT now());
+GRANT SELECT, INSERT, UPDATE ON public.admin_ai_state TO authenticated;
+GRANT ALL ON public.admin_ai_state TO service_role;
+ALTER TABLE public.admin_ai_state ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins manage AI state" ON public.admin_ai_state FOR ALL TO authenticated USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));

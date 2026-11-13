@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { installAffiliateOverrides } from "@/lib/affiliate-overrides";
 import { Toaster } from "@/components/ui/sonner";
 import { NotFoundPage } from "@/components/NotFoundPage";
+import { SiteMetrics } from "@/components/SiteMetrics";
 
 function NotFoundComponent() {
   return <NotFoundPage />;
@@ -125,6 +126,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <SiteMetrics />
       <Toaster />
     </QueryClientProvider>
   );
