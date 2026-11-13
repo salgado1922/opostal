@@ -21,7 +21,6 @@ import { Route as LisboaRouteImport } from './routes/lisboa'
 import { Route as LondresRouteImport } from './routes/londres'
 import { Route as ParisRouteImport } from './routes/paris'
 import { Route as PassaporteRouteImport } from './routes/passaporte'
-import { Route as PostaisRouteImport } from './routes/postais'
 import { Route as PragaRouteImport } from './routes/praga'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RoteiroPersonalizadoRouteImport } from './routes/roteiro-personalizado'
@@ -30,11 +29,7 @@ import { Route as VienaRouteImport } from './routes/viena'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedPassaportesRouteImport } from './routes/_authenticated/passaportes'
 import { Route as CarimbosCidadeRouteImport } from './routes/carimbos.$cidade'
-import { Route as GuiaSlugRouteImport } from './routes/guia.$slug'
 import { Route as OndeFicarCidadeRouteImport } from './routes/onde-ficar.$cidade'
-import { Route as AuthenticatedGuiasIndexRouteImport } from './routes/_authenticated/guias.index'
-import { Route as AuthenticatedGuiasIdRouteImport } from './routes/_authenticated/guias.$id'
-import { Route as ApiPublicGuideImageSplatRouteImport } from './routes/api/public/guide-image/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -95,11 +90,6 @@ const PassaporteRoute = PassaporteRouteImport.update({
   path: '/passaporte',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PostaisRoute = PostaisRouteImport.update({
-  id: '/postais',
-  path: '/postais',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PragaRoute = PragaRouteImport.update({
   id: '/praga',
   path: '/praga',
@@ -141,32 +131,11 @@ const CarimbosCidadeRoute = CarimbosCidadeRouteImport.update({
   path: '/carimbos/$cidade',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GuiaSlugRoute = GuiaSlugRouteImport.update({
-  id: '/guia/$slug',
-  path: '/guia/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const OndeFicarCidadeRoute = OndeFicarCidadeRouteImport.update({
   id: '/onde-ficar/$cidade',
   path: '/onde-ficar/$cidade',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedGuiasIndexRoute = AuthenticatedGuiasIndexRouteImport.update({
-  id: '/guias/',
-  path: '/guias/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedGuiasIdRoute = AuthenticatedGuiasIdRouteImport.update({
-  id: '/guias/$id',
-  path: '/guias/$id',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const ApiPublicGuideImageSplatRoute =
-  ApiPublicGuideImageSplatRouteImport.update({
-    id: '/api/public/guide-image/$',
-    path: '/api/public/guide-image/$',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -180,7 +149,6 @@ export interface FileRoutesByFullPath {
   '/londres': typeof LondresRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
-  '/postais': typeof PostaisRoute
   '/praga': typeof PragaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
@@ -189,11 +157,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRoute
   '/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
-  '/guia/$slug': typeof GuiaSlugRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
-  '/guias/$id': typeof AuthenticatedGuiasIdRoute
-  '/guias/': typeof AuthenticatedGuiasIndexRoute
-  '/api/public/guide-image/$': typeof ApiPublicGuideImageSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -207,7 +171,6 @@ export interface FileRoutesByTo {
   '/londres': typeof LondresRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
-  '/postais': typeof PostaisRoute
   '/praga': typeof PragaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
@@ -216,11 +179,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminRoute
   '/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
-  '/guia/$slug': typeof GuiaSlugRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
-  '/guias/$id': typeof AuthenticatedGuiasIdRoute
-  '/guias': typeof AuthenticatedGuiasIndexRoute
-  '/api/public/guide-image/$': typeof ApiPublicGuideImageSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -236,7 +195,6 @@ export interface FileRoutesById {
   '/londres': typeof LondresRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
-  '/postais': typeof PostaisRoute
   '/praga': typeof PragaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/roteiro-personalizado': typeof RoteiroPersonalizadoRoute
@@ -245,11 +203,7 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
-  '/guia/$slug': typeof GuiaSlugRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
-  '/_authenticated/guias/$id': typeof AuthenticatedGuiasIdRoute
-  '/_authenticated/guias/': typeof AuthenticatedGuiasIndexRoute
-  '/api/public/guide-image/$': typeof ApiPublicGuideImageSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -265,7 +219,6 @@ export interface FileRouteTypes {
     | '/londres'
     | '/paris'
     | '/passaporte'
-    | '/postais'
     | '/praga'
     | '/reset-password'
     | '/roteiro-personalizado'
@@ -274,11 +227,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/passaportes'
     | '/carimbos/$cidade'
-    | '/guia/$slug'
     | '/onde-ficar/$cidade'
-    | '/guias/$id'
-    | '/guias/'
-    | '/api/public/guide-image/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -292,7 +241,6 @@ export interface FileRouteTypes {
     | '/londres'
     | '/paris'
     | '/passaporte'
-    | '/postais'
     | '/praga'
     | '/reset-password'
     | '/roteiro-personalizado'
@@ -301,11 +249,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/passaportes'
     | '/carimbos/$cidade'
-    | '/guia/$slug'
     | '/onde-ficar/$cidade'
-    | '/guias/$id'
-    | '/guias'
-    | '/api/public/guide-image/$'
   id:
     | '__root__'
     | '/'
@@ -320,7 +264,6 @@ export interface FileRouteTypes {
     | '/londres'
     | '/paris'
     | '/passaporte'
-    | '/postais'
     | '/praga'
     | '/reset-password'
     | '/roteiro-personalizado'
@@ -329,11 +272,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/passaportes'
     | '/carimbos/$cidade'
-    | '/guia/$slug'
     | '/onde-ficar/$cidade'
-    | '/_authenticated/guias/$id'
-    | '/_authenticated/guias/'
-    | '/api/public/guide-image/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -349,16 +288,13 @@ export interface RootRouteChildren {
   LondresRoute: typeof LondresRoute
   ParisRoute: typeof ParisRoute
   PassaporteRoute: typeof PassaporteRoute
-  PostaisRoute: typeof PostaisRoute
   PragaRoute: typeof PragaRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   RoteiroPersonalizadoRoute: typeof RoteiroPersonalizadoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VienaRoute: typeof VienaRoute
   CarimbosCidadeRoute: typeof CarimbosCidadeRoute
-  GuiaSlugRoute: typeof GuiaSlugRoute
   OndeFicarCidadeRoute: typeof OndeFicarCidadeRoute
-  ApiPublicGuideImageSplatRoute: typeof ApiPublicGuideImageSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -447,13 +383,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PassaporteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/postais': {
-      id: '/postais'
-      path: '/postais'
-      fullPath: '/postais'
-      preLoaderRoute: typeof PostaisRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/praga': {
       id: '/praga'
       path: '/praga'
@@ -510,39 +439,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CarimbosCidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/guia/$slug': {
-      id: '/guia/$slug'
-      path: '/guia/$slug'
-      fullPath: '/guia/$slug'
-      preLoaderRoute: typeof GuiaSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/onde-ficar/$cidade': {
       id: '/onde-ficar/$cidade'
       path: '/onde-ficar/$cidade'
       fullPath: '/onde-ficar/$cidade'
       preLoaderRoute: typeof OndeFicarCidadeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/guias/': {
-      id: '/_authenticated/guias/'
-      path: '/guias'
-      fullPath: '/guias/'
-      preLoaderRoute: typeof AuthenticatedGuiasIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/guias/$id': {
-      id: '/_authenticated/guias/$id'
-      path: '/guias/$id'
-      fullPath: '/guias/$id'
-      preLoaderRoute: typeof AuthenticatedGuiasIdRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/api/public/guide-image/$': {
-      id: '/api/public/guide-image/$'
-      path: '/api/public/guide-image/$'
-      fullPath: '/api/public/guide-image/$'
-      preLoaderRoute: typeof ApiPublicGuideImageSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -551,15 +452,11 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedPassaportesRoute: typeof AuthenticatedPassaportesRoute
-  AuthenticatedGuiasIdRoute: typeof AuthenticatedGuiasIdRoute
-  AuthenticatedGuiasIndexRoute: typeof AuthenticatedGuiasIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedPassaportesRoute: AuthenticatedPassaportesRoute,
-  AuthenticatedGuiasIdRoute: AuthenticatedGuiasIdRoute,
-  AuthenticatedGuiasIndexRoute: AuthenticatedGuiasIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -578,16 +475,13 @@ const rootRouteChildren: RootRouteChildren = {
   LondresRoute: LondresRoute,
   ParisRoute: ParisRoute,
   PassaporteRoute: PassaporteRoute,
-  PostaisRoute: PostaisRoute,
   PragaRoute: PragaRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   RoteiroPersonalizadoRoute: RoteiroPersonalizadoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VienaRoute: VienaRoute,
   CarimbosCidadeRoute: CarimbosCidadeRoute,
-  GuiaSlugRoute: GuiaSlugRoute,
   OndeFicarCidadeRoute: OndeFicarCidadeRoute,
-  ApiPublicGuideImageSplatRoute: ApiPublicGuideImageSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

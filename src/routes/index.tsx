@@ -416,13 +416,6 @@ function CityGrid() {
         </button>
       </div>
 
-      <div className="mt-10 px-6 md:mt-14">
-        <Link to="/postais" className="gold-link text-sm md:text-base">
-          Também escrevo artigos mais longos sobre cada cidade — vê todos os
-          postais →
-        </Link>
-      </div>
-
     </section>
   );
 }

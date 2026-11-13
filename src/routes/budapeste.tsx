@@ -40,8 +40,6 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
-import { CityArticles } from "@/components/guides/CityArticles";
-import { guidesForCity } from "@/lib/related-guides";
 import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
@@ -65,7 +63,6 @@ const HERO_IMG =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg/1920px-20190502_Widok_na_Budapeszt_z_G%C3%B3ry_Gellerta_1651_2150_DxO.jpg";
 
 export const Route = createFileRoute("/budapeste")({
-  loader: () => guidesForCity("Budapeste", "budapeste"),
   head: () => ({
     meta: [
       { title: "O que visitar em Budapeste: roteiro de 3 dias | O Postal" },
@@ -1729,7 +1726,6 @@ function Index() {
       <Checklist />
       <FinalStamp code="BUD" year="2026" />
       <CustomItineraryCTA city="Budapeste" />
-      <CityArticles city="Budapeste" items={Route.useLoaderData()} />
       <OutrosPostais currentSlug="budapeste" />
       <StreetMode city="Budapeste" slug="budapeste" days={days} />
       <SiteFooter city="Budapeste" farewell="Viszlát, Budapest!" />

@@ -36,8 +36,6 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
-import { CityArticles } from "@/components/guides/CityArticles";
-import { guidesForCity } from "@/lib/related-guides";
 import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
@@ -62,7 +60,6 @@ const HERO_IMG =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Florence_skyline_at_dusk_%283867485023%29.jpg/1280px-Florence_skyline_at_dusk_%283867485023%29.jpg";
 
 export const Route = createFileRoute("/florenca")({
-  loader: () => guidesForCity("Florença", "florenca"),
   head: () => ({
     meta: [
       { title: "O que visitar em Florença: roteiro de 3 dias | O Postal" },
@@ -1405,7 +1402,6 @@ function Index() {
       <Checklist />
       <FinalStamp code="FLR" />
       <CustomItineraryCTA city="Florença" />
-      <CityArticles city="Florença" items={Route.useLoaderData()} />
       <OutrosPostais currentSlug="florenca" />
       <StreetMode city="Florença" slug="florenca" days={days} />
       <SiteFooter city="Florença" />

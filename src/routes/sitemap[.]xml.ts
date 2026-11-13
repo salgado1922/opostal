@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { fetchPublishedGuideSlugs } from "@/lib/guides.server";
 
 const BASE_URL = "https://opostal.pt";
 
@@ -19,7 +18,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/abordagem", changefreq: "monthly", priority: "0.8" },
           { path: "/roteiro-personalizado", changefreq: "monthly", priority: "0.8" },
-          { path: "/postais", changefreq: "weekly", priority: "0.8" },
           { path: "/praga", changefreq: "monthly", priority: "0.9" },
           { path: "/istambul", changefreq: "monthly", priority: "0.9" },
           { path: "/florenca", changefreq: "monthly", priority: "0.9" },
@@ -41,9 +39,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/carimbos/lisboa", changefreq: "monthly", priority: "0.6" },
           { path: "/carimbos/budapeste", changefreq: "monthly", priority: "0.6" },
         ];
-        for (const slug of await fetchPublishedGuideSlugs()) {
-          entries.push({ path: `/guia/${slug}`, changefreq: "monthly", priority: "0.9" });
-        }
         const urls = entries.map((e) =>
           [
             `  <url>`,

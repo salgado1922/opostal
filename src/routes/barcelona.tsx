@@ -36,8 +36,6 @@ import {
 import { PostmarkCircle } from "@/components/postal/PostmarkCircle";
 import { FinalStamp } from "@/components/postal/FinalStamp";
 import { SiteFooter } from "@/components/SiteFooter";
-import { CityArticles } from "@/components/guides/CityArticles";
-import { guidesForCity } from "@/lib/related-guides";
 import { StreetMode } from "@/components/StreetMode";
 import type { Variants } from "framer-motion";
 import {
@@ -61,7 +59,6 @@ const SHARE_IMG =
   "https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_01.jpg?width=1200";
 
 export const Route = createFileRoute("/barcelona")({
-  loader: () => guidesForCity("Barcelona", "barcelona"),
   head: () => ({
     meta: [
       { title: "O que visitar em Barcelona: roteiro de 3 dias | O Postal" },
@@ -1615,7 +1612,6 @@ function Index() {
       <Checklist />
       <FinalStamp code="BCN" />
       <CustomItineraryCTA city="Barcelona" />
-      <CityArticles city="Barcelona" items={Route.useLoaderData()} />
       <OutrosPostais currentSlug="barcelona" />
       <StreetMode city="Barcelona" slug="barcelona" days={days} />
       <SiteFooter city="Barcelona" farewell="Adéu, Barcelona!" />
