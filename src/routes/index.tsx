@@ -542,7 +542,7 @@ function PostcardFlip({
           </div>
           <p className="mt-2 font-serif italic text-cream/85 [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">{city.vibe}</p>
           <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-cream/60">
-            {city.duration} · <span className="text-gold-soft">{ready ? "vira o postal →" : "em breve"}</span>
+            {city.duration}{city.dataVisita ? ` · visitado ${city.dataVisita.toLowerCase().startsWith("v") ? city.dataVisita.toLowerCase() : "em " + city.dataVisita}` : ""} · <span className="text-gold-soft">{ready ? "vira o postal →" : "em breve"}</span>
           </p>
         </div>
       </article>

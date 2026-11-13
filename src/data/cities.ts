@@ -22,7 +22,7 @@ export type CityMeta = {
 export const CITIES: CityMeta[] = [
   {
     slug: "praga",
-    dataVisita: "", // [MÊS/ANO DA VISITA]
+    dataVisita: "Jul 2026",
     name: "Praga",
     country: "Chéquia",
     vibe: "Hora dourada sobre o Vltava, sem turistadas.",
@@ -37,7 +37,7 @@ export const CITIES: CityMeta[] = [
   },
   {
     slug: "istambul",
-    dataVisita: "", // [MÊS/ANO DA VISITA]
+    dataVisita: "Jan 2025",
     name: "Istambul",
     country: "Turquia",
     vibe: "Entre dois continentes, do azul do Bósforo ao azulejo de İznik.",
@@ -52,7 +52,7 @@ export const CITIES: CityMeta[] = [
   },
   {
     slug: "florenca",
-    dataVisita: "", // [MÊS/ANO DA VISITA]
+    dataVisita: "Dez 2025",
     name: "Florença",
     country: "Itália",
     vibe: "Berço do Renascimento, museu a céu aberto.",
@@ -67,7 +67,7 @@ export const CITIES: CityMeta[] = [
   },
   {
     slug: "londres",
-    dataVisita: "", // [MÊS/ANO DA VISITA]
+    dataVisita: "Fev 2024 · Nov 2025",
     name: "Londres",
     country: "Reino Unido",
     vibe: "Museus, parques e mercados, a pé e sem pressa.",
@@ -82,7 +82,7 @@ export const CITIES: CityMeta[] = [
   },
   {
     slug: "paris",
-    dataVisita: "", // [MÊS/ANO DA VISITA]
+    dataVisita: "Jan 2023 · Mai 2024",
     name: "Paris",
     country: "França",
     vibe: "A Cidade Luz em 3 dias, mais uma tarde de realeza em Versalhes.",
@@ -97,7 +97,7 @@ export const CITIES: CityMeta[] = [
   },
   {
     slug: "barcelona",
-    dataVisita: "", // [MÊS/ANO DA VISITA]
+    dataVisita: "Jul 2024",
     name: "Barcelona",
     country: "Espanha",
     vibe: "Gaudí, mar e tapas até tarde.",
@@ -112,7 +112,7 @@ export const CITIES: CityMeta[] = [
   },
   {
     slug: "viena",
-    dataVisita: "", // [MÊS/ANO DA VISITA]
+    dataVisita: "Jul 2021",
     name: "Viena",
     country: "Áustria",
     vibe: "Palácios imperiais, café e valsa.",
@@ -127,7 +127,7 @@ export const CITIES: CityMeta[] = [
   },
   {
     slug: "lisboa",
-    dataVisita: "", // [MÊS/ANO DA VISITA]
+    dataVisita: "Várias vezes",
     name: "Lisboa",
     country: "Portugal",
     vibe: "Luz, miradouros e fado à esquina.",
@@ -142,7 +142,7 @@ export const CITIES: CityMeta[] = [
   },
   {
     slug: "budapeste",
-    dataVisita: "", // [MÊS/ANO DA VISITA]
+    dataVisita: "Jul 2022",
     name: "Budapeste",
     country: "Hungria",
     vibe: "Termas, Danúbio e ruínas com vida.",
