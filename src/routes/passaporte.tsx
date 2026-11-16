@@ -64,6 +64,19 @@ const fmt = (iso: string) =>
     minute: "2-digit",
   });
 
+const DEMO_PASSPORT: Passport = (() => {
+  const out: Passport = {};
+  const pick: [string, number][] = [["praga", 3], ["paris", 2], ["istambul", 2]];
+  pick.forEach(([slug, n], ci) => {
+    const list = STAMP_STOPS[slug] ?? [];
+    const c = CITIES.find((x) => x.slug === slug);
+    const stamps: Passport[string]["stamps"] = {};
+    list.slice(0, n).forEach((s, i) => { stamps[s.title] = { at: new Date(2025, 3 + ci * 2, 4 + i * 2, 11).toISOString(), verified: i !== 1 }; });
+    out[slug] = { name: c?.name ?? slug, total: list.length, stamps };
+  });
+  return out;
+})();
+
 function PassaportePage() {
   const [p, setP] = useState<Passport>({});
   const [msg, setMsg] = useState("");
@@ -204,6 +217,20 @@ function PassaportePage() {
         )}
         </>)}
       </header>
+      {signedIn === false && (
+        <section aria-labelledby="exemplo" className="mx-auto max-w-4xl px-5 pb-16 md:px-6">
+          <h2 id="exemplo" className="mb-6 text-[11px] uppercase tracking-[0.3em] text-gold/80">Assim fica o teu passaporte</h2>
+          <div className="relative">
+            <PassportBook p={DEMO_PASSPORT} />
+            <div className="mt-8 flex flex-col items-center border-t border-gold/15 pt-8 text-center">
+              <p className="max-w-md font-serif text-xl italic text-cream/90">Folheia este exemplo. O teu começa vazio e enche-se a cada paragem.</p>
+              <button type="button" onClick={goSignIn} className="mt-4 inline-flex min-h-[48px] items-center border border-gold bg-background px-6 font-serif text-lg italic text-gold hover:bg-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70">
+                Entrar e começar a carimbar
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
       {signedIn && (<>
       <StampPreview open={openStamp} onClose={() => setOpenStamp(null)} />
 

@@ -2,7 +2,7 @@ import { AUTHOR } from "@/data/author";
 import SmartImage from "@/components/SmartImage";
 
 export function AuthorBlock({ align = "center" }: { align?: "center" | "left" }) {
-  const hasPhoto = !!AUTHOR.foto;
+  const hasPhoto = false; // foto só na página Quem escreve
   const c0 = align === "center" ? "md:grid-cols-[180px_1fr] md:text-left text-center" : "md:grid-cols-[180px_1fr] text-left";
   const c = hasPhoto ? c0 : align === "center" ? "text-center" : "text-left";
   return (
