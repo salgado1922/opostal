@@ -797,3 +797,15 @@ html { scroll-behavior: smooth; }
   .snow i { display: none; }
   .sleigh { transform: translate(55vw, 0) rotate(-4deg); }
 }
+
+/* Natal — extras WOW */
+.xmas-star { position: absolute; border-radius: 9999px; background: var(--cream); animation: xmas-twinkle 3.5s ease-in-out infinite; }
+@keyframes xmas-twinkle { 0%,100% { opacity: .2 } 50% { opacity: 1 } }
+.xmas-window { animation: xmas-flicker 5s ease-in-out infinite; }
+@keyframes xmas-flicker { 0%,100% { opacity: .9 } 45% { opacity: .35 } 60% { opacity: 1 } }
+.xmas-bauble { transform-origin: 50% 0; animation: xmas-swing 4.5s ease-in-out infinite; }
+@keyframes xmas-swing { 0%,100% { transform: rotate(-5deg) } 50% { transform: rotate(5deg) } }
+.xmas-glow { text-shadow: 0 0 28px color-mix(in oklab, var(--gold) 55%, transparent), 0 0 2px color-mix(in oklab, var(--gold) 80%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .xmas-star, .xmas-window, .xmas-bauble { animation: none; }
+}

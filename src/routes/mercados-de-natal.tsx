@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
-import { XMAS_CITIES, SOURCES } from "@/data/mercados-natal";
+import { XMAS_CITIES } from "@/data/mercados-natal";
 import { Snow, FairyLights, Sleigh, Gift, MarketHuts, Tree } from "@/components/natal/Festive";
+import { Stars, Skyline, Countdown, Bauble } from "@/components/natal/Wow";
 import { shareImgFor } from "@/data/share-images";
 
 const URL = "https://opostal.pt/mercados-de-natal";
@@ -34,8 +35,18 @@ function XmasPage() {
       <SiteNav />
 
       {/* HERO */}
-      <header className="relative isolate overflow-hidden px-5 pb-0 pt-28 md:px-6 md:pt-40">
+      <header className="relative isolate overflow-hidden px-5 pb-0 pt-28 md:min-h-[92vh] md:px-6 md:pt-40">
+        <Stars />
         <Snow />
+        <div className="pointer-events-none absolute right-[22%] top-0 z-[2] hidden gap-6 md:flex">
+          <Bauble className="h-44 w-12" />
+          <Bauble className="h-28 w-10" color="var(--gold)" delay={1.2} />
+          <Bauble className="h-56 w-12" color="oklch(0.5 0.1 155)" delay={0.6} />
+        </div>
+        <div className="pointer-events-none absolute left-[62%] top-0 z-[2] flex gap-4 md:hidden">
+          <Bauble className="h-24 w-8" />
+          <Bauble className="h-16 w-7" color="var(--gold)" delay={1.2} />
+        </div>
         <div aria-hidden className="pointer-events-none absolute right-[8%] top-24 z-0 h-28 w-28 rounded-full md:h-44 md:w-44" style={{ background: "radial-gradient(circle at 35% 35%, var(--frost), oklch(0.85 0.03 90) 70%)", boxShadow: "0 0 80px 10px oklch(0.97 0.01 230 / 18%)" }} />
         <div className="pointer-events-none absolute inset-x-0 top-32 z-[2] md:top-40">
           <Sleigh className="sleigh h-8 w-32 text-cream/70 md:h-12 md:w-48" />
@@ -44,12 +55,16 @@ function XmasPage() {
           <p className="mb-5 flex items-center gap-4 text-[11px] uppercase tracking-[0.35em] text-gold">
             <span className="h-px w-10 bg-gold/70" />Postal de inverno · 2026
           </p>
-          <h1 className="font-serif text-[2.9rem] leading-[0.98] text-cream md:text-8xl">
-            Mercados<br /><em className="text-gold">de Natal</em>
+          <h1 className="font-serif text-[3.4rem] leading-[0.95] text-cream md:text-[9rem]">
+            Mercados<br /><em className="xmas-glow text-gold">de Natal</em>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream/80 md:text-xl">
-            Viena, Praga e Budapeste: datas, horários, preços e as armadilhas a evitar. Tudo confirmado em fontes oficiais e locais.
+            Viena, Praga e Budapeste: datas, horários, preços e as armadilhas a evitar.
           </p>
+          <div className="mt-8">
+            <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Faltam para a Consoada</p>
+            <Countdown />
+          </div>
           <nav aria-label="Cidades" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
             {XMAS_CITIES.map((c) => (
               <a key={c.slug} href={`#${c.slug}`} className="inline-flex min-h-11 items-center font-serif text-2xl text-cream underline decoration-gold/50 underline-offset-[8px] hover:decoration-gold">
@@ -64,7 +79,8 @@ function XmasPage() {
             <Gift className="h-8 w-8" box="oklch(0.5 0.1 155)" ribbon="var(--cream)" />
           </div>
         </div>
-        <MarketHuts className="relative z-[3] mt-6 block h-16 w-full md:h-24" />
+        <Skyline className="relative z-[2] -mx-5 mt-6 block h-28 w-[calc(100%+2.5rem)] max-w-none md:-mx-6 md:-mt-10 md:h-60 md:w-[calc(100%+3rem)]" />
+        <MarketHuts className="relative z-[3] -mt-2 block h-16 w-full md:h-24" />
       </header>
       <div className="h-3 bg-[color:var(--frost)] opacity-80" aria-hidden />
 
@@ -122,7 +138,7 @@ function XmasPage() {
                       </div>
                     ))}
                   </dl>
-                  <p className="mt-2 text-xs text-muted-foreground">{c.precosFonte}</p>
+                  {c.slug === "budapeste" && <p className="mt-2 text-xs text-muted-foreground">Preços de 2025; os de 2026 ainda não foram publicados.</p>}
                 </div>
                 <div className="border-l-2 border-[color:var(--holly)] pl-5">
                   <p className="text-[11px] uppercase tracking-[0.3em] text-gold/80">Antes de ires</p>
@@ -156,18 +172,7 @@ function XmasPage() {
         </div>
       </section>
 
-      {/* FONTES */}
-      <section className="border-t border-gold/15 px-5 py-10 md:px-6">
-        <div className="mx-auto max-w-5xl">
-          <p className="text-[11px] uppercase tracking-[0.3em] text-gold/70">Fontes · confirmadas a 20 de novembro de 2026</p>
-          <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-            {SOURCES.map((s) => (
-              <li key={s.url}><a href={s.url} target="_blank" rel="noopener nofollow" className="text-muted-foreground underline decoration-gold/30 underline-offset-4 hover:text-cream">{s.label}</a></li>
-            ))}
-          </ul>
-          <p className="mt-4 text-xs text-muted-foreground">Os horários podem mudar. Confirma no site do mercado antes de saíres. Links de alojamento são de afiliado Booking.</p>
-        </div>
-      </section>
+      <p className="px-5 pb-10 text-center text-xs text-muted-foreground">Os horários podem mudar. Confirma no site do mercado antes de saíres. Links de alojamento são de afiliado Booking.</p>
 
       <SiteFooter city="Mercados de Natal" farewell="Frohe Weihnachten · Veselé Vánoce · Boldog karácsonyt" />
     </main>
