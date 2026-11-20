@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { usePassport } from "@/hooks/use-passport";
 import {
   PASSPORT_AUTH_EVENT,
@@ -13,6 +14,14 @@ import {
 } from "@/lib/passport";
 import { XMAS_SEASON, XMAS_SPOTS, checkXmasSpot, dayLabel, xmasStatus, xmasWindow, type XmasSlug, type XmasStatus } from "@/data/natal-stamps";
 import { XmasStamp } from "./XmasStamp";
+import { XmasStampViewer } from "./XmasStampViewer";
+
+/** Estrelinhas douradas que saltam quando o carimbo cai no papel. */
+const BURST = Array.from({ length: 14 }, (_, i) => {
+  const a = (2 * Math.PI * i) / 14 + 0.2;
+  const d = 120 + (i % 3) * 28;
+  return { x: Math.round(Math.cos(a) * d), y: Math.round(Math.sin(a) * d), s: 6 + (i % 3) * 3, star: i % 2 === 0 };
+});
 
 const fmtDay = (iso: string) => {
   const d = new Date(iso);
@@ -28,6 +37,9 @@ export function XmasStampCard({ slug, city }: { slug: XmasSlug; city: string }) 
   const [status, setStatus] = useState<XmasStatus | null>(null);
   const [checking, setChecking] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
+  const [fresh, setFresh] = useState(false);
+  const [view, setView] = useState(false);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     setStatus(xmasStatus(slug, new Date()));
@@ -51,6 +63,7 @@ export function XmasStampCard({ slug, city }: { slug: XmasSlug; city: string }) 
       if (!r) setMsg("Hoje não há nenhum mercado aberto nesta cidade.");
       else if (r.ok) {
         stampXmas(slug, XMAS_SEASON, r.spot.name);
+        setFresh(true);
         setMsg(`Carimbado no mercado de ${r.spot.name}. Feliz Natal!`);
       } else {
         const far = r.d > 2000 ? `${(r.d / 1000).toFixed(1).replace(".", ",")} km` : `${Math.round(r.d)} m`;
@@ -77,10 +90,42 @@ export function XmasStampCard({ slug, city }: { slug: XmasSlug; city: string }) 
             <span>Vistos · Natal</span><span>{XMAS_SEASON}</span>
           </p>
           <div className="mt-1 h-px opacity-25" style={{ background: "var(--ink)" }} />
-          <XmasStamp slug={slug} city={city} at={stamp?.at} rotate={stamp ? -8 : 0} className="mt-4 w-full" />
+          <div className="relative mt-4">
+            {stamp ? (
+              <button type="button" onClick={() => setView(true)} aria-label={`Ver o carimbo de Natal de ${city} em grande`} className="block w-full rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]">
+                <motion.div
+                  key={fresh ? "fresh" : "still"}
+                  initial={fresh && !reduce ? { scale: 2.1, rotate: -28, opacity: 0, y: -40 } : false}
+                  animate={{ scale: 1, rotate: 0, opacity: 1, y: 0 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 15, mass: 0.9 }}
+                >
+                  <XmasStamp slug={slug} city={city} at={stamp.at} rotate={-8} className="w-full" />
+                </motion.div>
+              </button>
+            ) : (
+              <XmasStamp slug={slug} city={city} className="w-full" />
+            )}
+            <AnimatePresence>
+              {fresh && stamp && !reduce && (
+                <div aria-hidden className="pointer-events-none absolute inset-0 grid place-items-center">
+                  {BURST.map((b, i) => (
+                    <motion.span
+                      key={i}
+                      className="absolute block"
+                      style={{ width: b.s, height: b.s, background: b.star ? "var(--foil-light)" : "var(--holly-berry)", clipPath: b.star ? "polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)" : "circle(50%)" }}
+                      initial={{ x: 0, y: 0, opacity: 0, scale: 0.4 }}
+                      animate={{ x: b.x, y: b.y, opacity: [0, 1, 0], scale: [0.4, 1.2, 0.6] }}
+                      transition={{ delay: 0.28, duration: 1.3, ease: "easeOut" }}
+                    />
+                  ))}
+                </div>
+              )}
+            </AnimatePresence>
+          </div>
           <p className="mt-3 text-center font-serif text-sm italic opacity-75">
             {stamp ? `${stamp.market} · ${fmtDay(stamp.at)}` : "Por carimbar"}
           </p>
+          {stamp && <p className="mt-1 text-center text-[9px] uppercase tracking-[0.25em] opacity-50">Toca para ver em grande</p>}
         </div>
 
         <div>
@@ -111,12 +156,12 @@ export function XmasStampCard({ slug, city }: { slug: XmasSlug; city: string }) 
               </button>
             )}
             {admin && !stamp && (
-              <button type="button" onClick={() => { stampXmas(slug, XMAS_SEASON, XMAS_SPOTS[slug][0]!.name, "admin"); setMsg("Carimbo de admin colocado."); }} className={small}>
+              <button type="button" onClick={() => { stampXmas(slug, XMAS_SEASON, XMAS_SPOTS[slug][0]!.name, "admin"); setFresh(true); setMsg("Carimbo de admin colocado."); }} className={small}>
                 Admin: carimbar sem GPS
               </button>
             )}
             {admin && stamp && (
-              <button type="button" onClick={() => { removeXmasStamp(slug, XMAS_SEASON); setMsg("Carimbo de Natal retirado."); }} className={small}>
+              <button type="button" onClick={() => { removeXmasStamp(slug, XMAS_SEASON); setFresh(false); setMsg("Carimbo de Natal retirado."); }} className={small}>
                 Admin: tirar carimbo
               </button>
             )}
@@ -124,6 +169,9 @@ export function XmasStampCard({ slug, city }: { slug: XmasSlug; city: string }) 
           {msg && <p role="status" className="mt-4 max-w-xl border-l-2 border-gold/60 pl-3 text-cream/90">{msg}</p>}
         </div>
       </div>
+      {stamp && (
+        <XmasStampViewer open={view} onOpenChange={setView} slug={slug} city={city} at={stamp.at} market={stamp.market} />
+      )}
     </section>
   );
 }

@@ -75,6 +75,10 @@ html { scroll-behavior: smooth; }
   --stamp-natal: oklch(0.47 0.17 25);
   --holly-leaf: oklch(0.4 0.09 155);
   --holly-berry: oklch(0.56 0.21 27);
+  /* Folha dourada dos carimbos de Natal */
+  --foil-deep: oklch(0.5 0.1 70);
+  --foil-mid: oklch(0.72 0.13 80);
+  --foil-light: oklch(0.95 0.07 92);
   --passport-paper: oklch(0.94 0.03 85);
   --passport-paper-shade: oklch(0.86 0.04 80);
   --passport-cover: oklch(0.26 0.06 20);
@@ -893,4 +897,14 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   .largo-floor, .largo-item, .largo-stall { transition: none; }
   .largo-bulb { animation: none; }
+}
+
+/* Carimbos de Natal: brilho da folha dourada e estrelinhas */
+.xmas-stamp-sheen { animation: xmas-stamp-sheen 5.5s ease-in-out infinite; }
+@keyframes xmas-stamp-sheen { 0%, 55% { transform: translateX(0); } 100% { transform: translateX(420px); } }
+.xmas-stamp-spark { transform-box: fill-box; transform-origin: center; animation: xmas-stamp-spark 3.2s ease-in-out infinite; opacity: 0; }
+@keyframes xmas-stamp-spark { 0%, 100% { opacity: 0; transform: scale(.3) rotate(0deg); } 45% { opacity: 1; transform: scale(1) rotate(45deg); } 70% { opacity: 0; transform: scale(.5) rotate(90deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .xmas-stamp-sheen, .xmas-stamp-spark { animation: none; }
+  .xmas-stamp-spark { opacity: .8; }
 }

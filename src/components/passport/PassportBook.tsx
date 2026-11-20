@@ -14,6 +14,7 @@ import { BadgeSeal } from "./BadgeSeal";
 import { STAMP_STYLE, inkFor, seeded, stampDate } from "./stamps";
 import { Link } from "@tanstack/react-router";
 import { XmasStamp } from "@/components/natal/XmasStamp";
+import { XmasStampViewer } from "@/components/natal/XmasStampViewer";
 import { XMAS_SEASON } from "@/data/natal-stamps";
 
 const XMAS_PAGE: { slug: "viena" | "praga" | "budapeste"; city: string }[] = [
@@ -25,6 +26,9 @@ const XMAS_PAGE: { slug: "viena" | "praga" | "budapeste"; city: string }[] = [
 /** Página especial de Natal: os três carimbos dos mercados da época. */
 function XmasPage({ p }: { p: Passport }) {
   const got = XMAS_PAGE.filter((c) => p[c.slug]?.natal?.[XMAS_SEASON]).length;
+  const [view, setView] = useState<(typeof XMAS_PAGE)[number]["slug"] | null>(null);
+  const vc = XMAS_PAGE.find((c) => c.slug === view);
+  const vs = vc ? p[vc.slug]?.natal?.[XMAS_SEASON] : undefined;
   return (
     <div
       className="relative h-full overflow-hidden px-6 pb-6 pt-5"
@@ -35,32 +39,41 @@ function XmasPage({ p }: { p: Passport }) {
         color: "var(--ink)",
       }}
     >
-      <div className="flex items-baseline justify-between text-[10px] uppercase tracking-[0.3em] opacity-70">
+      <div aria-hidden className="pointer-events-none absolute inset-2 border" style={{ borderColor: "color-mix(in oklab, var(--foil-mid) 75%, transparent)" }} />
+      <div aria-hidden className="pointer-events-none absolute inset-[11px] border" style={{ borderColor: "color-mix(in oklab, var(--foil-mid) 40%, transparent)" }} />
+      <div className="relative flex items-baseline justify-between text-[10px] uppercase tracking-[0.3em] opacity-70">
         <span>Vistos · Natal</span>
         <span>{XMAS_SEASON}</span>
       </div>
       <div className="mt-1 h-px opacity-30" style={{ background: "var(--ink)" }} />
       <p className="mt-4 font-serif text-4xl leading-none" style={{ color: "var(--stamp-natal)" }}>Natal</p>
-      <p className="mt-1 text-[11px] uppercase tracking-[0.25em] opacity-70">Mercados de Advento ❄</p>
+      <p className="mt-1 text-[11px] uppercase tracking-[0.25em] opacity-70">Edição rara · só nos mercados ❄</p>
       <p className="mt-3 font-serif text-sm italic opacity-80">{got ? `${got} de 3 mercados carimbados` : "Só se carimba dentro dos mercados"}</p>
       <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1">
         {XMAS_PAGE.map((c, i) => {
           const s = p[c.slug]?.natal?.[XMAS_SEASON];
-          return (
-            <Link
-              key={c.slug}
-              to="/mercados-de-natal/$cidade"
-              params={{ cidade: c.slug }}
-              aria-label={`Natal em ${c.city}${s ? `, carimbado em ${s.market}` : ", por carimbar"}`}
-              className="flex w-[38%] flex-col items-center rounded-sm text-center transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
-            >
+          const cls = "flex w-[38%] flex-col items-center rounded-sm text-center transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]";
+          const inner = (
+            <>
               <XmasStamp slug={c.slug} city={c.city} at={s?.at} rotate={s ? [-9, 7, -4][i] : 0} className="w-full" />
-              <span className="font-serif text-base leading-tight">{c.city}</span>
+              <span className="mt-1 font-serif text-base leading-tight">{c.city}</span>
               <span className="max-w-full truncate text-[9px] uppercase tracking-[0.16em] opacity-60">{s ? s.market : "por carimbar"}</span>
+            </>
+          );
+          return s ? (
+            <button key={c.slug} type="button" onClick={() => setView(c.slug)} className={cls} aria-label={`Natal em ${c.city}, carimbado em ${s.market}. Ver em grande`}>
+              {inner}
+            </button>
+          ) : (
+            <Link key={c.slug} to="/mercados-de-natal/$cidade" params={{ cidade: c.slug }} aria-label={`Natal em ${c.city}, por carimbar`} className={cls}>
+              {inner}
             </Link>
           );
         })}
       </div>
+      {vc && vs && (
+        <XmasStampViewer open onOpenChange={(o) => !o && setView(null)} slug={vc.slug} city={vc.city} at={vs.at} market={vs.market} />
+      )}
     </div>
   );
 }
