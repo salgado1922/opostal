@@ -3,3 +3,4 @@
 - Paid itinerary AI drafts require human review and checklist completion before sent/completed states; why: estimates cannot substitute verified travel information.
 - Guide health checks inspect only fixed public guide URLs and approved image hosts; why: arbitrary URL fetching would permit SSRF.
 - Site results use anonymous daily aggregates with short-lived hashed rate-limit keys, no simulated base and no booking revenue inference; why: report observed activity without collecting visitor profiles.
+- Christmas markets use a hub at /mercados-de-natal plus per-city pages at /mercados-de-natal/$cidade, all driven by src/data/mercados-natal.ts; why: one data source keeps the hub, city pages, guide strips and sitemap in sync.

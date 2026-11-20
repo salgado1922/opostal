@@ -16,41 +16,6 @@ export function Stars({ count = 60 }: { count?: number }) {
   );
 }
 
-/** Silhueta de Viena, Praga e Budapeste com janelas acesas. */
-export function Skyline({ className = "" }: { className?: string }) {
-  const windows = Array.from({ length: 70 }, (_, i) => {
-    const r = (n: number) => ((Math.sin(i * 12.9898 + n * 78.233) * 43758.5453) % 1 + 1) % 1;
-    return { x: Math.round(20 + r(1) * 1160), y: Math.round(150 + r(2) * 70), d: Math.round(r(3) * 50) / 10 };
-  });
-  return (
-    <svg viewBox="0 0 1200 240" preserveAspectRatio="xMidYMax slice" className={className} aria-hidden>
-      <defs>
-        <linearGradient id="sky-glow" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="var(--gold)" stopOpacity="0" />
-          <stop offset="1" stopColor="var(--gold)" stopOpacity="0.25" />
-        </linearGradient>
-      </defs>
-      <rect x="0" y="80" width="1200" height="160" fill="url(#sky-glow)" />
-      <g fill="oklch(0.16 0.04 160)">
-        {/* Viena: Stephansdom + Riesenrad */}
-        <path d="M0 240V170h60v-30h20v30h30V150l40-20 40 20v20h20V60l8-40 8 40v110h30v-30h40v100z" />
-        <circle cx="330" cy="150" r="48" fill="none" stroke="oklch(0.16 0.04 160)" strokeWidth="5" />
-        <path d="M330 102v96M282 150h96M296 116l68 68M364 116l-68 68" stroke="oklch(0.16 0.04 160)" strokeWidth="2" />
-        <path d="M300 240l30-90 30 90z" />
-        {/* Praga: Týn */}
-        <path d="M380 240v-60h50v-20h20V80l12-30 12 30v80h16V80l12-30 12 30v80h20v20h60v-30h40v90z" />
-        <path d="M640 240v-50h40v-40l30-30 30 30v40h50v50z" />
-        {/* Budapeste: Parlamento */}
-        <path d="M790 240v-50h30v-30h20v-20h20v20h20v-30l40-50 40 50v30h20v-20h20v20h20v30h30v50z" />
-        <path d="M970 240v-40h40v-30h30v30h40v-50l10-25 10 25v50h100v40z" />
-      </g>
-      {windows.map((w, i) => (
-        <rect key={i} x={w.x} y={w.y} width="4" height="6" fill="var(--gold)" className="xmas-window" style={{ animationDelay: `${w.d}s` }} />
-      ))}
-    </svg>
-  );
-}
-
 function diff() {
   const now = new Date();
   let target = new Date(now.getFullYear(), 11, 24, 18);

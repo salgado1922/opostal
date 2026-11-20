@@ -20,7 +20,6 @@ import { Route as FlorencaRouteImport } from './routes/florenca'
 import { Route as IstambulRouteImport } from './routes/istambul'
 import { Route as LisboaRouteImport } from './routes/lisboa'
 import { Route as LondresRouteImport } from './routes/londres'
-import { Route as MercadosDeNatalRouteImport } from './routes/mercados-de-natal'
 import { Route as ParisRouteImport } from './routes/paris'
 import { Route as PassaporteRouteImport } from './routes/passaporte'
 import { Route as PragaRouteImport } from './routes/praga'
@@ -33,6 +32,8 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedAfiliadosRouteImport } from './routes/_authenticated/afiliados'
 import { Route as AuthenticatedPassaportesRouteImport } from './routes/_authenticated/passaportes'
 import { Route as CarimbosCidadeRouteImport } from './routes/carimbos.$cidade'
+import { Route as MercadosDeNatalIndexRouteImport } from './routes/mercados-de-natal.index'
+import { Route as MercadosDeNatalCidadeRouteImport } from './routes/mercados-de-natal.$cidade'
 import { Route as OndeFicarCidadeRouteImport } from './routes/onde-ficar.$cidade'
 import { Route as ApiPublicAdminProposalRouteImport } from './routes/api/public/admin-proposal'
 import { Route as ApiPublicMetricsRouteImport } from './routes/api/public/metrics'
@@ -89,11 +90,6 @@ const LisboaRoute = LisboaRouteImport.update({
 const LondresRoute = LondresRouteImport.update({
   id: '/londres',
   path: '/londres',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MercadosDeNatalRoute = MercadosDeNatalRouteImport.update({
-  id: '/mercados-de-natal',
-  path: '/mercados-de-natal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ParisRoute = ParisRouteImport.update({
@@ -157,6 +153,16 @@ const CarimbosCidadeRoute = CarimbosCidadeRouteImport.update({
   path: '/carimbos/$cidade',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MercadosDeNatalIndexRoute = MercadosDeNatalIndexRouteImport.update({
+  id: '/mercados-de-natal/',
+  path: '/mercados-de-natal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MercadosDeNatalCidadeRoute = MercadosDeNatalCidadeRouteImport.update({
+  id: '/mercados-de-natal/$cidade',
+  path: '/mercados-de-natal/$cidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OndeFicarCidadeRoute = OndeFicarCidadeRouteImport.update({
   id: '/onde-ficar/$cidade',
   path: '/onde-ficar/$cidade',
@@ -184,7 +190,6 @@ export interface FileRoutesByFullPath {
   '/istambul': typeof IstambulRoute
   '/lisboa': typeof LisboaRoute
   '/londres': typeof LondresRoute
-  '/mercados-de-natal': typeof MercadosDeNatalRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
   '/praga': typeof PragaRoute
@@ -197,7 +202,9 @@ export interface FileRoutesByFullPath {
   '/afiliados': typeof AuthenticatedAfiliadosRoute
   '/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
+  '/mercados-de-natal/$cidade': typeof MercadosDeNatalCidadeRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
+  '/mercados-de-natal/': typeof MercadosDeNatalIndexRoute
   '/api/public/admin-proposal': typeof ApiPublicAdminProposalRoute
   '/api/public/metrics': typeof ApiPublicMetricsRoute
 }
@@ -212,7 +219,6 @@ export interface FileRoutesByTo {
   '/istambul': typeof IstambulRoute
   '/lisboa': typeof LisboaRoute
   '/londres': typeof LondresRoute
-  '/mercados-de-natal': typeof MercadosDeNatalRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
   '/praga': typeof PragaRoute
@@ -225,7 +231,9 @@ export interface FileRoutesByTo {
   '/afiliados': typeof AuthenticatedAfiliadosRoute
   '/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
+  '/mercados-de-natal/$cidade': typeof MercadosDeNatalCidadeRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
+  '/mercados-de-natal': typeof MercadosDeNatalIndexRoute
   '/api/public/admin-proposal': typeof ApiPublicAdminProposalRoute
   '/api/public/metrics': typeof ApiPublicMetricsRoute
 }
@@ -242,7 +250,6 @@ export interface FileRoutesById {
   '/istambul': typeof IstambulRoute
   '/lisboa': typeof LisboaRoute
   '/londres': typeof LondresRoute
-  '/mercados-de-natal': typeof MercadosDeNatalRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
   '/praga': typeof PragaRoute
@@ -255,7 +262,9 @@ export interface FileRoutesById {
   '/_authenticated/afiliados': typeof AuthenticatedAfiliadosRoute
   '/_authenticated/passaportes': typeof AuthenticatedPassaportesRoute
   '/carimbos/$cidade': typeof CarimbosCidadeRoute
+  '/mercados-de-natal/$cidade': typeof MercadosDeNatalCidadeRoute
   '/onde-ficar/$cidade': typeof OndeFicarCidadeRoute
+  '/mercados-de-natal/': typeof MercadosDeNatalIndexRoute
   '/api/public/admin-proposal': typeof ApiPublicAdminProposalRoute
   '/api/public/metrics': typeof ApiPublicMetricsRoute
 }
@@ -272,7 +281,6 @@ export interface FileRouteTypes {
     | '/istambul'
     | '/lisboa'
     | '/londres'
-    | '/mercados-de-natal'
     | '/paris'
     | '/passaporte'
     | '/praga'
@@ -285,7 +293,9 @@ export interface FileRouteTypes {
     | '/afiliados'
     | '/passaportes'
     | '/carimbos/$cidade'
+    | '/mercados-de-natal/$cidade'
     | '/onde-ficar/$cidade'
+    | '/mercados-de-natal/'
     | '/api/public/admin-proposal'
     | '/api/public/metrics'
   fileRoutesByTo: FileRoutesByTo
@@ -300,7 +310,6 @@ export interface FileRouteTypes {
     | '/istambul'
     | '/lisboa'
     | '/londres'
-    | '/mercados-de-natal'
     | '/paris'
     | '/passaporte'
     | '/praga'
@@ -313,7 +322,9 @@ export interface FileRouteTypes {
     | '/afiliados'
     | '/passaportes'
     | '/carimbos/$cidade'
+    | '/mercados-de-natal/$cidade'
     | '/onde-ficar/$cidade'
+    | '/mercados-de-natal'
     | '/api/public/admin-proposal'
     | '/api/public/metrics'
   id:
@@ -329,7 +340,6 @@ export interface FileRouteTypes {
     | '/istambul'
     | '/lisboa'
     | '/londres'
-    | '/mercados-de-natal'
     | '/paris'
     | '/passaporte'
     | '/praga'
@@ -342,7 +352,9 @@ export interface FileRouteTypes {
     | '/_authenticated/afiliados'
     | '/_authenticated/passaportes'
     | '/carimbos/$cidade'
+    | '/mercados-de-natal/$cidade'
     | '/onde-ficar/$cidade'
+    | '/mercados-de-natal/'
     | '/api/public/admin-proposal'
     | '/api/public/metrics'
   fileRoutesById: FileRoutesById
@@ -359,7 +371,6 @@ export interface RootRouteChildren {
   IstambulRoute: typeof IstambulRoute
   LisboaRoute: typeof LisboaRoute
   LondresRoute: typeof LondresRoute
-  MercadosDeNatalRoute: typeof MercadosDeNatalRoute
   ParisRoute: typeof ParisRoute
   PassaporteRoute: typeof PassaporteRoute
   PragaRoute: typeof PragaRoute
@@ -369,7 +380,9 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VienaRoute: typeof VienaRoute
   CarimbosCidadeRoute: typeof CarimbosCidadeRoute
+  MercadosDeNatalCidadeRoute: typeof MercadosDeNatalCidadeRoute
   OndeFicarCidadeRoute: typeof OndeFicarCidadeRoute
+  MercadosDeNatalIndexRoute: typeof MercadosDeNatalIndexRoute
   ApiPublicAdminProposalRoute: typeof ApiPublicAdminProposalRoute
   ApiPublicMetricsRoute: typeof ApiPublicMetricsRoute
 }
@@ -451,13 +464,6 @@ declare module '@tanstack/react-router' {
       path: '/londres'
       fullPath: '/londres'
       preLoaderRoute: typeof LondresRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mercados-de-natal': {
-      id: '/mercados-de-natal'
-      path: '/mercados-de-natal'
-      fullPath: '/mercados-de-natal'
-      preLoaderRoute: typeof MercadosDeNatalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/paris': {
@@ -544,6 +550,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CarimbosCidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mercados-de-natal/': {
+      id: '/mercados-de-natal/'
+      path: '/mercados-de-natal'
+      fullPath: '/mercados-de-natal/'
+      preLoaderRoute: typeof MercadosDeNatalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mercados-de-natal/$cidade': {
+      id: '/mercados-de-natal/$cidade'
+      path: '/mercados-de-natal/$cidade'
+      fullPath: '/mercados-de-natal/$cidade'
+      preLoaderRoute: typeof MercadosDeNatalCidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/onde-ficar/$cidade': {
       id: '/onde-ficar/$cidade'
       path: '/onde-ficar/$cidade'
@@ -595,7 +615,6 @@ const rootRouteChildren: RootRouteChildren = {
   IstambulRoute: IstambulRoute,
   LisboaRoute: LisboaRoute,
   LondresRoute: LondresRoute,
-  MercadosDeNatalRoute: MercadosDeNatalRoute,
   ParisRoute: ParisRoute,
   PassaporteRoute: PassaporteRoute,
   PragaRoute: PragaRoute,
@@ -605,7 +624,9 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VienaRoute: VienaRoute,
   CarimbosCidadeRoute: CarimbosCidadeRoute,
+  MercadosDeNatalCidadeRoute: MercadosDeNatalCidadeRoute,
   OndeFicarCidadeRoute: OndeFicarCidadeRoute,
+  MercadosDeNatalIndexRoute: MercadosDeNatalIndexRoute,
   ApiPublicAdminProposalRoute: ApiPublicAdminProposalRoute,
   ApiPublicMetricsRoute: ApiPublicMetricsRoute,
 }

@@ -842,3 +842,41 @@ html { scroll-behavior: smooth; }
   .xmas-halo, .xmas-sparkle, .xmas-garland-bulb, .xmas-bulb { animation: none; }
   .xmas-halo { opacity: .3; }
 }
+
+/* Natal — largo 3D das cabanas */
+.largo {
+  --tilt: 60deg;
+  position: relative; container-type: inline-size; width: min(100%, 600px); margin-inline: auto;
+  aspect-ratio: 1 / 0.9; perspective: 1100px; perspective-origin: 50% 0%;
+  touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab;
+}
+.largo.is-dragging { cursor: grabbing; }
+.largo-floor {
+  position: absolute; left: 4%; right: 4%; bottom: -9%; aspect-ratio: 1; border-radius: 50%;
+  transform-style: preserve-3d; transform: rotateX(var(--tilt)) rotateZ(var(--rot, 0deg));
+  transition: transform .9s cubic-bezier(.2,.8,.2,1);
+  background:
+    radial-gradient(circle, color-mix(in oklab, var(--gold) 34%, transparent) 0 10%, transparent 48%),
+    radial-gradient(circle, oklch(0.42 0.02 65) 0 34%, transparent 40%) 0 0 / 3.6cqw 3.6cqw,
+    oklch(0.28 0.02 70);
+  box-shadow:
+    inset 0 0 0 1.8cqw color-mix(in oklab, var(--frost) 88%, transparent),
+    inset 0 0 5cqw 3cqw color-mix(in oklab, var(--frost) 35%, transparent),
+    0 0 9cqw 1cqw color-mix(in oklab, var(--gold) 14%, transparent);
+}
+.largo-item {
+  position: absolute; width: 0; height: 0; transform-style: preserve-3d;
+  transform: rotateZ(calc(var(--rot, 0deg) * -1)) rotateX(calc(var(--tilt) * -1));
+  transition: transform .9s cubic-bezier(.2,.8,.2,1);
+}
+.largo.is-dragging .largo-floor, .largo.is-dragging .largo-item { transition: none; }
+.largo-up { position: absolute; bottom: 0; left: 0; transform: translateX(-50%); }
+.largo-stall { transition: transform .3s ease, filter .3s ease; -webkit-tap-highlight-color: transparent; }
+.largo-stall[data-front="true"] { filter: drop-shadow(0 0 2.2cqw color-mix(in oklab, var(--gold) 45%, transparent)); }
+.largo-stall:hover, .largo-stall:focus-visible { transform: translateY(-1.6cqw); filter: drop-shadow(0 0 2.6cqw color-mix(in oklab, var(--gold) 65%, transparent)); }
+.largo-stall:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.largo-bulb { animation: twinkle 2.2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .largo-floor, .largo-item, .largo-stall { transition: none; }
+  .largo-bulb { animation: none; }
+}
