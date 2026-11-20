@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
-import { XMAS_CITIES } from "@/data/mercados-natal";
+import { XMAS_CITIES, type XmasPhoto } from "@/data/mercados-natal";
+import natalVienaRathaus from "@/assets/natal/natal-viena-rathaus.jpg.asset.json";
 import { Snow, FairyLights, Sleigh, Gift, MarketHuts, Tree } from "@/components/natal/Festive";
 import { Stars, Skyline, Countdown, Bauble } from "@/components/natal/Wow";
-import { shareImgFor } from "@/data/share-images";
 
 const URL = "https://opostal.pt/mercados-de-natal";
 const TITLE = "Mercados de Natal 2026: Viena, Praga e Budapeste | O Postal";
@@ -20,8 +20,8 @@ export const Route = createFileRoute("/mercados-de-natal")({
       { property: "og:type", content: "article" },
       { property: "og:url", content: URL },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:image", content: shareImgFor("viena") },
-      { name: "twitter:image", content: shareImgFor("viena") },
+      { property: "og:image", content: `https://opostal.pt${natalVienaRathaus.url}` },
+      { name: "twitter:image", content: `https://opostal.pt${natalVienaRathaus.url}` },
     ],
     links: [{ rel: "canonical", href: URL }],
     scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "Article", headline: "Mercados de Natal 2026: Viena, Praga e Budapeste", description: DESC, inLanguage: "pt-PT", dateModified: "2026-11-20", mainEntityOfPage: URL, publisher: { "@type": "Organization", name: "O Postal" } }) }],
@@ -36,6 +36,15 @@ function XmasPage() {
 
       {/* HERO */}
       <header className="relative isolate overflow-hidden px-5 pb-0 pt-28 md:min-h-[92vh] md:px-6 md:pt-40">
+        <img
+          src={natalVienaRathaus.url}
+          alt=""
+          width={1280}
+          height={960}
+          fetchPriority="high"
+          className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-25 md:opacity-30"
+          style={{ maskImage: "linear-gradient(to bottom, black 55%, transparent 96%)", WebkitMaskImage: "linear-gradient(to bottom, black 55%, transparent 96%)" }}
+        />
         <Stars />
         <Snow />
         <div className="pointer-events-none absolute right-[22%] top-0 z-[2] hidden gap-6 md:flex">
@@ -114,6 +123,12 @@ function XmasPage() {
             </div>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-cream/80">{c.intro}</p>
 
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 md:gap-6">
+              {c.fotos.map((f, i) => (
+                <XmasFigure key={f.src} foto={f} tilt={i % 2 === 0 ? "-rotate-1" : "rotate-1"} />
+              ))}
+            </div>
+
             <div className="mt-10 grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-14">
               <ol className="list-none border-t border-gold/25 p-0">
                 {c.markets.map((m) => (
@@ -176,5 +191,14 @@ function XmasPage() {
 
       <SiteFooter city="Mercados de Natal" farewell="Frohe Weihnachten · Veselé Vánoce · Boldog karácsonyt" />
     </main>
+  );
+}
+
+function XmasFigure({ foto, tilt }: { foto: XmasPhoto; tilt: string }) {
+  return (
+    <figure className={`${tilt} border border-gold/30 bg-cream p-2 pb-3 shadow-[0_18px_40px_-18px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:rotate-0`}>
+      <img src={foto.src} alt={foto.alt} width={foto.width} height={foto.height} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+      <figcaption className="pt-2 text-center font-serif text-sm italic text-ink/80">{foto.legenda}</figcaption>
+    </figure>
   );
 }

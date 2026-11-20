@@ -1,5 +1,13 @@
 // Mercados de Natal 2026 — dados confirmados em fontes oficiais/locais a 20/11/2026.
 // Fontes listadas em SOURCES. Não acrescentar nada sem fonte.
+import natalVienaRathaus from "@/assets/natal/natal-viena-rathaus.jpg.asset.json";
+import natalVienaCoracoes from "@/assets/natal/natal-viena-coracoes.jpg.asset.json";
+import natalPragaArvore from "@/assets/natal/natal-praga-arvore.jpg.asset.json";
+import natalPragaTyn from "@/assets/natal/natal-praga-tyn.jpg.asset.json";
+import natalBudapesteBasilica from "@/assets/natal/natal-budapeste-basilica.jpg.asset.json";
+import natalBudapesteVorosmarty from "@/assets/natal/natal-budapeste-vorosmarty.jpg.asset.json";
+
+export type XmasPhoto = { src: string; alt: string; width: number; height: number; legenda: string };
 const cj = (q: string, sid: string) =>
   `https://www.kqzyfj.com/click-101800647-15734352?sid=${sid}&url=${encodeURIComponent(`https://www.booking.com/searchresults.pt-pt.html?ss=${encodeURIComponent(q)}&lang=pt-pt&selected_currency=EUR&group_adults=2&no_rooms=1&group_children=0`)}`;
 
@@ -15,6 +23,7 @@ export type XmasCity = {
   precosFonte: string;
   dicas: string[];
   stay: { label: string; href: string };
+  fotos: XmasPhoto[];
 };
 
 export const XMAS_CITIES: XmasCity[] = [
@@ -40,6 +49,10 @@ export const XMAS_CITIES: XmasCity[] = [
       "Há Kinderpunsch sem álcool para quem não bebe ou para crianças.",
     ],
     stay: { label: "Ver alojamentos perto do Rathausplatz", href: cj("Innere Stadt, Wien", "natal-viena") },
+    fotos: [
+      { src: natalVienaRathaus.url, alt: "Christkindlmarkt da Rathausplatz à noite, com a Câmara de Viena iluminada", width: 1280, height: 960, legenda: "O Christkindlmarkt com a Câmara iluminada por trás" },
+      { src: natalVienaCoracoes.url, alt: "Árvore do parque do Rathaus coberta de corações luminosos", width: 1280, height: 1707, legenda: "A árvore dos corações, no parque junto ao mercado" },
+    ],
   },
   {
     slug: "praga", city: "Praga", guide: "/praga", kicker: "Chéquia · Árvore e torres góticas",
@@ -64,6 +77,10 @@ export const XMAS_CITIES: XmasCity[] = [
       "Em 2026 os grandes abrem a 28 de novembro, para haver quatro domingos de Advento antes do Natal.",
     ],
     stay: { label: "Ver alojamentos perto da Cidade Velha", href: cj("Staré Město, Praha", "natal-praga") },
+    fotos: [
+      { src: natalPragaArvore.url, alt: "Árvore de Natal gigante da Praça da Cidade Velha de Praga acesa à noite", width: 1280, height: 1280, legenda: "A árvore da Cidade Velha, acesa ao cair da tarde" },
+      { src: natalPragaTyn.url, alt: "Bancas do mercado de Natal de Praga com as torres da Igreja de Týn ao fundo", width: 1280, height: 1705, legenda: "As bancas aos pés das torres de Týn" },
+    ],
   },
   {
     slug: "budapeste", city: "Budapeste", guide: "/budapeste", kicker: "Hungria · Luzes no Danúbio",
@@ -88,6 +105,10 @@ export const XMAS_CITIES: XmasCity[] = [
       "As praças são muito ventosas: luvas, cachecol e botas fazem diferença.",
     ],
     stay: { label: "Ver alojamentos perto da Basílica", href: cj("Lipótváros, Budapest", "natal-budapeste") },
+    fotos: [
+      { src: natalBudapesteBasilica.url, alt: "Árvore de Natal em cone com laço dourado em frente à Basílica de Santo Estêvão, Budapeste", width: 1280, height: 1707, legenda: "A árvore do Advent Bazilika, em frente à Basílica" },
+      { src: natalBudapesteVorosmarty.url, alt: "Bancas de madeira do mercado da Praça Vörösmarty à noite, com cortinas de luzes", width: 1280, height: 960, legenda: "As bancas de Vörösmarty sob as cortinas de luz" },
+    ],
   },
 ];
 
