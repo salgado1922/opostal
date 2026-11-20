@@ -7,6 +7,7 @@ import natalVienaRathaus from "@/assets/natal/natal-viena-rathaus.jpg.asset.json
 import { Snow, Sleigh, MarketHuts, Tree } from "@/components/natal/Festive";
 import { Stars, Countdown, Bauble } from "@/components/natal/Wow";
 import { Largo } from "@/components/natal/Largo";
+import { XmasCollection } from "@/components/natal/XmasCollection";
 
 const URL = "https://opostal.pt/mercados-de-natal";
 const TITLE = "Mercados de Natal 2026: Viena, Praga e Budapeste | O Postal";
@@ -106,6 +107,8 @@ function XmasHub() {
           ))}
         </ul>
       </section>
+
+      <XmasCollection />
 
       <section className="relative border-t border-gold/20 px-5 py-16 md:px-6 md:py-24">
         <div className="mx-auto max-w-3xl text-center">

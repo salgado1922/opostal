@@ -4,7 +4,9 @@ import { STAMP_STOPS } from "@/data/stamp-stops";
 import { supabase } from "@/integrations/supabase/client";
 
 export type Stamp = { at: string; verified: boolean; photo?: string; day?: string; via?: "gps" | "photo"; caption?: string };
-export type CityPassport = { name: string; total: number; stamps: Record<string, Stamp>; photos?: string[]; removed?: string[] };
+/** Carimbo de Natal: um por época (ex.: "2026"), ganho num mercado. */
+export type XmasStampRec = { at: string; market: string; via?: "gps" | "admin" };
+export type CityPassport = { name: string; total: number; stamps: Record<string, Stamp>; photos?: string[]; removed?: string[]; natal?: Record<string, XmasStampRec> };
 export type Passport = Record<string, CityPassport>;
 
 const KEY = "opostal:passaporte";
@@ -170,6 +172,7 @@ function merge(a: Passport, b: Passport): Passport {
     }
     if (c.removed?.length) t.removed = Array.from(new Set([...(t.removed ?? []), ...c.removed]));
     if (c.photos?.length) t.photos = Array.from(new Set([...(t.photos ?? []), ...c.photos])).slice(0, 6);
+    if (c.natal) t.natal = { ...c.natal, ...(t.natal ?? {}) };
     out[slug] = t;
   }
   return out;
@@ -363,5 +366,23 @@ export function confirmAllStamps() {
   const p = readPassport();
   refillAll(p);
   for (const c of Object.values(p)) for (const st of Object.values(c.stamps)) st.verified = true;
+  return writePassport(p);
+}
+
+/** Carimbo de Natal da época: fica guardado à parte, não conta para as paragens do guia. */
+export function stampXmas(slug: string, season: string, market: string, via: "gps" | "admin" = "gps") {
+  const p = readPassport();
+  const c = (p[slug] ??= { name: slug, total: STAMP_STOPS[slug]?.length ?? 0, stamps: {} });
+  if (c.natal?.[season]) return false;
+  c.natal = { ...(c.natal ?? {}), [season]: { at: new Date().toISOString(), market, via } };
+  return writePassport(p);
+}
+
+/** Admin: tira o carimbo de Natal de uma época. */
+export function removeXmasStamp(slug: string, season: string) {
+  const p = readPassport();
+  const c = p[slug];
+  if (!c?.natal?.[season]) return false;
+  delete c.natal[season];
   return writePassport(p);
 }

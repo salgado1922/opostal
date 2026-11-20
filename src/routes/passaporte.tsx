@@ -74,6 +74,7 @@ const DEMO_PASSPORT: Passport = (() => {
     list.slice(0, n).forEach((s, i) => { stamps[s.title] = { at: new Date(2025, 3 + ci * 2, 4 + i * 2, 11).toISOString(), verified: i !== 1 }; });
     out[slug] = { name: c?.name ?? slug, total: list.length, stamps };
   });
+  out.praga!.natal = { "2026": { at: new Date(2026, 11, 5, 18).toISOString(), market: "Praça da Cidade Velha" } };
   return out;
 })();
 

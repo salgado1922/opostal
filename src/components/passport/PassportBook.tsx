@@ -12,6 +12,57 @@ import type { Passport } from "@/lib/passport";
 import { InkStamp } from "./InkStamp";
 import { BadgeSeal } from "./BadgeSeal";
 import { STAMP_STYLE, inkFor, seeded, stampDate } from "./stamps";
+import { Link } from "@tanstack/react-router";
+import { XmasStamp } from "@/components/natal/XmasStamp";
+import { XMAS_SEASON } from "@/data/natal-stamps";
+
+const XMAS_PAGE: { slug: "viena" | "praga" | "budapeste"; city: string }[] = [
+  { slug: "viena", city: "Viena" },
+  { slug: "praga", city: "Praga" },
+  { slug: "budapeste", city: "Budapeste" },
+];
+
+/** Página especial de Natal: os três carimbos dos mercados da época. */
+function XmasPage({ p }: { p: Passport }) {
+  const got = XMAS_PAGE.filter((c) => p[c.slug]?.natal?.[XMAS_SEASON]).length;
+  return (
+    <div
+      className="relative h-full overflow-hidden px-6 pb-6 pt-5"
+      style={{
+        backgroundColor: "var(--passport-paper)",
+        backgroundImage:
+          "radial-gradient(circle at 12% 8%, color-mix(in oklab, var(--holly-berry) 10%, transparent), transparent 35%), repeating-radial-gradient(circle at 50% 120%, transparent 0 9px, color-mix(in oklab, var(--passport-paper-shade) 55%, transparent) 9px 10px), linear-gradient(90deg, color-mix(in oklab, var(--passport-paper-shade) 70%, transparent), transparent 8%)",
+        color: "var(--ink)",
+      }}
+    >
+      <div className="flex items-baseline justify-between text-[10px] uppercase tracking-[0.3em] opacity-70">
+        <span>Vistos · Natal</span>
+        <span>{XMAS_SEASON}</span>
+      </div>
+      <div className="mt-1 h-px opacity-30" style={{ background: "var(--ink)" }} />
+      <p className="mt-4 font-serif text-4xl leading-none" style={{ color: "var(--stamp-natal)" }}>Natal</p>
+      <p className="mt-1 text-[11px] uppercase tracking-[0.25em] opacity-70">Mercados de Advento ❄</p>
+      <p className="mt-3 font-serif text-sm italic opacity-80">{got ? `${got} de 3 mercados carimbados` : "Só se carimba dentro dos mercados"}</p>
+      <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1">
+        {XMAS_PAGE.map((c, i) => {
+          const s = p[c.slug]?.natal?.[XMAS_SEASON];
+          return (
+            <Link
+              key={c.slug}
+              to="/mercados-de-natal/$cidade"
+              params={{ cidade: c.slug }}
+              aria-label={`Natal em ${c.city}${s ? `, carimbado em ${s.market}` : ", por carimbar"}`}
+              className="flex w-[40%] flex-col items-center rounded-sm text-center transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
+            >
+              <XmasStamp slug={c.slug} city={c.city} at={s?.at} rotate={s ? [-9, 7, -4][i] : 0} className="w-full" />
+              <span className="mt-0.5 max-w-full truncate text-[10px] uppercase tracking-[0.16em] opacity-65">{s ? s.market : "por carimbar"}</span>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 
 function Cover() {
@@ -366,7 +417,7 @@ export function SealPreview({ slug, onClose }: { slug: string | null; onClose: (
 export function PassportBook({ p }: { p: Passport }) {
   const reduce = useReducedMotion();
   const cities = CITIES.filter((c) => c.status === "ready").map((c) => c.slug);
-  const pages = ["cover", ...cities];
+  const pages = ["cover", ...cities, "natal"];
   const [page, setPage] = useState(0);
   const [dir, setDir] = useState(1);
   const [openStamp, setOpenStamp] = useState<Open | null>(null);
@@ -378,7 +429,7 @@ export function PassportBook({ p }: { p: Passport }) {
     setPage(n);
   };
   const current = pages[page];
-  const label = current === "cover" ? "Capa" : CITIES.find((c) => c.slug === current)?.name;
+  const label = current === "cover" ? "Capa" : current === "natal" ? "Natal" : CITIES.find((c) => c.slug === current)?.name;
 
   return (
     <div className="mx-auto w-full max-w-[400px]">
@@ -421,7 +472,7 @@ export function PassportBook({ p }: { p: Passport }) {
             exit="exit"
             transition={{ duration: 0.55, ease: [0.3, 0.7, 0.2, 1] }}
           >
-            {current === "cover" ? <Cover /> : <CityPage slug={current} p={p} n={page} total={cities.length} onOpen={setOpenStamp} onSeal={setOpenSeal} />}
+            {current === "cover" ? <Cover /> : current === "natal" ? <XmasPage p={p} /> : <CityPage slug={current} p={p} n={page} total={cities.length} onOpen={setOpenStamp} onSeal={setOpenSeal} />}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -454,7 +505,7 @@ export function PassportBook({ p }: { p: Passport }) {
             key={pg}
             type="button"
             onClick={() => go(i)}
-            aria-label={pg === "cover" ? "Capa" : CITIES.find((c) => c.slug === pg)?.name}
+            aria-label={pg === "cover" ? "Capa" : pg === "natal" ? "Natal" : CITIES.find((c) => c.slug === pg)?.name}
             className="grid h-6 w-5 place-items-center"
           >
             <span className={`block h-1 rounded-full transition-all ${i === page ? "w-4 bg-gold" : "w-1 bg-cream/35"}`} />

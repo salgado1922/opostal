@@ -44,6 +44,10 @@ export const MOTIFS: Record<string, ReactNode> = {
   skull: (<><path d="M14 30a18 18 0 0 1 36 0v8l-4 4v8H18v-8l-4-4z" /><circle cx="25" cy="32" r="5" /><circle cx="39" cy="32" r="5" /><path d="M32 38l-3 5h6zM24 50v6M32 50v6M40 50v6M10 60l44-6M10 54l44 6" /></>),
   music: (<><path d="M24 48V14l26-6v34" /><ellipse cx="18" cy="48" rx="6" ry="5" /><ellipse cx="44" cy="42" rx="6" ry="5" /><path d="M24 22l26-6" /></>),
   cake: (<><path d="M10 34l34-16 10 10v20H10z" /><path d="M10 34h44M10 42h44M44 18v16" /><path d="M30 18c0-4 4-6 4-10" /><circle cx="34" cy="8" r="2" /></>),
+  /* Natal: Câmara de Viena com o coração, torres de Týn com a árvore, Basílica com a árvore em cone. */
+  xmasViena: (<><path d="M32 4v6M29 10l3-6 3 6M27 10h10v18H27zM8 58h48M12 58V32l4-8 4 8v26M44 58V32l4-8 4 8v26M20 34h24v24H20z" /><path d="M32 53c-6-3.5-8-6-8-8.5a4 4 0 0 1 8-1.2 4 4 0 0 1 8 1.2c0 2.5-2 5-8 8.5z" /><path d="M30 16h4v5h-4z" /></>),
+  xmasPraga: (<><path d="M4 58h56M6 58V24l6-14 6 14v34M46 58V24l6-14 6 14v34M9 32h6M49 32h6" /><path d="M32 15l-8 11h5l-7 10h6l-8 12h24l-8-12h6l-7-10h5z" /><path d="M30 48v6h4v-6M32 7l1.4 2.8 3 .4-2.2 2.1.5 3-2.7-1.4-2.7 1.4.5-3-2.2-2.1 3-.4z" /></>),
+  xmasBudapeste: (<><path d="M4 58h56M6 58V26l4-7 4 7v32M50 58V26l4-7 4 7v32M14 38h36v20H14M22 30a10 10 0 0 1 20 0M20 30h24v8H20zM32 20v-6M30 14h4" /><path d="M32 41l-6 15h12z" /><path d="M29 48l3-2 3 2M32 46v-2" /></>),
   camera: (<><rect x="8" y="20" width="48" height="32" rx="5" /><path d="M22 20l4-8h12l4 8" /><circle cx="32" cy="36" r="10" /><circle cx="32" cy="36" r="4" /><circle cx="48" cy="27" r="1.6" /></>),
 };
 

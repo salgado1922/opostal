@@ -6,6 +6,7 @@ import { Snow, MarketHuts, Tree } from "@/components/natal/Festive";
 import { Stars, Bauble } from "@/components/natal/Wow";
 import { Stall } from "@/components/natal/Stall";
 import { CityMarkets } from "@/components/natal/CityMarkets";
+import { XmasStampCard } from "@/components/natal/XmasStampCard";
 
 const FAREWELL: Record<string, string> = {
   viena: "Frohe Weihnachten",
@@ -96,6 +97,8 @@ function XmasCityPage() {
           <CityMarkets c={c} />
         </div>
       </section>
+
+      <XmasStampCard slug={c.slug} city={c.city} />
 
       <section className="relative border-t border-gold/20 px-5 py-14 md:px-6 md:py-20">
         <div className="mx-auto max-w-5xl">
