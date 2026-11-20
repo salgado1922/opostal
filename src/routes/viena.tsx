@@ -1,4 +1,5 @@
 import { bookingLink } from "@/data/booking-bairros";
+import { XmasStrip } from "@/components/natal/XmasStrip";
 import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -1386,6 +1387,7 @@ function Index() {
       <CustomItineraryCTA city="Viena" />
       <OutrosPostais currentSlug="viena" />
       <StreetMode city="Viena" slug="viena" days={days} />
+      <XmasStrip city="Viena" />
       <SiteFooter city="Viena" farewell="Auf Wiedersehen, Wien — bis zum nächsten Walzer." />
     </main>
   );

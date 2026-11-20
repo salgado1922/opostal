@@ -20,6 +20,7 @@ import { Route as FlorencaRouteImport } from './routes/florenca'
 import { Route as IstambulRouteImport } from './routes/istambul'
 import { Route as LisboaRouteImport } from './routes/lisboa'
 import { Route as LondresRouteImport } from './routes/londres'
+import { Route as MercadosDeNatalRouteImport } from './routes/mercados-de-natal'
 import { Route as ParisRouteImport } from './routes/paris'
 import { Route as PassaporteRouteImport } from './routes/passaporte'
 import { Route as PragaRouteImport } from './routes/praga'
@@ -88,6 +89,11 @@ const LisboaRoute = LisboaRouteImport.update({
 const LondresRoute = LondresRouteImport.update({
   id: '/londres',
   path: '/londres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MercadosDeNatalRoute = MercadosDeNatalRouteImport.update({
+  id: '/mercados-de-natal',
+  path: '/mercados-de-natal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ParisRoute = ParisRouteImport.update({
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/istambul': typeof IstambulRoute
   '/lisboa': typeof LisboaRoute
   '/londres': typeof LondresRoute
+  '/mercados-de-natal': typeof MercadosDeNatalRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
   '/praga': typeof PragaRoute
@@ -205,6 +212,7 @@ export interface FileRoutesByTo {
   '/istambul': typeof IstambulRoute
   '/lisboa': typeof LisboaRoute
   '/londres': typeof LondresRoute
+  '/mercados-de-natal': typeof MercadosDeNatalRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
   '/praga': typeof PragaRoute
@@ -234,6 +242,7 @@ export interface FileRoutesById {
   '/istambul': typeof IstambulRoute
   '/lisboa': typeof LisboaRoute
   '/londres': typeof LondresRoute
+  '/mercados-de-natal': typeof MercadosDeNatalRoute
   '/paris': typeof ParisRoute
   '/passaporte': typeof PassaporteRoute
   '/praga': typeof PragaRoute
@@ -263,6 +272,7 @@ export interface FileRouteTypes {
     | '/istambul'
     | '/lisboa'
     | '/londres'
+    | '/mercados-de-natal'
     | '/paris'
     | '/passaporte'
     | '/praga'
@@ -290,6 +300,7 @@ export interface FileRouteTypes {
     | '/istambul'
     | '/lisboa'
     | '/londres'
+    | '/mercados-de-natal'
     | '/paris'
     | '/passaporte'
     | '/praga'
@@ -318,6 +329,7 @@ export interface FileRouteTypes {
     | '/istambul'
     | '/lisboa'
     | '/londres'
+    | '/mercados-de-natal'
     | '/paris'
     | '/passaporte'
     | '/praga'
@@ -347,6 +359,7 @@ export interface RootRouteChildren {
   IstambulRoute: typeof IstambulRoute
   LisboaRoute: typeof LisboaRoute
   LondresRoute: typeof LondresRoute
+  MercadosDeNatalRoute: typeof MercadosDeNatalRoute
   ParisRoute: typeof ParisRoute
   PassaporteRoute: typeof PassaporteRoute
   PragaRoute: typeof PragaRoute
@@ -438,6 +451,13 @@ declare module '@tanstack/react-router' {
       path: '/londres'
       fullPath: '/londres'
       preLoaderRoute: typeof LondresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mercados-de-natal': {
+      id: '/mercados-de-natal'
+      path: '/mercados-de-natal'
+      fullPath: '/mercados-de-natal'
+      preLoaderRoute: typeof MercadosDeNatalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/paris': {
@@ -575,6 +595,7 @@ const rootRouteChildren: RootRouteChildren = {
   IstambulRoute: IstambulRoute,
   LisboaRoute: LisboaRoute,
   LondresRoute: LondresRoute,
+  MercadosDeNatalRoute: MercadosDeNatalRoute,
   ParisRoute: ParisRoute,
   PassaporteRoute: PassaporteRoute,
   PragaRoute: PragaRoute,

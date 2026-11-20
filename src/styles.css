@@ -748,3 +748,52 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* ------------------------------------------------------------------ */
+/* Natal — página sazonal /mercados-de-natal                          */
+/* ------------------------------------------------------------------ */
+.theme-natal {
+  --pine: oklch(0.2 0.045 160);
+  --holly: oklch(0.55 0.19 25);
+  --frost: oklch(0.97 0.01 230);
+  --gold: oklch(0.83 0.13 82);
+  --gold-soft: oklch(0.9 0.08 85);
+  --terracotta: var(--holly);
+  --cream: oklch(0.96 0.02 85);
+  --background: oklch(0.15 0.035 165);
+  --foreground: var(--cream);
+  --card: oklch(0.2 0.045 160 / 70%);
+  --primary: var(--gold);
+  --primary-foreground: oklch(0.15 0.035 165);
+  --secondary: var(--holly);
+  --secondary-foreground: var(--cream);
+  --muted: oklch(0.24 0.04 160);
+  --muted-foreground: oklch(0.8 0.03 140);
+  --border: oklch(0.83 0.13 82 / 20%);
+  background:
+    radial-gradient(ellipse at 80% 0%, oklch(0.55 0.19 25 / 14%), transparent 50%),
+    radial-gradient(ellipse at 10% 40%, oklch(0.83 0.13 82 / 8%), transparent 45%),
+    var(--background);
+}
+.snow { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.snow i {
+  position: absolute; top: -12px; border-radius: 9999px; background: var(--frost); opacity: .85;
+  animation: snowfall linear infinite;
+}
+@keyframes snowfall {
+  to { transform: translate3d(var(--drift, 20px), 105vh, 0); }
+}
+.sleigh { animation: sleigh 22s linear infinite; }
+@keyframes sleigh {
+  0% { transform: translate(-30vw, 30px) rotate(-4deg); }
+  100% { transform: translate(120vw, -40px) rotate(-4deg); }
+}
+.fairy-lights circle { animation: twinkle 2.4s ease-in-out infinite; }
+.fairy-lights circle:nth-child(3n) { animation-delay: .8s; }
+.fairy-lights circle:nth-child(3n+1) { animation-delay: 1.6s; }
+@keyframes twinkle { 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) {
+  .snow i, .sleigh, .fairy-lights circle { animation: none; }
+  .snow i { display: none; }
+  .sleigh { transform: translate(55vw, 0) rotate(-4deg); }
+}

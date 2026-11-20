@@ -1,4 +1,5 @@
 import { bookingLink } from "@/data/booking-bairros";
+import { XmasStrip } from "@/components/natal/XmasStrip";
 import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -1433,6 +1434,7 @@ function Index() {
       <CustomItineraryCTA city="Praga" />
       <OutrosPostais currentSlug="praga" />
       <StreetMode city="Praga" slug="praga" days={days} />
+      <XmasStrip city="Praga" />
       <SiteFooter city="Praga" farewell="Na zdraví, à vossa." />
     </main>
   );

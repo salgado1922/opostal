@@ -24,6 +24,7 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StampCounter } from "@/components/StampCounter";
 import { StampToasts } from "@/components/StampToasts";
+import { XmasStrip } from "@/components/natal/XmasStrip";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -85,6 +86,7 @@ function Home() {
     >
       <SiteNav />
       <Hero />
+      <XmasStrip />
       <CityGrid />
       <StampCounter />
       <StampToasts />

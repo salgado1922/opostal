@@ -1,4 +1,5 @@
 import { bookingLink } from "@/data/booking-bairros";
+import { XmasStrip } from "@/components/natal/XmasStrip";
 import { GUIDE_PUBLISHED, PAGE_LASTMOD, cityBreadcrumbScript } from "@/data/page-dates";
 import { SmartImage, heroPreloadLink } from "@/components/SmartImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -1731,6 +1732,7 @@ function Index() {
       <CustomItineraryCTA city="Budapeste" />
       <OutrosPostais currentSlug="budapeste" />
       <StreetMode city="Budapeste" slug="budapeste" days={days} />
+      <XmasStrip city="Budapeste" />
       <SiteFooter city="Budapeste" farewell="Viszlát, Budapest!" />
     </main>
   );
