@@ -65,22 +65,12 @@ function XmasCityPage() {
   const { slug } = Route.useLoaderData();
   const c = XMAS_CITIES.find((x) => x.slug === slug)!;
   const others = XMAS_CITIES.filter((x) => x.slug !== slug);
-  const hero = c.fotos[0]!;
 
   return (
     <main className="theme-natal relative min-h-screen overflow-x-hidden">
       <SiteNav />
 
       <header className="relative isolate overflow-hidden px-5 pt-28 md:px-6 md:pt-36">
-        <img
-          src={hero.src}
-          alt=""
-          width={hero.width}
-          height={hero.height}
-          fetchPriority="high"
-          className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-30"
-          style={{ maskImage: "linear-gradient(to bottom, black 45%, transparent 95%)", WebkitMaskImage: "linear-gradient(to bottom, black 45%, transparent 95%)" }}
-        />
         <Stars count={40} />
         <Snow />
         <div className="pointer-events-none absolute right-[10%] top-0 z-[2] flex gap-4 md:gap-6">

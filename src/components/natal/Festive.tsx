@@ -117,6 +117,7 @@ export function MarketHuts({ className = "" }: { className?: string }) {
       {cane("c3", true)}
       {hut(5, true)}
       {tree("t2")}
+      <span className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[color:var(--gold)]/50 to-transparent" />
     </div>
   );
 }
