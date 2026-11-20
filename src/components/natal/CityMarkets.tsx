@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { XmasCity, XmasPhoto, Provar } from "@/data/mercados-natal";
 import { Gift } from "@/components/natal/Festive";
-import { PhotoTwinkle, LightString } from "@/components/natal/PhotoLights";
+import { PhotoTwinkle, HangingLights } from "@/components/natal/PhotoLights";
 
 /** Conteúdo completo dos mercados de uma cidade (fotos, provar, mercados, custos, horas, dicas). */
 export function CityMarkets({ c }: { c: XmasCity }) {
@@ -16,7 +16,7 @@ export function CityMarkets({ c }: { c: XmasCity }) {
       <div className="mt-12">
         <h2 className="text-[11px] uppercase tracking-[0.3em] text-gold/80">O que provar</h2>
         <ul className="mt-4 grid list-none gap-4 p-0 md:grid-cols-3 md:gap-6">
-          {c.provar.map((f, i) => <ProvarCard key={f.nome} item={f} tilt={["md:-rotate-1", "md:rotate-[0.6deg]", "md:-rotate-[0.4deg]"][i % 3]!} />)}
+          {c.provar.map((f, i) => <ProvarCard key={f.nome} item={f} first={i === 0} tilt={["md:-rotate-1", "md:rotate-[0.6deg]", "md:-rotate-[0.4deg]"][i % 3]!} />)}
         </ul>
       </div>
 
@@ -92,10 +92,12 @@ function XmasFigure({ foto, tilt }: { foto: XmasPhoto; tilt: string }) {
   );
 }
 
-function ProvarCard({ item, tilt }: { item: Provar; tilt: string }) {
+function ProvarCard({ item, tilt, first }: { item: Provar; tilt: string; first: boolean }) {
   return (
     <li className={`${tilt} relative grid grid-cols-[38%_1fr] border border-gold/30 bg-cream shadow-[0_18px_40px_-18px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:rotate-0 md:block md:p-2 md:pb-4`}>
-      <LightString />
+      {/* No telemóvel só o primeiro cartão leva luzes; no computador, todos. */}
+      <HangingLights count={7} className={first ? "md:hidden" : "hidden"} />
+      <HangingLights count={8} className="hidden md:block" />
       <img src={item.src} alt={item.alt} width={900} height={675} loading="lazy" decoding="async" className="h-full w-full object-cover md:aspect-[4/3] md:h-auto" />
       <div className="p-3 md:px-2 md:pb-0 md:pt-3">
         <div className="flex flex-wrap items-baseline justify-between gap-x-3">

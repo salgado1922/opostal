@@ -17,21 +17,6 @@ export function Snow({ count = 42 }: { count?: number }) {
   );
 }
 
-export function FairyLights({ className = "" }: { className?: string }) {
-  const colors = ["var(--holly)", "var(--gold)", "var(--frost)", "oklch(0.65 0.15 150)"];
-  return (
-    <svg viewBox="0 0 400 40" preserveAspectRatio="none" className={`fairy-lights h-8 w-full ${className}`} aria-hidden>
-      <path d="M0 6 Q50 30 100 6 T200 6 T300 6 T400 6" fill="none" stroke="oklch(0.45 0.03 160)" strokeWidth="1.2" />
-      {Array.from({ length: 16 }, (_, i) => {
-        const x = 12 + i * 24.5;
-        const t = (x % 100) / 100;
-        const y = Math.round((6 + 72 * t * (1 - t) + 2) * 10) / 10;
-        return <circle key={i} cx={x} cy={y} r="3.2" fill={colors[i % 4]} />;
-      })}
-    </svg>
-  );
-}
-
 export function Sleigh({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 220 60" className={className} aria-hidden fill="currentColor">
@@ -132,7 +117,6 @@ export function MarketHuts({ className = "" }: { className?: string }) {
       {cane("c3", true)}
       {hut(5, true)}
       {tree("t2")}
-      <span className="absolute inset-x-0 bottom-0 h-1.5 bg-[color:var(--frost)] opacity-70" />
     </div>
   );
 }

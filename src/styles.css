@@ -837,9 +837,19 @@ html { scroll-behavior: smooth; }
   content: ""; position: absolute; left: 50%; top: -3px; width: 4px; height: 4px; transform: translateX(-50%);
   background: oklch(0.3 0.04 150); border-radius: 1px;
 }
+.xmas-halo-suave { filter: brightness(.6) contrast(4) blur(3px) brightness(1.3); animation: xmas-halo-suave 4.5s ease-in-out infinite; }
+@keyframes xmas-halo-suave { 0%, 100% { opacity: .08; } 50% { opacity: .38; } }
+.xmas-hang {
+  position: absolute; width: 9px; height: 17px; transform-origin: 50% 0;
+  transform: translateX(-50%) rotate(var(--r, 0deg)); animation: xmas-hang-sway 5s ease-in-out infinite;
+}
+@media (min-width: 768px) { .xmas-hang { width: 11px; height: 20px; } }
+.xmas-hang-glass { filter: drop-shadow(0 0 3px currentColor); animation: xmas-hang-glow 2.2s ease-in-out infinite; }
+@keyframes xmas-hang-sway { 0%, 100% { transform: translateX(-50%) rotate(var(--r, 0deg)); } 50% { transform: translateX(-50%) rotate(calc(var(--r, 0deg) * -0.4)); } }
+@keyframes xmas-hang-glow { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
 @keyframes xmas-bulb { 0%, 100% { opacity: 1; filter: brightness(1.15); } 50% { opacity: .35; filter: brightness(.7); } }
 @media (prefers-reduced-motion: reduce) {
-  .xmas-halo, .xmas-sparkle, .xmas-garland-bulb, .xmas-bulb { animation: none; }
+  .xmas-halo, .xmas-sparkle, .xmas-garland-bulb, .xmas-bulb, .xmas-hang, .xmas-hang-glass { animation: none; }
   .xmas-halo { opacity: .3; }
 }
 

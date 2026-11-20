@@ -91,7 +91,6 @@ function XmasHub() {
         </div>
         <MarketHuts className="z-[2] -mx-5 mt-8 md:-mx-6" />
       </header>
-      <div className="h-3 bg-[color:var(--frost)] opacity-80" aria-hidden />
 
       <section className="relative mx-auto max-w-5xl px-5 py-14 md:px-6 md:py-20">
         <h2 className="text-[11px] uppercase tracking-[0.3em] text-gold/80">As três cabanas</h2>

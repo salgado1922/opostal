@@ -1,8 +1,8 @@
-/** Luzes reais das árvores a cintilar, fios de luzes nas árvores e fio à volta das polaroides de comida. */
+/** Luzes reais das árvores a cintilar, fios de luzes nas árvores e fio de lâmpadas pendurado sobre as fotos de comida. */
 
 export type GlowArea =
   | { tipo: "arvore"; x: number; topo: number; base: number; meia: number; fio?: number[] }
-  | { tipo: "caixa"; x: number; y: number; w: number; h: number };
+  | { tipo: "caixa"; x: number; y: number; w: number; h: number; suave?: boolean };
 
 const q = (v: number) => Math.round(v * 10) / 10;
 
@@ -20,9 +20,13 @@ export function PhotoTwinkle({ src, areas }: { src: string; areas: GlowArea[] })
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
       {areas.map((a, i) => (
         <div key={i} className="absolute inset-0 mix-blend-screen" style={{ clipPath: clip(a), WebkitClipPath: clip(a) }}>
-          <img src={src} alt="" loading="lazy" decoding="async" className="xmas-halo" style={{ animationDelay: `${i * 0.7}s` }} />
-          <img src={src} alt="" loading="lazy" decoding="async" className="xmas-sparkle xmas-sparkle-a" />
-          <img src={src} alt="" loading="lazy" decoding="async" className="xmas-sparkle xmas-sparkle-b" />
+          <img src={src} alt="" loading="lazy" decoding="async" className={a.tipo === "caixa" && a.suave ? "xmas-halo xmas-halo-suave" : "xmas-halo"} style={{ animationDelay: `${i * 0.7}s` }} />
+          {!(a.tipo === "caixa" && a.suave) && (
+            <>
+              <img src={src} alt="" loading="lazy" decoding="async" className="xmas-sparkle xmas-sparkle-a" />
+              <img src={src} alt="" loading="lazy" decoding="async" className="xmas-sparkle xmas-sparkle-b" />
+            </>
+          )}
         </div>
       ))}
       {areas.map((a, i) => (a.tipo === "arvore" && a.fio ? <Garland key={`g${i}`} tree={a} /> : null))}
@@ -68,52 +72,44 @@ function Garland({ tree }: { tree: Extract<GlowArea, { tipo: "arvore" }> }) {
   );
 }
 
-const BULB_COLORS = ["var(--holly)", "var(--gold)", "oklch(0.72 0.16 150)", "var(--frost)"];
+const BULB_COLORS = ["oklch(0.58 0.22 25)", "oklch(0.86 0.17 92)", "oklch(0.66 0.19 145)", "oklch(0.72 0.17 55)", "oklch(0.55 0.2 330)", "oklch(0.7 0.13 215)", "oklch(0.48 0.18 285)"];
+const SWAY = [-10, 7, -4, 11, -8, 5, -12, 9, -6];
 
-/** Pontos do fio, em coordenadas 0–100 da moldura. */
-function bulbs(top: number, side: number) {
-  const out: { x: number; y: number; r: number }[] = [];
-  for (let k = 0; k <= top; k++) out.push({ x: q((k / top) * 100), y: 0, r: 180 });
-  for (let k = 1; k < side; k++) out.push({ x: 100, y: q((k / side) * 100), r: 270 });
-  for (let k = top; k >= 0; k--) out.push({ x: q((k / top) * 100), y: 100, r: 0 });
-  for (let k = side - 1; k >= 1; k--) out.push({ x: 0, y: q((k / side) * 100), r: 90 });
-  return out;
-}
-
-function wirePath(pts: { x: number; y: number }[]) {
-  // Curvas a descair entre lâmpadas, para parecer um fio pendurado.
-  let d = `M${pts[0]!.x} ${pts[0]!.y}`;
-  const all = [...pts, pts[0]!];
-  for (let k = 1; k < all.length; k++) {
-    const a = all[k - 1]!, b = all[k]!;
-    const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
-    const sag = 2.2;
-    const cx = a.y === b.y ? mx : mx + (a.x === 0 ? -sag : a.x === 100 ? sag : 0);
-    const cy = a.x === b.x ? my : my + (a.y === 0 ? sag : a.y === 100 ? sag : 0);
-    d += ` Q${q(cx)} ${q(cy)} ${b.x} ${b.y}`;
-  }
-  return d;
-}
-
-export function LightString({ portrait = false }: { portrait?: boolean }) {
-  const pts = bulbs(portrait ? 7 : 9, portrait ? 8 : 6);
+/**
+ * Fio de lâmpadas pendurado sobre o topo de uma foto, com o fio a ondular
+ * e as lâmpadas a cair (inspirado nas luzes de Natal clássicas).
+ */
+export function HangingLights({ count = 8, className = "" }: { count?: number; className?: string }) {
+  // Fio ondulado em coordenadas 0–100 (x) × 0–100 (y, altura da faixa).
+  const wire = (x: number) => 30 + 22 * Math.sin((x / 100) * Math.PI * 3 + 0.6);
+  let d = `M0 ${q(wire(0))}`;
+  for (let x = 4; x <= 100; x += 4) d += ` L${x} ${q(wire(x))}`;
+  const pts = Array.from({ length: count }, (_, k) => {
+    const x = q(((k + 0.5) / count) * 100);
+    return { x, y: q(wire(x)), r: SWAY[k % SWAY.length]! };
+  });
   return (
-    <div aria-hidden className="pointer-events-none absolute -inset-[7px] z-[2]">
+    <div aria-hidden className={`pointer-events-none absolute inset-x-0 -top-3 z-[2] h-6 md:-top-3.5 md:h-7 ${className}`}>
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full overflow-visible">
-        <path d={wirePath(pts)} fill="none" stroke="oklch(0.3 0.04 150)" strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
+        <path d={d} fill="none" stroke="oklch(0.22 0.02 150)" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
       </svg>
       {pts.map((p, k) => (
         <span
           key={k}
-          className="xmas-bulb"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            transform: `translate(-50%, -50%) rotate(${p.r}deg)`,
-            ["--bulb" as string]: BULB_COLORS[k % BULB_COLORS.length],
-            animationDelay: `${(k % 3) * 0.6}s`,
-          }}
-        />
+          className="xmas-hang"
+          style={{ left: `${p.x}%`, top: `${p.y}%`, ["--r" as string]: `${p.r}deg`, animationDelay: `${q((k % 4) * 0.45)}s` }}
+        >
+          <svg viewBox="0 0 12 22" className="block h-full w-full overflow-visible">
+            <rect x="3.6" y="0" width="4.8" height="5.5" rx="0.8" fill="oklch(0.2 0.02 150)" />
+            <path
+              className="xmas-hang-glass"
+              d="M6 4.8 C10.6 6.4 11.4 12 9.6 16.4 C8.6 19 7.2 21.4 6 21.6 C4.8 21.4 3.4 19 2.4 16.4 C0.6 12 1.4 6.4 6 4.8 Z"
+              fill={BULB_COLORS[k % BULB_COLORS.length]}
+              style={{ color: BULB_COLORS[k % BULB_COLORS.length], animationDelay: `${q(((k * 3) % 5) * 0.35)}s` }}
+            />
+            <path d="M4.2 8.5 C3.4 10.5 3.4 12.5 3.9 14" fill="none" stroke="oklch(1 0 0 / 70%)" strokeWidth="1.1" strokeLinecap="round" />
+          </svg>
+        </span>
       ))}
     </div>
   );

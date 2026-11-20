@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { XMAS_CITIES } from "@/data/mercados-natal";
-import { Snow, FairyLights, MarketHuts, Tree } from "@/components/natal/Festive";
+import { Snow, MarketHuts, Tree } from "@/components/natal/Festive";
 import { Stars, Bauble } from "@/components/natal/Wow";
 import { Stall } from "@/components/natal/Stall";
 import { CityMarkets } from "@/components/natal/CityMarkets";
@@ -99,7 +99,6 @@ function XmasCityPage() {
         </div>
         <MarketHuts className="z-[2] -mx-5 mt-4 md:-mx-6" />
       </header>
-      <div className="h-3 bg-[color:var(--frost)] opacity-80" aria-hidden />
 
       <section className="relative px-5 py-14 md:px-6 md:py-20">
         <Snow count={16} />
@@ -110,7 +109,6 @@ function XmasCityPage() {
 
       <section className="relative border-t border-gold/20 px-5 py-14 md:px-6 md:py-20">
         <div className="mx-auto max-w-5xl">
-          <FairyLights className="mb-8" />
           <h2 className="text-[11px] uppercase tracking-[0.3em] text-gold/80">Outras cabanas do largo</h2>
           <ul className="mt-6 grid list-none grid-cols-2 gap-6 p-0 md:max-w-xl md:gap-10">
             {others.map((o) => (

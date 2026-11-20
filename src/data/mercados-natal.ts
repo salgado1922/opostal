@@ -78,7 +78,7 @@ export const XMAS_CITIES: XmasCity[] = [
     stay: { label: "Ver alojamentos perto do Rathausplatz", href: cj("Innere Stadt, Wien", "natal-viena") },
     fotos: [
       { src: natalVienaRathaus.url, alt: "Christkindlmarkt da Rathausplatz à noite, com a Câmara de Viena iluminada", width: 1280, height: 960, legenda: "O Christkindlmarkt com a Câmara iluminada por trás", brilho: [{ tipo: "arvore", x: 38, topo: 63, base: 92, meia: 5 }, { tipo: "caixa", x: 0, y: 78, w: 100, h: 22 }] },
-      { src: natalVienaCoracoes.url, alt: "Árvore do parque do Rathaus coberta de corações luminosos", width: 1280, height: 1707, legenda: "A árvore dos corações, no parque junto ao mercado", brilho: [{ tipo: "caixa", x: 0, y: 0, w: 100, h: 90 }] },
+      { src: natalVienaCoracoes.url, alt: "Árvore do parque do Rathaus coberta de corações luminosos", width: 1280, height: 1707, legenda: "A árvore dos corações, no parque junto ao mercado", brilho: [{ tipo: "caixa", x: 0, y: 0, w: 62, h: 94, suave: true }] },
     ],
   },
   {
