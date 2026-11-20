@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 export function Stars({ count = 60 }: { count?: number }) {
   const stars = Array.from({ length: count }, (_, i) => {
     const r = (n: number) => ((Math.sin(i * 9301 + n * 49297) + 1) / 2);
-    return { left: r(1) * 100, top: r(2) * 60, size: 1 + r(3) * 2, delay: r(4) * 4 };
+    const q = (v: number) => Math.round(v * 10) / 10;
+    return { left: q(r(1) * 100), top: q(r(2) * 60), size: q(1 + r(3) * 2), delay: q(r(4) * 4) };
   });
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
@@ -19,7 +20,7 @@ export function Stars({ count = 60 }: { count?: number }) {
 export function Skyline({ className = "" }: { className?: string }) {
   const windows = Array.from({ length: 70 }, (_, i) => {
     const r = (n: number) => ((Math.sin(i * 12.9898 + n * 78.233) * 43758.5453) % 1 + 1) % 1;
-    return { x: 20 + r(1) * 1160, y: 150 + r(2) * 70, d: r(3) * 5 };
+    return { x: Math.round(20 + r(1) * 1160), y: Math.round(150 + r(2) * 70), d: Math.round(r(3) * 50) / 10 };
   });
   return (
     <svg viewBox="0 0 1200 240" preserveAspectRatio="xMidYMax slice" className={className} aria-hidden>
