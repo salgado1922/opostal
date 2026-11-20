@@ -77,8 +77,8 @@ export const XMAS_CITIES: XmasCity[] = [
     ],
     stay: { label: "Ver alojamentos perto do Rathausplatz", href: cj("Innere Stadt, Wien", "natal-viena") },
     fotos: [
-      { src: natalVienaRathaus.url, alt: "Christkindlmarkt da Rathausplatz à noite, com a Câmara de Viena iluminada", width: 1280, height: 960, legenda: "O Christkindlmarkt com a Câmara iluminada por trás", brilho: [{ tipo: "arvore", x: 38, topo: 64, base: 90, meia: 5, n: 8 }, { tipo: "caixa", x: 2, y: 72, w: 96, h: 22, n: 14 }] },
-      { src: natalVienaCoracoes.url, alt: "Árvore do parque do Rathaus coberta de corações luminosos", width: 1280, height: 1707, legenda: "A árvore dos corações, no parque junto ao mercado", brilho: [{ tipo: "caixa", x: 6, y: 2, w: 70, h: 80, n: 20 }] },
+      { src: natalVienaRathaus.url, alt: "Christkindlmarkt da Rathausplatz à noite, com a Câmara de Viena iluminada", width: 1280, height: 960, legenda: "O Christkindlmarkt com a Câmara iluminada por trás", brilho: [{ tipo: "arvore", x: 38, topo: 63, base: 92, meia: 5 }, { tipo: "caixa", x: 0, y: 78, w: 100, h: 22 }] },
+      { src: natalVienaCoracoes.url, alt: "Árvore do parque do Rathaus coberta de corações luminosos", width: 1280, height: 1707, legenda: "A árvore dos corações, no parque junto ao mercado", brilho: [{ tipo: "caixa", x: 0, y: 0, w: 100, h: 90 }] },
     ],
   },
   {
@@ -117,8 +117,8 @@ export const XMAS_CITIES: XmasCity[] = [
     ],
     stay: { label: "Ver alojamentos perto da Cidade Velha", href: cj("Staré Město, Praha", "natal-praga") },
     fotos: [
-      { src: natalPragaArvore.url, alt: "Árvore de Natal gigante da Praça da Cidade Velha de Praga acesa à noite", width: 1280, height: 1280, legenda: "A árvore da Cidade Velha, acesa ao cair da tarde", brilho: [{ tipo: "arvore", x: 56, topo: 28, base: 98, meia: 15, n: 26 }] },
-      { src: natalPragaTyn.url, alt: "Bancas do mercado de Natal de Praga com as torres da Igreja de Týn ao fundo", width: 1280, height: 1705, legenda: "As bancas aos pés das torres de Týn", brilho: [{ tipo: "caixa", x: 1, y: 4, w: 34, h: 92, n: 18 }] },
+      { src: natalPragaArvore.url, alt: "Árvore de Natal gigante da Praça da Cidade Velha de Praga acesa à noite", width: 1280, height: 1280, legenda: "A árvore da Cidade Velha, acesa ao cair da tarde", brilho: [{ tipo: "arvore", x: 56, topo: 26, base: 100, meia: 16, fio: [0.22, 0.42, 0.62, 0.8] }] },
+      { src: natalPragaTyn.url, alt: "Bancas do mercado de Natal de Praga com as torres da Igreja de Týn ao fundo", width: 1280, height: 1705, legenda: "As bancas aos pés das torres de Týn" },
     ],
   },
   {
@@ -156,8 +156,8 @@ export const XMAS_CITIES: XmasCity[] = [
     ],
     stay: { label: "Ver alojamentos perto da Basílica", href: cj("Lipótváros, Budapest", "natal-budapeste") },
     fotos: [
-      { src: natalBudapesteBasilica.url, alt: "Árvore de Natal em cone com laço dourado em frente à Basílica de Santo Estêvão, Budapeste", width: 1280, height: 1707, legenda: "A árvore do Advent Bazilika, em frente à Basílica", brilho: [{ tipo: "arvore", x: 50, topo: 3, base: 72, meia: 21, n: 26 }] },
-      { src: natalBudapesteVorosmarty.url, alt: "Bancas de madeira do mercado da Praça Vörösmarty à noite, com cortinas de luzes", width: 1280, height: 960, legenda: "As bancas de Vörösmarty sob as cortinas de luz", brilho: [{ tipo: "arvore", x: 27, topo: 4, base: 60, meia: 13, n: 16 }, { tipo: "caixa", x: 84, y: 2, w: 14, h: 18, n: 5 }] },
+      { src: natalBudapesteBasilica.url, alt: "Árvore de Natal em cone com laço dourado em frente à Basílica de Santo Estêvão, Budapeste", width: 1280, height: 1707, legenda: "A árvore do Advent Bazilika, em frente à Basílica", brilho: [{ tipo: "arvore", x: 47.5, topo: 1, base: 100, meia: 21, fio: [0.2, 0.34, 0.48, 0.6] }] },
+      { src: natalBudapesteVorosmarty.url, alt: "Bancas de madeira do mercado da Praça Vörösmarty à noite, com cortinas de luzes", width: 1280, height: 960, legenda: "As bancas de Vörösmarty sob as cortinas de luz", brilho: [{ tipo: "arvore", x: 27, topo: 3, base: 62, meia: 14, fio: [0.3, 0.55, 0.8] }, { tipo: "caixa", x: 84, y: 0, w: 16, h: 22 }] },
     ],
   },
 ];

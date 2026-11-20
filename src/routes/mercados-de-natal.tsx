@@ -5,7 +5,7 @@ import { XMAS_CITIES, type XmasPhoto, type Provar } from "@/data/mercados-natal"
 import natalVienaRathaus from "@/assets/natal/natal-viena-rathaus.jpg.asset.json";
 import { Snow, FairyLights, Sleigh, Gift, MarketHuts, Tree } from "@/components/natal/Festive";
 import { Stars, Skyline, Countdown, Bauble } from "@/components/natal/Wow";
-import { TreeGlints, LightString } from "@/components/natal/PhotoLights";
+import { PhotoTwinkle, LightString } from "@/components/natal/PhotoLights";
 
 const URL = "https://opostal.pt/mercados-de-natal";
 const TITLE = "Mercados de Natal 2026: Viena, Praga e Budapeste | O Postal";
@@ -215,10 +215,9 @@ function XmasPage() {
 function XmasFigure({ foto, tilt }: { foto: XmasPhoto; tilt: string }) {
   return (
     <figure className={`${tilt} relative border border-gold/30 bg-cream p-2 pb-3 shadow-[0_18px_40px_-18px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:rotate-0`}>
-      <LightString />
       <div className="relative">
         <img src={foto.src} alt={foto.alt} width={foto.width} height={foto.height} loading="lazy" className="aspect-[4/3] w-full object-cover" />
-        {foto.brilho && <TreeGlints areas={foto.brilho} />}
+        {foto.brilho && <PhotoTwinkle src={foto.src} areas={foto.brilho} />}
       </div>
       <figcaption className="pt-2 text-center font-serif text-sm italic text-ink/80">{foto.legenda}</figcaption>
     </figure>
@@ -227,7 +226,8 @@ function XmasFigure({ foto, tilt }: { foto: XmasPhoto; tilt: string }) {
 
 function ProvarCard({ item, tilt }: { item: Provar; tilt: string }) {
   return (
-    <li className={`${tilt} grid grid-cols-[38%_1fr] border border-gold/30 bg-cream shadow-[0_18px_40px_-18px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:rotate-0 md:block md:p-2 md:pb-4`}>
+    <li className={`${tilt} relative grid grid-cols-[38%_1fr] border border-gold/30 bg-cream shadow-[0_18px_40px_-18px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:rotate-0 md:block md:p-2 md:pb-4`}>
+      <LightString />
       <img src={item.src} alt={item.alt} width={900} height={675} loading="lazy" decoding="async" className="h-full w-full object-cover md:aspect-[4/3] md:h-auto" />
       <div className="p-3 md:px-2 md:pb-0 md:pt-3">
         <div className="flex flex-wrap items-baseline justify-between gap-x-3">

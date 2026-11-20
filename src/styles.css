@@ -811,17 +811,22 @@ html { scroll-behavior: smooth; }
 }
 
 /* Natal — luzes nas fotos */
-.xmas-glint {
-  position: absolute; transform: translate(-50%, -50%); mix-blend-mode: screen;
-  background:
-    radial-gradient(circle, oklch(1 0.03 90) 0 12%, oklch(0.9 0.12 85 / 70%) 22%, transparent 60%),
-    linear-gradient(90deg, transparent 46%, oklch(0.98 0.05 90 / 85%) 50%, transparent 54%),
-    linear-gradient(0deg, transparent 46%, oklch(0.98 0.05 90 / 85%) 50%, transparent 54%);
-  opacity: 0; animation: xmas-glint 3s ease-in-out infinite;
+.xmas-halo, .xmas-sparkle { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: screen; }
+.xmas-halo { mix-blend-mode: normal; }
+.xmas-halo { filter: brightness(.55) contrast(5) blur(6px) brightness(1.4); opacity: .2; animation: xmas-halo 3.2s ease-in-out infinite; }
+@keyframes xmas-halo { 0%, 100% { opacity: .15; } 50% { opacity: .55; } }
+.xmas-sparkle {
+  filter: brightness(.55) contrast(5) brightness(1.7) saturate(1.2); opacity: 0;
+  -webkit-mask-image: radial-gradient(circle, #000 0 22%, transparent 62%); mask-image: radial-gradient(circle, #000 0 22%, transparent 62%);
+  -webkit-mask-size: 26px 26px; mask-size: 26px 26px;
+  animation: xmas-sparkle 1.6s ease-in-out infinite;
 }
-@keyframes xmas-glint {
-  0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(.4) rotate(0deg); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(20deg); }
+.xmas-sparkle-b { -webkit-mask-position: 13px 13px; mask-position: 13px 13px; -webkit-mask-size: 22px 22px; mask-size: 22px 22px; animation-delay: .8s; animation-duration: 1.9s; }
+@keyframes xmas-sparkle { 0%, 100% { opacity: 0; } 50% { opacity: .9; } }
+.xmas-garland-bulb {
+  position: absolute; width: 5px; height: 5px; border-radius: 9999px; transform: translate(-50%, -50%);
+  background: var(--bulb); box-shadow: 0 0 4px 1px var(--bulb), 0 0 10px 3px color-mix(in oklab, var(--bulb) 45%, transparent);
+  animation: xmas-bulb 1.4s ease-in-out infinite;
 }
 .xmas-bulb {
   position: absolute; width: 7px; height: 10px; border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
@@ -834,6 +839,6 @@ html { scroll-behavior: smooth; }
 }
 @keyframes xmas-bulb { 0%, 100% { opacity: 1; filter: brightness(1.15); } 50% { opacity: .35; filter: brightness(.7); } }
 @media (prefers-reduced-motion: reduce) {
-  .xmas-glint { animation: none; opacity: .55; transform: translate(-50%, -50%) scale(.7); }
-  .xmas-bulb { animation: none; }
+  .xmas-halo, .xmas-sparkle, .xmas-garland-bulb, .xmas-bulb { animation: none; }
+  .xmas-halo { opacity: .3; }
 }

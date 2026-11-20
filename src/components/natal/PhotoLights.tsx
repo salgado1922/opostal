@@ -1,44 +1,70 @@
-/** Brilhos sobre as árvores das fotos e fio de luzes à volta das polaroides. */
+/** Luzes reais das árvores a cintilar, fios de luzes nas árvores e fio à volta das polaroides de comida. */
 
 export type GlowArea =
-  | { tipo: "arvore"; x: number; topo: number; base: number; meia: number; n?: number }
-  | { tipo: "caixa"; x: number; y: number; w: number; h: number; n?: number };
+  | { tipo: "arvore"; x: number; topo: number; base: number; meia: number; fio?: number[] }
+  | { tipo: "caixa"; x: number; y: number; w: number; h: number };
 
-// Valores determinísticos e arredondados: iguais no servidor e no browser.
-const rnd = (i: number, n: number) => ((Math.sin(i * 127.1 + n * 311.7) * 43758.5453) % 1 + 1) % 1;
 const q = (v: number) => Math.round(v * 10) / 10;
 
-function points(area: GlowArea, seed: number) {
-  const n = area.n ?? 18;
-  return Array.from({ length: n }, (_, k) => {
-    const i = seed * 97 + k;
-    let x: number, y: number;
-    if (area.tipo === "arvore") {
-      // Mais pontos para baixo (onde a árvore é mais larga).
-      const t = Math.sqrt(0.06 + 0.94 * rnd(i, 1));
-      y = area.topo + t * (area.base - area.topo);
-      x = area.x + (rnd(i, 2) * 2 - 1) * area.meia * t;
-    } else {
-      x = area.x + rnd(i, 1) * area.w;
-      y = area.y + rnd(i, 2) * area.h;
-    }
-    return { x: q(x), y: q(y), s: Math.round(7 + rnd(i, 3) * 9), d: q(rnd(i, 4) * 4), dur: q(1.8 + rnd(i, 5) * 2.4) };
-  });
+function clip(a: GlowArea) {
+  if (a.tipo === "arvore") return `polygon(${a.x}% ${a.topo}%, ${q(a.x + a.meia)}% ${a.base}%, ${q(a.x - a.meia)}% ${a.base}%)`;
+  return `inset(${a.y}% ${q(100 - a.x - a.w)}% ${q(100 - a.y - a.h)}% ${a.x}%)`;
 }
 
-export function TreeGlints({ areas }: { areas: GlowArea[] }) {
+/**
+ * Faz cintilar as luzes reais da foto: cópias da imagem, recortadas à árvore,
+ * misturadas em "screen" com uma máscara de pontos que alterna.
+ */
+export function PhotoTwinkle({ src, areas }: { src: string; areas: GlowArea[] }) {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      {areas.flatMap((a, ai) =>
-        points(a, ai + 1).map((p, k) => (
-          <i
-            key={`${ai}-${k}`}
-            className="xmas-glint"
-            style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.s, height: p.s, animationDelay: `${p.d}s`, animationDuration: `${p.dur}s` }}
+      {areas.map((a, i) => (
+        <div key={i} className="absolute inset-0 mix-blend-screen" style={{ clipPath: clip(a), WebkitClipPath: clip(a) }}>
+          <img src={src} alt="" loading="lazy" decoding="async" className="xmas-halo" style={{ animationDelay: `${i * 0.7}s` }} />
+          <img src={src} alt="" loading="lazy" decoding="async" className="xmas-sparkle xmas-sparkle-a" />
+          <img src={src} alt="" loading="lazy" decoding="async" className="xmas-sparkle xmas-sparkle-b" />
+        </div>
+      ))}
+      {areas.map((a, i) => (a.tipo === "arvore" && a.fio ? <Garland key={`g${i}`} tree={a} /> : null))}
+    </div>
+  );
+}
+
+const GARLAND = ["oklch(0.95 0.08 85)", "oklch(0.92 0.12 80)", "var(--holly)", "oklch(0.95 0.08 85)", "oklch(0.72 0.16 150)"];
+
+/** Fios de luzes enrolados à volta da árvore, a descer da esquerda para a direita. */
+function Garland({ tree }: { tree: Extract<GlowArea, { tipo: "arvore" }> }) {
+  const edge = (t: number, side: -1 | 1) => ({ x: tree.x + side * tree.meia * t, y: tree.topo + t * (tree.base - tree.topo) });
+  const strands = (tree.fio ?? []).map((t) => {
+    const a = edge(t, -1);
+    const b = edge(Math.min(1, t + 0.1), 1);
+    const c = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 + 0.05 * (tree.base - tree.topo) };
+    const count = Math.max(5, Math.round(4 + t * 9));
+    const bulbs = Array.from({ length: count }, (_, k) => {
+      const u = (k + 0.5) / count;
+      const x = (1 - u) ** 2 * a.x + 2 * (1 - u) * u * c.x + u * u * b.x;
+      const y = (1 - u) ** 2 * a.y + 2 * (1 - u) * u * c.y + u * u * b.y;
+      return { x: q(x), y: q(y) };
+    });
+    return { d: `M${q(a.x)} ${q(a.y)} Q${q(c.x)} ${q(c.y)} ${q(b.x)} ${q(b.y)}`, bulbs };
+  });
+  return (
+    <>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full">
+        {strands.map((s, i) => (
+          <path key={i} d={s.d} fill="none" stroke="oklch(0.85 0.1 85 / 55%)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        ))}
+      </svg>
+      {strands.flatMap((s, i) =>
+        s.bulbs.map((b, k) => (
+          <span
+            key={`${i}-${k}`}
+            className="xmas-garland-bulb"
+            style={{ left: `${b.x}%`, top: `${b.y}%`, ["--bulb" as string]: GARLAND[(k + i) % GARLAND.length], animationDelay: `${q(((k + i * 2) % 4) * 0.35)}s` }}
           />
         )),
       )}
-    </div>
+    </>
   );
 }
 
