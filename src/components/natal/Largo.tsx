@@ -65,7 +65,9 @@ export function Largo() {
     const d = drag.current;
     drag.current = null;
     if (!d || !d.moved || !stage.current) return;
+    // Engole só o clique que vem do próprio arrasto; no toque esse clique nem sempre chega.
     suppress.current = true;
+    window.setTimeout(() => { suppress.current = false; }, 80);
     stage.current.classList.remove("is-dragging");
     const r = d.start + (e.clientX - d.x) * 0.45;
     const snap = Math.round(r / STEP) * STEP;
@@ -116,20 +118,21 @@ export function Largo() {
         </div>
       </div>
 
-      <div className="relative z-[3] mt-1 flex items-center justify-center gap-3 md:gap-5">
-        <button type="button" onClick={() => setRot((r) => r + STEP)} aria-label="Rodar o largo para a cidade anterior" className="inline-flex h-11 w-11 items-center justify-center border border-gold/40 text-xl text-gold hover:bg-gold/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">‹</button>
+      <div className="relative z-[3] mt-6 text-center md:mt-14">
         <Link
           to="/mercados-de-natal/$cidade"
           params={{ cidade: frontCity.slug }}
-          className="min-w-[11rem] text-center"
+          className="inline-block min-h-11 px-4"
           aria-live="polite"
         >
           <span className="block text-[10px] uppercase tracking-[0.3em] text-gold/80">Toca na cabana</span>
-          <span className="block font-serif text-2xl text-cream underline decoration-gold/50 underline-offset-[6px] md:text-3xl">Entrar em {frontCity.city} →</span>
+          <span className="mt-1 block font-serif text-3xl text-cream underline decoration-gold/50 underline-offset-[6px] md:text-4xl">{frontCity.city}</span>
         </Link>
-        <button type="button" onClick={() => setRot((r) => r - STEP)} aria-label="Rodar o largo para a cidade seguinte" className="inline-flex h-11 w-11 items-center justify-center border border-gold/40 text-xl text-gold hover:bg-gold/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">›</button>
+        <div className="mt-4 flex items-center justify-center gap-4">
+          <button type="button" onClick={() => setRot((r) => r + STEP)} aria-label="Rodar o largo para a cidade anterior" className="inline-flex h-11 w-11 items-center justify-center border border-gold/40 text-xl text-gold hover:bg-gold/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">‹</button>
+          <button type="button" onClick={() => setRot((r) => r - STEP)} aria-label="Rodar o largo para a cidade seguinte" className="inline-flex h-11 w-11 items-center justify-center border border-gold/40 text-xl text-gold hover:bg-gold/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">›</button>
+        </div>
       </div>
-      <p className="mt-2 text-center text-[11px] uppercase tracking-[0.25em] text-cream/50">Arrasta para rodar o largo</p>
     </div>
   );
 }

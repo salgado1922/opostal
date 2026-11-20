@@ -4,7 +4,6 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { XMAS_CITIES } from "@/data/mercados-natal";
 import { Snow, FairyLights, MarketHuts, Tree } from "@/components/natal/Festive";
 import { Stars, Bauble } from "@/components/natal/Wow";
-import { CandyCane, Gingerbread } from "@/components/natal/Treats";
 import { Stall } from "@/components/natal/Stall";
 import { CityMarkets } from "@/components/natal/CityMarkets";
 
@@ -97,14 +96,8 @@ function XmasCityPage() {
             Mercados de Natal<br /><em className="xmas-glow text-gold">em {c.city}</em>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-cream/85 md:text-xl">{c.intro}</p>
-          <div className="mt-8 flex items-end gap-2" aria-hidden>
-            <CandyCane className="h-12 w-5" />
-            <Gingerbread className="h-11 w-9" />
-            <Tree className="h-12 w-9" />
-            <CandyCane flip className="h-10 w-5" />
-          </div>
         </div>
-        <MarketHuts className="relative z-[2] block h-14 w-full md:h-20" />
+        <MarketHuts className="z-[2] -mx-5 mt-4 md:-mx-6" />
       </header>
       <div className="h-3 bg-[color:var(--frost)] opacity-80" aria-hidden />
 

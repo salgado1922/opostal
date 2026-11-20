@@ -4,9 +4,8 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { XMAS_CITIES } from "@/data/mercados-natal";
 import natalVienaRathaus from "@/assets/natal/natal-viena-rathaus.jpg.asset.json";
-import { Snow, FairyLights, Sleigh, Gift, MarketHuts, Tree } from "@/components/natal/Festive";
+import { Snow, Sleigh, MarketHuts, Tree } from "@/components/natal/Festive";
 import { Stars, Countdown, Bauble } from "@/components/natal/Wow";
-import { CandyCane, Gingerbread } from "@/components/natal/Treats";
 import { Largo } from "@/components/natal/Largo";
 
 const URL = "https://opostal.pt/mercados-de-natal";
@@ -53,15 +52,6 @@ function XmasHub() {
       <SiteNav />
 
       <header className="relative isolate overflow-hidden px-5 pb-0 pt-28 md:px-6 md:pt-36">
-        <img
-          src={natalVienaRathaus.url}
-          alt=""
-          width={1280}
-          height={960}
-          fetchPriority="high"
-          className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-20 md:opacity-25"
-          style={{ maskImage: "linear-gradient(to bottom, black 40%, transparent 85%)", WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 85%)" }}
-        />
         <Stars />
         <Snow />
         <div className="pointer-events-none absolute right-[40%] top-0 z-[2] hidden gap-6 lg:flex">
@@ -93,27 +83,17 @@ function XmasHub() {
               <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-gold/80">Faltam para a Consoada</p>
               <Countdown />
             </div>
-            <div className="mt-8 hidden items-end gap-2 md:flex" aria-hidden>
-              <CandyCane className="h-14 w-6" />
-              <Gift className="h-9 w-9" />
-              <Gingerbread className="h-12 w-10" />
-              <Gift className="h-7 w-7" box="var(--gold)" ribbon="var(--holly)" />
-              <Tree className="h-14 w-10" />
-              <CandyCane flip className="h-11 w-5" />
-              <Gift className="h-8 w-8" box="oklch(0.5 0.1 155)" ribbon="var(--cream)" />
-            </div>
           </div>
 
           <section aria-label="Largo dos mercados: escolhe uma cidade" className="relative">
             <Largo />
           </section>
         </div>
-        <MarketHuts className="relative z-[2] mt-6 block h-16 w-full md:h-24" />
+        <MarketHuts className="z-[2] -mx-5 mt-8 md:-mx-6" />
       </header>
       <div className="h-3 bg-[color:var(--frost)] opacity-80" aria-hidden />
 
       <section className="relative mx-auto max-w-5xl px-5 py-14 md:px-6 md:py-20">
-        <FairyLights className="mb-8" />
         <h2 className="text-[11px] uppercase tracking-[0.3em] text-gold/80">As três cabanas</h2>
         <ul className="mt-4 grid list-none gap-0 border-t border-gold/25 p-0 md:grid-cols-3">
           {XMAS_CITIES.map((c) => (
