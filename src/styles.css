@@ -809,3 +809,31 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   .xmas-star, .xmas-window, .xmas-bauble { animation: none; }
 }
+
+/* Natal — luzes nas fotos */
+.xmas-glint {
+  position: absolute; transform: translate(-50%, -50%); mix-blend-mode: screen;
+  background:
+    radial-gradient(circle, oklch(1 0.03 90) 0 12%, oklch(0.9 0.12 85 / 70%) 22%, transparent 60%),
+    linear-gradient(90deg, transparent 46%, oklch(0.98 0.05 90 / 85%) 50%, transparent 54%),
+    linear-gradient(0deg, transparent 46%, oklch(0.98 0.05 90 / 85%) 50%, transparent 54%);
+  opacity: 0; animation: xmas-glint 3s ease-in-out infinite;
+}
+@keyframes xmas-glint {
+  0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(.4) rotate(0deg); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(20deg); }
+}
+.xmas-bulb {
+  position: absolute; width: 7px; height: 10px; border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+  background: var(--bulb); box-shadow: 0 0 6px 2px color-mix(in oklab, var(--bulb) 70%, transparent), 0 0 14px 4px color-mix(in oklab, var(--bulb) 35%, transparent);
+  animation: xmas-bulb 1.8s ease-in-out infinite;
+}
+.xmas-bulb::before {
+  content: ""; position: absolute; left: 50%; top: -3px; width: 4px; height: 4px; transform: translateX(-50%);
+  background: oklch(0.3 0.04 150); border-radius: 1px;
+}
+@keyframes xmas-bulb { 0%, 100% { opacity: 1; filter: brightness(1.15); } 50% { opacity: .35; filter: brightness(.7); } }
+@media (prefers-reduced-motion: reduce) {
+  .xmas-glint { animation: none; opacity: .55; transform: translate(-50%, -50%) scale(.7); }
+  .xmas-bulb { animation: none; }
+}
