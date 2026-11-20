@@ -52,10 +52,11 @@ function XmasPage({ p }: { p: Passport }) {
               to="/mercados-de-natal/$cidade"
               params={{ cidade: c.slug }}
               aria-label={`Natal em ${c.city}${s ? `, carimbado em ${s.market}` : ", por carimbar"}`}
-              className="flex w-[40%] flex-col items-center rounded-sm text-center transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
+              className="flex w-[38%] flex-col items-center rounded-sm text-center transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
             >
               <XmasStamp slug={c.slug} city={c.city} at={s?.at} rotate={s ? [-9, 7, -4][i] : 0} className="w-full" />
-              <span className="mt-0.5 max-w-full truncate text-[10px] uppercase tracking-[0.16em] opacity-65">{s ? s.market : "por carimbar"}</span>
+              <span className="font-serif text-base leading-tight">{c.city}</span>
+              <span className="max-w-full truncate text-[9px] uppercase tracking-[0.16em] opacity-60">{s ? s.market : "por carimbar"}</span>
             </Link>
           );
         })}

@@ -8,3 +8,6 @@
 - [x] Tirar a silhueta das cidades do topo; manter cabaninhas; juntar bengalas doces e homens bolacha.
 - [x] Uma página por cidade (/mercados-de-natal/viena, /praga, /budapeste).
 - [x] Largo em 3D com uma cabana por cidade; tocar na cabana abre a página.
+# Mercados de Natal — carimbos
+- [x] Um carimbo de Natal por cidade, só dentro de um mercado aberto (GPS), guardado na conta.
+- [x] Coleção dos três na página dos mercados e página "Natal" no passaporte.

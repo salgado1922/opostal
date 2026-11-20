@@ -46,7 +46,7 @@ export function XmasStampCard({ slug, city }: { slug: XmasSlug; city: string }) 
     if (!passportUser()) { goSignIn(); return; }
     setChecking(true);
     try {
-      const pos = await getPosition();
+      const pos = await getPosition(0);
       const r = checkXmasSpot(slug, [pos.coords.latitude, pos.coords.longitude], pos.coords.accuracy, new Date());
       if (!r) setMsg("Hoje não há nenhum mercado aberto nesta cidade.");
       else if (r.ok) {

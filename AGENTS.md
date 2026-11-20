@@ -4,3 +4,4 @@
 - Guide health checks inspect only fixed public guide URLs and approved image hosts; why: arbitrary URL fetching would permit SSRF.
 - Site results use anonymous daily aggregates with short-lived hashed rate-limit keys, no simulated base and no booking revenue inference; why: report observed activity without collecting visitor profiles.
 - Christmas markets use a hub at /mercados-de-natal plus per-city pages at /mercados-de-natal/$cidade, all driven by src/data/mercados-natal.ts; why: one data source keeps the hub, city pages, guide strips and sitemap in sync.
+- Christmas market stamps live in CityPassport.natal keyed by season, with market coordinates/dates and GPS rules in src/data/natal-stamps.ts; why: seasonal stamps must not change guide stop totals, rewards or city seals.

@@ -75,13 +75,13 @@ export function isNear(distance: number, accuracy: number) {
   return distance - Math.min(accuracy, 100) <= VERIFY_RADIUS_M;
 }
 
-export function getPosition(): Promise<GeolocationPosition> {
+export function getPosition(maximumAge = 30000): Promise<GeolocationPosition> {
   return new Promise((resolve, reject) => {
     if (!("geolocation" in navigator)) return reject(new Error("unsupported"));
     navigator.geolocation.getCurrentPosition(resolve, reject, {
       enableHighAccuracy: true,
       timeout: 15000,
-      maximumAge: 30000,
+      maximumAge,
     });
   });
 }
