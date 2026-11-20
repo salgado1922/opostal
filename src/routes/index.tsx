@@ -254,7 +254,7 @@ const CITY_MESSAGES: Record<string, string> = {
   florenca: "O Duomo abriu-se entre os telhados como se fosse a primeira vez. O Renascimento ainda mora aqui.",
   londres: "Chuva miudinha, museus de graça e um chá a ferver. Saiu mais barato do que toda a gente jura.",
   barcelona: "Subi ao Park Güell antes do calor e desci até ao mar. Gaudí faz mais sentido a pé.",
-  paris: "Ainda a passear pelos bairros e a escolher os cafés certos. Não tarda mando-te postal.",
+  paris: "Croissant à janela em Montmartre e o Sena a brilhar ao fim do dia. Os cafés certos já estão escolhidos.",
   viena: "Bolo e café à hora certa, valsa no fundo e um palácio a cada esquina. Traz sapatos calmos.",
   lisboa: "Perdi-me de propósito em Alfama e acabei num miradouro só nosso. Vou levar-te lá.",
   budapeste: "Terminei o dia nas termas com o Parlamento aceso do outro lado do Danúbio. Inesquecível.",
