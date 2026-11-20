@@ -15,7 +15,7 @@ import { STAMP_STYLE, inkFor, seeded, stampDate } from "./stamps";
 import { Link } from "@tanstack/react-router";
 import { XmasStamp } from "@/components/natal/XmasStamp";
 import { XmasStampViewer } from "@/components/natal/XmasStampViewer";
-import { XMAS_SEASON } from "@/data/natal-stamps";
+import { XMAS_SEASON, isXmasSlug, type XmasSlug } from "@/data/natal-stamps";
 
 const XMAS_PAGE: { slug: "viena" | "praga" | "budapeste"; city: string }[] = [
   { slug: "viena", city: "Viena" },
@@ -115,6 +115,8 @@ function CityPage({ slug, p, n, total, onOpen, onSeal }: { slug: string; p: Pass
   const entries = cp ? Object.entries(cp.stamps).sort((a, b) => a[1].at.localeCompare(b[1].at)) : [];
   const ink = inkFor(slug);
   const confirmed = entries.filter(([, s]) => s.verified).length;
+  const xs = isXmasSlug(slug) ? cp?.natal?.[XMAS_SEASON] : undefined;
+  const [xview, setXview] = useState(false);
   return (
     <div
       className="relative h-full overflow-hidden px-6 pb-6 pt-5"
@@ -133,12 +135,39 @@ function CityPage({ slug, p, n, total, onOpen, onSeal }: { slug: string; p: Pass
       </div>
       <div className="mt-1 h-px opacity-30" style={{ background: "var(--ink)" }} />
       <div className="mt-4 flex items-start justify-between gap-3">
-        <div>
+        <div className="min-w-0">
           <p className="font-serif text-4xl leading-none">{city.name}</p>
           <p className="mt-1 text-[11px] uppercase tracking-[0.25em] opacity-70">{city.country}</p>
           <p className="mt-3 font-serif text-sm italic opacity-80">
             {entries.length ? `${entries.length} de ${cp!.total} carimbos · ${confirmed} confirmadas` : "Por carimbar"}
           </p>
+          {isXmasSlug(slug) && (xs ? (
+            <button
+              type="button"
+              onClick={() => setXview(true)}
+              aria-label={`Carimbo de Natal de ${city.name}, ganho no mercado de ${xs.market}. Ver em grande`}
+              className="mt-3 flex w-full max-w-[210px] items-center gap-2.5 rounded-sm text-left transition-transform hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
+            >
+              <XmasStamp slug={slug as XmasSlug} city={city.name} at={xs.at} rotate={-3} className="w-[42px] shrink-0" />
+              <span className="min-w-0">
+                <span className="block text-[8px] uppercase tracking-[0.26em] opacity-70">Edição de Natal · rara</span>
+                <span className="block truncate font-serif text-sm italic">{xs.market} · {stampDate(xs.at)}</span>
+              </span>
+            </button>
+          ) : (
+            <Link
+              to="/mercados-de-natal/$cidade"
+              params={{ cidade: slug as XmasSlug }}
+              aria-label={`Carimbo de Natal de ${city.name}, por carimbar. Ver os mercados de Natal`}
+              className="mt-3 flex w-full max-w-[210px] items-center gap-2.5 rounded-sm text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
+            >
+              <XmasStamp slug={slug as XmasSlug} city={city.name} className="w-[42px] shrink-0" still />
+              <span className="min-w-0">
+                <span className="block text-[8px] uppercase tracking-[0.26em] opacity-70">Edição de Natal · rara</span>
+                <span className="block truncate font-serif text-sm italic opacity-75">Só se ganha no mercado</span>
+              </span>
+            </Link>
+          ))}
         </div>
         <button
           type="button"
@@ -191,6 +220,10 @@ function CityPage({ slug, p, n, total, onOpen, onSeal }: { slug: string; p: Pass
           );
         })}
       </div>
+
+      {xs && (
+        <XmasStampViewer open={xview} onOpenChange={(o) => !o && setXview(false)} slug={slug as XmasSlug} city={city.name} at={xs.at} market={xs.market} />
+      )}
     </div>
   );
 }

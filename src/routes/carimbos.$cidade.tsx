@@ -6,6 +6,8 @@ import { STAMP_STYLE, inkFor } from "@/components/passport/stamps";
 import { STAMP_STOPS } from "@/data/stamp-stops";
 import { CITIES } from "@/data/cities";
 import { shareImgFor } from "@/data/share-images";
+import { XmasStamp } from "@/components/natal/XmasStamp";
+import { isXmasSlug, XMAS_SEASON } from "@/data/natal-stamps";
 
 export const Route = createFileRoute("/carimbos/$cidade")({
   loader: ({ params }) => {
@@ -87,6 +89,30 @@ function CarimbosPage() {
           ))}
         </ul>
       </section>
+
+      {isXmasSlug(slug) && (
+        <section className="mx-auto max-w-4xl border-t border-cream/10 px-5 py-12">
+          <p className="text-[11px] uppercase tracking-[0.32em] text-gold">Edição rara · Natal {XMAS_SEASON}</p>
+          <div className="mt-6 flex flex-col items-center gap-6 text-center sm:flex-row sm:gap-10 sm:text-left">
+            <XmasStamp slug={slug} city={name} className="w-36 shrink-0 sm:w-44" still />
+            <div>
+              <h2 className="font-serif text-3xl sm:text-4xl">O carimbo de Natal de {name}</h2>
+              <p className="mt-3 max-w-xl text-base leading-relaxed text-cream/75">
+                Além dos {stops.length} carimbos do guia, {name} tem um carimbo de Natal: só se ganha lá dentro de um
+                mercado aberto, com o telemóvel a confirmar onde estás. É um dos mais raros do passaporte — passada a
+                época, só no próximo Natal.
+              </p>
+              <Link
+                to="/mercados-de-natal/$cidade"
+                params={{ cidade: slug }}
+                className="mt-5 inline-flex min-h-[48px] items-center border border-gold/60 px-5 text-gold hover:bg-gold/10"
+              >
+                Ver os mercados de {name}
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       <CityShareBar name={name} count={stops.length} url={`https://opostal.pt/carimbos/${slug}`} />
 
